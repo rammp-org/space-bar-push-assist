@@ -1,0 +1,5 @@
+.DS_Store
+*.blend
+*.blend1
+# Corpus seat bodies exported from the vendor STEP; large and unverified
+cad/chair/
