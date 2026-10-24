@@ -1,0 +1,11 @@
+Print check (H2D single nozzle 325 x 320 x 325 mm)
+Fin R inboard half            153.7 x  140.0 x   25.0 mm  split face down              fits
+Fin R outboard half           153.7 x  140.0 x   25.0 mm  split face down              fits
+Fin L inboard half            153.7 x  140.0 x   25.0 mm  split face down              fits
+Fin L outboard half           153.7 x  140.0 x   25.0 mm  split face down              fits
+Piston R                       36.0 x   33.0 x  187.0 mm  standing on its front face   fits
+Piston L                       36.0 x   33.0 x  187.0 mm  standing on its front face   fits
+Tray L                        159.8 x  153.7 x   87.0 mm  bottom down, open top up     fits
+Tray R                        159.8 x  153.7 x   87.0 mm  bottom down, open top up     fits
+Cover L                       159.8 x  144.4 x    5.0 mm  crown up, supported under    fits
+Cover R                       159.8 x  144.4 x    5.0 mm  crown up, supported under    fits

@@ -9,7 +9,8 @@ covers) are built with SDF nodes so fillets and cut-outs stay robust; print_chec
 each one's size in its print orientation against the H2D bed.
 
 Axes (mm): X across the chair, Y rearward toward the attendant, Z up.
-The 4040 runs along X, centred on the origin.
+Origin: the chair plate's rear face at grip axis height, x = 0 on the chair centreline.
+The plate leans 15 deg past vertical; see on_plate().
 """
 
 import math
@@ -26,35 +27,37 @@ PARTS = os.path.join(HERE, "parts")
 RENDERS = os.path.join(HERE, "renders")
 
 # ------------------------------------------------------------------ design parameters (mm)
-
 P = dict(
-    extrusion_length=385,    # 4040 spine; ends hidden inside the fins (chair mount is TBD)
     handle_spacing=355.6,    # 14 in, handle centre to handle centre
 
-    # Box between the fins. The fins are the box's end caps, flush front, back and sides.
-    box_front_y=-30,
-    box_rear_y=60,
-    box_bottom_z=-100,
-    box_top_z=20,            # cover sits on top; the 4040 runs y -20..20, z -20..20 inside
-    partition_y=20,          # wall behind the 4040 separating it from the boards bay
+    # Chair: Permobil Corpus back plate, vertical 4040s side by side, 15 deg past vertical.
+    # Origin is on the plate's rear face at grip axis height; u runs up the plate, n off it.
+    plate_tilt=15,           # deg, top leans rearward
+    plate_bars=9,            # 9 x 40 = 360 wide; outer slots 320 apart (Alex measured ~12 in)
+    plate_len=320,           # drawn length below the plate top
+    mount_slots=(40, 120),   # |x| of the slots the bridge bolts to, M8 into T-nuts
+    clear_h=101.6,           # 4 in clear band from the plate top down to the central block
+    block=(120, 60, 76.2),   # central block: width, height along the plate, rearward protrusion
+
+    # Section: a wedge whose top is the grip axis level and whose front sits on the plate.
+    lip_y=150,               # plate face to barrel lip along the grip axis
+    slope=60,                # deg from horizontal, rear face from the barrel down to the bottom
+    land=40,                 # top of the front face, flat on the plate, carries the M8s
+    bevel=15,                # deg the front face turns off the plate below the land (15 = vertical)
+    bridge_h=92,             # bridge between the fins, top to floor; clears the block
+    fin_h=140,               # fins carry the wedge further down, outside the block
     wall=3,
-    cover_t=5,
-    crown_h=3,               # cover crown height (subtle shoulder line at the rear seam)
-    box_r=12,                # bottom edge radius of the box
+    cover_t=5,               # cover is the bridge's flat top, flush with the fin tops
+    edge_r=4,
 
     # Fin (one per handle, printed as two halves split on its centre plane).
     fin_t=36,                # X thickness of the fin plate
-    fin_top_front=(40, 222), # (y, z) top-front corner of the fin
-    fin_top_rear=(130, 185), # (y, z) top-rear corner, where the grip emerges
-    fin_r=25,                # corner radius at the fin's top corners
-    window=((40, 45), (82, 45), (100, 160)),   # lightening window (y, z) triangle, R8 corners
+    window=((12, -34), (52, -34), (12, -100)),   # lightening window (y, z) triangle, R8 corners
     window_r=8,
-    panel=(36, 36, 1.5),     # recessed panel on the outer face over the 4040 bolt (w, h, depth)
-    open_r=6,                # every convex edge of the fin and box ends is R6
+    open_r=6,                # every convex edge of the fin is R6
 
     # Grip and sensor head (barrel along Y at z = arm_z, lip at the fin's top-rear corner).
-    arm_z=195,
-    lip_y=128,
+    arm_z=0,
     barrel_d=50,
     floor_t=6,
     void_len=14,
@@ -69,10 +72,8 @@ P = dict(
     lead_straight=12.7,
     lead_bend_r=13.0,
     channel_d=5.5,
-    wire_hole_z=-30,
 
     fillet_r=12,             # concave blends (barrel into fin)
-    edge_r=4,                # small edges (cover)
     groove=(2.0, 1.5),       # parting groove along the fin split (width, depth)
     voxel=0.6,
 )
@@ -569,7 +570,85 @@ def mirror_x(obj, name):
     m.flip_normals()
     return add_object(name, m, None, coll="Printed parts", smooth_angle=0)
 
-# ------------------------------------------------------------------ fin (handle + box end cap)
+
+# ------------------------------------------------------------------ chair plate frame
+
+TILT = math.radians(P["plate_tilt"])
+# Plate-local (x, n, u) -> world (x, y, z): u up the plate face, n off it (rearward).
+PLATE_M = Matrix(((1, 0, 0, 0),
+                  (0, math.cos(TILT), math.sin(TILT), 0),
+                  (0, -math.sin(TILT), math.cos(TILT), 0),
+                  (0, 0, 0, 1)))
+U_TOP = P["barrel_d"] / 2 / math.cos(TILT)        # plate top = unit top, along the plate
+
+
+def on_plate(u, n):
+    """(y, z) of the point u up the plate face and n off it."""
+    return (u * math.sin(TILT) + n * math.cos(TILT), u * math.cos(TILT) - n * math.sin(TILT))
+
+
+def plate_box(name, c0, c1, mat=None, **kw):
+    """Box given in plate-local (x, n, u) corners."""
+    o = box(name, c0, c1, mat, **kw)
+    o.data.transform(PLATE_M)
+    return o
+
+
+def plate_cyl(name, x, u, n0, n1, d, mat=None, **kw):
+    """Cylinder along the plate normal at (x, u), from n0 to n1."""
+    (y0, z0), (y1, z1) = on_plate(u, n0), on_plate(u, n1)
+    return cylinder(name, (x, y0, z0), (x, y1, z1), d, mat, **kw)
+
+
+def mount_bolts():
+    """(x, u) of the M8s through the bridge's land into T-nuts in the plate slots."""
+    u = U_TOP - P["land"] / 2
+    return [(s * x, u) for x in P["mount_slots"] for s in (-1, 1)]
+
+# ------------------------------------------------------------------ section
+
+def section_pts(z_bot, z_top=None):
+    """Side outline (y, z), clockwise: plate top, barrel top-rear, barrel bottom-rear, down the
+    rear slope to the floor, floor front, up the bevelled front face to the knee where the land
+    starts. With z_top, the top edge is moved down to z_top (under the cover)."""
+    r, L = P["barrel_d"] / 2, P["lip_y"]
+    knee = on_plate(U_TOP - P["land"], 0)
+    front_tilt = TILT - math.radians(P["bevel"])
+    fy = knee[0] + (z_bot - knee[1]) * math.tan(front_tilt)
+    sy = L - (-r - z_bot) / math.tan(math.radians(P["slope"]))
+    zt = r if z_top is None else z_top
+    return [(zt * math.tan(TILT), zt), (L, zt), (L, -r), (sy, z_bot), (fy, z_bot), knee]
+
+
+def z_bridge():
+    return P["barrel_d"] / 2 - P["bridge_h"]
+
+
+def z_fin():
+    return P["barrel_d"] / 2 - P["fin_h"]
+
+
+def tray_top():
+    return P["barrel_d"] / 2 - P["cover_t"]
+
+
+def inset(pts, d):
+    """Clockwise convex polygon with edge i (pts[i] -> pts[i+1]) moved inward by d[i]."""
+    n = len(pts)
+    lines = []
+    for i in range(n):
+        p, q = Vector(pts[i]), Vector(pts[(i + 1) % n])
+        t = (q - p).normalized()
+        lines.append((p + Vector((t.y, -t.x)) * d[i], t))
+    out = []
+    for i in range(n):
+        (p1, t1), (p2, t2) = lines[i - 1], lines[i]
+        den = t1.x * t2.y - t1.y * t2.x
+        a = ((p2.x - p1.x) * t2.y - (p2.y - p1.y) * t2.x) / den
+        out.append(tuple(p1 + t1 * a))
+    return out
+
+# ------------------------------------------------------------------ fin (handle + bridge end cap)
 
 def handle_frame():
     """Shared head numbers (right fin, centred on x = HX)."""
@@ -578,57 +657,34 @@ def handle_frame():
     cr = pr - 0.4                                           # cell rear face
     ye = cr - 12.6                                          # cell front face / floor
     return dict(az=P["arm_z"], lip=lip, pr=pr, cell_rear=cr, ye=ye,
-                box_end=HX - P["fin_t"] / 2)                # x of the box end / fin inner face
+                box_end=HX - P["fin_t"] / 2)                # x of the bridge end / fin inner face
 
 
 def fin_profile():
-    """Side outline (y, z) of the fin, CCW: box front-bottom, rear-bottom, diagonal rear edge up
-    to the grip, top edge, leaning front edge down to the box front."""
-    fy, ry, zb, zt = P["box_front_y"], P["box_rear_y"], P["box_bottom_z"], P["box_top_z"]
-    tf, tr, r = P["fin_top_front"], P["fin_top_rear"], P["fin_r"]
-    pts = [(fy, zb), (ry, zb), tr, tf, (fy, zt)]
-    return round_corners(pts, [P["box_r"], 20, r, r, 10], segs=10)
+    return round_corners(section_pts(z_fin()), [4, 4, 4, 10, 10, 2], segs=10)
 
 
 def lead_path(sign):
-    """Lead: straight down off the boss, forward along the fin's front margin, down that edge,
-    back into the boards bay, then inboard through the fin's inner face into the box."""
+    """Lead: straight down off the boss, one R13 bend inboard, through the fin's inner face into
+    the bridge, along toward its amp."""
     F = handle_frame()
-    Rb, x = P["lead_bend_r"], sign * HX
-    fy, zt = P["box_front_y"], P["box_top_z"]
-    tf = P["fin_top_front"]
-    lean = math.atan2(tf[0] - fy, tf[1] - zt)                 # front edge lean from vertical
-    t = Turtle((x, F["ye"] + 3.5, F["az"] - 15), (0, 0, -1))
+    t = Turtle((sign * HX, F["ye"] + 3.5, F["az"] - 15), (0, 0, -1))
     t.line(12.7 + P["lead_straight"] - 15)                    # 1/2 in off the sensor's side
-    t.arc(Rb, -90, "X")                                       # forward
-    z_run = t.p.z
-    y_edge = fy + (z_run - zt) * math.tan(lean)               # front edge at this height
-    t.line_to("y", y_edge + 14 + Rb * (1 - math.cos(lean)) + Rb * math.sin(lean))
-    t.arc(Rb, 90 - math.degrees(lean), "X")                   # down, parallel to the front edge
-    t.line_to("z", zt + 30 + Rb)
-    t.arc(Rb, math.degrees(lean) + 90, "X")                   # rearward, over the 4040
-    t.line_to("y", P["partition_y"] + 14 - Rb)
-    t.arc(Rb, -90, "X")                                       # down into the boards bay
-    t.line_to("z", P["wire_hole_z"] + Rb)
-    t.arc(Rb, 90 * sign, "Y")                                 # inboard
+    t.arc(P["lead_bend_r"], 90 * sign, "Y")                   # inboard
     t.line_to("x", sign * (F["box_end"] - 1))
     handle_part = list(t.pts) + [t.p - Vector((sign * 6, 0, 0))]
     return t, handle_part
 
 
 def clamshell_bolts():
-    """(y, z, half thickness) of the M3 bolts through the fin: two in the box end, one under the
-    window, two under the bore, one in the top-front corner."""
-    F = handle_frame()
+    """(y, z, half thickness) of the M3 bolts through the fin."""
     ht = P["fin_t"] / 2
-    az, ye, lip = F["az"], F["ye"], F["lip"]
-    return [(-5, -60, ht), (45, -60, ht), (62, 28, ht), (40, 190, ht),
-            (ye + 14, az - 21, ht), (lip - 8, az - 21, ht)]
+    return [(40, 15, ht), (60, -22, ht), (106, -21, ht), (142, -21, ht), (40, -105, ht), (85, -85, ht)]
 
 
 def box_bolts():
-    """(y, z) of the M4s from inside the tray through its end wall into nuts in the fin."""
-    return [(40, -75), (40, 0)]
+    """(y, z) of the M4s from inside the bridge through its end wall into nuts in the fin."""
+    return [(30, 0), (115, -35), (70, -58)]
 
 
 def build_fin(M):
@@ -636,7 +692,8 @@ def build_fin(M):
 
     Load path: grip -> piston (Ø33, 45 mm sleeve in the barrel bore carries bending; key rib
     carries torque) -> piston face clamped between the cell's rear face and an M5 nut -> cell ->
-    front stud -> 6 mm floor clamped between the cell's front face and an M5 nut + Ø15 washer.
+    front stud -> 6 mm floor clamped between the cell's front face and an M5 nut + Ø15 washer ->
+    fin -> three M4s -> bridge -> four M8s -> chair plate.
     """
     F = handle_frame()
     x, az, ye, cr, pr, lip = HX, F["az"], F["ye"], F["cell_rear"], F["pr"], F["lip"]
@@ -648,8 +705,6 @@ def build_fin(M):
                cylinder("barrel", (x, ye - ft - vl - 4, az), (x, lip, az), bd, coll="Part sources")]
     w = P["window"]
     windows = [prism("window", round_corners(list(w), [P["window_r"]] * 3, segs=10), "X", x - ht - 2, x + ht + 2, coll="Part sources")]
-    pw, ph, pd = P["panel"]
-    windows.append(box("panel recess", (x + ht - pd, -pw / 2, -ph / 2), (x + ht + 2, pw / 2, ph / 2)))
 
     cuts = []
     _, lead = lead_path(1)
@@ -660,10 +715,6 @@ def build_fin(M):
     cuts.append(box("nut void", (x - 11, ye - ft - vl, az - 10), (x + 11, ye - ft, az + 10)))
     cuts.append(cylinder("sleeve bore", (x, pr - 0.5, az), (x, lip + 1, az), bore, coll="Part sources"))
     cuts.append(box("key slot", (x - 2.2, pr - 1, az + bore / 2 - 0.5), (x + 2.2, lip + 1, az + bore / 2 + 3.4)))
-    # 4040 pocket and its M8 (into the extrusion's centre bore), under the panel recess.
-    cuts.append(box("4040 pocket", (x - ht - 1, -20.3, -20.3), (x + ht - 3, 20.3, 20.3)))
-    cuts.append(cylinder("m8 hole", (x + ht - 4, 0, 0), (x + ht + 1, 0, 0), 8.5, coll="Part sources"))
-    cuts.append(cylinder("m8 counterbore", (x + ht - pd - 8, 0, 0), (x + ht + 1, 0, 0), 14.0, coll="Part sources"))
     # Clamshell bolts: countersunk on the outboard face, captive nut on the inboard face.
     heads = []
     for i, (y, z, hw) in enumerate(clamshell_bolts()):
@@ -671,11 +722,11 @@ def build_fin(M):
         cuts.append(cone(f"m3 csk {i}", (x + hw - 1.8, y, z), (x + hw + 1, y, z), M3["hole"], M3["head"] + 2.6, coll="Part sources"))
         cuts.append(hex_prism(f"m3 nut {i}", (0, y, z), "X", M3["nut_af"], x - hw - 1, x - hw + 3.2, coll="Part sources"))
         heads.append(((x + hw - 0.6, y, z), (1, 0, 0), M3["head"]))
-    # Box bolts: M4 from inside the tray through its end wall into nuts dropped into slots from
-    # the split plane (slots open toward the inner face only through the bolt hole).
+    # Bridge bolts: M4 from inside the bridge through its end wall into nuts dropped into slots
+    # that open on the split plane.
     for i, (y, z) in enumerate(box_bolts()):
         cuts.append(cylinder(f"m4 hole {i}", (x - ht - 1, y, z), (x - ht + 10.5, y, z), M4["hole"], coll="Part sources"))
-        cuts.append(box(f"m4 nut slot {i}", (x - ht + 6, y - 3.7, z - 3.7), (x - ht + 6 + M4["nut_t"] + 0.8, y + 3.7, z + 30)))
+        cuts.append(box(f"m4 nut slot {i}", (x - ht + 6, y - 4.2, z - 4.2), (x + 0.5, y + 4.2, z + 4.2)))
 
     inboard, outboard = sdf_part("Fin R", sources, M["printed"], fillet_r=P["fillet_r"], windows=windows, open_r=P["open_r"],
                                  subtract=cuts, split_x=x, groove=P["groove"], groove_ymax=lip - 4)
@@ -702,45 +753,30 @@ def build_fin(M):
     return dict(inboard=inboard, outboard=outboard, piston=piston,
                 other=hw + [grip, cell, fw, fn, rw, rn], cell=cell)
 
-# ------------------------------------------------------------------ box: tray and cover
+# ------------------------------------------------------------------ bridge: tray and cover
 
-def tray_features(sign):
-    """Positions (x) of the tray's bosses and bolts for the half on side `sign`."""
-    return dict(cover_rear=[sign * v for v in (25, 75, 125)], cover_front=[sign * v for v in (25, 75, 125)],
-                t_nut=[sign * v for v in (50, 140)], cover_t_nut=sign * 75)
-
-
-def box_section(inset=0.0, z_top=None):
-    fy, ry, zb, zt = P["box_front_y"], P["box_rear_y"], P["box_bottom_z"], P["box_top_z"]
-    z_top = zt if z_top is None else z_top
-    r = max(1.0, P["box_r"] - inset)
-    return round_corners([(fy + inset, zb + inset), (ry - inset, zb + inset), (ry - inset, z_top), (fy + inset, z_top)],
-                         [r, r, 1.0, 1.0], segs=10)
-
-
-def crown_z(y):
-    fy, ry = P["box_front_y"], P["box_rear_y"]
-    mid, half = (fy + ry) / 2, (ry - fy) / 2
-    return P["box_top_z"] + P["cover_t"] + P["crown_h"] * max(0.0, 1 - ((y - mid) / half) ** 2)
+def cover_bosses(sign):
+    """x of the cover's M3s, front row (by the land) and rear row (by the lip)."""
+    return dict(front=[sign * v for v in (70, 145)], rear=[sign * v for v in (25, 75, 125)])
 
 
 def build_tray_half(sign, M, electronics=None):
+    """Bridge half from x = 0 to the fin's inner face: open-top tray, front land bolted to the
+    plate with two M8s, floor carrying the boards."""
     F = handle_frame()
-    fy, ry, w = P["box_front_y"], P["box_rear_y"], P["wall"]
-    zb, tz = P["box_bottom_z"], P["box_top_z"]
-    py = P["partition_y"]
+    w, tz, zb, L = P["wall"], tray_top(), z_bridge(), P["lip_y"]
     ex = F["box_end"]
     x0, x1 = sorted((0, sign * ex))
     side = "L" if sign < 0 else "R"
-    f = tray_features(sign)
+    f = cover_bosses(sign)
 
-    src = [prism("box", box_section(), "X", x0, x1, coll="Part sources")]
+    outer = section_pts(zb, tz)
+    src = [prism("bridge", round_corners(outer, [0.5, 1, 4, 10, 10, 2], segs=10), "X", x0, x1, coll="Part sources")]
     xi0, xi1 = sorted((0, sign * (ex - w)))
-    cut = [prism("bay 4040", round_corners([(fy + w, zb + w), (py, zb + w), (py, tz + 20), (fy + w, tz + 20)], [9, 1, 1, 1], segs=10),
-                 "X", xi0, xi1, coll="Part sources"),
-           prism("bay boards", round_corners([(py + w, zb + w), (ry - w, zb + w), (ry - w, tz + 20), (py + w, tz + 20)], [1, 9, 1, 1], segs=10),
-                 "X", xi0, xi1, coll="Part sources")]
-    # Lead from the fin enters the boards bay through the end wall.
+    cav = inset(section_pts(zb, tz + 30), [0, w, w, w, w, w])
+    cut = [prism("bay", round_corners(cav, [0, 1, 1, 6, 6, 1], segs=8), "X", xi0, xi1, coll="Part sources")]
+
+    # Lead from the fin enters through the end wall.
     t_lead, _ = lead_path(sign)
     cut.append(cylinder("lead hole", (sign * (ex - w - 1), t_lead.p.y, t_lead.p.z), (sign * (ex + 1), t_lead.p.y, t_lead.p.z),
                         P["channel_d"] + 1, coll="Part sources"))
@@ -751,62 +787,62 @@ def build_tray_half(sign, M, electronics=None):
                         M4["head"] + 2.2, M4["hole"], coll="Part sources"))
         src.append(box("fin bolt boss", (min(sign * (ex - w - 8), sign * (ex - w + 0.5)), y - 7, z - 7),
                        (max(sign * (ex - w - 8), sign * (ex - w + 0.5)), y + 7, z + 7)))
+    # Land: M8 button heads from inside through a boss into T-nuts in the plate's slots.
+    for x, u in mount_bolts():
+        if x * sign <= 0:
+            continue
+        src.append(plate_box("land boss", (x - 11, -0.5, u - 11), (x + 11, w + 6, u + 11)))
+        cut.append(plate_cyl("m8 hole", x, u, -1, w + 7, 8.6, coll="Part sources"))
     # Cover bosses with side-entry M3 nut slots.
-    for x in f["cover_rear"] + f["cover_front"]:
-        rear = x in f["cover_rear"]
-        y_in, y_c = (ry - w, ry - w - 3.8) if rear else (py + w, py + w + 3.8)
-        src.append(box("cover boss", (x - 5, min(y_in, y_in + (-8 if rear else 8)), tz - 14), (x + 5, max(y_in, y_in + (-8 if rear else 8)), tz)))
+    for x in f["front"] + f["rear"]:
+        rear = x in f["rear"]
+        if rear:
+            y_in = L - w
+            y0, y1, y_c = y_in - 8, y_in + 0.5, y_in - 3.8
+        else:
+            y_in = tz * math.tan(TILT) + w / math.cos(TILT)
+            y0, y1, y_c = y_in - 6, y_in + 8, y_in + 3.8
+        src.append(box("cover boss", (x - 5, y0, tz - 14), (x + 5, y1, tz)))
         cut.append(cylinder("cover hole", (x, y_c, tz - 15), (x, y_c, tz + 1), M3["hole"], coll="Part sources"))
         slot_y = (y_c - 9, y_c + 3.0) if rear else (y_c - 3.0, y_c + 9)
         cut.append(box("cover nut slot", (x - M3["nut_af"] / 2 - 0.1, slot_y[0], tz - 8), (x + M3["nut_af"] / 2 + 0.1, slot_y[1], tz - 8 + M3["nut_t"] + 0.3)))
-    # 4040 bolts: M5 countersunk from the boards bay through the partition into T-nuts in the rear slot.
-    for x in f["t_nut"]:
-        src.append(box("t-nut boss", (x - 8, py + w - 0.5, -8), (x + 8, py + w + 4, 8)))
-        cut.append(cylinder("t-nut hole", (x, py - 1, 0), (x, py + w + 5, 0), M5["hole"], coll="Part sources"))
-        cut.append(cone("t-nut csk", (x, py + w + 4 - 2.9, 0), (x, py + w + 5, 0), M5["hole"], M5["head"] + 2.0, coll="Part sources"))
 
     if electronics:
+        fz = zb + w                                           # floor top
         for kind, holes, standoff in electronics["boards"]:
-            for (hx_, hz_) in holes:
-                src.append(cylinder("standoff", (hx_, py + w - 0.5, hz_), (hx_, py + w + standoff, hz_), 6.5, coll="Part sources"))
-                cut.append(cylinder("standoff hole", (hx_, py - 1, hz_), (hx_, py + w + standoff + 1, hz_), M3["hole"], coll="Part sources"))
-                cut.append(cone("standoff csk", (hx_, py - 1, hz_), (hx_, py + 1.9, hz_), M3["head"] + 2.0, M3["hole"], coll="Part sources"))
-        rx = electronics["rj45_x"]
-        ym = (py + ry) / 2
-        src.append(box("rj45 pad", (rx - 22, py + w - 0.5, zb + w - 0.5), (rx + 22, ry - w + 0.5, zb + w + 3)))
-        cut.append(cylinder("rj45 hole", (rx, ym, zb - 1), (rx, ym, zb + w + 4), 24.0, coll="Part sources"))
+            for (hx_, hy_) in holes:
+                src.append(cylinder("standoff", (hx_, hy_, fz - 0.5), (hx_, hy_, fz + standoff), 6.5, coll="Part sources"))
+                cut.append(cylinder("standoff hole", (hx_, hy_, zb - 1), (hx_, hy_, fz + standoff + 1), M3["hole"], coll="Part sources"))
+                cut.append(cone("standoff csk", (hx_, hy_, zb - 1), (hx_, hy_, zb + 1.9), M3["head"] + 2.0, M3["hole"], coll="Part sources"))
+    if electronics and electronics["rj45"]:
+        fz = zb + w
+        rx, ry_ = electronics["rj45"]
+        src.append(box("rj45 pad", (rx - 22, ry_ - 20, fz - 0.5), (rx + 22, ry_ + 18, fz + 3)))
+        cut.append(cylinder("rj45 hole", (rx, ry_, zb - 1), (rx, ry_, fz + 4), 24.0, coll="Part sources"))
         for dx in (-15.3, 15.3):
-            cut.append(cylinder("rj45 screw", (rx + dx, ym, zb - 1), (rx + dx, ym, zb + w + 4), M3["hole"], coll="Part sources"))
-            cut.append(hex_prism("rj45 nut", (rx + dx, ym, 0), "Z", M3["nut_af"], zb + w + 3 - M3["nut_t"] - 0.3, zb + w + 3.1, coll="Part sources"))
+            cut.append(cylinder("rj45 screw", (rx + dx, ry_, zb - 1), (rx + dx, ry_, fz + 4), M3["hole"], coll="Part sources"))
+            cut.append(hex_prism("rj45 nut", (rx + dx, ry_, 0), "Z", M3["nut_af"], fz + 3 - M3["nut_t"] - 0.3, fz + 3.1, coll="Part sources"))
 
     return sdf_part(f"Tray {side}", src, M["printed"], fillet_r=1.0, subtract=cut)[0]
 
 
 def build_cover_half(sign, M):
+    """Flat top of the bridge, flush with the fin tops, from the plate to the lip."""
     F = handle_frame()
-    fy, ry, w, tz, ct = P["box_front_y"], P["box_rear_y"], P["wall"], P["box_top_z"], P["cover_t"]
-    py = P["partition_y"]
+    w, tz, ct, L = P["wall"], tray_top(), P["cover_t"], P["lip_y"]
     ex = F["box_end"]
     x0, x1 = sorted((0, sign * ex))
     side = "L" if sign < 0 else "R"
-    f = tray_features(sign)
-    n = 14
-    crown = [(ry + (fy - ry) * i / (n + 1), crown_z(ry + (fy - ry) * i / (n + 1))) for i in range(1, n + 1)]
-    prof = round_corners([(fy, tz), (ry, tz), (ry, tz + ct)] + crown + [(fy, tz + ct)],
-                         [1.0, 1.0, 1.5] + [0] * n + [P["edge_r"]], segs=8)
-    src = [prism("cover plate", prof, "X", x0, x1, coll="Part sources"),
-           prism("cover key", [(-3.9, tz - 4.5), (3.9, tz - 4.5), (3.9, tz + 0.5), (-3.9, tz + 0.5)], "X", x0 + 8, x1 - 8, coll="Part sources")]
+    f = cover_bosses(sign)
+    prof = round_corners([(tz * math.tan(TILT), tz), (L, tz), (L, tz + ct), ((tz + ct) * math.tan(TILT), tz + ct)],
+                         [0.5, 1.0, P["edge_r"], 1.5], segs=8)
+    src = [prism("cover plate", prof, "X", x0, x1, coll="Part sources")]
     cut = []
-    for x in f["cover_rear"] + f["cover_front"]:
-        y_c = ry - w - 3.8 if x in f["cover_rear"] else py + w + 3.8
-        ztop = crown_z(y_c)
+    for x in f["front"] + f["rear"]:
+        y_c = (L - w - 3.8) if x in f["rear"] else (tz * math.tan(TILT) + w / math.cos(TILT) + 3.8)
+        ztop = tz + ct
         cut.append(cylinder("cover hole", (x, y_c, tz - 1), (x, y_c, ztop + 1), M3["hole"], coll="Part sources"))
         cut.append(cone("cover csk", (x, y_c, ztop - 1.9), (x, y_c, ztop + 1), M3["hole"], M3["head"] + 2.6, coll="Part sources"))
-    x = f["cover_t_nut"]
-    ztop = crown_z(0)
-    cut.append(cylinder("4040 hole", (x, 0, tz - 6), (x, 0, ztop + 1), M5["hole"], coll="Part sources"))
-    cut.append(cone("4040 csk", (x, 0, ztop - 2.9), (x, 0, ztop + 1), M5["hole"], M5["head"] + 2.0, coll="Part sources"))
-    cut.append(box("key gap at bolt", (x - 6, -5, tz - 6), (x + 6, 5, tz)))
     return sdf_part(f"Cover {side}", src, M["light"], fillet_r=1.0, subtract=cut)[0]
 
 # ------------------------------------------------------------------ build
@@ -837,16 +873,24 @@ def build():
         patch=material("Patch cable", (0.15, 0.3, 0.6), rough=0.5),
     )
 
-    # --- chair posts and 4040 -----------------------------------------------------
-    L = P["extrusion_length"]
-    profile = round_corners([(-20, -20), (20, -20), (20, 20), (-20, 20)], 1.5, segs=4)
-    alu = prism("4040 extrusion", profile, "X", -L / 2, L / 2, M["alu"], coll="Frame")
-    for s in range(4):
-        pts = [(-4.1, 21), (-4.1, 18), (-8, 18), (-8, 13.5), (8, 13.5), (8, 18), (4.1, 18), (4.1, 21)]
-        c, si = math.cos(s * math.pi / 2), math.sin(s * math.pi / 2)
-        cut(alu, prism(f"tslot{s}", [(u * c - v * si, u * si + v * c) for u, v in pts], "X", -L / 2 - 1, L / 2 + 1, coll="Frame"))
-    cut(alu, cylinder("4040 bore", (-L / 2 - 1, 0, 0), (L / 2 + 1, 0, 0), 6.8, coll="Frame"))
-    print(f"  [{time.time() - t0:6.1f} s] frame")
+    # --- chair: Corpus back plate (vertical 4040s) and the central block -----------------
+    slot = [(-4.1, 21), (-4.1, 18), (-8, 18), (-8, 13.5), (8, 13.5), (8, 18), (4.1, 18), (4.1, 21)]
+    u0, u1 = U_TOP - P["plate_len"], U_TOP
+    nb = P["plate_bars"]
+    for i in range(nb):
+        xc = 40 * (i - (nb - 1) / 2)
+        bar = plate_box(f"Plate 4040 {i}", (xc - 20, -40, u0), (xc + 20, 0, u1), M["alu"], coll="Chair", smooth_angle=0)
+        cutter = prism(f"plate slot {i}", [(xc + a, -20 + b) for a, b in slot], "Z", u0 - 1, u1 + 1, coll="Chair")
+        cutter.data.transform(PLATE_M)
+        cut(bar, cutter)
+    bw, bh, bo = P["block"]
+    ub = U_TOP - P["clear_h"]
+    plate_box("Central block", (-bw / 2, 0, ub - bh), (bw / 2, bo, ub), M["chair"], coll="Chair")
+    for i, (x, u) in enumerate(mount_bolts()):
+        n0 = P["wall"] + 6
+        plate_cyl(f"M8 head {i}", x, u, n0, n0 + 4.4, 14.0, M["steel"], coll="Hardware")
+        plate_cyl(f"M8 shank {i}", x, u, -12, n0, 8.0, M["steel"], coll="Hardware")
+    print(f"  [{time.time() - t0:6.1f} s] chair")
 
     # --- handles: build the right one, mirror for the left ---------------------------
     H = build_fin(M)
@@ -863,49 +907,50 @@ def build():
             collection("Hardware").objects.link(m)
     print(f"  [{time.time() - t0:6.1f} s] handles")
 
-    # --- electronics (left half): ESP32 between the two amps -------------------------
-    wall_y = P["partition_y"] + P["wall"]
-    esp_m = place_board((27.5, 34, 0), BOARD_TO_WALL, (-75, wall_y + 5, -28))
+    # --- electronics: flat on the bridge floor. ESP32 left of centre, one amp under each lead.
+    fz = z_bridge() + P["wall"]
+    esp_m = place_board((27.5, 34, 0), rot("Z", 180), (-40, 45, fz + 5))
     import_stl("ESP32-P4 PoE", "esp32_p4.stl", esp_m, M["pcb_dark"], coll="Electronics")
-    esp_holes = [(esp_m @ Vector((hx_, hy_, 0))) for hx_, hy_ in ((3.5, 25.75), (51.5, 25.75), (3.5, 58.75), (51.5, 58.75))]
+    esp_holes = [esp_m @ Vector((hx_, hy_, 0)) for hx_, hy_ in ((3.5, 25.75), (51.5, 25.75), (3.5, 58.75), (51.5, 58.75))]
+    F = handle_frame()
+    lead_y = F["ye"] + 3.5
     amps = {}
-    for side, cx, R in (("L", -135, rot("Y", 180) @ BOARD_TO_WALL), ("R", -26, BOARD_TO_WALL)):
-        amp_m = place_board((15.24, 11.43, 0), R, (cx, wall_y + 4, -30))
+    for side, sx, R in (("L", -1, Matrix.Identity(4)), ("R", 1, rot("Z", 180))):
+        amp_m = place_board((15.24, 11.43, 0), R, (sx * 95.25, lead_y - sx * 5.08, fz + 4))
         import_stl(f"HX711 {side}", "hx711.stl", amp_m, M["pcb_red"], coll="Electronics")
         amps[side] = amp_m
-    boards = [("esp", [(p.x, p.z) for p in esp_holes], 5)]
-    for side, amp_m in amps.items():
-        boards.append(("amp", [((amp_m @ Vector((hx_, hy_, 0))).x, (amp_m @ Vector((hx_, hy_, 0))).z)
-                               for hx_, hy_ in ((2.54, 2.54), (27.94, 2.54), (2.54, 20.32), (27.94, 20.32))], 4))
-    rj_x = -125
-    trays = [build_tray_half(-1, M, dict(boards=boards, rj45_x=rj_x)), build_tray_half(1, M)]
+    amp_holes = ((2.54, 2.54), (27.94, 2.54), (2.54, 20.32), (27.94, 20.32))
+    boards_l = [("esp", [(p.x, p.y) for p in esp_holes], 5),
+                ("amp", [((amps["L"] @ Vector((a, b, 0))).x, (amps["L"] @ Vector((a, b, 0))).y) for a, b in amp_holes], 4)]
+    boards_r = [("amp", [((amps["R"] @ Vector((a, b, 0))).x, (amps["R"] @ Vector((a, b, 0))).y) for a, b in amp_holes], 4)]
+    rj = (-40, 104)
+    trays = [build_tray_half(-1, M, dict(boards=boards_l, rj45=rj)), build_tray_half(1, M, dict(boards=boards_r, rj45=None))]
     covers = [build_cover_half(-1, M), build_cover_half(1, M)]
     print(f"  [{time.time() - t0:6.1f} s] trays + covers")
 
-    fy, ry = P["partition_y"], P["box_rear_y"]
+    bz = z_bridge()
     import_stl("RJ45 panel coupler", "rj45_coupler.stl",
-               Matrix.Translation((rj_x, (fy + ry) / 2, P["box_bottom_z"])) @ rot("Z", 90) @ rot("X", 180), M["nickel"], coll="Electronics")
+               Matrix.Translation((rj[0], rj[1], bz)) @ rot("Z", 90) @ rot("X", 180), M["nickel"], coll="Electronics")
     jack = esp_m @ Vector((29.93, -1.5, 7))
-    ym, bz = (fy + ry) / 2, P["box_bottom_z"]
     plug_top = bz + 27 + 18
-    box("Patch plug (coupler)", (rj_x - 6, ym - 7, bz + 27), (rj_x + 6, ym + 7, plug_top), M["patch"], coll="Electronics")
-    box("Patch plug (board)", (jack.x - 6, jack.y - 7, jack.z - 18), (jack.x + 6, jack.y + 7, jack.z), M["patch"], coll="Electronics")
-    cable("Patch cable", [(rj_x, ym, plug_top), (rj_x + 4, 48, plug_top + 6), (rj_x + 22, 50, plug_top - 4),
-                          (jack.x - 14, 47, bz + 10), (jack.x, jack.y + 2, jack.z - 30), (jack.x, jack.y, jack.z - 18)], 5, M["patch"])
+    box("Patch plug (coupler)", (rj[0] - 6, rj[1] - 7, bz + 27), (rj[0] + 6, rj[1] + 7, plug_top), M["patch"], coll="Electronics")
+    box("Patch plug (board)", (jack.x - 6, jack.y, jack.z - 6), (jack.x + 6, jack.y + 14, jack.z + 6), M["patch"], coll="Electronics")
+    cable("Patch cable", [(jack.x, jack.y + 14, jack.z), (jack.x + 4, jack.y + 26, jack.z + 8),
+                          (rj[0] + 10, rj[1] + 4, plug_top + 12), (rj[0], rj[1], plug_top)], 5, M["patch"])
 
     # --- wiring ------------------------------------------------------------------------
     leads = []
     for sign, side in ((-1, "L"), (1, "R")):
         t, _ = lead_path(sign)
         jp4 = amps[side] @ Vector((1.27, 6.35, 8.5))
-        stop = jp4.x - 15 * (1 if side == "L" else -1)            # jacket ends 15 mm short; conductors fan out to JP4
+        stop = jp4.x + 15 * sign                                  # jacket ends 15 mm short; conductors fan out to JP4
         if (stop - t.p.x) * t.h.x > 0:
             t.line_to("x", stop)
         leads.append(poly_cable(f"Load cell lead {side}", t.pts, P["lead_d"], M["wire"]))
         j1 = amps[side] @ Vector((29.2, 16.5, 8.5))
         hdr = esp_m @ Vector((27.5 + (18 if side == "L" else -18), 64.8, 8.5))
-        cable(f"HX711 to ESP32 {side}", [j1, (j1.x + (6 if side == "L" else -6), j1.y + 3, j1.z + 10),
-                                         (hdr.x, hdr.y + 4, hdr.z + 8), hdr], 2.0, M["wire_red"])
+        cable(f"HX711 to ESP32 {side}", [j1, (j1.x - sign * 8, j1.y, j1.z + 12),
+                                         (hdr.x, hdr.y - 4, hdr.z + 12), hdr], 2.0, M["wire_red"])
 
     for k in ("lead_d", "lead_straight", "lead_bend_r"):
         scene[k] = P[k]                                           # read by check_wires.py
@@ -1029,10 +1074,10 @@ def main():
         o.hide_render = True
 
     views = {
-        "01_hero": camera(scene, "Cam hero", (0.55, 0.85, 0.40), (0.0, 0.06, 0.04), lens=50),
-        "02_side": camera(scene, "Cam side", (1.5, 0.06, 0.05), (0.0, 0.06, 0.05), ortho=0.50),
-        "03_handle_closeup": camera(scene, "Cam handle", (0.5, 0.40, 0.34), (0.17, 0.10, 0.12), lens=50),
-        "04_top": camera(scene, "Cam top", (0.0, 0.06, 1.5), (0.0, 0.06, 0.0), ortho=0.62),
+        "01_hero": camera(scene, "Cam hero", (0.62, 0.95, 0.38), (0.0, 0.07, -0.05), lens=50),
+        "02_side": camera(scene, "Cam side", (1.5, 0.08, -0.06), (0.0, 0.08, -0.06), ortho=0.52),
+        "03_handle_closeup": camera(scene, "Cam handle", (0.52, 0.42, 0.22), (0.17, 0.09, -0.03), lens=50),
+        "04_top": camera(scene, "Cam top", (0.0, 0.10, 1.5), (0.0, 0.10, 0.0), ortho=0.62),
     }
     bpy.ops.wm.save_as_mainfile(filepath=os.path.join(HERE, "push_assist_concept.blend"))
     print(f"[{time.time() - t0:6.1f} s] saved")
@@ -1053,7 +1098,7 @@ def main():
             o.location += d
         cell = bpy.data.objects["Load cell R"]
         cell.hide_render = False
-        render(scene, camera(scene, "Cam exploded", (0.75, 0.62, 0.38), (0.16, 0.1, 0.06), lens=45), "05_exploded.png")
+        render(scene, camera(scene, "Cam exploded", (0.78, 0.66, 0.30), (0.16, 0.08, -0.04), lens=45), "05_exploded.png")
         cell.hide_render = True
         for o, d in moves:
             o.location -= d
@@ -1084,8 +1129,8 @@ def main():
                 o.data.materials[i] = M["glass"]
         for o in hidden:
             o.hide_render = False
-        render(scene, camera(scene, "Cam internals", (0.1, 0.62, 0.45), (-0.03, 0.04, -0.03), lens=40), "06_internals.png")
-        render(scene, camera(scene, "Cam lead", (0.5, 0.11, 0.12), (0.178, 0.11, 0.12), lens=45), "07_lead_side.png")
+        render(scene, camera(scene, "Cam internals", (0.05, 0.60, 0.50), (0.0, 0.06, -0.04), lens=40), "06_internals.png")
+        render(scene, camera(scene, "Cam lead", (0.5, 0.09, -0.03), (0.178, 0.09, -0.03), lens=45), "07_lead_side.png")
 
 
 main()
