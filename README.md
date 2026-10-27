@@ -77,6 +77,11 @@ Tools: 2.0, 2.5 and 5 mm hex keys, an 8 mm spanner, and a 1/4 in drive 8 mm sock
 
 ### Handles (do each side on the bench)
 
+![Step 1: handle exploded](cad/blender/renders/step1_handle.png)
+
+Outboard half pulled off along X. The six M3 × 35 go in from the outboard face (left) into nuts in
+the inboard half. The piston and grip slide in along the grip axis (right). Copper lines are bolt axes.
+
 1. **Nuts into the inboard half.** Press M3 nuts into the six hex pockets on the inboard face.
    Drop M4 nuts into the three slots that open on the split face. The inboard half is the one
    with hex pockets, and the outboard half has countersinks.
@@ -96,6 +101,17 @@ Tools: 2.0, 2.5 and 5 mm hex keys, an 8 mm spanner, and a 1/4 in drive 8 mm sock
 
 ### Bridge
 
+![Step 2: fin to tray](cad/blender/renders/step2_fin_to_tray.png)
+
+Looking down into tray R, with the fin drawn see-through. Each M4 × 20 goes in from inside the
+tray, through a countersunk boss on the end wall, and into a nut sitting in a slot in the fin's
+inboard half. The three bolts are at (rearward from the plate face, height from the grip axis)
+(30, 0), (70, -58) and (115, -35) mm.
+
+![Step 4: electronics](cad/blender/renders/step4_electronics.png)
+
+Tray L: the ESP32 and HX711 drop onto their standoffs, and the RJ45 coupler comes up through the floor.
+
 8. **Electronics.** In tray L, screw the ESP32 to its four standoffs, with M3 × 10 up from under the
    floor and nuts on top, so its Ethernet jack faces the rear. Fit the RJ45 coupler through the floor
    hole behind it, with two M3 into the captive nuts in the pad. Fit the left HX711 on its standoffs
@@ -106,6 +122,11 @@ Tools: 2.0, 2.5 and 5 mm hex keys, an 8 mm spanner, and a 1/4 in drive 8 mm sock
     E-, white A-, green A+; check your cell's datasheet).
 
 ### On the chair
+
+![Step 3: mount](cad/blender/renders/step3_mount.png)
+
+Each half comes straight onto the plate along its normal. The four M8s go from inside the trays,
+through the land, into T-nuts in the plate slots.
 
 11. **T-nuts.** Slide four M8 T-nuts into the Corpus back plate's slots: the slot either side of
     centre and the third slot out on each side (x = ±40 and ±120 mm). The CAD assumes a 9-bar plate

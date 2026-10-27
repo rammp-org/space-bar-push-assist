@@ -731,8 +731,6 @@ def build_fin(M):
     inboard, outboard = sdf_part("Fin R", sources, M["printed"], fillet_r=P["fillet_r"], windows=windows, open_r=P["open_r"],
                                  subtract=cuts, split_x=x, groove=P["groove"], groove_ymax=lip - 4)
     inboard.name, outboard.name = "Fin R inboard half", "Fin R outboard half"
-    hw = [cylinder(f"Fin R bolt {i}", Vector(p) - Vector(n) * 0.25, Vector(p) + Vector(n) * 0.25, d, M["steel"], coll="Hardware")
-          for i, (p, n, d) in enumerate(heads)]
 
     # Piston + grip spigot (unchanged): printed standing on its rear face.
     p1 = lip + P["piston_show"]
@@ -751,7 +749,7 @@ def build_fin(M):
     rw = cylinder("Rear washer R", (x, pr + 6, az), (x, pr + 7, az), 10.0, M["steel"], coll="Hardware")
     rn = hex_prism("Rear nut R", (x, 0, az), "Y", 8.0, pr + 7, pr + 7 + M5["nut_t"], mat=M["steel"], coll="Hardware")
     return dict(inboard=inboard, outboard=outboard, piston=piston,
-                other=hw + [grip, cell, fw, fn, rw, rn], cell=cell)
+                other=[grip, cell, fw, fn, rw, rn], cell=cell)
 
 # ------------------------------------------------------------------ bridge: tray and cover
 
@@ -845,6 +843,46 @@ def build_cover_half(sign, M):
         cut.append(cone("cover csk", (x, y_c, ztop - 1.9), (x, y_c, ztop + 1), M3["hole"], M3["head"] + 2.6, coll="Part sources"))
     return sdf_part(f"Cover {side}", src, M["light"], fillet_r=1.0, subtract=cut)[0]
 
+
+# ------------------------------------------------------------------ fasteners (for the assembly steps)
+
+def join(name, objs, mat):
+    """One mesh object from several (all modelled in mm under ROOT)."""
+    bm = bmesh.new()
+    for o in objs:
+        bm.from_mesh(o.data)
+        bpy.data.objects.remove(o)
+    return bm_to_object(name, bm, mat, coll="Hardware")
+
+
+def csk_screw(name, head, axis, length, d, head_d, mat):
+    """Countersunk screw: head bearing face flush at `head`, shank along `axis`."""
+    head, axis = Vector(head), Vector(axis).normalized()
+    k = (head_d - d) / 2
+    return join(name, [cone(name + " h", head, head + axis * k, head_d, d, coll="Hardware"),
+                       cylinder(name + " s", head + axis * (k - 0.1), head + axis * length, d, coll="Hardware")], mat)
+
+
+def build_fasteners(M):
+    """Screws and nuts at their installed positions, named per side so the steps can move them."""
+    F = handle_frame()
+    ex, ht = F["box_end"], P["fin_t"] / 2
+    for sign, side in ((1, "R"), (-1, "L")):
+        x = sign * HX
+        for i, (y, z, hw) in enumerate(clamshell_bolts()):          # M3 x 35 from the outboard face
+            csk_screw(f"M3 screw {side}{i}", (x + sign * hw, y, z), (-sign, 0, 0), 35, 3.0, 6.0, M["steel"])
+            a, b = sorted((x - sign * (hw - 0.4), x - sign * (hw - 3.0)))
+            hex_prism(f"M3 nut {side}{i}", (0, y, z), "X", 5.5, a, b, mat=M["steel"], coll="Hardware")
+        for i, (y, z) in enumerate(box_bolts()):                     # M4 x 20 from inside the tray
+            csk_screw(f"M4 screw {side}{i}", (sign * (ex - P["wall"] - 8), y, z), (sign, 0, 0), 20, 4.0, 8.0, M["steel"])
+            a, b = sorted((sign * (ex + 6.4), sign * (ex + 9.8)))
+            hex_prism(f"M4 nut {side}{i}", (0, y, z), "X", 7.0, a, b, mat=M["steel"], coll="Hardware")
+    for i, (x, u) in enumerate(mount_bolts()):                       # M8 button heads + T-nuts
+        n0 = P["wall"] + 6
+        join(f"M8 bolt {i}", [plate_cyl("h", x, u, n0, n0 + 4.4, 14.0, coll="Hardware"),
+                              plate_cyl("s", x, u, n0 - 16, n0, 8.0, coll="Hardware")], M["steel"])
+        plate_box(f"T-nut {i}", (x - 7, -6.3, u - 10), (x + 7, -2.3, u + 10), M["steel"], coll="Hardware")
+
 # ------------------------------------------------------------------ build
 
 def build():
@@ -886,10 +924,6 @@ def build():
     bw, bh, bo = P["block"]
     ub = U_TOP - P["clear_h"]
     plate_box("Central block", (-bw / 2, 0, ub - bh), (bw / 2, bo, ub), M["chair"], coll="Chair")
-    for i, (x, u) in enumerate(mount_bolts()):
-        n0 = P["wall"] + 6
-        plate_cyl(f"M8 head {i}", x, u, n0, n0 + 4.4, 14.0, M["steel"], coll="Hardware")
-        plate_cyl(f"M8 shank {i}", x, u, -12, n0, 8.0, M["steel"], coll="Hardware")
     print(f"  [{time.time() - t0:6.1f} s] chair")
 
     # --- handles: build the right one, mirror for the left ---------------------------
@@ -952,6 +986,8 @@ def build():
         cable(f"HX711 to ESP32 {side}", [j1, (j1.x - sign * 8, j1.y, j1.z + 12),
                                          (hdr.x, hdr.y - 4, hdr.z + 12), hdr], 2.0, M["wire_red"])
 
+    build_fasteners(M)
+
     for k in ("lead_d", "lead_straight", "lead_bend_r"):
         scene[k] = P[k]                                           # read by check_wires.py
     print(f"  [{time.time() - t0:6.1f} s] done")
@@ -984,6 +1020,98 @@ def print_check(parts):
     print(text)
     with open(os.path.join(RENDERS, "print_check.txt"), "w") as fh:
         fh.write(text + "\n")
+
+
+# ------------------------------------------------------------------ exploded assembly steps
+
+def axis_line(name, p0, p1, mat):
+    """Thin accent rod showing where a bolt travels."""
+    return cylinder(name, p0, p1, 1.0, mat, segs=12, coll="Step lines")
+
+
+def render_steps(scene, M, parts):
+    """Exploded renders for the README assembly guide, one per step group. Each step shows only
+    its parts, moves them apart along their bolt axes, and draws each axis in the accent colour."""
+    obs = bpy.data.objects
+    F = handle_frame()
+    ex = F["box_end"]
+    nrm = Vector((0, math.cos(TILT), -math.sin(TILT)))            # plate normal (rearward) in Y/Z
+
+    def named(*prefixes):
+        return [o for o in obs if o.type == "MESH" and o.name.startswith(prefixes)
+                and not any(c.name in ("Part sources", "Cutters") for c in o.users_collection)]
+
+    handle_R = named("Fin R ", "Piston R", "MTB grip R", "Load cell R", "Front washer R", "Front nut R",
+                     "Rear washer R", "Rear nut R", "M3 screw R", "M3 nut R", "M4 nut R")
+    handle_L = named("Fin L ", "Piston L", "MTB grip L", "Load cell L", "Front washer L", "Front nut L",
+                     "Rear washer L", "Rear nut L", "M3 screw L", "M3 nut L", "M4 nut L")
+
+    def shot(file, show, moves, lines, cam, glass=()):
+        saved = {o: o.hide_render for o in obs}
+        for o in obs:
+            if o.type in ("MESH", "CURVE"):
+                o.hide_render = o not in show
+        mats = {o: list(o.data.materials) for o in glass}
+        for o in glass:
+            for i in range(len(o.data.materials)):
+                o.data.materials[i] = M["glass"]
+        for o, d in moves:
+            o.location += d
+        made = [axis_line(f"line {file} {i}", a, b, M["accent"]) for i, (a, b) in enumerate(lines)]
+        render(scene, cam, file)
+        for o in made:
+            bpy.data.objects.remove(o)
+        for o, d in moves:
+            o.location -= d
+        for o, ms in mats.items():
+            for i, m in enumerate(ms):
+                o.data.materials[i] = m
+        for o, h in saved.items():
+            o.hide_render = h
+
+    # Step A: close the handle. Outboard half off along +X, M3s further out, nuts on the inboard
+    # face, piston + grip drawn back along the grip axis.
+    out_d, scr_d, nut_d, pis_d = Vector((70, 0, 0)), Vector((140, 0, 0)), Vector((-30, 0, 0)), Vector((0, 90, 0))
+    moves = [(o, out_d) for o in named("Fin R outboard")]
+    moves += [(o, scr_d) for o in named("M3 screw R")]
+    moves += [(o, nut_d) for o in named("M3 nut R")]
+    moves += [(o, pis_d) for o in named("Piston R", "MTB grip R", "Rear washer R", "Rear nut R")]
+    lines = [((HX - 30 - 20, y, z), (HX + 140 + 20, y, z)) for y, z, _ in clamshell_bolts()]
+    lines.append(((HX, F["ye"] - 30, F["az"]), (HX, F["lip"] + 90, F["az"])))
+    shot("step1_handle.png", handle_R, moves, lines,
+         camera(scene, "Cam step1", (HX / 1000 + 0.42, 0.50, 0.26), (HX / 1000 + 0.06, 0.08, -0.03), lens=45))
+
+    # Step B: fin onto the tray end. Handle off along +X; M4s pulled into the tray; the fin is
+    # see-through so the nuts in its slots show.
+    tray = obs["Tray R"]
+    fin_d, m4_d = Vector((90, 0, 0)), Vector((-45, 0, 0))
+    moves = [(o, fin_d) for o in handle_R] + [(o, m4_d) for o in named("M4 screw R")]
+    lines = [((ex - 70, y, z), (ex + 110, y, z)) for y, z in box_bolts()]
+    m3 = named("M3 screw R", "M3 nut R")                          # already in; hidden so the M4s read
+    shot("step2_fin_to_tray.png", [o for o in handle_R if o not in m3] + [tray] + named("M4 screw R"), moves, lines,
+         camera(scene, "Cam step2", (-0.02, 0.42, 0.30), (HX / 1000 + 0.01, 0.06, -0.03), lens=40),
+         glass=named("Fin R inboard", "Fin R outboard"))
+
+    # Step C: hang both halves on the plate. Each half moves straight off the plate along its
+    # normal, the M8s further still; T-nuts stay in the slots.
+    chair = named("Plate 4040", "Central block")
+    halves = handle_R + handle_L + named("Tray ", "M4 screw", "ESP32", "HX711", "RJ45", "Patch")
+    off_d, bolt_d = nrm * 110, nrm * 170
+    moves = [(o, off_d) for o in halves] + [(o, bolt_d) for o in named("M8 bolt")]
+    lines = []
+    for x, u in mount_bolts():
+        y0, z0 = on_plate(u, -10)
+        y1, z1 = on_plate(u, 200)
+        lines.append(((x, y0, z0), (x, y1, z1)))
+    shot("step3_mount.png", chair + halves + named("M8 bolt", "T-nut"), moves, lines,
+         camera(scene, "Cam step3", (-0.55, 0.85, 0.42), (0.0, 0.10, -0.06), lens=45))
+
+    # Step D: electronics into tray L. Boards lifted off their standoffs, coupler dropped below.
+    elec_up, rj_down = Vector((0, 0, 60)), Vector((0, 0, -60))
+    boards = named("ESP32", "HX711 L", "Patch plug (board)")
+    moves = [(o, elec_up) for o in boards] + [(o, rj_down) for o in named("RJ45", "Patch plug (coupler)")]
+    shot("step4_electronics.png", [obs["Tray L"]] + boards + named("RJ45", "Patch plug (coupler)"), moves, [],
+         camera(scene, "Cam step4", (-0.30, 0.45, 0.40), (-0.08, 0.06, -0.04), lens=45))
 
 # ------------------------------------------------------------------ lighting, cameras, renders
 
@@ -1089,8 +1217,7 @@ def main():
     if not only or "05_exploded" in only:
         moves = [(o, Vector((0, 0, 70))) for o in parts["covers"]]
         lift = Vector((40, 0, 0))                                    # right fin off the box end
-        moves += [(o, lift + Vector((45, 0, 0))) for o in bpy.data.objects if o.name.startswith("Fin R outboard")
-                  or (o.name.startswith("Fin R bolt"))]
+        moves += [(o, lift + Vector((45, 0, 0))) for o in bpy.data.objects if o.name.startswith("Fin R outboard")]
         moves += [(o, lift) for o in bpy.data.objects if o.name.startswith("Fin R inboard")]
         moves += [(o, lift) for o in bpy.data.objects if o.name in ("Load cell R", "Front washer R", "Front nut R")]
         moves += [(o, lift + Vector((0, 60, 0))) for o in bpy.data.objects if o.name in ("Piston R", "MTB grip R", "Rear washer R", "Rear nut R")]
@@ -1119,6 +1246,9 @@ def main():
         out.hide_render = False
         for o, d in moves:
             o.location -= d
+
+    if not only or "steps" in only:
+        render_steps(scene, M, parts)
 
     # See-through printed parts with the cover off: electronics, cells and lead routing.
     if not only or "06_internals" in only:
