@@ -1,0 +1,131 @@
+== 1. Leaves (two, each two strips: 25 wide in all x 2.5, free length 27, 25 between the r 2.0 fillet tangents, pitch 45.0; mid-length on the cell axis)
+E 2500: pair y-stiffness 125 N/mm; rear leaf buckles at 4407 N = 1389 N down on one grip (leaf load 3.17 x grip load); axial drop at buckling 0.76 mm
+E 3000: pair y-stiffness 150 N/mm; rear leaf buckles at 5288 N = 1667 N down on one grip (leaf load 3.17 x grip load); axial drop at buckling 0.76 mm
+E 3500: pair y-stiffness 175 N/mm; rear leaf buckles at 6170 N = 1945 N down on one grip (leaf load 3.17 x grip load); axial drop at buckling 0.76 mm
+a6: 36 x 2.0 full-width leaves, 1000-1400 N per grip. a7 strips 2 x 12.5 x 2.5: the gap between them (|x'| < 7.5) is the 8 mm nut-driver's line to the rear cell nut.
+root bending with the link at a 0.15 stop setting: 5.4 MPa nominal, 7.3 MPa at the root
+root bending with the link at a 0.30 stop setting: 10.8 MPa nominal, 14.6 MPa at the root
+ 50 N down on the grip: 159 N in the rear leaf, 2.5 MPa axial (3.4 at the root)
+150 N down on the grip: 476 N in the rear leaf, 7.6 MPa axial (10.3 at the root)
+flexures row: Kt x (bending at stop_gap_max + axial at 150 N) = 24.9 MPa, in the layer plane
+
+== 2. Moment share: leaves vs the clamped cell (reviewer a4 section 1, a7: Ø12 bosses, the strip leaves)
+  boss as a 1 mm column, no half-space (stiff bound) E2500: k_cell 1.22e+06, leaves 5.86e+06 N.mm/rad, share 17.2 %, 150 N down -> 4.28 N.m through the cell
+  boss + half-space, two faces in series           E2500: k_cell 3.07e+05, leaves 5.86e+06 N.mm/rad, share 5.0 %, 150 N down -> 1.24 N.m through the cell
+  + M5 stud bending path in parallel at each face  E2500: k_cell 5.35e+05, leaves 5.86e+06 N.mm/rad, share 8.4 %, 150 N down -> 2.08 N.m through the cell
+  boss as a 1 mm column, no half-space (stiff bound) E3000: k_cell 1.46e+06, leaves 7.03e+06 N.mm/rad, share 17.2 %, 150 N down -> 4.28 N.m through the cell
+  boss + half-space, two faces in series           E3000: k_cell 3.68e+05, leaves 7.03e+06 N.mm/rad, share 5.0 %, 150 N down -> 1.24 N.m through the cell
+  + M5 stud bending path in parallel at each face  E3000: k_cell 5.96e+05, leaves 7.03e+06 N.mm/rad, share 7.8 %, 150 N down -> 1.95 N.m through the cell
+a4 with 1.5 leaves: 1.9 % (designer) / 2.9-6.7 % (reviewer); the 2.0 leaves raise k_rot by 4/3.
+
+== 3. Overload stops on the cell axis (a4 #1)
+push pair at x' +-14.9, z +0.0 from the cell axis (on it); pull pair at x' +-14.9, z -6.5 from it. Heads act on the block; nuts in the link.
+3a. Setting. The cradle's jack screw is on the grip axis (z 0), as the grip is. Both act 28.5 above the cell axis, so both turn the link by F x 28.5 / k_rot about the cell; the push stops sit on the cell axis and do not move, the pull pair (6.5 below it) moves 0.0155 mm at 1.2 x FS of a 50 kg cell, but the jack loads it exactly as the grip does, so the setting includes it (error 0). That pitch bends no leaf (mid-length on the cell axis): the cell reads the push.
+3b. Lean / lift (link pitches theta about the cell): a stop contact at height z moves z x theta along the axis.
+   50 N down: theta 0.00086 rad; push contacts (z +0.0) move 0.0000 mm (the a4 tongue moved 0.031); pull contacts (z -6.5) move +0.0056 mm, i.e. the pull gap opens (lift: closes by the same)
+  100 N down: theta 0.00171 rad; push contacts (z +0.0) move 0.0000 mm (the a4 tongue moved 0.061); pull contacts (z -6.5) move +0.0111 mm, i.e. the pull gap opens (lift: closes by the same)
+  150 N down: theta 0.00257 rad; push contacts (z +0.0) move 0.0000 mm (the a4 tongue moved 0.092); pull contacts (z -6.5) move +0.0167 mm, i.e. the pull gap opens (lift: closes by the same)
+  250 N down: theta 0.00428 rad; push contacts (z +0.0) move 0.0000 mm (the a4 tongue moved 0.153); pull contacts (z -6.5) move +0.0278 mm, i.e. the pull gap opens (lift: closes by the same)
+  100 N lift clips the pull stop early by 0.011 mm = 0.11 FS at dFS 0.10 (stack row limit 0.2)
+3c. Side load (link yaws, one screw of each pair closes by yaw x 14.9):
+  10 N sideways, free              : 0.0087 mm = 0.09 FS early on one side at dFS 0.10 (0.17 at dFS 0.05)
+  10 N sideways, pinned at the cell: 0.0024 mm = 0.02 FS early on one side at dFS 0.10 (0.05 at dFS 0.05)
+  20 N sideways, free              : 0.0174 mm = 0.17 FS early on one side at dFS 0.10 (0.35 at dFS 0.05)
+  20 N sideways, pinned at the cell: 0.0047 mm = 0.05 FS early on one side at dFS 0.10 (0.09 at dFS 0.05)
+  30 N sideways, free              : 0.0261 mm = 0.26 FS early on one side at dFS 0.10 (0.52 at dFS 0.05)
+  30 N sideways, pinned at the cell: 0.0071 mm = 0.07 FS early on one side at dFS 0.10 (0.14 at dFS 0.05)
+  The stops sit beside the cell (it is in the way of x' 0), so side load is the one direction they still feel. The 20 N row (free model) is in checks.json at limit 0.2. Past 0.15 mm sideways the catch saddle round the piston takes a side load (y-compliant, as for a lean).
+3d. Stop path stiffness (per screw, in series; two screws per direction in parallel)
+  push: head on PLA (annulus Ø3.2-5.2) 14.0, nut on PLA 16.0, shank (23 mm) 39, thread 50, PLA block + link 11.3 kN/mm -> 3.7 per screw, 7.5 kN/mm per pair
+  pull: head on PLA (annulus Ø4.0-5.2) 11.4, nut on PLA 16.0, shank (26 mm) 34, thread 50, PLA block + link 12.9 kN/mm -> 3.6 per screw, 7.2 kN/mm per pair
+  a4: 2.3 kN/mm (one M4 tip on PLA, a 3.45 mm post wall in bending) and 1.95 at the grip axis with the link turning.
+3e. Cell load past engagement (stop engages at 1.2 FS; past it the stop and leaves share the extra)
+  cell   dFS    gap mm       cell at 400 / 600 N (x FS) under the assumed 1.5 x FS safe overload?
+  20 kg  0.050  0.060        1.47 / 1.82                  no (417 N push holds it to 1.5)
+  20 kg  0.075  0.090        1.40 / 1.66                  no (479 N push holds it to 1.5)
+  20 kg  0.100  0.120        1.35 / 1.56                  no (541 N push holds it to 1.5)
+  20 kg  0.150  0.180        1.30 / 1.45                  yes
+  20 kg  0.200  0.240        1.27 / 1.39                  yes
+  50 kg  0.050  0.060        0.80 / 1.20                  yes
+  50 kg  0.075  0.090        0.80 / 1.20                  yes
+  50 kg  0.100  0.120        0.79 / 1.19                  yes
+  50 kg  0.150  0.180        0.78 / 1.17                  yes
+  50 kg  0.200  0.240        0.77 / 1.15                  yes
+  The a4 review's target (about 3.5 kN/mm) is met (7.5 kN/mm). A stiff 20 kg cell (dFS 0.05-0.075) still passes 1.5 x FS before 600 N; any 50 kg cell stays at or under 1.2 x FS at 600 N. Recommendation in the BOM: the 50 kg puck (same body and studs), with a 20 kg cell only if its full-scale travel is 0.1 mm or more. Alex decides.
+3f. Thermal: push gap +0.0060, pull gap -0.0075 mm per 10 C (PLA 68e-6, steel 12e-6 along each path)
+
+== 4. Lean stops: the catch saddle (a7, a6 #5; a8: crowned, three supports past contact), then the barrel lip (backup)
+catch_c 0.15 radial over an R1.2 crown at y 129.25 (6.2 behind the link), on two legs 12.5 x 2.5 x 22 tall from the ground bar, under a saddle 9.5 thick in y; lip_c 1.20 round the Ø22.2 spigot at y 150; the piston is Ø24 to y 141
+4a. Contact (reviewer a7's model: two axial supports + the piston's bending; a7's designer model turned the link about the leaf centroid and read 10-13 % high):
+  catch E2500: 0.00075 mm/N, contact at  200 N on the grip; the rear strips then carry  634 N (x 6.9 to buckle)
+  catch E3000: 0.00063 mm/N, contact at  240 N on the grip; the rear strips then carry  761 N (x 6.9 to buckle)
+  catch E3500: 0.00054 mm/N, contact at  280 N on the grip; the rear strips then carry  888 N (x 6.9 to buckle)
+  lip   E2500: 0.00224 mm/N, contact at  535 N on the grip; the rear strips then carry 1698 N (x 2.6 to buckle)
+  lip   E3000: 0.00187 mm/N, contact at  642 N on the grip; the rear strips then carry 2038 N (x 2.6 to buckle)
+  lip   E3500: 0.00160 mm/N, contact at  750 N on the grip; the rear strips then carry 2378 N (x 2.6 to buckle)
+  Tolerance (row): the catch at E 3500 with its bore 0.1 big lands at 467 N, before the lip at E 2500 with its bore 0.1 small, 491 N. Link-only bound: the drop at the catch when the rear strips buckle is 0.85 mm against catch_c + 0.2.
+4b. Pull and lean together (a7 #5): 1.2 x FS of a 50 kg cell, pulled on the grip axis, turns the link and lowers the piston 0.072 mm at the catch (a push raises it the same). catch_c 0.15 leaves 0.078, which a further 105 N of lean takes up (E 2500). So a full pull plus a 100 N lean does not land (row). If it did land, the free legs (4c) add about 0.9 N.
+4c. No friction path (a7 #2). Once a lean rests on the saddle, stick friction drags it along with the piston, and the cell loses the legs' y-stiffness x its own travel.
+  a7's flat 2.5 mm saddle face could be held square by the contact (it needs ~116 N of normal force), so its legs worked fixed-guided: 110 N/mm, 13-33 N (reviewer a7). a8 crowns the face R1.2 across y: the contact is a line, the normal force acts through the crown's centre, and the saddle is free to turn. The legs then bend as free cantilevers loaded 7.85 mm above their tops: k = 2 / ((L^3/3 + h L^2 + h^2 L) / E I) = 11.2 N/mm.
+  Shunt: 1.3 N at the 1.2 x FS travel of a dFS 0.10 cell, 3.4 N at the largest stop setting (0.30 mm). Rows, limit 10.
+  Crown flattening: PLA yields at the crown under a heavy lean. After a 600 N lean the land is up to 0.92 mm wide (load 738 N, 10 mm of contact along the bore at 80 MPa), and a later lean holds up to N x 0.46 mm against the saddle's turn, which adds 0.0476 N per N.mm at the contact. At a 300 N lean (catch 184 N) the shunt is then 7.4 N at the largest setting (row, limit 10). While a 600 N lean is on one grip it can reach 19.6 N (capped by the guided value): the one case over the 10 N dead band (README).
+4d. Past contact (a7 #3): a rigid link on three axial supports (front leaf, rear leaf, catch), solved for each extra N.
+  E2500 catch legs alone (stiff bound)            7102 N/mm: per extra N front -1.86, rear +1.02, catch +1.84; at 600 N the rear strips carry 1043 N (x 4.2 to buckle), the catch  737 N
+  E2500 catch legs + saddle                       4506 N/mm: per extra N front -1.92, rear +1.40, catch +1.52; at 600 N the rear strips carry 1194 N (x 3.7 to buckle), the catch  608 N
+  E2500 catch legs + saddle at 1/3 (soft bound)   1502 N/mm: per extra N front -2.04, rear +2.27, catch +0.78; at 600 N the rear strips carry 1542 N (x 2.9 to buckle), the catch  310 N
+  E3500 catch legs alone (stiff bound)            9943 N/mm: per extra N front -1.86, rear +1.02, catch +1.84; at 600 N the rear strips carry 1215 N (x 5.1 to buckle), the catch  590 N
+  E3500 catch legs + saddle                       6309 N/mm: per extra N front -1.92, rear +1.40, catch +1.52; at 600 N the rear strips carry 1336 N (x 4.6 to buckle), the catch  486 N
+  E3500 catch legs + saddle at 1/3 (soft bound)   2103 N/mm: per extra N front -2.04, rear +2.27, catch +0.78; at 600 N the rear strips carry 1614 N (x 3.8 to buckle), the catch  248 N
+  Rows: the rear strips at 600 N, 1542 N (soft bound, E 2500) against 4407 N to buckle: x 2.9 (x 3.3 on the fillets' Le 25). Reviewer a7's own model (legs-only catch) gives 1410 against its /3 limit. a7 claimed x 9.4 ('the strips stop loading'); that model was wrong: the catch is 7.5 mm behind the rear leaf, so the rear strips keep loading.
+  Catch legs at 600 N: 738 N (stiff bound) against 2181 N to buckle (fixed at the ground bar, the saddle rigid and free to turn on the crown, held at the contact 7.85 mm above the leg tops; E 2500): x 3.0. In the legs 11.8 MPa, in the layer plane.
+  Saddle across the layers (the cartridge prints inboard face down, so the saddle's span over the nut-driver gap bends across them): 9.5 x 7.85 section, span 15, clamped, the catch load as a point at mid-span: 14.2 MPa at 600 N, 3.5 MPa at 300 N (limit 15). a7's 2.5 mm saddle would have seen 43 MPa at 600 N.
+4e. Piston at a 600 N lean on one grip (a7 #6), bending in the layer plane (it prints on its side), Bambu PLA Basic flexural ~76 MPa:
+  Ø24 at the socket mouth 45.2 MPa (bound: no relief from the catch reaction), at the catch 42.3; the Ø22.2 spigot at the step (y 141) 45.6. Worst 45.6: x 1.67 (a7: Ø22.2 all along, 52.3 at the catch and about 56 at the mouth, x 1.45).
+  The barrel lip (lip_c 1.20) is reached only if the catch were not there; it is the backup.
+
+== 5. Cell nuts: clamp, settling, creep (a4 #4, #5)
+joint stiffness (stud 237, clamped PLA 58 kN/mm) 47 kN/mm: an M5 nut turned 60 deg (0.133 mm) past finger-tight would put 6.2 kN on a Ø12 boss (69 MPa): angle control is far too coarse for a 1 mm PLA boss.
+  0.1 N.m (K 0.2) ->  100 N preload, boss  1.1 MPa
+  0.2 N.m (K 0.2) ->  200 N preload, boss  2.2 MPa
+  0.5 N.m (K 0.2) ->  500 N preload, boss  5.6 MPa
+  1.0 N.m (K 0.2) -> 1000 N preload, boss 11.2 MPa
+Spec: finger-tight with the bare 8 mm nut-driver bit held in the fingers (no handle, no drill): about 0.1-0.2 N.m, 100-200 N, 1.8-3.6 MPa on the boss. That holds the faces seated for push (push only adds to it) and for pull up to about the preload; past it a rear face can lift a few microns, which does not change the stud force the cell reads. A dab of hot glue over each nut stops it backing off. Settle overnight, re-snug, then set the stops.
+creep term in the stop rows: 4.0 mm of PLA in the stop chain under clamp stress (two bosses + 1 mm under each) x 0.15 % over the unit's life = 0.0060 mm = 0.06 FS at dFS 0.10 (most of the creep at <= 4 MPa happens in the first day, before the stops are set).
+
+== 6. Bench (cradle) vs fin
+The jack is on the axis (3a). The block bears on the cradle's front wall round the same Ø16 counterbore as in the fin, so the push setting sees the same block. Pull: the cradle holds the block with two M4 lip screws at z -20 and the front wall at the block's foot instead of the fin's lips all round; contact compliance there lets the block turn by roughly 0.01 / 40 rad, which moves the pull contacts (z -6.5) by 0.0016 mm: the bench_support term (0.002 mm) in the stop rows.
+
+== 7. Bench pass marks
+  stop check, 20 kg cell, dFS 0.05: once past 120 % the reading climbs at 35 % of its rate below 120 %
+  stop check, 20 kg cell, dFS 0.10: once past 120 % the reading climbs at 22 % of its rate below 120 %
+  stop check, 20 kg cell, dFS 0.20: once past 120 % the reading climbs at 13 % of its rate below 120 %
+  -> pass: turning the jack on past 120 % the reading climbs at under 40 % of its earlier rate, both ways (a stop that is not touching leaves it at 100 %).
+  5 kg hung from the grip end: 11.1 N.m at the cell, 1.90 N.m through it at the worst share above (17.2 %); a cell bearing outside its bosses (a3: 47 %) would take 5.2 N.m. Pass: the reading changes by under 2 % FS and the two grips agree within 1 % FS; over 5 % FS means a cell face or the link is touching where it should not.
+
+== 8. Lean-to-axial crosstalk (a6 #3, reviewer a5 section E): leaf tops 13.5 above the cell axis
+  E2500: the cell reads 0.0000 N axial per N down on the grip (0.00 %): 50 / 150 N lean -> 0.00 / 0.00 N
+  E3000: the cell reads 0.0000 N axial per N down on the grip (0.00 %): 50 / 150 N lean -> 0.00 / 0.00 N
+  E3500: the cell reads 0.0000 N axial per N down on the grip (0.00 %): 50 / 150 N lean -> 0.00 / 0.00 N
+  The link turns about the cell (the one stiff y constraint). Each leaf top moves theta x a and turns theta, so its shear is 2 E I / L^2 (12 a / L + 6) theta: zero for a = -L/2, the leaf mid-length on the cell axis. a7 puts the cell there (cz -28.5, the leaves' mid-height) and reaches it with the link's drop; a6 had the leaf tops 15 below the axis: 3.8 %, 5.7 N at 150 N.
+  print tolerance: the cell axis 0.2 mm off the leaves' mid-height reads 0.041 % (0.06 N at 150 N)
+  print tolerance: the cell axis 0.5 mm off the leaves' mid-height reads 0.102 % (0.15 N at 150 N)
+  Firmware backup (RTPS side, not in this repo): a dead band of max(10 N, 280 N x |c| x 1.2) per grip, where c is the coefficient README step 12 measures (expected under 0.2 %; reject the cartridge over 1 %). 280 N is the largest lean the leaves carry before the catch takes it (E 3500); past it the crowned catch adds at most 3.4 N (4c). So with c = 1 %: 10.0 N.
+
+== 9. Cradle under the jack (a5 #1), 1.2 x FS of the 50 kg cell = 589 N, E 2500
+  geometry: closed frame (front wall, two 6 mm side walls through to the upright, 14 mm upright, 7.9 base), R3 roots at the upright; prints base down, so every frame member carries the jack load in the layer plane.
+  upright between the walls (beam across x, band = t): 6.8 MPa in the layer plane
+  share sent down to the base (the only path across layers): 6.7 % -> 1.41 MPa across layers
+  frame (U section, axis 31.7 mm above its centroid): 2.02 MPa in the layer plane
+  jack tilt 0.20 deg (a5: 6.4-7.6); push stroke needed 0.44 mm (frame 0.068 + upright 0.069 + largest stop setting 0.30) against the M5 x 35 head's 9.1 mm stand-off (a5: 4.47 needed, 3.0 available)
+  reviewer a5's free-standing-cantilever model on this upright (no side walls at all, 20 kg): 7.1 MPa across layers, tip 0.33 mm
+  reviewer a5's free-standing-cantilever model on this upright (no side walls at all, 50 kg): 17.7 MPa across layers, tip 0.81 mm
+
+== 10. Scale before stops (a5 #2): what an unset mV/V does, and the known-mass check window
+  cell rated 1.0 mV/V with the sketch at 1.0: its '120 %' is 120 % of true FS
+  cell rated 1.5 mV/V with the sketch at 1.0: its '120 %' is 80 % of true FS
+  cell rated 2.0 mV/V with the sketch at 1.0: its '120 %' is 60 % of true FS
+  cell rated 3.0 mV/V with the sketch at 1.0: its '120 %' is 40 % of true FS
+  The sketch now refuses 'm' until 'f', 'r' (or 'c') and 't' are given. Known-mass check ('k <kg>', cradle stood on its rear face, the mass hung from the jack screw): the flexure leaves carry kl / (kc + kl) of it beside the cell:
+  20 kg: shunt 3.7 / 7.1 / 13.3 % at dFS 0.05 / 0.10 / 0.20, so a right scale reads 0.857-0.973 of the mass
+  50 kg: shunt 1.5 / 3.0 / 5.8 % at dFS 0.05 / 0.10 / 0.20, so a right scale reads 0.932-0.995 of the mass
+  PASS window 0.88-1.03 (a6 review #4: a6's 0.90 failed a right 20 kg cell at dFS 0.20); a 1.5x or 2x mV/V error reads 0.67 / 0.50 or 1.5 / 2.0: FAIL, and the sketch then refuses 'm' (a6 review #4) unless 'm!' is typed. A soft 20 kg cell (dFS over about 0.17) reads under 0.88 and fails falsely: calibrate it with 'c' (safe). Calibrating with 'c' in this setup reads grip force, so the stops land 1-15 % under 1.2 x FS of the cell itself: the safe side. a7: the cradle hangs from its eye on the jack axis and the mass hangs from the printed hanger on the jack head, so the cord, the jack and the mass are one vertical line (no books).

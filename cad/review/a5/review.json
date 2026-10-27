@@ -1,0 +1,87 @@
+{
+ "functionality": 8,
+ "manufacturability": 6,
+ "aesthetics": 9,
+ "anchors": {
+  "functionality": "8: works; 2 majors, each under 1 h of CAD/README with no big reprint: the bench cradle cannot hold the jack load of the BOM-recommended 50 kg cell, so the stops of the recommended cell cannot be set as drawn (and a 20 kg cell still reaches 1.44-1.92 x FS at 600 N); the stop-setting README never sets the cell's mV/V, so a 1.5-2.0 mV/V cell gets its stops at 60-80 % of FS. Stops on the axis, lip catch and leaves all check out",
+  "manufacturability": "6: one blocker caps it: with the recommended 50 kg cell the stop-setting step fails (cradle upright 54 MPa across layers vs ~25, review row FAIL; jack stroke 4.47 mm needed vs 3.0 before the head bottoms, row FAIL). Otherwise: 0 fails in cad check, printcheck and cad bom, no supports, all hardware and tools inside the brief except a soldering iron",
+  "aesthetics": "9: every rubric item holds: one radius/edge-break set, V reveal on the fin split and now down the tray seam, cover heads counterbored on a grid, no exposed wires, RJ45 coupler now inside the tray, two colours mean lid vs body. Polish only (8 cover heads on the attendant-facing top)"
+ },
+ "checks": "cad check main PASS 0 fail 47 warn (all accepted, set identical to cadcheck_a5.json); moving rows PASS 0/0; printcheck PASS 17 parts 0 fail 16 warn (fin roof spans 7-16 mm, anchored both sides, own slices); cad bom PASS 14 rows; a4 review rows verbatim 4 slide FAIL (step 14 deleted, by design) + 2 config FAIL (stop_z param gone); reviewer rows 2 FAIL 2 pass",
+ "previous_issues": {
+  "1 stop line 24 mm below the cell axis": "FIXED - push contacts at stop_zp 0, pull at -6.5; adapted lean row 0 (a4 0.475), jack on the grip axis (adapted couple row 0.083 vs 0.363). Caveat: the cradle upright bends, tilting the jack 2.5-3.0 deg (20 kg) / 6.4-7.6 deg (50 kg), see new issue 1",
+  "2 rear leaf buckles with no vertical stop": "FIXED - leaf_t 2.0, buckling 970-1357 N per grip (a4 338-578); lip catch 0.70 engages at 181-254 N (reviewer lever about the leaf centroid; designer 158-221), rear leaf then x5.3 below buckling; push heads lift 0.13 of 0.5 clearance",
+  "3 20 kg cell overloaded past the stop": "PARTIAL - stop path 6.0 (reviewer, shared PLA path) to 7.6 kN/mm (designer), a4 2.3; 20 kg still 1.44-1.92 x FS at 600 N (dFS 0.20-0.05). BOM now recommends the 50 kg cell (1.18-1.21 x FS at 600 N), but the cradle cannot set that cell (new issue 1)",
+  "4 README step 14 re-snug unreachable": "FIXED - re-snug moved to the bench before stop setting; verbatim a4 rows still fail (piston at 3 mm, fin at 1 mm) because that step no longer exists; adapted bench slide rows pass",
+  "5 0.5 N.m snug unmeasurable": "FIXED - finger-tight on the bare 8 mm bit (100-200 N, 1.8-3.7 MPa on the boss), overnight settle, re-snug, hot glue; creep term 0.006 mm in every stop row. Reviewer: life creep (6 um) exceeds the 0.4-0.8 um stud stretch so preload goes to ~0, but the leaves carry only 0.7 N across that gap",
+  "6 moment share at the low end": "FIXED - head_calc carries the stud path (2.2-7.0 %); bench pass marks derived from it",
+  "7 tray seam and hanging coupler": "FIXED - 0.8 x 1.0 V reveal down the x 0 seam (01_hero); BUY_rj45_coupler z -63..-27 against a floor at -67 (a4: -76)",
+  "8 bench stop setting with live electronics": "PARTIAL - cradle, plug, on-axis jack and firmware/bench_hx711 shipped; each screw touched once. But the cradle is undersized for the recommended cell (new issue 1) and the README omits the mV/V setting the sketch needs (new issue 2)"
+ },
+ "issues": [
+  {
+   "rank": 1,
+   "severity": "blocker (M) / major (F)",
+   "metric": "M,F",
+   "title": "The bench cradle cannot set the stops of the recommended 50 kg cell",
+   "evidence": "layer_ascii.py slices of cad/print/stl/cradle.stl, print z 9-50: the rear upright is a free-standing 50 x 8 plate; the 6 mm side walls stop at print y -2, 42 mm short of it. Jack axis 49.1 mm above the base top. At 1.2 x FS of 50 kg (589 N): 54 MPa across layers at the upright root and 56 MPa in the 7.9 mm base (review row 'a5R bench cradle ... 50 kg' FAIL 54.19 > 25). Tip deflection 3.6-4.4 mm, but the M5 x 20 head stands 3.0 mm off the upright (cadcheck warn FST_Jack_screw), so the stroke runs out (row 'a5R bench jack stroke' FAIL 4.47 > 3.0). The jack tilts 6.4-7.6 deg, so it is no longer on the axis. With a 20 kg cell: 22 MPa (row passes at 21.7), and 27 MPa when README step 7 turns the jack on past 120 % to 150 %. head_check_a5.txt section F",
+   "fix": "Close the frame: run both 6 mm side walls from the front block to the rear upright (y 35.7 to 114 world), full height to z -8, with 14 x 10 key windows over the four stop heads. The load then goes in the layer plane: about 1.2 MPa in the side walls, and about 11 MPa in the upright bending between the walls (38 mm span). Thicken the upright to 10 mm. Use an M5 x 30 jack (10 mm of stroke). Add 3 mm fillets at the upright/base and wall/base roots"
+  },
+  {
+   "rank": 2,
+   "severity": "major",
+   "metric": "F",
+   "title": "The stop-setting procedure never sets the cell's rated output, so '120 %' can be 60-80 % of the real FS",
+   "evidence": "firmware/bench_hx711.ino: ratedMvV = 1.0 by default; %FS comes from mV/V unless 'r' or 'c' is used. README 'Setting the overload stops' step 4 says only 'f 20 (or f 50), then t'; grep for 'mV' in README.md finds nothing. A 1.5 or 2.0 mV/V cell sets the stops at 80 % or 60 % of true FS (head_check_a5.txt H). With a 20 kg cell at 60 % FS, the push reading clips at 118 N",
+   "fix": "README step 4: 'f 20, r <rated mV/V from the cell's label or certificate>, t; then hang a known 10 kg on the plug and check that the line reads 50 % (20 kg) or 20 % (50 kg) +-3 %, else use c 10'. Make the sketch refuse 'm' until 'r' or 'c' has been given"
+  },
+  {
+   "rank": 3,
+   "severity": "minor (major only with a 20 kg cell)",
+   "metric": "F",
+   "title": "20 kg cell still past its safe overload at a 600 N shove, and side load clips it in the working range",
+   "evidence": "head_check_a5.txt A: 20 kg at 600 N = 1.44-1.92 x FS (k_stop 6.0, shared PLA path in series) or 1.40-1.82 (designer's 7.6). Section B: 50 N sideways closes one push screw 0.042 mm, so a 20 kg push stop engages at 0.78 FS = 154 N (50 kg: 384 N)",
+   "fix": "Fit the 50 kg cell, as the BOM recommends, after the issue 1 cradle fix. Then change the BOM text from 'Alex decides' to the 50 kg cell, and keep the 20 kg cell only with dFS >= 0.15 mm"
+  },
+  {
+   "rank": 4,
+   "severity": "minor",
+   "metric": "F",
+   "title": "Lean-to-axial crosstalk: 3.8 % of a downward grip load reads as axial force",
+   "evidence": "The leaf tops are at z -15, 15 mm below the cell axis (cad q list: PRT_movlink_R; ground top -42, leaf_free_len 27). When the link pitches, the cell holds y at z 0, so the leaf tops shift 15 x theta and turn by theta. The shear EI/L^2 (12 x 15/L + 6) theta can only leave through the cell. 50 N lean gives 1.9 N and 150 N gives 5.7 N (0.4 / 1.2 % FS of 50 kg). Review row 'a5R lean-to-axial crosstalk' 5.69 N, limit 10 N. head_calc does not model it. The README 5 kg check (< 2 % FS) passes with it",
+   "fix": "Firmware dead band of at least 10 N, and record the 5 kg bench reading as the crosstalk coefficient. For a structural fix (next cartridge print), raise the leaf tops to the cell axis + 13.5 mm (leaf mid-length on the axis): ground bar to z -13.5, link bottom to z +13.5"
+  },
+  {
+   "rank": 5,
+   "severity": "minor",
+   "metric": "F",
+   "title": "head_calc levers the link pitch about the cell centre, not the leaf centroid",
+   "evidence": "head_calc.py section 4: link_only = th1 x (lip - y_cell), lever 96.4 mm. The free model's pitch centre is the leaf centroid y 85.5 (lever 64.5). Link-only contact moves from 399-559 to 596-835 N, and with piston bending from 158-221 to 181-254 N. The conclusions hold (the leaf is x5.3 below buckling at contact)",
+   "fix": "Use (lip - y_leaf) in the free model. Keep (lip - y_cell) only for the pinned model, and report both"
+  },
+  {
+   "rank": 6,
+   "severity": "minor",
+   "metric": "M",
+   "title": "Soldering iron needed (lead to HX711 JP4), not in the tool list; a cell swap means desoldering",
+   "evidence": "README step 8: 'Solder its conductors to the HX711's JP4'. The tools are a DeWalt drill, bits and hex keys. A cell swap also means a fin teardown (3 M4 + 6 M3 + 2 M3), an overnight settle and a stop re-set",
+   "fix": "Use an HX711 board with a 4-way screw terminal (or fit a 3.5 mm pluggable terminal block on JP4), driven with the 2 mm flat bit from the set. Say so in the BOM"
+  },
+  {
+   "rank": 7,
+   "severity": "minor",
+   "metric": "F",
+   "title": "Lip friction past a 180-250 N lean; the piston is at 40 MPa at 600 N",
+   "evidence": "Contact at 181-254 N per grip, after which the lip reaction is 2.74 x the lean (1642 N at 600 N). Piston 20 / 40 / 54 MPa at 300 / 600 / 800 N in the layer plane (I 11456 mm4)",
+   "fix": "Keep the README limit ('not trusted above about 150 N lean'), which sits below the reviewer's 181 N contact. Optionally wrap a PTFE tape band on the piston over y 146-150 to cut the lip friction, and add a firmware flag when the crosstalk term (issue 4) implies a lean over 150 N"
+  },
+  {
+   "rank": 8,
+   "severity": "minor",
+   "metric": "M",
+   "title": "Stale config text and a tool crash",
+   "evidence": "flexures rows say 'R1.5 root' while leaf_r is 2.0. A cadcheck stacks term whose formula names a missing param crashes check_stacks (TypeError) under --only stacks, but is a clean config FAIL under --only slide (skills repo, not the design)",
+   "fix": "Update the flexures row text. Make check_stacks report a None tol as a config fail"
+  }
+ ]
+}

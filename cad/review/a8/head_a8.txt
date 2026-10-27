@@ -1,0 +1,82 @@
+geometry: leaves yf 76.75 yr 121.75 pitch 45.0; catch yc 129.25; saddle 124.5..134.0; legs Lc 22.0; contact h 7.85
+piston I (D-flat at 7.8): Ø24 15358, Ø22.2 11456 mm4 (designer 15358 / 11457)
+
+1. lean crosstalk (link turns about the cell; shear in the leaves per unit turn)
+  offset 0.0 Lb 27: 0.000 % of the lean
+  offset 0.0 Lb 25.0: 0.000 % of the lean
+  offset 0.2 Lb 27: 0.041 % of the lean
+  offset 0.2 Lb 25.0: 0.051 % of the lean
+  offset 0.5 Lb 27: 0.102 % of the lean
+  offset 0.5 Lb 25.0: 0.128 % of the lean
+
+2. catch contact (two axial supports, link turning on them, piston cantilever from the socket mouth y 123)
+  E 2500: 7.50e-4 mm/N at the catch -> contact at 200 N (gap 0.15), 133 N (0.10), 333 N (0.25); rear leaf 3.17 x lean; 1.2FS pull lowers the catch 0.0859 -> pull + lean margin 85 N
+  E 3000: 6.25e-4 mm/N at the catch -> contact at 240 N (gap 0.15), 160 N (0.10), 400 N (0.25); rear leaf 3.17 x lean; 1.2FS pull lowers the catch 0.0716 -> pull + lean margin 125 N
+  E 3500: 5.36e-4 mm/N at the catch -> contact at 280 N (gap 0.15), 187 N (0.10), 467 N (0.25); rear leaf 3.17 x lean; 1.2FS pull lowers the catch 0.0613 -> pull + lean margin 165 N
+  designer: contact 200-280 N, pull drop 0.0716 (E3000), margin 104.6 N (pull at E3000, lean at E2500: mixed)
+
+3. past contact: rigid link on front leaf, rear leaf, catch (legs in series with the saddle over the 15 mm gap)
+  E 2500 legs only      kc   7102: per N front -1.86 rear +1.02 catch +1.84; at 600 N rear strips 1043 N, catch 738 N
+  E 2500 legs+saddle    kc   6283: per N front -1.88 rear +1.12 catch +1.76; at 600 N rear strips 1082 N, catch 704 N
+  E 2500 1/3 (contact)  kc   2094: per N front -2.01 rear +2.03 catch +0.98; at 600 N rear strips 1447 N, catch 391 N
+  rear leaf buckling fixed-fixed (no sway; the cell braces y): L27 4407 N, Le25 5140 N
+  worst rear strips 1447 -> x3.05 (L27); plus a 1.2FS push couple +373 N -> x2.42
+  compressive stress in the rear strips at worst: 23.1 MPa (+push 29.1)
+  E 3500 legs only      kc   9943: per N front -1.86 rear +1.02 catch +1.84; at 600 N rear strips 1215 N, catch 590 N
+  E 3500 legs+saddle    kc   8796: per N front -1.88 rear +1.12 catch +1.76; at 600 N rear strips 1247 N, catch 563 N
+  E 3500 1/3 (contact)  kc   2932: per N front -2.01 rear +2.03 catch +0.98; at 600 N rear strips 1538 N, catch 313 N
+  rear leaf buckling fixed-fixed (no sway; the cell braces y): L27 6170 N, Le25 7197 N
+  worst rear strips 1538 -> x4.01 (L27); plus a 1.2FS push couple +373 N -> x3.23
+  compressive stress in the rear strips at worst: 24.6 MPa (+push 30.6)
+
+4. catch legs buckling: fixed base, rigid saddle, contact held laterally (friction) at h above the leg tops
+  E 2500: k 0.1637 -> Pcr 2181 N (pinned at the contact); sway (friction slips): ~251 N (fixed-free, length Lc+0.8h, estimate)
+  E 3000: k 0.1637 -> Pcr 2617 N (pinned at the contact); sway (friction slips): ~301 N (fixed-free, length Lc+0.8h, estimate)
+  designer 2181 N; catch at 600 N: 738 N worst (legs-only bound)
+
+5. catch friction shunt (legs as cantilevers, saddle rigid, contact h above)
+  E 2500: k free 9.35, guided 91.7 N/mm; moment->shunt 0.0476 N per N.mm; shunt free 0.12 mm 1.12 N, 0.30 mm 2.80 N
+  E 3000: k free 11.22, guided 110.1 N/mm; moment->shunt 0.0476 N per N.mm; shunt free 0.12 mm 1.35 N, 0.30 mm 3.37 N
+  E 3500: k free 13.09, guided 128.4 N/mm; moment->shunt 0.0476 N per N.mm; shunt free 0.12 mm 1.57 N, 0.30 mm 3.93 N
+  crown at 184 N, flow pressure 80: land 9.1 mm round the bore x 0.32 mm along y (designer: 10 x 0.23)
+  crown at 738 N, flow pressure 80: land 18.3 mm round the bore x 0.64 mm along y (designer: 10 x 0.92)
+  crown at 184 N, flow pressure 120: land 7.5 mm round the bore x 0.26 mm along y (designer: 10 x 0.23)
+  crown at 738 N, flow pressure 120: land 14.9 mm round the bore x 0.52 mm along y (designer: 10 x 0.92)
+  designer land a 0.46, later 300 N lean, dFS 0.10: M cap 85 need 249 -> shunt 5.4 N
+  designer land a 0.46, later 300 N lean, stop_gap_max: M cap 85 need 622 -> shunt 7.4 N
+  designer land a 0.46, during 600 N lean, dFS 0.10: M cap 340 need 249 -> shunt 13.2 N
+  designer land a 0.46, during 600 N lean, stop_gap_max: M cap 340 need 622 -> shunt 19.6 N
+  my land a 0.30, later 300 N lean, dFS 0.10: M cap 55 need 249 -> shunt 4.0 N
+  my land a 0.30, later 300 N lean, stop_gap_max: M cap 55 need 622 -> shunt 6.0 N
+  my land a 0.30, during 600 N lean, dFS 0.10: M cap 221 need 249 -> shunt 11.9 N
+  my land a 0.30, during 600 N lean, stop_gap_max: M cap 221 need 622 -> shunt 13.9 N
+
+6. saddle bending across the layers (span 15 between the legs, 9.5 x 7.85 at mid-span)
+  184 N: point, clamped PL/8 3.5 MPa; UDL clamped wL/12 2.4; point simply supported PL/4 7.1
+  738 N: point, clamped PL/8 14.2 MPa; UDL clamped wL/12 9.5; point simply supported PL/4 28.4
+  default print (2 walls, 15 % infill): I 276 vs solid 383 -> x1.39 stress: 738 N point clamped 19.7 MPa
+
+7. piston at a 600 N lean (grip load at y 219.5)
+  300 N: mouth Ø24 22.6 MPa (bound; 21.7 with the catch reaction), catch Ø24 21.2, step Ø22.2 22.8 nominal, x Kt 1.3-1.5 at the 45 deg step -> 30-34
+  600 N: mouth Ø24 45.2 MPa (bound; 41.6 with the catch reaction), catch Ø24 42.3, step Ø22.2 45.6 nominal, x Kt 1.3-1.5 at the 45 deg step -> 59-68
+  default print (2 walls, 15 %): I_eff 5224 vs solid 15358 (x2.94) -> mouth at 600 N 133 MPa, at 300 N 67; lean that reaches 50 MPa in the walls: 226 N
+  4 walls + 15 %: I_eff 8138 -> mouth at 600 N 85 MPa
+  6 walls + 15 %: I_eff 10363 -> mouth at 600 N 67 MPa
+
+8. stops: per pair stiffness bounds and the cell load at a 600 N shove
+  k_stop 6000 N/mm, 50 kg: x FS at 600 N for dFS 0.05/0.10/0.20: 1.20 / 1.19 / 1.15
+  k_stop 6000 N/mm, 20 kg: x FS at 600 N for dFS 0.05/0.10/0.20: 1.91 / 1.63 / 1.43
+  k_stop 7000 N/mm, 50 kg: x FS at 600 N for dFS 0.05/0.10/0.20: 1.20 / 1.19 / 1.15
+  k_stop 7000 N/mm, 20 kg: x FS at 600 N for dFS 0.05/0.10/0.20: 1.84 / 1.58 / 1.40
+  k_stop 12000 N/mm, 50 kg: x FS at 600 N for dFS 0.05/0.10/0.20: 1.20 / 1.19 / 1.15
+  k_stop 12000 N/mm, 20 kg: x FS at 600 N for dFS 0.05/0.10/0.20: 1.64 / 1.45 / 1.33
+  my estimate per screw (head punch 17550, shank 55889, nut in slot 18507, threads 50000): 6716 N/mm, pair 13431 (solid PLA behind the floors)
+
+9. printed washers bridging the 5.5 mm stud slot (pull through the cell)
+  rear Ø13 at 1.2 FS: 165 N over the slot, strip 3.85 wide x 2.4: clamped 20.4 MPa, simply supported 30.7 MPa
+  rear Ø13 at 1.4 FS (bench step 7): 192 N over the slot, strip 3.85 wide x 2.4: clamped 23.8 MPa, simply supported 35.8 MPa
+  rear Ø13 at clamp preload (sustained): 56 N over the slot, strip 3.85 wide x 2.4: clamped 6.9 MPa, simply supported 10.4 MPa
+  front Ø15 at 1.2 FS: 165 N over the slot, strip 4.85 wide x 2.4: clamped 16.2 MPa, simply supported 24.3 MPa
+  front Ø15 at 1.4 FS (bench step 7): 192 N over the slot, strip 4.85 wide x 2.4: clamped 18.9 MPa, simply supported 28.4 MPa
+  front Ø15 at clamp preload (sustained): 56 N over the slot, strip 4.85 wide x 2.4: clamped 5.5 MPa, simply supported 8.3 MPa
+  (nut bearing fraction over the slot 0.28; designer row 11.4 MPa uses a 6.05 mm strip, wider than the washer's own ring)

@@ -1,0 +1,62 @@
+== A. Overload stop: cell load past engagement (stop at 1.2 FS)
+  head 15.3, nut 16.0, shank 45.9, thread 50 kN/mm -> 5.90 per screw; pair with the shared PLA path in series: 5.97 kN/mm (designer 7.6, PLA path per screw)
+  20 kg dFS 0.05: cell at 400/600 N = 1.52/1.92 x FS (k_stop 6.0) | 1.47/1.82 (k_stop 7.6)
+  20 kg dFS 0.10: cell at 400/600 N = 1.39/1.64 x FS (k_stop 6.0) | 1.36/1.57 (k_stop 7.6)
+  20 kg dFS 0.15: cell at 400/600 N = 1.33/1.52 x FS (k_stop 6.0) | 1.31/1.46 (k_stop 7.6)
+  20 kg dFS 0.20: cell at 400/600 N = 1.30/1.44 x FS (k_stop 6.0) | 1.28/1.40 (k_stop 7.6)
+  50 kg dFS 0.05: cell at 400/600 N = 0.81/1.21 x FS (k_stop 6.0) | 0.81/1.21 (k_stop 7.6)
+  50 kg dFS 0.10: cell at 400/600 N = 0.80/1.20 x FS (k_stop 6.0) | 0.80/1.20 (k_stop 7.6)
+  50 kg dFS 0.15: cell at 400/600 N = 0.79/1.19 x FS (k_stop 6.0) | 0.79/1.19 (k_stop 7.6)
+  50 kg dFS 0.20: cell at 400/600 N = 0.79/1.18 x FS (k_stop 6.0) | 0.79/1.18 (k_stop 7.6)
+  -> 50 kg: engagement itself is at 1.2 x 490 = 588 N, so a 600 N shove never takes it past 1.22 x FS. 20 kg: 1.36-1.88 x FS at 600 N.
+
+== B. Side load (link yaws, one screw of each pair closes by yaw x 14.9)
+   20 N sideways (free, k_yaw 2.40e+06): one screw closes 0.0166 mm = 0.17 FS at dFS 0.10; with a 20 kg cell the push stop on one side engages at 1.03 FS = 203 N; 50 kg (gap 0.12 mm at dFS 0.1): 1.03 FS = 507 N
+   50 N sideways (free, k_yaw 2.40e+06): one screw closes 0.0416 mm = 0.42 FS at dFS 0.10; with a 20 kg cell the push stop on one side engages at 0.78 FS = 154 N; 50 kg (gap 0.12 mm at dFS 0.1): 0.78 FS = 384 N
+  100 N sideways (free, k_yaw 2.40e+06): one screw closes 0.0832 mm = 0.83 FS at dFS 0.10; with a 20 kg cell the push stop on one side engages at 0.37 FS =  72 N; 50 kg (gap 0.12 mm at dFS 0.1): 0.37 FS = 180 N
+
+== C. Leaves
+  E 2500: fixed-fixed (sway held by the cell) 3249 N (L 27) / 3790 N (L 25); rear-leaf factor 3.35 -> 970-1131 N down per grip; pair y-stiffness 73 N/mm
+  E 3000: fixed-fixed (sway held by the cell) 3899 N (L 27) / 4548 N (L 25); rear-leaf factor 3.35 -> 1164-1357 N down per grip; pair y-stiffness 88 N/mm
+  E 3500: fixed-fixed (sway held by the cell) 4549 N (L 27) / 5306 N (L 25); rear-leaf factor 3.35 -> 1357-1583 N down per grip; pair y-stiffness 102 N/mm
+  root bending at a 0.12 mm stop travel (guided, Le 25): 3.5 MPa nominal, 4.7 with Kt 1.35
+  root bending at a 0.24 mm stop travel (guided, Le 25): 6.9 MPa nominal, 9.3 with Kt 1.35
+  root bending at a 0.30 mm stop travel (guided, Le 25): 8.6 MPa nominal, 11.7 with Kt 1.35
+
+== D. Lip catch and piston
+  piston D-section: A 351 mm2, I 11456 mm4 about the horizontal axis, c 11.1
+  E 2500: lip closes 0.00117 mm/N link-only about the leaf centroid (designer lever about the cell: 0.00175) + 0.00269 piston bending -> contact at 181 N (link only 596 N; designer-lever 158 N)
+         rear leaf at contact 608 N (buckle 3249, x 5.3); push-head lift at contact (free, 40 mm from the pivot): 0.13 mm vs 0.5 radial
+  E 3000: lip closes 0.00098 mm/N link-only about the leaf centroid (designer lever about the cell: 0.00146) + 0.00224 piston bending -> contact at 218 N (link only 716 N; designer-lever 189 N)
+         rear leaf at contact 729 N (buckle 3899, x 5.3); push-head lift at contact (free, 40 mm from the pivot): 0.13 mm vs 0.5 radial
+  E 3500: lip closes 0.00084 mm/N link-only about the leaf centroid (designer lever about the cell: 0.00125) + 0.00192 piston bending -> contact at 254 N (link only 835 N; designer-lever 221 N)
+         rear leaf at contact 851 N (buckle 4549, x 5.3); push-head lift at contact (free, 40 mm from the pivot): 0.13 mm vs 0.5 radial
+  300 N down: piston 20 MPa at the lip (32 MPa at the socket mouth if the lip were absent); lip reaction about 821 N
+  600 N down: piston 40 MPa at the lip (64 MPa at the socket mouth if the lip were absent); lip reaction about 1642 N
+  800 N down: piston 54 MPa at the lip (85 MPa at the socket mouth if the lip were absent); lip reaction about 2190 N
+
+== E. Vertical-to-axial crosstalk (new): the leaf tops are 15 mm below the cell axis
+  axial force in the cell per N down on the grip: 0.0379 (3.8 %); 50 N -> 1.9 N, 150 N -> 5.7 N (0.4 % / 1.2 % FS of a 50 kg cell)
+  it vanishes when the leaf tops sit L/2 = 13.5 mm above the cell axis (leaf mid-length on the cell axis)
+
+== F. Bench cradle (new): rear upright is a free-standing 50 x 8 plate (layer_ascii.py slices at print z 12-50)
+  20 kg at 1.2 FS: jack 235 N, root moment 11.6 N.m, 22 MPa across layers at the upright root, 22 MPa in the 7.9 base; E 2500: tip moves 1.74 mm, jack axis tilts 3.0 deg
+  20 kg at 1.2 FS: jack 235 N, root moment 11.6 N.m, 22 MPa across layers at the upright root, 22 MPa in the 7.9 base; E 3000: tip moves 1.45 mm, jack axis tilts 2.5 deg
+  20 kg at 1.5 FS: jack 294 N, root moment 14.5 N.m, 27 MPa across layers at the upright root, 28 MPa in the 7.9 base; E 2500: tip moves 2.18 mm, jack axis tilts 3.8 deg
+  20 kg at 1.5 FS: jack 294 N, root moment 14.5 N.m, 27 MPa across layers at the upright root, 28 MPa in the 7.9 base; E 3000: tip moves 1.81 mm, jack axis tilts 3.2 deg
+  50 kg at 1.2 FS: jack 589 N, root moment 28.9 N.m, 54 MPa across layers at the upright root, 56 MPa in the 7.9 base; E 2500: tip moves 4.35 mm, jack axis tilts 7.6 deg
+  50 kg at 1.2 FS: jack 589 N, root moment 28.9 N.m, 54 MPa across layers at the upright root, 56 MPa in the 7.9 base; E 3000: tip moves 3.63 mm, jack axis tilts 6.4 deg
+  50 kg at 1.5 FS: jack 736 N, root moment 36.1 N.m, 68 MPa across layers at the upright root, 69 MPa in the 7.9 base; E 2500: tip moves 5.44 mm, jack axis tilts 9.5 deg
+  50 kg at 1.5 FS: jack 736 N, root moment 36.1 N.m, 68 MPa across layers at the upright root, 69 MPa in the 7.9 base; E 3000: tip moves 4.54 mm, jack axis tilts 7.9 deg
+  jack head stands 3.0 mm off the upright (cadcheck warn FST_Jack_screw), so the push stroke ends when the upright
+  has bent ~3 mm minus the cell travel; PLA across layers is ~20-30 MPa.
+
+== G. Clamp creep vs stud stretch
+  preload 100 N: stud stretch 0.42 um; clamped PLA compression 2.0 um (51 kN/mm). Creep of 0.15 % over 4 mm = 6 um > stretch -> preload goes to ~0 over life
+  preload 200 N: stud stretch 0.84 um; clamped PLA compression 3.9 um (51 kN/mm). Creep of 0.15 % over 4 mm = 6 um > stretch -> preload goes to ~0 over life
+  with no preload a few-um gap only lets the leaves (110 N/mm) take 110 x 0.006 = 0.7 N while it closes: negligible for the reading
+
+== H. Bench sketch scale
+  cell rated 1.0 mV/V, sketch left at its 1.0 default (README never says r): '120 %' is reached at 120 % of true FS
+  cell rated 1.5 mV/V, sketch left at its 1.0 default (README never says r): '120 %' is reached at 80 % of true FS
+  cell rated 2.0 mV/V, sketch left at its 1.0 default (README never says r): '120 %' is reached at 60 % of true FS

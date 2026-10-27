@@ -1,0 +1,86 @@
+[cadcheck   0.0s] objects: 23 printed, 18 purchased, 93 fasteners, 5 cables; joints {}
+[cadcheck  13.9s] parts done
+[cadcheck  14.5s] interference group static: 3570 pairs x 1 poses
+[cadcheck  21.2s] interference done
+[cadcheck  26.0s] fasteners done
+[cadcheck  26.0s] service done
+[cadcheck  26.0s] drop done
+[cadcheck  26.0s] index done
+[cadcheck  91.3s] slide done
+[cadcheck  93.1s] distances done
+[cadcheck  93.1s] payload done
+[cadcheck  98.0s] sightlines done
+[cadcheck  98.0s] assembly done
+[cadcheck  98.0s] insertion done
+[cadcheck  98.0s] stacks done
+[cadcheck  98.0s] flexures done
+[cadcheck 103.5s] stability done
+[cadcheck 107.0s] cables done
+CADCHECK FAIL: 49 fail, 69 warn (69 untriaged, 0 accepted) -> ../review/a7/cadcheck_movlink.json
+  FAIL parts: PRT_bench_cartridge (model): a 17.1 mm cantilever (10.8 mm2, extent [40.0, 0.5]) at z 33.6 (print [-7.2, -10.6, 33.6], world [420.6, 73.3, -15.4]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 7.4 mm cantilever (1132.9 mm2, extent [40.0, 49.1]) at z 34.0 (print [0.0, 14.7, 34.0], world [427.8, 98.6, -15.0]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 7.4 mm cantilever (3.7 mm2, extent [0.5, 7.4]) at z 27.8 (print [-3.3, -45.4, 27.8], world [424.5, 38.5, -21.2]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 5.8 mm cantilever (14.2 mm2, extent [5.7, 2.5]) at z 22.2 (print [-17.2, -21.7, 22.2], world [410.6, 62.2, -26.8]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 5.8 mm cantilever (14.2 mm2, extent [5.7, 2.5]) at z 22.2 (print [17.1, -21.7, 22.2], world [444.9, 62.2, -26.8]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 4.2 mm cantilever (30.7 mm2, extent [5.8, 5.3]) at z 17.2 (print [-17.1, -46.5, 17.2], world [410.7, 37.4, -31.8]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 4.2 mm cantilever (30.7 mm2, extent [5.8, 5.3]) at z 17.2 (print [17.1, -46.5, 17.2], world [444.9, 37.4, -31.8]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 4.1 mm cantilever (30.2 mm2, extent [5.7, 5.3]) at z 22.2 (print [-17.2, -15.2, 22.2], world [410.6, 68.7, -26.8]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): a 4.1 mm cantilever (30.2 mm2, extent [5.7, 5.3]) at z 22.2 (print [17.2, -15.2, 22.2], world [445.0, 68.7, -26.8]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): an island starts in mid-air (460.0 mm2) at z 8.0 (print [0.0, -17.2, 8.0], world [427.8, 66.7, -41.0]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): an island starts in mid-air (6.9 mm2) at z 40.6 (print [-19.7, -43.4, 40.6], world [408.1, 40.5, -8.4]), supports: no
+  FAIL parts: PRT_bench_cartridge (model): an island starts in mid-air (6.9 mm2) at z 40.6 (print [-19.7, -17.2, 40.6], world [408.1, 66.7, -8.4]), supports: no
+  FAIL parts: PRT_cartfix_L (model): a 7.4 mm cantilever (3.7 mm2, extent [0.5, 7.4]) at z 27.8 (print [3.3, -45.4, 27.8], world [-174.5, 38.5, -21.2]), supports: unset
+  FAIL parts: PRT_cartfix_L (model): a 4.2 mm cantilever (30.7 mm2, extent [5.8, 5.3]) at z 17.2 (print [-17.1, -46.5, 17.2], world [-194.9, 37.4, -31.8]), supports: unset
+  FAIL parts: PRT_cartfix_L (model): a 4.2 mm cantilever (30.7 mm2, extent [5.8, 5.3]) at z 17.2 (print [17.1, -46.5, 17.2], world [-160.7, 37.4, -31.8]), supports: unset
+  FAIL parts: PRT_cartfix_L (model): an island starts in mid-air (6.9 mm2) at z 40.6 (print [19.7, -43.4, 40.6], world [-158.1, 40.5, -8.4]), supports: unset
+  FAIL interference: BUY_load_cell_R x BUY_front_nut_R overlap 92.2 mm3 on the same body
+  FAIL interference: BUY_load_cell_R x BUY_rear_nut_R overlap 92.2 mm3 on the same body
+  FAIL interference: BUY_load_cell_L x BUY_front_nut_L overlap 92.2 mm3 on the same body
+  FAIL interference: BUY_load_cell_L x BUY_rear_nut_L overlap 92.2 mm3 on the same body
+  FAIL interference: BUY_bench_load_cell x BUY_bench_front_nut overlap 92.2 mm3 on the same body
+  FAIL interference: BUY_bench_load_cell x BUY_bench_rear_nut overlap 92.2 mm3 on the same body
+  FAIL interference: PRT_piston_R x BUY_grip_R overlap 1.0 mm3 on the same body
+  FAIL interference: PRT_piston_L x BUY_grip_L overlap 1.0 mm3 on the same body
+  FAIL fasteners: FST_M3_screw_L0 cannot be driven: straight bit blocked by PRT_tray_L at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_L1 cannot be driven: straight bit blocked by PRT_tray_L at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_L2 cannot be driven: straight bit blocked by PRT_tray_L at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_L4 cannot be driven: straight bit blocked by PRT_tray_L at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_R0 cannot be driven: straight bit blocked by PRT_tray_R at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_R1 cannot be driven: straight bit blocked by PRT_tray_R at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_R2 cannot be driven: straight bit blocked by PRT_tray_R at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_M3_screw_R4 cannot be driven: straight bit blocked by PRT_tray_R at 3.2 mm; L-key short leg blocked 3.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_Piston_screw_L0 cannot be driven: straight bit blocked by PRT_fin_L_outboard at 5.3 mm; L-key short leg blocked 5.3 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_Piston_screw_L1 cannot be driven: straight bit blocked by PRT_fin_L_outboard at 5.3 mm; L-key short leg blocked 5.3 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_Piston_screw_R0 cannot be driven: straight bit blocked by PRT_fin_R_outboard at 5.3 mm; L-key short leg blocked 5.3 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_Piston_screw_R1 cannot be driven: straight bit blocked by PRT_fin_R_outboard at 5.3 mm; L-key short leg blocked 5.3 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_RJ45_screw_0 runs 5.0 mm into purchased part BUY_rj45_coupler, which is not what it threads into
+  FAIL fasteners: FST_RJ45_screw_1 runs 5.0 mm into purchased part BUY_rj45_coupler, which is not what it threads into
+  FAIL fasteners: FST_Stop_screw_pull_L_in cannot be driven: straight bit blocked by PRT_fin_L_inboard at 5.2 mm; L-key short leg blocked 5.2 mm out (elbow at 15.5) (all 1 poses tried)
+  FAIL fasteners: FST_Stop_screw_pull_L_out cannot be driven: straight bit blocked by PRT_fin_L_outboard at 5.2 mm; L-key short leg blocked 5.2 mm out (elbow at 15.5) (all 1 poses tried)
+  warn parts: PRT_bench_cartridge: 101 wall samples < 1.6 mm (min 0.07)
+  warn parts: PRT_bench_cartridge: 1216 mm2 of sloped overhang steeper than 45 deg, supports=no
+  warn parts: PRT_bench_cartridge (model): a 3.0 mm cantilever (18.4 mm2, extent [5.4, 3.4]) at z 23.8 (print [-17.3, -39.3, 23.8], world [410.5, 44.6, -25.2])
+  warn parts: PRT_bench_cartridge (model): a 3.0 mm cantilever (18.4 mm2, extent [5.4, 3.4]) at z 23.8 (print [17.3, -39.3, 23.8], world [445.1, 44.6, -25.2])
+  warn parts: PRT_bench_cartridge (model): a 1.2 mm cantilever (4.7 mm2, extent [4.4, 1.1]) at z 48.6 (print [17.8, 15.3, 48.6], world [445.6, 99.2, -0.4])
+  warn parts: PRT_bench_cartridge (model): a 1.2 mm cantilever (4.7 mm2, extent [4.4, 1.1]) at z 48.6 (print [17.8, 16.9, 48.6], world [445.6, 100.8, -0.4])
+  warn parts: PRT_bench_cartridge (model): a 1.2 mm cantilever (4.7 mm2, extent [4.4, 1.1]) at z 55.6 (print [17.8, -4.7, 55.6], world [445.6, 79.2, 6.6])
+  warn parts: PRT_bench_cartridge (model): a 1.2 mm cantilever (4.7 mm2, extent [4.4, 1.1]) at z 55.6 (print [17.8, -3.1, 55.6], world [445.6, 80.8, 6.6])
+  warn parts: PRT_bench_washer_front: only 2 mm2 flat on the bed in print orientation
+  warn parts: PRT_bench_washer_rear: only 2 mm2 flat on the bed in print orientation
+  warn parts: PRT_cartfix_L: 51 wall samples < 1.6 mm (min 0.21)
+  warn parts: PRT_cartfix_L: 208 mm2 of sloped overhang steeper than 45 deg, supports=no
+  warn parts: PRT_cartfix_L (model): a 3.0 mm cantilever (18.4 mm2, extent [5.4, 3.4]) at z 23.8 (print [-17.3, -39.3, 23.8], world [-195.1, 44.6, -25.2])
+  warn parts: PRT_cartfix_L (model): a 3.0 mm cantilever (18.4 mm2, extent [5.4, 3.4]) at z 23.8 (print [17.3, -39.3, 23.8], world [-160.5, 44.6, -25.2])
+  warn parts: PRT_cartfix_L has no print_rot; checked as modelled
+  warn parts: PRT_cartfix_R: 51 wall samples < 1.6 mm (min 0.21)
+  warn parts: PRT_cartfix_R: 208 mm2 of sloped overhang steeper than 45 deg, supports=no
+  warn parts: PRT_cartfix_R has no print_rot; checked as modelled
+  warn parts: PRT_cover does not fit P1S
+  warn parts: PRT_cradle: 473 mm2 of sloped overhang steeper than 45 deg, supports=no
+  warn parts: PRT_fin_L_inboard: 69 wall samples < 1.6 mm (min 0.32)
+  warn parts: PRT_fin_L_inboard (model): a 98.1 mm bridge at z 20.0 (print [-13.8, -10.6, 20.0], world [-157.8, 62.6, -31.2])
+  warn parts: PRT_fin_L_inboard (model): a 43.3 mm bridge at z 21.0 (print [-29.9, 18.4, 21.0], world [-156.8, 91.6, -15.1])
+  warn parts: PRT_fin_L_inboard (model): a 1.1 mm cantilever (8.6 mm2, extent [6.5, 6.3]) at z 19.0 (print [12.1, 37.8, 19.0], world [-158.8, 111.0, -57.1])
+  warn parts: PRT_fin_L_inboard (model): a 1.1 mm cantilever (0.3 mm2, extent [0.5, 1.3]) at z 17.0 (print [-29.9, -23.6, 17.0], world [-160.8, 49.6, -15.1])
+  ... 44 more untriaged warnings in the report
+  not checked: fasteners: assembly order (declare assembly_order so access is tested against the parts present at that step); fasteners: service access (declare service ops: assembly-order access says nothing about re-adjusting a built machine); fasteners: pilot/clearance hole diameters (use cadlib.features for those); wrench access to nuts; drop: no drop_tests configured (feed paths unsimulated); payload: no payload_fit rows (pocket or slot admits two payloads, or jams one); assembly: no assembly_order (fastener access tested with everything present); flexures: no springs or snap arms declared (print orientation vs bending stress); stability: dynamic loads (recoil, pan acceleration), friction/sliding; cables: bend radius of a lead that is not modelled as a route, slack across joints, connector positions (review by section render); not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness

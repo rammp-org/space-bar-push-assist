@@ -1,0 +1,25 @@
+{
+ "slide_out": [
+  {"name": "a4R README step 14: rear cell nut R comes out the cartridge socket to be re-snugged after 24 h (needs a clear path with the unit assembled)",
+   "objects": ["BUY_rear_nut_R"], "ignore": ["BUY_load_cell_R", "PRT_washer_rear_R"], "dir": [0, 1, 0], "dist": 40, "step": 0.5},
+  {"name": "a4R README step 14: front cell nut R comes out its O16 bore to be re-snugged after 24 h with the unit on the chair",
+   "objects": ["BUY_front_nut_R"], "ignore": ["BUY_load_cell_R", "PRT_washer_front_R"], "dir": [0, -1, 0], "dist": 45, "step": 0.5},
+  {"name": "a4R README step 14: rear cell nut L comes out the cartridge socket",
+   "objects": ["BUY_rear_nut_L"], "ignore": ["BUY_load_cell_L", "PRT_washer_rear_L"], "dir": [0, 1, 0], "dist": 40, "step": 0.5},
+  {"name": "a4R README step 14: front cell nut L comes out its O16 bore with the unit on the chair",
+   "objects": ["BUY_front_nut_L"], "ignore": ["BUY_load_cell_L", "PRT_washer_front_L"], "dir": [0, -1, 0], "dist": 45, "step": 0.5}
+ ],
+ "stacks": [
+  {"name": "a4R R push stop with the jacking couple: the stop is set by jacking the tongue 24 mm below the cell axis, the grip pushes on the axis (engagement above 1.2 x FS, fraction of FS)",
+   "limit": 0.3,
+   "terms": [
+    {"what": "designer terms (pen mark, touch, hold, thermal) as in the designer's push-stop row", "tol": "=0.7 * 5 / 360 / dfs_ref + 0.012 + 0.006 + abs(stop_dT_p) * 10 / dfs_ref"},
+    {"what": "jacking couple: 1.2 FS x stop arm^2 / leaf-pair rotational stiffness (E 3000), over dfs_ref", "tol": "=1.2 * 196.2 * stop_z * stop_z / (3000.0 * 2 * cart_hw * leaf_t / leaf_free_len * leaf_pitch * leaf_pitch / 2) / dfs_ref"}
+   ]},
+  {"name": "a4R R push range lost to a 100 N downward lean on the grip (link turns about the cell; tongue 24 mm below), fraction of FS",
+   "limit": 0.2,
+   "terms": [
+    {"what": "100 N x (grip y 219.5 - leaf centroid) / k_rot x stop arm, over dfs_ref", "tol": "=100 * (219.5 - (link0 + link1) / 2) / (3000.0 * 2 * cart_hw * leaf_t / leaf_free_len * leaf_pitch * leaf_pitch / 2) * (-stop_z) / dfs_ref"}
+   ]}
+ ]
+}

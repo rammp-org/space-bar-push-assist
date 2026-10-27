@@ -3,11 +3,14 @@
 
 Run after build_concept.py:
   /Applications/Blender.app/Contents/MacOS/Blender -b cad/blender/push_assist_concept.blend -P cad/blender/export_prints.py
-Out: cad/print/stl/*.stl, cad/print/plate_*.3mf, cad/print/plates.txt
+Out: cad/print/stl/*.stl, cad/print/plate_*.3mf, cad/print/plates.txt. Everything else in cad/print is deleted first
+(a3 #5: stale plates from earlier attempts sat beside the current ones); cad/print/stl_cc, which to_cadcheck.py
+writes for `cad check`, is left alone.
 Check: ~/code-stuff/alex-3d-skills/skills/print-cad-blender/scripts/cad printcheck cad/print/stl
 """
 import math
 import os
+import shutil
 import struct
 import zipfile
 
@@ -17,7 +20,7 @@ from mathutils import Matrix, Vector
 
 HERE = os.path.dirname(os.path.abspath(bpy.data.filepath))
 OUT = os.path.join(HERE, "..", "print")
-BED = (350.0, 320.0)          # H2D plate; single-nozzle prints keep within 325 x 320
+BED = (325.0, 320.0)          # H2D single-nozzle area
 GAP = 8.0
 
 # Print orientation per part: rotation applied before dropping onto the bed.
@@ -33,30 +36,31 @@ PARTS = {
     "Fin L outboard half": ("fin_L_outboard", R_INBOARD),
     "Tray L": ("tray_L", R_FLAT),
     "Tray R": ("tray_R", R_FLAT),
-    "Cover L": ("cover_L", R_FLAT),
-    "Cover R": ("cover_R", R_FLAT),
-    "Piston R": ("piston_R", R_PISTON),
-    "Piston L": ("piston_L", R_PISTON),
+    "Cover": ("cover", R_FLAT),
+    "Piston R": ("piston_R", R_OUTBOARD),        # on its side, D-flat (inboard, -X) down
+    "Piston L": ("piston_L", R_INBOARD),
+    "Cartridge R": ("cartridge_R", R_OUTBOARD),  # on its side, inboard face down: the leaves bend in the layer plane
+    "Cartridge L": ("cartridge_L", R_INBOARD),
+    "Washer front R": ("washer_front_R", R_PISTON),   # flat
+    "Washer front L": ("washer_front_L", R_PISTON),
+    "Washer rear R": ("washer_rear_R", R_PISTON),
+    "Washer rear L": ("washer_rear_L", R_PISTON),
+    "Cradle": ("cradle", R_FLAT),                # bench tool for setting the stops: base down
+    "Setting plug": ("setting_plug", R_OUTBOARD),  # like a piston: D-flat (-X) down, T-slot up
+    "Mass hanger": ("mass_hanger", R_FLAT),        # a7: flat (12 mm tall), keyhole slot vertical
 }
-# Fins standing on their bottom face (assembly orientation): four fit a P1S bed. Stress at the
-# fin root is ~0.2 MPa at a 200 N push, so layers across the fin are fine for a test unit.
-STANDING = {f"Fin {s} {h} half": (f"fin_{s}_{h}_standing", R_FLAT) for s in "RL" for h in ("inboard", "outboard")}
-
+KEEP = {"stl_cc"}             # owned by to_cadcheck.py
 # Plates: rows of parts, packed left to right, rows front to back. A part may be turned 90 deg
 # about Z on the bed (True) to pack better.
 PLATES = [
-    ("plate_1_fins", [[("fin_R_inboard", False), ("fin_R_outboard", False)],
-                      [("fin_L_inboard", False), ("fin_L_outboard", False)]]),
-    ("plate_2_trays", [[("tray_L", True), ("tray_R", True)]]),
-    ("plate_3_covers_pistons", [[("cover_L", True), ("cover_R", True)],
-                                [("piston_R", False), ("piston_L", False)]]),
-]
-# Structure-only set for one night on an H2D and a P1S (no covers).
-TONIGHT = [
-    ("tonight_H2D_trays_pistons", (325, 320), [[("tray_L", False), ("piston_R", False), ("piston_L", False)],
-                                              [("tray_R", False)]]),
-    ("tonight_P1S_fins_standing", (256, 256), [[("fin_R_inboard_standing", False), ("fin_R_outboard_standing", False),
-                                               ("fin_L_inboard_standing", False), ("fin_L_outboard_standing", False)]]),
+    ("plate_H2D_1_fins", (325, 320), [[("fin_R_inboard", False), ("fin_R_outboard", False)],
+                                      [("fin_L_inboard", False), ("fin_L_outboard", False)]]),
+    ("plate_P1S_tray_L_pistons_washers", (256, 256), [[("tray_L", False)], [("piston_R", True)], [("piston_L", True)],
+                                                     [("washer_front_R", False), ("washer_front_L", False),
+                                                      ("washer_rear_R", False), ("washer_rear_L", False)]]),
+    ("plate_P1S_bench_cradle_plug", (256, 256), [[("cradle", False), ("setting_plug", True)], [("mass_hanger", False)]]),
+    ("plate_H2D_2_cover_tray_R_cartridges", (325, 320), [[("cover", False)],
+                                                         [("tray_R", False), ("cartridge_R", False), ("cartridge_L", False)]]),
 ]
 
 
@@ -116,16 +120,27 @@ def write_3mf(path, items):
         z.writestr("3D/3dmodel.model", model)
 
 
+def clear_out():
+    """Empty cad/print except KEEP, so only the current plates and STLs are there to print."""
+    os.makedirs(OUT, exist_ok=True)
+    for n in os.listdir(OUT):
+        if n in KEEP:
+            continue
+        p = os.path.join(OUT, n)
+        shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
+
+
 def main():
+    clear_out()
     os.makedirs(os.path.join(OUT, "stl"), exist_ok=True)
     meshes = {}
-    for obj_name, (stl, R) in list(PARTS.items()) + list(STANDING.items()):
+    for obj_name, (stl, R) in PARTS.items():
         verts, tris = oriented_tris(bpy.data.objects[obj_name], R)
         meshes[stl] = (verts, tris)
         write_stl(os.path.join(OUT, "stl", stl + ".stl"), verts, tris)
 
     report = []
-    for plate, bed, rows in [(n, (325, 320), r) for n, r in PLATES] + TONIGHT:
+    for plate, bed, rows in PLATES:
         placed = []                      # (stl, verts, tris, footprint w, d)
         for row in rows:
             r = []

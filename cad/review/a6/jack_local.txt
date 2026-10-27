@@ -1,0 +1,9 @@
+plug lip, nut flats vertical: nut-on-lip contact 19.7 mm2, centroid r 3.63
+plug lip, nut flats horizontal: nut-on-lip contact 20.4 mm2, centroid r 3.65
+  F   589 N: lip shear 11.5 MPa (peak x1.5 17.2), plate bending 36.0 MPa; at the D-flat side (x -4.85) the shear plane is a layer plane
+  F   638 N: lip shear 12.4 MPa (peak x1.5 18.6), plate bending 39.1 MPa; at the D-flat side (x -4.85) the shear plane is a layer plane
+  F   736 N: lip shear 14.3 MPa (peak x1.5 21.5), plate bending 45.1 MPa; at the D-flat side (x -4.85) the shear plane is a layer plane
+  fix lip 4.0 mm at 736 N: shear 7.5 MPa, bending 12.4 MPa
+  fix lip 5.0 mm at 736 N: shear 6.0 MPa, bending 7.9 MPa
+upright skin (push), F 589: nut bearing 20.4 mm2 -> 29 MPa (in layer plane); skin shear 3.6 MPa
+upright skin (push), F 736: nut bearing 20.4 mm2 -> 36 MPa (in layer plane); skin shear 4.5 MPa

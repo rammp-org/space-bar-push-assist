@@ -1,0 +1,94 @@
+{
+ "functionality": 4,
+ "manufacturability": 4,
+ "aesthetics": 9,
+ "anchors": {
+  "functionality": "<=4: 'parts can't be assembled'. The load cell cannot be fitted to the cartridge. The 45 deg stud slots and the nut channel end inside the part, so the opening across the motion is 3.2 mm for a 4.9 mm stud and about 6.7 mm for a 9.24 mm nut. The head physics is otherwise good: zero lean crosstalk re-derived, and the catch lands at 130-183 N. With the slot fixed I would score about 7 (one major: the catch friction shunt is 13-33 N, not 3.3-8.3)",
+  "manufacturability": "<=4: 'parts can't be assembled' (same blocker, found on the exported STL and in the model). Otherwise strong: 0 cadcheck fails, 0 printcheck fails, no supports, 18 parts, 26.4 h on 2 H2D + 2 P1S plates, cad bom PASS, no soldering, no special tools. The fix is one line in stud_slot() plus a reprint of both cartridges (3.2 h). With it, about 8",
+  "aesthetics": "9: the exterior is unchanged from a6, and every rubric item still holds: one radius and edge-break set, the V reveal, counterbored heads, no exposed wires, two colours with a meaning. The step4 coupler is fixed. Polish only: the 8 cover heads still read as black holes in 01 and 03"
+ },
+ "checks": "cad check main PASS 0 fail 51 warn (0 untriaged; warn_list identical to cadcheck_a7.json; unbounded_allows {}, stale_accepts []); moving PASS 0/0; printcheck (cad/print/stl) PASS 18 parts 0 fail 20 warn; cad bom PASS 13 rows; a6 review rows verbatim: plug lip PASS 7.24 / 9.05 MPa, both crosstalk rows FAIL 15.63 / 11.18 but stale (they hard-code a6 geometry and threshold); a7 review rows (cadcheck_review.json): 5 FAIL: cell-path rear nut/washer blocked by PRT_cartridge_R at 24 mm; cell blocked by a push stop screw at 4 mm if the stops go in first; catch shunt 33.0 / 13.2 N > 10; washer over slot 35 MPa > 20 (estimate). 1 PASS: rear strips 1345 N < 1469 at a 600 N lean",
+ "previous_issues": {
+  "1 setting-plug lip 2.1 mm (major)": "FIXED - a6R rows verbatim: 7.24 MPa at 1.2 x FS (a6 17.23) and 9.05 at 1.5 x FS (a6 21.54), limit 12",
+  "2 soldering iron for the HX711 header (major)": "FIXED - SparkFun SEN-15242 product page: solderless 4-pin spring terminal and 2 Qwiic sockets. Not verified: the Waveshare ESP32-P4 board needs male header pins for the Qwiic-to-female cable",
+  "3 lean crosstalk dead band": "FIXED - re-derived: leaf shear 12EI/L^3 a - 6EI/L^2 = 0 at a = L/2 = 13.5, so 0.000 %, and 0.041 / 0.102 % for a 0.2 / 0.5 mm height error. The adapted rows read 0 N",
+  "4 known-mass check advisory, c sign": "FIXED - bench_scale.ino 356-361 refuses m unless massCheck > 0 (m! overrides); 311 stores a pull calibration negative; 289/299/314 reset the check; PASS_LO 0.88",
+  "5 lip friction / 150 N lean limit": "PARTIAL - the catch saddle lands first: 130-183 N by my model (designer 147-206). But its friction shunt is 13.2 N for a dFS 0.10 cell and 33.0 N at the largest setting (fixed-guided legs, row FAIL vs 10 N), not 3.3 / 8.3, so the README's 'no lean limit for the reading' is overstated",
+  "6 docs: step4 render, buckling margin text": "PARTIAL - step4_electronics.png now shows the coupler above the floor (fixed). head_calc 4 prints one model now, but that model is wrong past contact: the catch is 7.5 mm behind the rear leaf, so the rear strips keep loading (1.02-1.94 N per N). They carry 929-1416 N at 600 N, x3.1-4.7 to buckling, not 470-650 N and x9.4",
+  "7 known-mass rig improvised": "FIXED - printed stirrup hanger and hang eye on the jack axis; rows 11.7 MPa (limit 20), 1.35 MPa across layers (limit 5), offset 0"
+ },
+ "issues": [
+  {
+   "rank": 1,
+   "severity": "blocker",
+   "metric": "F,M",
+   "title": "The cell still cannot be fitted: the 45 deg stud slots and the rear-nut channel stop short of the inboard face",
+   "evidence": "build_concept.stud_slot() sets the far end at X - d, cz + d with d = (cart_hw + 8)/sqrt(2) = 19.8. The centreline therefore ends at x 158.0, 0.2 mm inside the inboard face (x 157.8), and the perpendicular end edge leaves a wedge of material over the upper half of the exit. Probing PRT_cartridge_R with cad q inside at x 158.3: at y 44 (block) and y 62.5 (drop wall) the slot is open only for z -12.6 to -8.6 (solid at -13 and -8). At y 67 the nut channel is open for z -18 to -9 (solid at -8 to -4). The channel centre at 28 mm, (158.0, 67, -8.7), is inside the solid. Across the 45 deg motion the opening is 3.2 mm for an M5 stud (4.9) and about 6.7 mm for the rear nut (9.24 AC) and its Ø13 washer. The exported STL agrees: cartridge_R.stl at print z 0.5 has a void only over x -8.5..-4.6, about 3 mm across the motion (scripts/stl_inside.py). Row 'a7R the rear nut and washer ... ride out up-inboard' is blocked by PRT_cartridge_R at 24 mm (cadcheck_review.json). No designer row covers this path: insertion does not check parts of the same step, and checks.json allows PRT_cartridge_*>BUY_load_cell_*, so a slide row on the cell sees nothing",
+   "fix": "In stud_slot(), push the far end past the inboard face by its own half-width plus 1 mm: d = cart_hw + half + 1 as the x and z offset (do not divide by sqrt 2). That gives 23.75 for the stud slots and 28.2 for the 7.2 half-width nut channel, about 34 and 40 mm along the slot. Check that the deeper cut clears the link above the drop (the nut channel's top corner reaches about z +2 at the inboard face over y 64-72.5; the socket starts at y 73). Adopt the a7R rear-nut/washer slide row into checks.json, and add the same row on a check-only copy of the cell without the cartridge allow. Reprint both cartridges (2 x 1.58 h)"
+  },
+  {
+   "rank": 2,
+   "severity": "major",
+   "metric": "F",
+   "title": "The catch's friction shunt is up to 4x the claimed value: 13 N for a typical cell, 33 N at the largest stop setting",
+   "evidence": "The catch_k row uses 3EI/L^3 x 2 = 27.5 N/mm and calls it 'the stiff bound'. It is neither bound. With a free saddle and the contact 8.9 mm above the leg tops (piston bottom z -11.1, legs end at z -20), k = 10.2 N/mm. Once the lean presses the 2.5 mm saddle face square, the legs work fixed-guided: 12EI/L^3 x 2 = 110 N/mm. Holding it square at 0.12 mm needs only 145 N.mm, which is about 116 N of contact force, reached roughly 60 N of lean past contact. Rows: 'a7R catch friction shunt, stiff bound' 33.0 N and '... dFS 0.10' 13.2 N, both FAIL against the 10 N band (scripts/head_a7.py). The error always lowers the reading (the safe direction), but the README's 'no lean limit for the reading' does not hold",
+   "fix": "Crown the saddle's contact face along y: an R1.2 crown across the 2.5 mm thickness, so the line of contact sits on the legs' centreline and the saddle cannot hold a moment. The legs then work as free cantilevers: 10.2 N/mm, which gives 1.2 N at 0.12 mm and 3.1 N at 0.30 mm. Then change catch_k to the free-with-offset formula k = 2 / ((L^3/3 + h L^2 + h^2 L) / EI) with h = 8.9, and keep the stiff-bound row as a check. Under 1 h of CAD, plus the cartridge reprint already needed for #1"
+  },
+  {
+   "rank": 3,
+   "severity": "minor",
+   "metric": "F",
+   "title": "Load sharing past catch contact is modelled wrongly: the rear strips keep loading",
+   "evidence": "head_calc 4 and the README pivot the extra lean about the leaf centroid: the catch takes 4.0 x, 'the strips stop loading', the rear strips carry 470-650 N, x9.4 to buckling. The catch is only 7.5 mm behind the rear leaf. A rigid link on three axial supports (leaves 6944 N/mm each, catch legs 7100-9900 N/mm) gives, per extra N: front -1.86, rear +1.02, catch +1.84. With the saddle and contact compliance (legs at 1/3 stiffness) the rear takes +1.94. At 600 N the rear strips carry 929-1416 N against 4407 N, x3.1-4.7. Row 'a7R rear strips at a 600 N lean' 1345 N, limit 1469 (buckling / 3), PASS. The catch carries 418-1325 N, not 1815 (the leg row is conservative)",
+   "fix": "Replace the pivot model in head_calc 4 with the three-support solve (scripts/head_a7.py section 3) and quote x3 in the README. No geometry change is needed"
+  },
+  {
+   "rank": 4,
+   "severity": "minor",
+   "metric": "F,M",
+   "title": "The 1.6 mm printed washers now bridge the 5.5 mm stud slot under the cell nuts",
+   "evidence": "At 1.2 x FS pull (589 N) about 145 N of the M5 nut's bearing lies over the slot. As a clamped strip 4.45 wide x 1.6 thick across 5.5 mm, that is about 35 MPa in the layer plane (estimate; row FAIL vs 20). PLA Basic tensile strength is about 35 MPa. The 100-200 N preload holds 6-12 MPa there continuously, which is a creep path for the clamp. The nut (8 AF) still spans the slot if the washer cracks, so the failure is soft (zero drift), not a release",
+   "fix": "Make both washers 2.4 mm thick (bending falls by (1.6/2.4)^2, to about 16 MPa). The front stack is then boss 1 + floor 4 + washer 2.4 + nut 4 = 11.4 against the 12.15 mm stud, so it still reaches through. Deepen the rear nut bore by 0.8. Or print the washers in PETG, as the README already allows"
+  },
+  {
+   "rank": 5,
+   "severity": "minor",
+   "metric": "F",
+   "title": "The catch gap is 0.10 radial on a printed concave face, and the pull-induced pitch uses 0.072 of it",
+   "evidence": "Row 'a7 R push-induced pitch' 0.072 vs 0.10. At 1.2 x FS pull, another 36 N of lean (0.028 / 0.00077 mm per N) lands the piston on the saddle. FDM hole and shaft tolerances (+-0.1 each) cover the whole gap. The designer accepts touching at rest (an extra shunt that calibrates out), but with #2 that shunt is 110 N/mm under load, not 28",
+  "fix": "With the crowned saddle from #2, keep catch_c at 0.10. If the saddle prints tight, ream it with a Ø22.4 drill-guided sanding dowel. Add a README check: the piston must slide through the saddle by hand without binding"
+  },
+  {
+   "rank": 6,
+   "severity": "minor",
+   "metric": "F",
+   "title": "Piston bending at a 600 N lean is 52 MPa, a factor of about 1.45 on PLA's in-layer bending strength",
+   "evidence": "Row 'a7 R piston bending at a 600 N lean' 52.3 MPa (limit 60). Re-derived: 600 x 90.25 x 11.1 / 11488 = 52.3. Bambu PLA Basic bending strength is about 76 MPa. a6 had 40 MPa with the lip at 150",
+   "fix": "Print the pistons at 100 % infill with 6 walls, or in PETG with the cartridges. Or move the catch 10 mm rearward (y 139), which gives 46 MPa at 600 N, if the fin pocket allows it. State the 600 N case and its x1.45 factor in the README"
+  },
+  {
+   "rank": 7,
+   "severity": "minor",
+   "metric": "M",
+   "title": "The assembly_order step text says stops first, but the cell can only go in before them",
+   "evidence": "checks.json assembly_order[3] and [9]: 'stop nuts ... push screws ... pull screws ...; cell: ...'. Row 'a7R same path with the stop hardware already in': the cell is blocked by FST_Stop_screw_push_R_in at 4 mm (0.72 mm to the other). README step 1 has the right order (cell first)",
+   "fix": "Reorder the step text to: cell with its rear washer and nut; front washer and nut; settle; stop nuts and screws; set the stops"
+  },
+  {
+   "rank": 8,
+   "severity": "minor",
+   "metric": "M",
+   "title": "Purchased-part assumptions not verified: the Qwiic Scale hole pattern and male pins on the ESP32 board",
+   "evidence": "The only footprint source is a SparkFun forum post (Eagle import: 1000 x 1400 mil board, holes 800 x 1200 mil). There is no official drawing on the product page or the hookup guide. The Qwiic-to-female-socket cable needs male header pins fitted on the Waveshare ESP32-P4, which neither the README nor the BOM confirms. The two-port I2C plan is sound: the P4 has two HP I2C controllers routable to any GPIO",
+   "fix": "Measure one board before printing the trays (the README already says so). Confirm the Waveshare board ships with pins fitted. If it doesn't, use a Qwiic-to-Qwiic cable to a Qwiic adapter, or a press-fit header, so no iron is needed"
+  },
+  {
+   "rank": 9,
+   "severity": "minor",
+   "metric": "A",
+   "title": "Cover heads read as black holes (carried from a6)",
+   "evidence": "01_hero.png, 03_handle_closeup.png: 8 dark dots on the light cover",
+   "fix": "Polish only: put a 0.5 mm chamfer on the Ø6.5 counterbores, or use the darker body colour for the cover"
+  }
+ ]
+}

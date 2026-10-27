@@ -1,0 +1,32 @@
+# Review a2 notes (reviewer 2)
+
+- Copied cad/blender/check.blend -> cad/review/a2/check_copy.blend (45 MB, Oct 26 22:42).
+- Designer report cadcheck_a2.json: PASS 0 fail, 35 warn (35 untriaged). Coverage: parts, interference (88 obj, joints swept [] -> NO joints), fasteners (42 screws, 14 nuts), assembly 8 steps 0 unplaced, insertion, cables 5 routes. not_checked: service access, hole diameters, wrench access, flexures (none declared), cable lead lengths, BOM.
+- checks.json: 8 allow, 8 assembly steps, NO distances/service/slide_out/stacks/flexures/fits/cable_leads rows -> the --only service,slide,distances,stacks,flexures in the designer's run checked nothing.
+- manifest: params {} (empty), joints {} (piston is "static", no prismatic joint), features [].
+- Pistons now print on their side (print_rot about Y), supports=yes under the spigot. Fins/trays/covers supports=no.
+- Designer warns: sloped overhang >45 deg on supports=no parts: fin inboard 224 mm2, fin outboard 342 mm2, tray_L 506, tray_R 477.
+- My cad check (cad/review/a2/cadcheck.json, same --only): PASS 0 fail 35 warn, identical warn list to designer. Total est 981 g, 19.3 h (est_h per part looks optimistic: tray 148 g in 2.87 h).
+- My printcheck on stl_cc (cad/review/a2/printcheck.json): PASS 0 fail; need support: pistons only (spigot cantilever 4.2 mm off bed, 127.7 mm ledge). Fins: max bridge 13.5 (nut void ceiling 20x14 at 11 mm), trays max ledge 0.9.
+- Overhang map (scripts/overhang_map.py on stl_cc): fins' >45 area is mostly flat bridge ceilings (nut void 13.7 span, boss pocket 6.4, M4 nut slots 7.5, stop-nut pocket 7.4) -> ok as bridges. Fin outboard 38 mm2 at 36 deg from horizontal near print z 21. Trays: >45 area is the tops of horizontal round holes (M4 O4.5/O8 cbore, M5 O5.5, lower M5 spot face O11 at 15 deg) -> self-supporting, ok.
+- Piston (scripts/piston_body_overhang.py): 821 mm2 of the O33 SLIDING body (y over the full 70 mm body) is overhang steeper than 45 deg (between ~22 deg where the 1.2 flat ends and 45 deg) -- NOT flagged by printcheck (tool bug), and the BOM only declares support under the spigot. Spigot 2211 mm2. Sliding surface has 0.3 mm radial clearance -> droop or support scars bind it.
+- STOP PIN (a1 #3): sleeve-bore teardrop tips (d/2*sqrt2 = 23.76) reach x=154.14 / 201.56 at z=0 along y 89.5-151: inboard wall 1.34 mm (ray 152.9,110,0 +x hits fin at 154.139; inside 155,110,0 = []). Stop-pin cbore O8 runs to 157.3, so it cuts through that skin. `cad q inside x,122.6,0` (0.6 mm off the pin's -y side) for x=153..201: no fin material anywhere (only pin and nut) -> the pin has NO fin bearing in Y between the faces; its only reaction is the head in the O8 cbore (head O7, 0.5 radial play) on a crescent <=1.3 mm deep. Stop nut sits inside the teardrop void (no pocket walls), and `dist FST_Stop_nut_R PRT_piston_R` = -1.511 mm3 (overlap at y121.5-128.5, |z|~2.6): nut corners 0.3 mm inside the piston's O33 envelope. Nut has no shoulder facing +x, so "snug" pulls it onto the piston. The cadcheck interference did not flag the nut/piston overlap.
+- Model as drawn: piston face 0.2-0.4 from the cell rear face (dist piston/cell 0.201), rear nut (y96.2-100.4) floats in its pocket (y96-101): 0.2 front / 0.6 rear. Pin slot +-0.3 -> in push the pin (0.3) closes before the face (0.4): load path not closed in the model.
+- Piston sleeve: dist piston/fin inboard 0.296, outboard 0.302 (radial clearance 0.3). Sliding length 60 (bore y89.5-151). Grip y162-297, centre 229.5 -> arm 79.5 from lip. Edge reactions sum = F(2*79.5+60)/60 = 3.65 F -> friction 0.37-1.1 F at mu 0.1-0.3 (a1: 4.56F, 0.46-1.37).
+- Mount: tray_R and fin_R_inboard touch the plate (dist 0.0 at the land, z~12). Upper M5 row u=+5.9, lower M5 (x=+-120 only) u=-54.9, foot bottom u=-69.4 -> 75 mm lever from the foot to the upper row (a1: 20). 150 N down on a grip at y~230: ~460 N in the upper pair. Lower M5x25 engages 2.88 of the 3.8 T-nut.
+- Two halves (tray L / tray R, cover L / cover R) split at x=0 with NO fastener across x=0 (BOM): two pods butted, not one unit.
+- Reviewer overlay (review_rows.json -> cadcheck_review.json, --only distances,service,slide --overlay-only): 5 fail, 1 warn.
+  - slide: piston R pushed -y blocked by FST_Stop_pin_R at 0.40 mm.
+  - slide: stop pin+nut pushed -y (piston ignored) first blocked by PRT_fin_R_inboard at 0.75 mm (head in cbore) -> push stop total ~1.15 mm before any fin reaction; FAIL vs 0.1.
+  - distances: stop nut to piston 0.094 nearest (cad q dist: -1.511 mm3 overlap) both sides; FAIL vs min 0.3.
+  - distances: piston to cell 0.201 (floats, wanted seated <=0.05) FAIL.
+  - cover R straight up: passes, 0.00 mm to cover_L (butt joint) -> a1 #8 cover part fixed.
+  - service: M4 fin bolts straight 18 / L-key 15.5 with cover off; M5s straight 14 / L-key 15.5.
+- Correction on piston overhang: the sleeve bore is a teardrop, circular only within +-45 deg of +-z; the piston's overhang band (22-45 deg from -x) faces the V-tip void. Clearance to the V at 22 deg = 16.8/cos23 - 16.5 = 1.75 mm, at 40 deg 0.36 mm -> droop there does not bind. Downgraded to minor (support/printcheck-coverage note only).
+- cad bom cad/BOM.md manifest.json: PASS 7 rows, 0 disagree.
+- cad slice --detect: bambustudio unusable (CLI segfault) -> print time from cadcheck est only (19.3 h, 981 g).
+- RJ45 coupler z-76..-40, 45.1 mm from the chair plate/block (dist) -> PoE plug from below is clear.
+- Insertion: fin groups drop in -Z, covers +Z; cables exposed_samples 0 on all 5 routes; load-cell lead route 71.4 mm, HX711 leads 118/146, patch 71.8 (kink R2.7).
+- Renders viewed: 01_hero, 02_side, 03_handle_closeup, 06_internals, 07_lead_side, 08_head_open (08 shows the stop pin spanning the open bore trough with the nut in the V-tip). New: r_lip_face_R.png (cad q render 230,330,40 -> 177.8,150,0): sleeve-bore teardrop tip is an open wedge notch on the lip face beside the piston; also visible in 03_handle_closeup. sec_y125_stop_pin.png was not useful (section did not cut) and was deleted. check_copy.blend deleted after the run (45 MB).
+- Radii in build_concept.py: fin corners 4/10/2, open_r 6, fillet_r 12, window_r 8, tray 0.5/1/4/2 + fillet 1, bay 1/6, cover 0.5/1/4/1.5, piston fillet 2; manifest params {}.
+- Hand calc mount: upper M5 pair tension ~ F*230/75 = 3.1 F -> 460 N at 150 N; M5 cap head bearing 33 mm2 -> 14 MPa at 150 N per pair.

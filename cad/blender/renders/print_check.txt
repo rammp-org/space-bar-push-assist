@@ -3,9 +3,17 @@ Fin R inboard half            153.7 x  140.0 x   25.0 mm  split face down       
 Fin R outboard half           153.7 x  140.0 x   25.0 mm  split face down              fits
 Fin L inboard half            153.7 x  140.0 x   25.0 mm  split face down              fits
 Fin L outboard half           153.7 x  140.0 x   25.0 mm  split face down              fits
-Piston R                       36.0 x   33.0 x  187.0 mm  standing on its front face   fits
-Piston L                       36.0 x   33.0 x  187.0 mm  standing on its front face   fits
-Tray L                        159.8 x  153.7 x   87.0 mm  bottom down, open top up     fits
-Tray R                        159.8 x  153.7 x   87.0 mm  bottom down, open top up     fits
-Cover L                       159.8 x  144.4 x    5.0 mm  crown up, supported under    fits
-Cover R                       159.8 x  144.4 x    5.0 mm  crown up, supported under    fits
+Piston R                      209.0 x   24.0 x   19.8 mm  on its side, D-flat down     fits
+Piston L                      209.0 x   24.0 x   19.8 mm  on its side, D-flat down     fits
+Tray L                        167.7 x  152.8 x   86.0 mm  bottom down, open top up     fits
+Tray R                        167.7 x  152.8 x   86.0 mm  bottom down, open top up     fits
+Cover                         305.0 x  141.5 x    6.0 mm  flat, underside down         fits
+Cartridge R                    99.2 x   64.0 x   40.0 mm  on its side, inboard face down fits
+Cartridge L                    99.2 x   64.0 x   40.0 mm  on its side, inboard face down fits
+Washer front R                 15.0 x   15.0 x    2.4 mm  flat                         fits
+Washer rear R                  13.0 x   13.0 x    2.4 mm  flat                         fits
+Washer front L                 15.0 x   15.0 x    2.4 mm  flat                         fits
+Washer rear L                  13.0 x   13.0 x    2.4 mm  flat                         fits
+Cradle                        143.7 x   54.0 x   69.0 mm  base down                    fits
+Setting plug                   63.5 x   24.0 x   19.8 mm  on its side, D-flat down     fits
+Mass hanger                    22.5 x   12.0 x   20.0 mm  on its side, inboard face down fits

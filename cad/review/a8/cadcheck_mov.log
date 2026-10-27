@@ -1,0 +1,7 @@
+[cadcheck   0.0s] objects: 23 printed, 18 purchased, 93 fasteners, 5 cables; joints {}
+[cadcheck  70.7s] slide done
+[cadcheck  72.6s] distances done
+[cadcheck  81.0s] sightlines done
+CADCHECK PASS: 0 fail, 0 warn (0 untriaged, 0 accepted) -> cad/review/a8/cadcheck_movlink.json
+  not checked: not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness
+$CAD check /tmp/a8rev/check_moving.blend cad/blender/checks_moving.json     234.18s user 108.24s system 417% cpu 1:22.01 total

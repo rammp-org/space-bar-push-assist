@@ -1,0 +1,2524 @@
+{
+ "tool": "cadcheck",
+ "blend": "/Users/alxchunlin/code-stuff/space-bar-push-assist/cad/blender/check_moving.blend",
+ "generated": "2026-10-27 03:34:41",
+ "config": {
+  "collections": {
+   "printed": "Printed",
+   "purchased": "Purchased",
+   "fasteners": "Fasteners",
+   "cables": "Cables"
+  },
+  "printers": {
+   "P1S": [
+    256,
+    256,
+    256
+   ],
+   "H2D": [
+    325,
+    320,
+    325
+   ]
+  },
+  "prefer_printer": "P1S",
+  "min_wall": 1.6,
+  "overhang_deg": 45.0,
+  "joints": {},
+  "couplings": {},
+  "overtravel_deg": 2.5,
+  "overtravel_mm": 1.0,
+  "max_poses_per_group": 48,
+  "allow": [],
+  "vol_tol": 0.5,
+  "moving_min_clearance": 0.5,
+  "moving_warn_clearance": 1.0,
+  "fasteners": {
+   "driver_r": 3.0,
+   "hand_r": 14.0,
+   "max_reach": 60.0,
+   "max_reach_ext": 150.0,
+   "min_engagement_d": 2.0,
+   "tapped_engagement_d": 1.5,
+   "lkey_short": 18.0,
+   "lkey_insert": 2.5,
+   "lkey_long": 56.0,
+   "lkey_r": 1.25,
+   "lkey_swing_deg": 60.0,
+   "max_standoff": 2.0,
+   "max_protrusion": 3.0,
+   "captive": {},
+   "stock_lengths": {
+    "2": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20
+    ],
+    "2.5": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25
+    ],
+    "3": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "4": [
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "5": [
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ]
+   },
+   "stock_ok": []
+  },
+  "service": [],
+  "index_tests": [],
+  "stacks": [],
+  "exposure": {
+   "max_cable_mm": 5.0,
+   "cables_ok": [],
+   "min_escape": 8,
+   "view_frac": 0.1,
+   "view_z": -0.2,
+   "nuts_ok": []
+  },
+  "carry": {},
+  "flexures": [],
+  "slide_out": [
+   {
+    "name": "a3R R moving link (with the four stop screws and nuts it carries) push -y: first contact is the push heads' top faces on the block",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R",
+     "PRT_washer_rear_R",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_R"
+    ],
+    "at_mm": [
+     0.09999999999999999,
+     0.25
+    ]
+   },
+   {
+    "name": "a3R R moving link pull +y: first contact is the pull heads' undersides on the block's front counterbores",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R",
+     "PRT_washer_rear_R",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_R"
+    ],
+    "at_mm": [
+     0.09999999999999999,
+     0.25
+    ]
+   },
+   {
+    "name": "a3R R moving link down -z (lean / bag): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R",
+     "PRT_washer_rear_R",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_R",
+     "PRT_cartfix_R"
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.6,
+     0.7999999999999999
+    ]
+   },
+   {
+    "name": "a3R R moving link up +z (lift): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R",
+     "PRT_washer_rear_R",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_R",
+     "PRT_cartfix_R"
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.6,
+     0.7999999999999999
+    ]
+   },
+   {
+    "name": "a3R R moving link sideways outboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R",
+     "PRT_washer_rear_R",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_R"
+    ],
+    "at_mm": [
+     0.4,
+     0.6
+    ]
+   },
+   {
+    "name": "a3R R moving link sideways inboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R",
+     "PRT_washer_rear_R",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_R"
+    ],
+    "at_mm": [
+     0.4,
+     0.6
+    ]
+   },
+   {
+    "name": "a3R R a2-row adapted: cartridge fixed body (block, ground bar, front nut and washer) pulled +y is held by the fin lips behind the block within 0.15",
+    "objects": [
+     "PRT_cartfix_R",
+     "BUY_front_nut_R",
+     "PRT_washer_front_R"
+    ],
+    "ignore": [
+     "PRT_movlink_R",
+     "BUY_load_cell_R",
+     "PRT_washer_rear_R",
+     "BUY_rear_nut_R",
+     "PRT_piston_R",
+     "FST_Piston_screw_R*",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*",
+     "BUY_grip_R"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "a3R R a2-row adapted: cartridge fixed body pushed -y is held by the fin's front wall within 0.15",
+    "objects": [
+     "PRT_cartfix_R",
+     "BUY_front_nut_R",
+     "PRT_washer_front_R"
+    ],
+    "ignore": [
+     "PRT_movlink_R",
+     "BUY_load_cell_R",
+     "PRT_washer_rear_R",
+     "BUY_rear_nut_R",
+     "PRT_piston_R",
+     "FST_Piston_screw_R*",
+     "FST_Stop_screw_*_R_*",
+     "FST_Stop_nut_*_R_*",
+     "BUY_grip_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "a3R L moving link (with the four stop screws and nuts it carries) push -y: first contact is the push heads' top faces on the block",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L",
+     "PRT_washer_rear_L",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_L"
+    ],
+    "at_mm": [
+     0.09999999999999999,
+     0.25
+    ]
+   },
+   {
+    "name": "a3R L moving link pull +y: first contact is the pull heads' undersides on the block's front counterbores",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L",
+     "PRT_washer_rear_L",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_L"
+    ],
+    "at_mm": [
+     0.09999999999999999,
+     0.25
+    ]
+   },
+   {
+    "name": "a3R L moving link down -z (lean / bag): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L",
+     "PRT_washer_rear_L",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_L",
+     "PRT_cartfix_L"
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_L_inboard",
+     "PRT_fin_L_outboard"
+    ],
+    "at_mm": [
+     0.6,
+     0.7999999999999999
+    ]
+   },
+   {
+    "name": "a3R L moving link up +z (lift): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L",
+     "PRT_washer_rear_L",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_L",
+     "PRT_cartfix_L"
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_L_inboard",
+     "PRT_fin_L_outboard"
+    ],
+    "at_mm": [
+     0.6,
+     0.7999999999999999
+    ]
+   },
+   {
+    "name": "a3R L moving link sideways outboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L",
+     "PRT_washer_rear_L",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_L"
+    ],
+    "at_mm": [
+     0.4,
+     0.6
+    ]
+   },
+   {
+    "name": "a3R L moving link sideways inboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L",
+     "PRT_washer_rear_L",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*"
+    ],
+    "ignore": [
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_cartfix_L"
+    ],
+    "at_mm": [
+     0.4,
+     0.6
+    ]
+   },
+   {
+    "name": "a3R L a2-row adapted: cartridge fixed body (block, ground bar, front nut and washer) pulled +y is held by the fin lips behind the block within 0.15",
+    "objects": [
+     "PRT_cartfix_L",
+     "BUY_front_nut_L",
+     "PRT_washer_front_L"
+    ],
+    "ignore": [
+     "PRT_movlink_L",
+     "BUY_load_cell_L",
+     "PRT_washer_rear_L",
+     "BUY_rear_nut_L",
+     "PRT_piston_L",
+     "FST_Piston_screw_L*",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*",
+     "BUY_grip_L"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_L_inboard",
+     "PRT_fin_L_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "a3R L a2-row adapted: cartridge fixed body pushed -y is held by the fin's front wall within 0.15",
+    "objects": [
+     "PRT_cartfix_L",
+     "BUY_front_nut_L",
+     "PRT_washer_front_L"
+    ],
+    "ignore": [
+     "PRT_movlink_L",
+     "BUY_load_cell_L",
+     "PRT_washer_rear_L",
+     "BUY_rear_nut_L",
+     "PRT_piston_L",
+     "FST_Piston_screw_L*",
+     "FST_Stop_screw_*_L_*",
+     "FST_Stop_nut_*_L_*",
+     "BUY_grip_L"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_L_inboard",
+     "PRT_fin_L_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "bench: the cartridge (cell, nuts, stop hardware) with the setting plug and the jack screw and its nuts lifts straight out of the cradle (+z), so it drops in the same way (the two lip screws go in after it, README B4)",
+    "objects": [
+     "PRT_bench_cartridge",
+     "BUY_bench_load_cell",
+     "PRT_bench_washer_front",
+     "PRT_bench_washer_rear",
+     "BUY_bench_front_nut",
+     "BUY_bench_rear_nut",
+     "FST_Bench_*",
+     "PRT_setting_plug",
+     "FST_Jack_screw",
+     "FST_Jack_nut",
+     "FST_Jack_swivel_nut"
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 120,
+    "step": 1,
+    "min_clearance": 0.0,
+    "ignore": [
+     "FST_Jack_lip_*"
+    ]
+   },
+   {
+    "name": "a4R README step 14 adapted (re-snug moved to the bench): front cell nut and washer come out -y through the block's counterbore and the cradle's \u00d816 hole, so an 8 mm nut-driver reaches the nut with the cartridge in the cradle",
+    "objects": [
+     "BUY_bench_front_nut",
+     "PRT_bench_washer_front"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 80,
+    "step": 1,
+    "min_clearance": 0.0
+   },
+   {
+    "name": "a4R README step 14 adapted: rear cell nut and washer come out +y through the link's nut bore and socket on the bench (the settle and re-snug come before the setting plug and the cradle, README B3; so the plug, jack and cradle are not present)",
+    "objects": [
+     "BUY_bench_rear_nut",
+     "PRT_bench_washer_rear"
+    ],
+    "ignore": [
+     "PRT_setting_plug",
+     "FST_Jack_screw",
+     "FST_Jack_nut",
+     "FST_Jack_swivel_nut",
+     "PRT_cradle"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 80,
+    "step": 1,
+    "min_clearance": 0.0
+   },
+   {
+    "name": "bench: each lip screw comes out of its side wall along its axis (its nut stays in the inner-face pocket), so it goes in after the cartridge",
+    "objects": [
+     "FST_Jack_lip_screw_a"
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ],
+    "dist": 40,
+    "step": 1,
+    "min_clearance": 0.0,
+    "ignore": []
+   }
+  ],
+  "distances": [
+   {
+    "a": "PRT_movlink_R",
+    "b": "PRT_fin_R_inboard",
+    "min": 0.8,
+    "why": "a3R whole moving link (nearest, not rays) clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_R",
+    "b": "PRT_fin_R_outboard",
+    "min": 0.8,
+    "why": "a3R whole moving link clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_R",
+    "b": "PRT_washer_front_R",
+    "min": 5.0,
+    "why": "moving link nowhere near the front stack"
+   },
+   {
+    "a": "PRT_movlink_R",
+    "b": "PRT_cartfix_R",
+    "min": 0.25,
+    "why": "moving body clear of the fixed body everywhere; 0.3 across the check split at the leaf stubs"
+   },
+   {
+    "a": "FST_Stop_screw_push_R_out",
+    "b": "PRT_cartfix_R",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_R_out",
+    "b": "PRT_cartfix_R",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_R_out",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      192.7,
+      44.0,
+      -4.99
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_R_out",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      192.7,
+      44.0,
+      -8.01
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "pull screw shank to its hole, below"
+   },
+   {
+    "a": "FST_Stop_screw_push_R_out",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      192.7,
+      44.5,
+      2.76
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+   },
+   {
+    "a": "FST_Stop_screw_push_R_out",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      192.7,
+      44.5,
+      -2.76
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "push head to its counterbore, below"
+   },
+   {
+    "a": "FST_Stop_screw_push_R_in",
+    "b": "PRT_cartfix_R",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_R_in",
+    "b": "PRT_cartfix_R",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_R_in",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      162.9,
+      44.0,
+      -4.99
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_R_in",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      162.9,
+      44.0,
+      -8.01
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "pull screw shank to its hole, below"
+   },
+   {
+    "a": "FST_Stop_screw_push_R_in",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      162.9,
+      44.5,
+      2.76
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+   },
+   {
+    "a": "FST_Stop_screw_push_R_in",
+    "b": "PRT_cartfix_R",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      162.9,
+      44.5,
+      -2.76
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "push head to its counterbore, below"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "PRT_fin_L_inboard",
+    "min": 0.8,
+    "why": "a3R whole moving link (nearest, not rays) clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "PRT_fin_L_outboard",
+    "min": 0.8,
+    "why": "a3R whole moving link clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "PRT_washer_front_L",
+    "min": 5.0,
+    "why": "moving link nowhere near the front stack"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "PRT_cartfix_L",
+    "min": 0.25,
+    "why": "moving body clear of the fixed body everywhere; 0.3 across the check split at the leaf stubs"
+   },
+   {
+    "a": "FST_Stop_screw_push_L_out",
+    "b": "PRT_cartfix_L",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_L_out",
+    "b": "PRT_cartfix_L",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_L_out",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -192.7,
+      44.0,
+      -4.99
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_L_out",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -192.7,
+      44.0,
+      -8.01
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "pull screw shank to its hole, below"
+   },
+   {
+    "a": "FST_Stop_screw_push_L_out",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -192.7,
+      44.5,
+      2.76
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+   },
+   {
+    "a": "FST_Stop_screw_push_L_out",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -192.7,
+      44.5,
+      -2.76
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "push head to its counterbore, below"
+   },
+   {
+    "a": "FST_Stop_screw_push_L_in",
+    "b": "PRT_cartfix_L",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_L_in",
+    "b": "PRT_cartfix_L",
+    "min": 0.12,
+    "max": 0.18,
+    "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_L_in",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -162.9,
+      44.0,
+      -4.99
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+   },
+   {
+    "a": "FST_Stop_screw_pull_L_in",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -162.9,
+      44.0,
+      -8.01
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "pull screw shank to its hole, below"
+   },
+   {
+    "a": "FST_Stop_screw_push_L_in",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -162.9,
+      44.5,
+      2.76
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ]
+    },
+    "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+   },
+   {
+    "a": "FST_Stop_screw_push_L_in",
+    "b": "PRT_cartfix_L",
+    "min": 0.4,
+    "ray": {
+     "origin": [
+      -162.9,
+      44.5,
+      -2.76
+     ],
+     "dir": [
+      0,
+      0,
+      -1
+     ]
+    },
+    "why": "push head to its counterbore, below"
+   },
+   {
+    "a": "PRT_bench_cartridge",
+    "b": "FST_Jack_lip_screw_a",
+    "max": 0.15000000000000002,
+    "why": "bench: the block's rear face sits fit in front of the lip screw shank (the cradle's pull reaction, as the fin lip)"
+   },
+   {
+    "a": "PRT_bench_cartridge",
+    "b": "PRT_cradle",
+    "max": 0.15000000000000002,
+    "ray": {
+     "origin": [
+      443.8,
+      35.8,
+      -30.0
+     ],
+     "dir": [
+      0,
+      -1,
+      0
+     ]
+    },
+    "why": "bench: the block's front face on the cradle's front wall (the push reaction, as the fin's front wall)"
+   }
+  ],
+  "payload_fit": [],
+  "sightlines": [
+   {
+    "name": "bench: a 2.5 mm key line to the push screw (out) head from the front, through the block's key hole and the cradle's window",
+    "origins": [
+     [
+      442.7,
+      42.800000000000004,
+      0.0
+     ]
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "first_hit": null,
+    "max_mm": 60
+   },
+   {
+    "name": "bench: a 2.5 mm key line to the pull screw (out) head from the front, through the cradle's window",
+    "origins": [
+     [
+      442.7,
+      37.1,
+      -6.5
+     ]
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "first_hit": null,
+    "max_mm": 60
+   },
+   {
+    "name": "bench: a 2.5 mm key line to the push screw (in) head from the front, through the block's key hole and the cradle's window",
+    "origins": [
+     [
+      412.9,
+      42.800000000000004,
+      0.0
+     ]
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "first_hit": null,
+    "max_mm": 60
+   },
+   {
+    "name": "bench: a 2.5 mm key line to the pull screw (in) head from the front, through the cradle's window",
+    "origins": [
+     [
+      412.9,
+      37.1,
+      -6.5
+     ]
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "first_hit": null,
+    "max_mm": 60
+   },
+   {
+    "name": "bench: 4 mm key to the jack screw head from behind the cradle",
+    "origins": [
+     [
+      427.8,
+      130.05,
+      0.0
+     ]
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "first_hit": null,
+    "max_mm": 60
+   }
+  ],
+  "masses_g": {},
+  "pla_density": 0.00124,
+  "flow_mm3_s": 12.0,
+  "cable_leads": {},
+  "cable_chains": [],
+  "cable_junctions_ok": [],
+  "cable_min_bend_od": 0.75,
+  "joint_drives": {},
+  "accepted_warns": [],
+  "_about": "Moving-link and bench rows, attempt 5. The a3 reviewer's rows (cad/review/a3/review_rows.json), adapted to the attempt-5 stops (four M3 screws ride on the link, their heads act on the block), and the a4 reviewer's step-14 rows (cad/review/a4/review_rows.json) adapted to the bench re-snug. Run on check_moving.blend, which to_cadcheck.py writes with each cartridge split into PRT_cartfix_* (fixed) and PRT_movlink_* (moving), and the right cartridge group copied into the stop-setting cradle 250 mm outboard: cad check cad/blender/check_moving.blend cad/blender/checks_moving.json OUT --only slide,distances,sightlines"
+ },
+ "checks": {
+  "slide": {
+   "findings": [],
+   "rows": [
+    {
+     "object": "a3R R moving link (with the four stop screws and nuts it carries) push -y: first contact is the push heads' top faces on the block",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "FST_Stop_nut_pull_R_in",
+      "FST_Stop_nut_pull_R_out",
+      "FST_Stop_nut_push_R_in",
+      "FST_Stop_nut_push_R_out",
+      "FST_Stop_screw_pull_R_in",
+      "FST_Stop_screw_pull_R_out",
+      "FST_Stop_screw_push_R_in",
+      "FST_Stop_screw_push_R_out",
+      "PRT_movlink_R",
+      "PRT_piston_R",
+      "PRT_washer_rear_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.2,
+     "blocked_by": [
+      "PRT_cartfix_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cartfix_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R moving link pull +y: first contact is the pull heads' undersides on the block's front counterbores",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "FST_Stop_nut_pull_R_in",
+      "FST_Stop_nut_pull_R_out",
+      "FST_Stop_nut_push_R_in",
+      "FST_Stop_nut_push_R_out",
+      "FST_Stop_screw_pull_R_in",
+      "FST_Stop_screw_pull_R_out",
+      "FST_Stop_screw_push_R_in",
+      "FST_Stop_screw_push_R_out",
+      "PRT_movlink_R",
+      "PRT_piston_R",
+      "PRT_washer_rear_R"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.2,
+     "blocked_by": [
+      "PRT_cartfix_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cartfix_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R moving link down -z (lean / bag): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "FST_Stop_nut_pull_R_in",
+      "FST_Stop_nut_pull_R_out",
+      "FST_Stop_nut_push_R_in",
+      "FST_Stop_nut_push_R_out",
+      "FST_Stop_screw_pull_R_in",
+      "FST_Stop_screw_pull_R_out",
+      "FST_Stop_screw_push_R_in",
+      "FST_Stop_screw_push_R_out",
+      "PRT_movlink_R",
+      "PRT_piston_R",
+      "PRT_washer_rear_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.75,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_fin_R_outboard"
+     ],
+     "min_clearance_mm": 0.1,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R moving link up +z (lift): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "FST_Stop_nut_pull_R_in",
+      "FST_Stop_nut_pull_R_out",
+      "FST_Stop_nut_push_R_in",
+      "FST_Stop_nut_push_R_out",
+      "FST_Stop_screw_pull_R_in",
+      "FST_Stop_screw_pull_R_out",
+      "FST_Stop_screw_push_R_in",
+      "FST_Stop_screw_push_R_out",
+      "PRT_movlink_R",
+      "PRT_piston_R",
+      "PRT_washer_rear_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.75,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_fin_R_outboard"
+     ],
+     "min_clearance_mm": 0.3,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R moving link sideways outboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "FST_Stop_nut_pull_R_in",
+      "FST_Stop_nut_pull_R_out",
+      "FST_Stop_nut_push_R_in",
+      "FST_Stop_nut_push_R_out",
+      "FST_Stop_screw_pull_R_in",
+      "FST_Stop_screw_pull_R_out",
+      "FST_Stop_screw_push_R_in",
+      "FST_Stop_screw_push_R_out",
+      "PRT_movlink_R",
+      "PRT_piston_R",
+      "PRT_washer_rear_R"
+     ],
+     "dir": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.5,
+     "blocked_by": [
+      "PRT_cartfix_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_outboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R moving link sideways inboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "FST_Stop_nut_pull_R_in",
+      "FST_Stop_nut_pull_R_out",
+      "FST_Stop_nut_push_R_in",
+      "FST_Stop_nut_push_R_out",
+      "FST_Stop_screw_pull_R_in",
+      "FST_Stop_screw_pull_R_out",
+      "FST_Stop_screw_push_R_in",
+      "FST_Stop_screw_push_R_out",
+      "PRT_movlink_R",
+      "PRT_piston_R",
+      "PRT_washer_rear_R"
+     ],
+     "dir": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_cartfix_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R a2-row adapted: cartridge fixed body (block, ground bar, front nut and washer) pulled +y is held by the fin lips behind the block within 0.15",
+     "members": [
+      "BUY_front_nut_R",
+      "PRT_cartfix_R",
+      "PRT_washer_front_R"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.15,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_fin_R_outboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R a2-row adapted: cartridge fixed body pushed -y is held by the fin's front wall within 0.15",
+     "members": [
+      "BUY_front_nut_R",
+      "PRT_cartfix_R",
+      "PRT_washer_front_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.15,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_fin_R_outboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L moving link (with the four stop screws and nuts it carries) push -y: first contact is the push heads' top faces on the block",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "FST_Stop_nut_pull_L_in",
+      "FST_Stop_nut_pull_L_out",
+      "FST_Stop_nut_push_L_in",
+      "FST_Stop_nut_push_L_out",
+      "FST_Stop_screw_pull_L_in",
+      "FST_Stop_screw_pull_L_out",
+      "FST_Stop_screw_push_L_in",
+      "FST_Stop_screw_push_L_out",
+      "PRT_movlink_L",
+      "PRT_piston_L",
+      "PRT_washer_rear_L"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.2,
+     "blocked_by": [
+      "PRT_cartfix_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cartfix_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L moving link pull +y: first contact is the pull heads' undersides on the block's front counterbores",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "FST_Stop_nut_pull_L_in",
+      "FST_Stop_nut_pull_L_out",
+      "FST_Stop_nut_push_L_in",
+      "FST_Stop_nut_push_L_out",
+      "FST_Stop_screw_pull_L_in",
+      "FST_Stop_screw_pull_L_out",
+      "FST_Stop_screw_push_L_in",
+      "FST_Stop_screw_push_L_out",
+      "PRT_movlink_L",
+      "PRT_piston_L",
+      "PRT_washer_rear_L"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.2,
+     "blocked_by": [
+      "PRT_cartfix_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cartfix_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L moving link down -z (lean / bag): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "FST_Stop_nut_pull_L_in",
+      "FST_Stop_nut_pull_L_out",
+      "FST_Stop_nut_push_L_in",
+      "FST_Stop_nut_push_L_out",
+      "FST_Stop_screw_pull_L_in",
+      "FST_Stop_screw_pull_L_out",
+      "FST_Stop_screw_push_L_in",
+      "FST_Stop_screw_push_L_out",
+      "PRT_movlink_L",
+      "PRT_piston_L",
+      "PRT_washer_rear_L"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.75,
+     "blocked_by": [
+      "PRT_fin_L_inboard",
+      "PRT_fin_L_outboard"
+     ],
+     "min_clearance_mm": 0.1,
+     "closest": "PRT_fin_L_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L moving link up +z (lift): the leaves carry it axially (16 kN/mm, never reached); the rigid stop is the piston on the barrel lip at lip_c (a4 #2; adapted from the fin cavity at 1.0). The fixed body is ignored because the check split leaves a 0.3 gap at the leaf feet; the stop screws' 0.5 clearance in the block is the distances rows",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "FST_Stop_nut_pull_L_in",
+      "FST_Stop_nut_pull_L_out",
+      "FST_Stop_nut_push_L_in",
+      "FST_Stop_nut_push_L_out",
+      "FST_Stop_screw_pull_L_in",
+      "FST_Stop_screw_pull_L_out",
+      "FST_Stop_screw_push_L_in",
+      "FST_Stop_screw_push_L_out",
+      "PRT_movlink_L",
+      "PRT_piston_L",
+      "PRT_washer_rear_L"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.75,
+     "blocked_by": [
+      "PRT_fin_L_inboard",
+      "PRT_fin_L_outboard"
+     ],
+     "min_clearance_mm": 0.3,
+     "closest": "PRT_fin_L_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L moving link sideways outboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "FST_Stop_nut_pull_L_in",
+      "FST_Stop_nut_pull_L_out",
+      "FST_Stop_nut_push_L_in",
+      "FST_Stop_nut_push_L_out",
+      "FST_Stop_screw_pull_L_in",
+      "FST_Stop_screw_pull_L_out",
+      "FST_Stop_screw_push_L_in",
+      "FST_Stop_screw_push_L_out",
+      "PRT_movlink_L",
+      "PRT_piston_L",
+      "PRT_washer_rear_L"
+     ],
+     "dir": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.5,
+     "blocked_by": [
+      "PRT_cartfix_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_L_outboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L moving link sideways inboard: a sideways shift (only possible if the clamped cell slips) is caught first by the stop screws in their 0.5-radial block holes and counterbores; the link is 1.0 clear of the fin and the piston 0.7 from the lip (adapted: a4 had the fin at 0.8-1.3)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "FST_Stop_nut_pull_L_in",
+      "FST_Stop_nut_pull_L_out",
+      "FST_Stop_nut_push_L_in",
+      "FST_Stop_nut_push_L_out",
+      "FST_Stop_screw_pull_L_in",
+      "FST_Stop_screw_pull_L_out",
+      "FST_Stop_screw_push_L_in",
+      "FST_Stop_screw_push_L_out",
+      "PRT_movlink_L",
+      "PRT_piston_L",
+      "PRT_washer_rear_L"
+     ],
+     "dir": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_fin_L_inboard",
+      "PRT_cartfix_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_L_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L a2-row adapted: cartridge fixed body (block, ground bar, front nut and washer) pulled +y is held by the fin lips behind the block within 0.15",
+     "members": [
+      "BUY_front_nut_L",
+      "PRT_cartfix_L",
+      "PRT_washer_front_L"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.15,
+     "blocked_by": [
+      "PRT_fin_L_inboard",
+      "PRT_fin_L_outboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_L_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L a2-row adapted: cartridge fixed body pushed -y is held by the fin's front wall within 0.15",
+     "members": [
+      "BUY_front_nut_L",
+      "PRT_cartfix_L",
+      "PRT_washer_front_L"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.15,
+     "blocked_by": [
+      "PRT_fin_L_inboard",
+      "PRT_fin_L_outboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_L_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "bench: the cartridge (cell, nuts, stop hardware) with the setting plug and the jack screw and its nuts lifts straight out of the cradle (+z), so it drops in the same way (the two lip screws go in after it, README B4)",
+     "members": [
+      "BUY_bench_front_nut",
+      "BUY_bench_load_cell",
+      "BUY_bench_rear_nut",
+      "FST_Bench_Stop_nut_pull_in",
+      "FST_Bench_Stop_nut_pull_out",
+      "FST_Bench_Stop_nut_push_in",
+      "FST_Bench_Stop_nut_push_out",
+      "FST_Bench_Stop_screw_pull_in",
+      "FST_Bench_Stop_screw_pull_out",
+      "FST_Bench_Stop_screw_push_in",
+      "FST_Bench_Stop_screw_push_out",
+      "FST_Jack_nut",
+      "FST_Jack_screw",
+      "FST_Jack_swivel_nut",
+      "PRT_bench_cartridge",
+      "PRT_bench_washer_front",
+      "PRT_bench_washer_rear",
+      "PRT_setting_plug"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 120,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cradle",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a4R README step 14 adapted (re-snug moved to the bench): front cell nut and washer come out -y through the block's counterbore and the cradle's \u00d816 hole, so an 8 mm nut-driver reaches the nut with the cartridge in the cradle",
+     "members": [
+      "BUY_bench_front_nut",
+      "PRT_bench_washer_front"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 80,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_bench_cartridge",
+     "pose": "home",
+     "overlapping_at_rest": [
+      "BUY_bench_load_cell"
+     ]
+    },
+    {
+     "object": "a4R README step 14 adapted: rear cell nut and washer come out +y through the link's nut bore and socket on the bench (the settle and re-snug come before the setting plug and the cradle, README B3; so the plug, jack and cradle are not present)",
+     "members": [
+      "BUY_bench_rear_nut",
+      "PRT_bench_washer_rear"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 80,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_bench_cartridge",
+     "pose": "home",
+     "overlapping_at_rest": [
+      "BUY_bench_load_cell"
+     ]
+    },
+    {
+     "object": "bench: each lip screw comes out of its side wall along its axis (its nut stays in the inner-face pocket), so it goes in after the cartridge",
+     "members": [
+      "FST_Jack_lip_screw_a"
+     ],
+     "dir": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 40,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cradle",
+     "pose": "home",
+     "overlapping_at_rest": [
+      "FST_Jack_lip_nut_a"
+     ]
+    }
+   ],
+   "runtime_s": 78.3
+  },
+  "distances": {
+   "findings": [],
+   "rows": [
+    {
+     "a": "PRT_movlink_R",
+     "b": "PRT_fin_R_inboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link (nearest, not rays) clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_R",
+     "b": "PRT_washer_front_R",
+     "pose": "home",
+     "mm": 17.7,
+     "how": "nearest",
+     "min": 5.0,
+     "max": null,
+     "why": "moving link nowhere near the front stack"
+    },
+    {
+     "a": "PRT_movlink_R",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.3,
+     "how": "nearest",
+     "min": 0.25,
+     "max": null,
+     "why": "moving body clear of the fixed body everywhere; 0.3 across the check split at the leaf stubs"
+    },
+    {
+     "a": "FST_Stop_screw_push_R_out",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_R_out",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_R_out",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_R_out",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its hole, below"
+    },
+    {
+     "a": "FST_Stop_screw_push_R_out",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+    },
+    {
+     "a": "FST_Stop_screw_push_R_out",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its counterbore, below"
+    },
+    {
+     "a": "FST_Stop_screw_push_R_in",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_R_in",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_R_in",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_R_in",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its hole, below"
+    },
+    {
+     "a": "FST_Stop_screw_push_R_in",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+    },
+    {
+     "a": "FST_Stop_screw_push_R_in",
+     "b": "PRT_cartfix_R",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its counterbore, below"
+    },
+    {
+     "a": "PRT_movlink_L",
+     "b": "PRT_fin_L_inboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link (nearest, not rays) clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_L",
+     "b": "PRT_fin_L_outboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_L",
+     "b": "PRT_washer_front_L",
+     "pose": "home",
+     "mm": 17.7,
+     "how": "nearest",
+     "min": 5.0,
+     "max": null,
+     "why": "moving link nowhere near the front stack"
+    },
+    {
+     "a": "PRT_movlink_L",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.3,
+     "how": "nearest",
+     "min": 0.25,
+     "max": null,
+     "why": "moving body clear of the fixed body everywhere; 0.3 across the check split at the leaf stubs"
+    },
+    {
+     "a": "FST_Stop_screw_push_L_out",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_L_out",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_L_out",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_L_out",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its hole, below"
+    },
+    {
+     "a": "FST_Stop_screw_push_L_out",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+    },
+    {
+     "a": "FST_Stop_screw_push_L_out",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its counterbore, below"
+    },
+    {
+     "a": "FST_Stop_screw_push_L_in",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> push screw): nearest push-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_L_in",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.15,
+     "how": "nearest",
+     "min": 0.12,
+     "max": 0.18,
+     "why": "a3R row adapted (pin -> pull screw): nearest pull-screw-to-block gap is the stop travel; nothing else of the screw comes closer (its hole and counterbores are 0.5 radial)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_L_in",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its \u00d84 hole in the block, above: 0.5 radial, so a lean up to the lip catch never lets it rub (no friction path beside the cell)"
+    },
+    {
+     "a": "FST_Stop_screw_pull_L_in",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "pull screw shank to its hole, below"
+    },
+    {
+     "a": "FST_Stop_screw_push_L_in",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its \u00d86.5 counterbore in the block, above: 0.5 radial"
+    },
+    {
+     "a": "FST_Stop_screw_push_L_in",
+     "b": "PRT_cartfix_L",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": 0.4,
+     "max": null,
+     "why": "push head to its counterbore, below"
+    },
+    {
+     "a": "PRT_bench_cartridge",
+     "b": "FST_Jack_lip_screw_a",
+     "pose": "home",
+     "mm": 0.1,
+     "how": "nearest",
+     "min": null,
+     "max": 0.15000000000000002,
+     "why": "bench: the block's rear face sits fit in front of the lip screw shank (the cradle's pull reaction, as the fin lip)"
+    },
+    {
+     "a": "PRT_bench_cartridge",
+     "b": "PRT_cradle",
+     "pose": "home",
+     "mm": 0.1,
+     "how": "along ray",
+     "min": null,
+     "max": 0.15000000000000002,
+     "why": "bench: the block's front face on the cradle's front wall (the push reaction, as the fin's front wall)"
+    }
+   ],
+   "runtime_s": 1.9
+  },
+  "sightlines": {
+   "findings": [],
+   "rows": [
+    {
+     "name": "bench: a 2.5 mm key line to the push screw (out) head from the front, through the block's key hole and the cradle's window",
+     "pose": "home",
+     "first_hit_wanted": null,
+     "rays": 1,
+     "ok": 1,
+     "hits": [
+      {
+       "origin": [
+        442.7,
+        42.8,
+        0.0
+       ],
+       "hit": null,
+       "mm": null
+      }
+     ],
+     "why": null
+    },
+    {
+     "name": "bench: a 2.5 mm key line to the pull screw (out) head from the front, through the cradle's window",
+     "pose": "home",
+     "first_hit_wanted": null,
+     "rays": 1,
+     "ok": 1,
+     "hits": [
+      {
+       "origin": [
+        442.7,
+        37.1,
+        -6.5
+       ],
+       "hit": null,
+       "mm": null
+      }
+     ],
+     "why": null
+    },
+    {
+     "name": "bench: a 2.5 mm key line to the push screw (in) head from the front, through the block's key hole and the cradle's window",
+     "pose": "home",
+     "first_hit_wanted": null,
+     "rays": 1,
+     "ok": 1,
+     "hits": [
+      {
+       "origin": [
+        412.9,
+        42.8,
+        0.0
+       ],
+       "hit": null,
+       "mm": null
+      }
+     ],
+     "why": null
+    },
+    {
+     "name": "bench: a 2.5 mm key line to the pull screw (in) head from the front, through the cradle's window",
+     "pose": "home",
+     "first_hit_wanted": null,
+     "rays": 1,
+     "ok": 1,
+     "hits": [
+      {
+       "origin": [
+        412.9,
+        37.1,
+        -6.5
+       ],
+       "hit": null,
+       "mm": null
+      }
+     ],
+     "why": null
+    },
+    {
+     "name": "bench: 4 mm key to the jack screw head from behind the cradle",
+     "pose": "home",
+     "first_hit_wanted": null,
+     "rays": 1,
+     "ok": 1,
+     "hits": [
+      {
+       "origin": [
+        427.8,
+        130.05,
+        0.0
+       ],
+       "hit": null,
+       "mm": null
+      }
+     ],
+     "why": null
+    }
+   ],
+   "runtime_s": 4.9
+  }
+ },
+ "coverage": [
+  "slide: 20 slide-out sweeps",
+  "sightlines: 5 first-hit ray rows"
+ ],
+ "not_checked": [
+  "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+ ],
+ "params": {
+  "source": "scene",
+  "expressions": [
+   {
+    "at": "slide_out[0].at_mm[0]",
+    "expr": "stop_gap - 0.05",
+    "value": 0.09999999999999999
+   },
+   {
+    "at": "slide_out[0].at_mm[1]",
+    "expr": "stop_gap + 0.1",
+    "value": 0.25
+   },
+   {
+    "at": "slide_out[1].at_mm[0]",
+    "expr": "stop_gap - 0.05",
+    "value": 0.09999999999999999
+   },
+   {
+    "at": "slide_out[1].at_mm[1]",
+    "expr": "stop_gap + 0.1",
+    "value": 0.25
+   },
+   {
+    "at": "slide_out[2].at_mm[0]",
+    "expr": "lip_c - 0.1",
+    "value": 0.6
+   },
+   {
+    "at": "slide_out[2].at_mm[1]",
+    "expr": "lip_c + 0.1",
+    "value": 0.7999999999999999
+   },
+   {
+    "at": "slide_out[3].at_mm[0]",
+    "expr": "lip_c - 0.1",
+    "value": 0.6
+   },
+   {
+    "at": "slide_out[3].at_mm[1]",
+    "expr": "lip_c + 0.1",
+    "value": 0.7999999999999999
+   },
+   {
+    "at": "slide_out[8].at_mm[0]",
+    "expr": "stop_gap - 0.05",
+    "value": 0.09999999999999999
+   },
+   {
+    "at": "slide_out[8].at_mm[1]",
+    "expr": "stop_gap + 0.1",
+    "value": 0.25
+   },
+   {
+    "at": "slide_out[9].at_mm[0]",
+    "expr": "stop_gap - 0.05",
+    "value": 0.09999999999999999
+   },
+   {
+    "at": "slide_out[9].at_mm[1]",
+    "expr": "stop_gap + 0.1",
+    "value": 0.25
+   },
+   {
+    "at": "slide_out[10].at_mm[0]",
+    "expr": "lip_c - 0.1",
+    "value": 0.6
+   },
+   {
+    "at": "slide_out[10].at_mm[1]",
+    "expr": "lip_c + 0.1",
+    "value": 0.7999999999999999
+   },
+   {
+    "at": "slide_out[11].at_mm[0]",
+    "expr": "lip_c - 0.1",
+    "value": 0.6
+   },
+   {
+    "at": "slide_out[11].at_mm[1]",
+    "expr": "lip_c + 0.1",
+    "value": 0.7999999999999999
+   },
+   {
+    "at": "distances[4].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[4].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[5].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[5].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[10].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[10].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[11].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[11].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[20].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[20].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[21].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[21].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[26].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[26].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[27].min",
+    "expr": "stop_gap - 0.03",
+    "value": 0.12
+   },
+   {
+    "at": "distances[27].max",
+    "expr": "stop_gap + 0.03",
+    "value": 0.18
+   },
+   {
+    "at": "distances[32].max",
+    "expr": "fit + 0.05",
+    "value": 0.15000000000000002
+   },
+   {
+    "at": "distances[33].max",
+    "expr": "fit + 0.05",
+    "value": 0.15000000000000002
+   }
+  ]
+ },
+ "summary": {
+  "pass": true,
+  "fails": 0,
+  "warns": 0,
+  "untriaged_warns": 0,
+  "fail_list": [],
+  "warn_list": [],
+  "accepted_warns": {},
+  "stale_accepts": [],
+  "coverage": [
+   "slide: 20 slide-out sweeps",
+   "sightlines: 5 first-hit ray rows"
+  ],
+  "not_checked": [
+   "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+  ],
+  "poses_past_limits": [],
+  "unbounded_allows": {},
+  "runtime_s": 85.1
+ }
+}

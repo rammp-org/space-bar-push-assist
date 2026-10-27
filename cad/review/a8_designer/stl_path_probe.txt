@@ -1,0 +1,6 @@
+STL bbox [-32.  -49.6   0. ] [32.  49.6 40. ]  world bbox rotated [64.  99.2 40. ] vs STL [64.  99.2 40. ]
+sanity block solid (x' 10, y 40, z 5) SOLID
+sanity cell gap (axis, y 54) void
+front stud slot, block (y 40, 44)      narrowest open width across the motion along the path: 5.5 mm (needs 4.90)
+rear stud slot, drop wall (y 62.5)     narrowest open width across the motion along the path: 5.5 mm (needs 4.90)
+rear nut channel (y 66, 69, 72)        narrowest open width across the motion along the path: 14.0 mm (needs 9.24)

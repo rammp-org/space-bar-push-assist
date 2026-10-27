@@ -1,0 +1,2069 @@
+{
+ "tool": "printcheck",
+ "manifest": null,
+ "config": {
+  "layer_h": 0.2,
+  "px": 0.1,
+  "max_cells": 1500000.0,
+  "overhang_deg": 45.0,
+  "bridge_warn_mm": 25.0,
+  "bridge_frac": 0.5,
+  "cantilever_warn_mm": 1.0,
+  "cantilever_mm": 3.0,
+  "island_mm2": 0.5,
+  "min_region_mm2": 0.05,
+  "min_feature_mm": 0.4,
+  "max_regions": 25
+ },
+ "parts": [
+  {
+   "layers": 700,
+   "layer_h": 0.2,
+   "px_mm": 0.1,
+   "allowance_mm": 0.25,
+   "height_mm": 140.0,
+   "supports": "no",
+   "needs_support": false,
+   "n_islands": 0,
+   "n_cantilevers": 0,
+   "max_overhang_mm": 1.7,
+   "max_bridge_mm": 20.5,
+   "n_regions": 69,
+   "n_thin_dropped": 188,
+   "regions": [
+    {
+     "z_mm": 135.2,
+     "layer": 676,
+     "area_mm2": 71.95,
+     "kind": "cantilever",
+     "overhang_mm": 1.7,
+     "anchored_frac": 0.06,
+     "at_print": [
+      -11.6,
+      53.9,
+      135.2
+     ],
+     "extent_mm": [
+      1.7,
+      45.1
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 128.0,
+     "layer": 640,
+     "area_mm2": 18.17,
+     "kind": "cantilever",
+     "overhang_mm": 1.7,
+     "anchored_frac": 0.27,
+     "at_print": [
+      -11.3,
+      25.1,
+      128.0
+     ],
+     "extent_mm": [
+      2.8,
+      11.9
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 0.2,
+     "layer": 1,
+     "area_mm2": 108.49,
+     "kind": "cantilever",
+     "overhang_mm": 1.1,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.4,
+      -24.6,
+      0.2
+     ],
+     "extent_mm": [
+      20.4,
+      90.6
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 79.2,
+     "layer": 396,
+     "area_mm2": 12.47,
+     "kind": "cantilever",
+     "overhang_mm": 1.1,
+     "anchored_frac": 0.0,
+     "at_print": [
+      5.7,
+      21.6,
+      79.2
+     ],
+     "extent_mm": [
+      14.7,
+      1.3
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 81.0,
+     "layer": 405,
+     "area_mm2": 375.4,
+     "kind": "bridge",
+     "span_mm": 20.5,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 0.99,
+     "residual_mm": 0.6,
+     "at_print": [
+      -2.4,
+      -44.3,
+      81.0
+     ],
+     "extent_mm": [
+      21.6,
+      24.5
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 125.0,
+     "layer": 625,
+     "area_mm2": 133.84,
+     "kind": "bridge",
+     "span_mm": 13.3,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      -7.3,
+      5.9,
+      125.0
+     ],
+     "extent_mm": [
+      10.3,
+      13.2
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 61.2,
+     "layer": 306,
+     "area_mm2": 139.15,
+     "kind": "bridge",
+     "span_mm": 7.8,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      -3.0,
+      -3.2,
+      61.2
+     ],
+     "extent_mm": [
+      18.5,
+      7.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 84.2,
+     "layer": 421,
+     "area_mm2": 136.15,
+     "kind": "bridge",
+     "span_mm": 7.7,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      -3.2,
+      41.8,
+      84.2
+     ],
+     "extent_mm": [
+      18.4,
+      7.6
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 119.2,
+     "layer": 596,
+     "area_mm2": 133.54,
+     "kind": "bridge",
+     "span_mm": 7.5,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      -3.2,
+      -43.3,
+      119.2
+     ],
+     "extent_mm": [
+      18.3,
+      7.4
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 79.2,
+     "layer": 396,
+     "area_mm2": 11.65,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      5.6,
+      23.0,
+      79.2
+     ],
+     "extent_mm": [
+      14.6,
+      1.2
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 117.2,
+     "layer": 586,
+     "area_mm2": 8.88,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      9.8,
+      -43.2,
+      117.2
+     ],
+     "extent_mm": [
+      5.3,
+      2.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 59.2,
+     "layer": 296,
+     "area_mm2": 8.68,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      9.7,
+      -3.2,
+      59.2
+     ],
+     "extent_mm": [
+      5.5,
+      2.3
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 82.2,
+     "layer": 411,
+     "area_mm2": 8.13,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      9.8,
+      41.8,
+      82.2
+     ],
+     "extent_mm": [
+      5.4,
+      1.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.87,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.2,
+      -34.0,
+      80.8
+     ],
+     "extent_mm": [
+      21.3,
+      2.5
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.71,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.2,
+      -54.7,
+      80.8
+     ],
+     "extent_mm": [
+      21.6,
+      2.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 96.2,
+     "layer": 481,
+     "area_mm2": 4.09,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      11.1,
+      -13.2,
+      96.2
+     ],
+     "extent_mm": [
+      2.8,
+      2.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 33.2,
+     "layer": 166,
+     "area_mm2": 3.78,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      11.1,
+      11.8,
+      33.2
+     ],
+     "extent_mm": [
+      2.8,
+      2.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 13.2,
+     "layer": 66,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      10.8,
+      -33.2,
+      13.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 97.2,
+     "layer": 486,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      10.8,
+      32.8,
+      97.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 97.2,
+     "layer": 486,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      10.8,
+      68.8,
+      97.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 133.2,
+     "layer": 666,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      10.8,
+      -33.2,
+      133.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 0.8,
+     "layer": 4,
+     "area_mm2": 63.63,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      4.4,
+      -25.2,
+      0.8
+     ],
+     "extent_mm": [
+      21.7,
+      94.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 130.4,
+     "layer": 652,
+     "area_mm2": 31.05,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -5.7,
+      54.3,
+      130.4
+     ],
+     "extent_mm": [
+      0.8,
+      44.6
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 11.6,
+     "layer": 58,
+     "area_mm2": 26.76,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.1,
+      -33.2,
+      11.6
+     ],
+     "extent_mm": [
+      20.8,
+      1.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 95.6,
+     "layer": 478,
+     "area_mm2": 26.76,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.1,
+      32.8,
+      95.6
+     ],
+     "extent_mm": [
+      20.8,
+      1.7
+     ],
+     "status": "ok"
+    }
+   ],
+   "findings": [
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 135.2,
+     "msg": "a 1.7 mm cantilever (72.0 mm2, extent [1.7, 45.1]) at z 135.2 (print [-11.6, 53.9, 135.2])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 128.0,
+     "msg": "a 1.7 mm cantilever (18.2 mm2, extent [2.8, 11.9]) at z 128.0 (print [-11.3, 25.1, 128.0])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 0.2,
+     "msg": "a 1.1 mm cantilever (108.5 mm2, extent [20.4, 90.6]) at z 0.2 (print [2.4, -24.6, 0.2])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 79.2,
+     "msg": "a 1.1 mm cantilever (12.5 mm2, extent [14.7, 1.3]) at z 79.2 (print [5.7, 21.6, 79.2])"
+    }
+   ],
+   "stl": "fin_L_inboard_standing",
+   "file": "/tmp/pa_standing/fin_L_inboard_standing.stl",
+   "objects": [],
+   "render": "cad/review/a1/printcheck_standing/fin_L_inboard_standing_printcheck.png",
+   "layer_maps": [
+    "cad/review/a1/printcheck_standing/fin_L_inboard_standing_z135.2_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_L_inboard_standing_z128.0_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_L_inboard_standing_z000.2_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_L_inboard_standing_z079.2_cantilever.png"
+   ]
+  },
+  {
+   "layers": 701,
+   "layer_h": 0.2,
+   "px_mm": 0.1,
+   "allowance_mm": 0.25,
+   "height_mm": 140.0,
+   "supports": "no",
+   "needs_support": false,
+   "n_islands": 0,
+   "n_cantilevers": 0,
+   "max_overhang_mm": 1.6,
+   "max_bridge_mm": 20.4,
+   "n_regions": 42,
+   "n_thin_dropped": 108,
+   "regions": [
+    {
+     "z_mm": 128.0,
+     "layer": 640,
+     "area_mm2": 16.99,
+     "kind": "cantilever",
+     "overhang_mm": 1.6,
+     "anchored_frac": 0.25,
+     "at_print": [
+      11.2,
+      25.1,
+      128.0
+     ],
+     "extent_mm": [
+      2.4,
+      11.8
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 135.2,
+     "layer": 676,
+     "area_mm2": 62.94,
+     "kind": "cantilever",
+     "overhang_mm": 1.5,
+     "anchored_frac": 0.05,
+     "at_print": [
+      11.6,
+      53.9,
+      135.2
+     ],
+     "extent_mm": [
+      1.6,
+      45.2
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 0.2,
+     "layer": 1,
+     "area_mm2": 99.68,
+     "kind": "cantilever",
+     "overhang_mm": 1.1,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -3.8,
+      -24.7,
+      0.2
+     ],
+     "extent_mm": [
+      20.3,
+      90.6
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 81.0,
+     "layer": 405,
+     "area_mm2": 375.39,
+     "kind": "bridge",
+     "span_mm": 20.4,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 0.99,
+     "residual_mm": 0.6,
+     "at_print": [
+      2.4,
+      -44.3,
+      81.0
+     ],
+     "extent_mm": [
+      21.7,
+      24.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 125.0,
+     "layer": 625,
+     "area_mm2": 132.59,
+     "kind": "bridge",
+     "span_mm": 13.3,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      7.2,
+      5.9,
+      125.0
+     ],
+     "extent_mm": [
+      10.2,
+      13.2
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.8,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.1,
+      -34.0,
+      80.8
+     ],
+     "extent_mm": [
+      21.6,
+      3.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.7,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.1,
+      -54.7,
+      80.8
+     ],
+     "extent_mm": [
+      21.5,
+      2.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 130.8,
+     "layer": 654,
+     "area_mm2": 31.1,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      6.8,
+      54.2,
+      130.8
+     ],
+     "extent_mm": [
+      1.2,
+      44.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 81.2,
+     "layer": 406,
+     "area_mm2": 14.47,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -7.7,
+      -44.3,
+      81.2
+     ],
+     "extent_mm": [
+      2.1,
+      23.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 127.8,
+     "layer": 639,
+     "area_mm2": 8.48,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      10.0,
+      24.6,
+      127.8
+     ],
+     "extent_mm": [
+      3.0,
+      12.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 127.4,
+     "layer": 637,
+     "area_mm2": 8.18,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      8.2,
+      25.0,
+      127.4
+     ],
+     "extent_mm": [
+      1.5,
+      12.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 0.4,
+     "layer": 2,
+     "area_mm2": 55.98,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -4.6,
+      -23.9,
+      0.4
+     ],
+     "extent_mm": [
+      20.9,
+      92.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 130.4,
+     "layer": 652,
+     "area_mm2": 26.69,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      5.7,
+      54.3,
+      130.4
+     ],
+     "extent_mm": [
+      1.0,
+      44.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 129.8,
+     "layer": 649,
+     "area_mm2": 26.66,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      4.5,
+      54.3,
+      129.8
+     ],
+     "extent_mm": [
+      1.0,
+      44.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 81.6,
+     "layer": 408,
+     "area_mm2": 12.46,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -8.8,
+      -44.3,
+      81.6
+     ],
+     "extent_mm": [
+      1.4,
+      23.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.4,
+     "layer": 402,
+     "area_mm2": 11.78,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.2,
+      -56.1,
+      80.4
+     ],
+     "extent_mm": [
+      21.1,
+      1.5
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.0,
+     "layer": 400,
+     "area_mm2": 11.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.4,
+      -31.5,
+      80.0
+     ],
+     "extent_mm": [
+      20.5,
+      0.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 127.6,
+     "layer": 638,
+     "area_mm2": 6.91,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      9.1,
+      24.7,
+      127.6
+     ],
+     "extent_mm": [
+      1.3,
+      12.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 117.6,
+     "layer": 588,
+     "area_mm2": 2.57,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      11.6,
+      15.9,
+      117.6
+     ],
+     "extent_mm": [
+      0.6,
+      4.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 1.0,
+     "layer": 5,
+     "area_mm2": 48.62,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -4.7,
+      -24.0,
+      1.0
+     ],
+     "extent_mm": [
+      22.1,
+      94.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 131.4,
+     "layer": 657,
+     "area_mm2": 22.3,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      8.9,
+      54.1,
+      131.4
+     ],
+     "extent_mm": [
+      1.2,
+      44.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 131.0,
+     "layer": 655,
+     "area_mm2": 22.28,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      7.5,
+      54.3,
+      131.0
+     ],
+     "extent_mm": [
+      1.3,
+      44.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 131.2,
+     "layer": 656,
+     "area_mm2": 22.2,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      8.2,
+      54.2,
+      131.2
+     ],
+     "extent_mm": [
+      1.1,
+      44.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 129.0,
+     "layer": 645,
+     "area_mm2": 22.01,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      3.2,
+      54.3,
+      129.0
+     ],
+     "extent_mm": [
+      0.6,
+      44.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 1.8,
+     "layer": 9,
+     "area_mm2": 11.04,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      1.1,
+      -72.2,
+      1.8
+     ],
+     "extent_mm": [
+      22.7,
+      3.5
+     ],
+     "status": "ok"
+    }
+   ],
+   "findings": [
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 128.0,
+     "msg": "a 1.6 mm cantilever (17.0 mm2, extent [2.4, 11.8]) at z 128.0 (print [11.2, 25.1, 128.0])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 135.2,
+     "msg": "a 1.5 mm cantilever (62.9 mm2, extent [1.6, 45.2]) at z 135.2 (print [11.6, 53.9, 135.2])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 0.2,
+     "msg": "a 1.1 mm cantilever (99.7 mm2, extent [20.3, 90.6]) at z 0.2 (print [-3.8, -24.7, 0.2])"
+    }
+   ],
+   "stl": "fin_L_outboard_standing",
+   "file": "/tmp/pa_standing/fin_L_outboard_standing.stl",
+   "objects": [],
+   "render": "cad/review/a1/printcheck_standing/fin_L_outboard_standing_printcheck.png",
+   "layer_maps": [
+    "cad/review/a1/printcheck_standing/fin_L_outboard_standing_z128.0_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_L_outboard_standing_z135.2_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_L_outboard_standing_z000.2_cantilever.png"
+   ]
+  },
+  {
+   "layers": 700,
+   "layer_h": 0.2,
+   "px_mm": 0.1,
+   "allowance_mm": 0.25,
+   "height_mm": 140.0,
+   "supports": "no",
+   "needs_support": false,
+   "n_islands": 0,
+   "n_cantilevers": 0,
+   "max_overhang_mm": 1.7,
+   "max_bridge_mm": 20.5,
+   "n_regions": 69,
+   "n_thin_dropped": 188,
+   "regions": [
+    {
+     "z_mm": 135.2,
+     "layer": 676,
+     "area_mm2": 71.95,
+     "kind": "cantilever",
+     "overhang_mm": 1.7,
+     "anchored_frac": 0.06,
+     "at_print": [
+      11.6,
+      53.9,
+      135.2
+     ],
+     "extent_mm": [
+      1.7,
+      45.1
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 128.0,
+     "layer": 640,
+     "area_mm2": 18.17,
+     "kind": "cantilever",
+     "overhang_mm": 1.7,
+     "anchored_frac": 0.27,
+     "at_print": [
+      11.3,
+      25.1,
+      128.0
+     ],
+     "extent_mm": [
+      2.8,
+      11.9
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 0.2,
+     "layer": 1,
+     "area_mm2": 108.49,
+     "kind": "cantilever",
+     "overhang_mm": 1.1,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.4,
+      -24.6,
+      0.2
+     ],
+     "extent_mm": [
+      20.4,
+      90.6
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 79.2,
+     "layer": 396,
+     "area_mm2": 12.47,
+     "kind": "cantilever",
+     "overhang_mm": 1.1,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -5.7,
+      21.6,
+      79.2
+     ],
+     "extent_mm": [
+      14.7,
+      1.3
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 81.0,
+     "layer": 405,
+     "area_mm2": 375.4,
+     "kind": "bridge",
+     "span_mm": 20.5,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 0.99,
+     "residual_mm": 0.6,
+     "at_print": [
+      2.4,
+      -44.3,
+      81.0
+     ],
+     "extent_mm": [
+      21.6,
+      24.5
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 125.0,
+     "layer": 625,
+     "area_mm2": 133.84,
+     "kind": "bridge",
+     "span_mm": 13.3,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      7.3,
+      5.9,
+      125.0
+     ],
+     "extent_mm": [
+      10.3,
+      13.2
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 61.2,
+     "layer": 306,
+     "area_mm2": 139.15,
+     "kind": "bridge",
+     "span_mm": 7.8,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      3.0,
+      -3.2,
+      61.2
+     ],
+     "extent_mm": [
+      18.5,
+      7.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 84.2,
+     "layer": 421,
+     "area_mm2": 136.15,
+     "kind": "bridge",
+     "span_mm": 7.7,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      3.2,
+      41.8,
+      84.2
+     ],
+     "extent_mm": [
+      18.4,
+      7.6
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 119.2,
+     "layer": 596,
+     "area_mm2": 133.54,
+     "kind": "bridge",
+     "span_mm": 7.5,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      3.2,
+      -43.3,
+      119.2
+     ],
+     "extent_mm": [
+      18.3,
+      7.4
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 79.2,
+     "layer": 396,
+     "area_mm2": 11.65,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -5.6,
+      23.0,
+      79.2
+     ],
+     "extent_mm": [
+      14.6,
+      1.2
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 117.2,
+     "layer": 586,
+     "area_mm2": 8.88,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -9.8,
+      -43.2,
+      117.2
+     ],
+     "extent_mm": [
+      5.3,
+      2.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 59.2,
+     "layer": 296,
+     "area_mm2": 8.68,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -9.7,
+      -3.2,
+      59.2
+     ],
+     "extent_mm": [
+      5.5,
+      2.3
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 82.2,
+     "layer": 411,
+     "area_mm2": 8.13,
+     "kind": "cantilever",
+     "overhang_mm": 1.0,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -9.8,
+      41.8,
+      82.2
+     ],
+     "extent_mm": [
+      5.4,
+      1.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.87,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.2,
+      -34.0,
+      80.8
+     ],
+     "extent_mm": [
+      21.3,
+      2.5
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.71,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.2,
+      -54.7,
+      80.8
+     ],
+     "extent_mm": [
+      21.6,
+      2.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 96.2,
+     "layer": 481,
+     "area_mm2": 4.09,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -11.1,
+      -13.2,
+      96.2
+     ],
+     "extent_mm": [
+      2.8,
+      2.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 33.2,
+     "layer": 166,
+     "area_mm2": 3.78,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -11.1,
+      11.8,
+      33.2
+     ],
+     "extent_mm": [
+      2.8,
+      2.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 13.2,
+     "layer": 66,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -10.8,
+      -33.2,
+      13.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 97.2,
+     "layer": 486,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -10.8,
+      32.8,
+      97.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 97.2,
+     "layer": 486,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -10.8,
+      68.8,
+      97.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 133.2,
+     "layer": 666,
+     "area_mm2": 3.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -10.8,
+      -33.2,
+      133.2
+     ],
+     "extent_mm": [
+      2.9,
+      1.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 0.8,
+     "layer": 4,
+     "area_mm2": 63.63,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -4.4,
+      -25.2,
+      0.8
+     ],
+     "extent_mm": [
+      21.7,
+      94.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 130.4,
+     "layer": 652,
+     "area_mm2": 31.05,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      5.7,
+      54.3,
+      130.4
+     ],
+     "extent_mm": [
+      0.8,
+      44.6
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 11.6,
+     "layer": 58,
+     "area_mm2": 26.76,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.1,
+      -33.2,
+      11.6
+     ],
+     "extent_mm": [
+      20.8,
+      1.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 95.6,
+     "layer": 478,
+     "area_mm2": 26.76,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      2.1,
+      32.8,
+      95.6
+     ],
+     "extent_mm": [
+      20.8,
+      1.7
+     ],
+     "status": "ok"
+    }
+   ],
+   "findings": [
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 135.2,
+     "msg": "a 1.7 mm cantilever (72.0 mm2, extent [1.7, 45.1]) at z 135.2 (print [11.6, 53.9, 135.2])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 128.0,
+     "msg": "a 1.7 mm cantilever (18.2 mm2, extent [2.8, 11.9]) at z 128.0 (print [11.3, 25.1, 128.0])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 0.2,
+     "msg": "a 1.1 mm cantilever (108.5 mm2, extent [20.4, 90.6]) at z 0.2 (print [-2.4, -24.6, 0.2])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 79.2,
+     "msg": "a 1.1 mm cantilever (12.5 mm2, extent [14.7, 1.3]) at z 79.2 (print [-5.7, 21.6, 79.2])"
+    }
+   ],
+   "stl": "fin_R_inboard_standing",
+   "file": "/tmp/pa_standing/fin_R_inboard_standing.stl",
+   "objects": [],
+   "render": "cad/review/a1/printcheck_standing/fin_R_inboard_standing_printcheck.png",
+   "layer_maps": [
+    "cad/review/a1/printcheck_standing/fin_R_inboard_standing_z135.2_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_R_inboard_standing_z128.0_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_R_inboard_standing_z000.2_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_R_inboard_standing_z079.2_cantilever.png"
+   ]
+  },
+  {
+   "layers": 701,
+   "layer_h": 0.2,
+   "px_mm": 0.1,
+   "allowance_mm": 0.25,
+   "height_mm": 140.0,
+   "supports": "no",
+   "needs_support": false,
+   "n_islands": 0,
+   "n_cantilevers": 0,
+   "max_overhang_mm": 1.6,
+   "max_bridge_mm": 20.4,
+   "n_regions": 42,
+   "n_thin_dropped": 108,
+   "regions": [
+    {
+     "z_mm": 128.0,
+     "layer": 640,
+     "area_mm2": 16.99,
+     "kind": "cantilever",
+     "overhang_mm": 1.6,
+     "anchored_frac": 0.25,
+     "at_print": [
+      -11.2,
+      25.1,
+      128.0
+     ],
+     "extent_mm": [
+      2.4,
+      11.8
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 135.2,
+     "layer": 676,
+     "area_mm2": 62.94,
+     "kind": "cantilever",
+     "overhang_mm": 1.5,
+     "anchored_frac": 0.05,
+     "at_print": [
+      -11.6,
+      53.9,
+      135.2
+     ],
+     "extent_mm": [
+      1.6,
+      45.2
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 0.2,
+     "layer": 1,
+     "area_mm2": 99.68,
+     "kind": "cantilever",
+     "overhang_mm": 1.1,
+     "anchored_frac": 0.0,
+     "at_print": [
+      3.8,
+      -24.7,
+      0.2
+     ],
+     "extent_mm": [
+      20.3,
+      90.6
+     ],
+     "status": "warn"
+    },
+    {
+     "z_mm": 81.0,
+     "layer": 405,
+     "area_mm2": 375.39,
+     "kind": "bridge",
+     "span_mm": 20.4,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 0.99,
+     "residual_mm": 0.6,
+     "at_print": [
+      -2.4,
+      -44.3,
+      81.0
+     ],
+     "extent_mm": [
+      21.7,
+      24.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 125.0,
+     "layer": 625,
+     "area_mm2": 132.59,
+     "kind": "bridge",
+     "span_mm": 13.3,
+     "bridge_dir_deg": 90,
+     "anchored_frac": 1.0,
+     "residual_mm": 0.2,
+     "at_print": [
+      -7.2,
+      5.9,
+      125.0
+     ],
+     "extent_mm": [
+      10.2,
+      13.2
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.8,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.1,
+      -34.0,
+      80.8
+     ],
+     "extent_mm": [
+      21.6,
+      3.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.8,
+     "layer": 404,
+     "area_mm2": 15.7,
+     "kind": "cantilever",
+     "overhang_mm": 0.9,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.1,
+      -54.7,
+      80.8
+     ],
+     "extent_mm": [
+      21.5,
+      2.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 130.8,
+     "layer": 654,
+     "area_mm2": 31.1,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -6.8,
+      54.2,
+      130.8
+     ],
+     "extent_mm": [
+      1.2,
+      44.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 81.2,
+     "layer": 406,
+     "area_mm2": 14.47,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      7.7,
+      -44.3,
+      81.2
+     ],
+     "extent_mm": [
+      2.1,
+      23.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 127.8,
+     "layer": 639,
+     "area_mm2": 8.48,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -10.0,
+      24.6,
+      127.8
+     ],
+     "extent_mm": [
+      3.0,
+      12.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 127.4,
+     "layer": 637,
+     "area_mm2": 8.18,
+     "kind": "cantilever",
+     "overhang_mm": 0.8,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -8.2,
+      25.0,
+      127.4
+     ],
+     "extent_mm": [
+      1.5,
+      12.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 0.4,
+     "layer": 2,
+     "area_mm2": 55.98,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      4.6,
+      -23.9,
+      0.4
+     ],
+     "extent_mm": [
+      20.9,
+      92.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 130.4,
+     "layer": 652,
+     "area_mm2": 26.69,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -5.7,
+      54.3,
+      130.4
+     ],
+     "extent_mm": [
+      1.0,
+      44.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 129.8,
+     "layer": 649,
+     "area_mm2": 26.66,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -4.5,
+      54.3,
+      129.8
+     ],
+     "extent_mm": [
+      1.0,
+      44.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 81.6,
+     "layer": 408,
+     "area_mm2": 12.46,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      8.8,
+      -44.3,
+      81.6
+     ],
+     "extent_mm": [
+      1.4,
+      23.1
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.4,
+     "layer": 402,
+     "area_mm2": 11.78,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.2,
+      -56.1,
+      80.4
+     ],
+     "extent_mm": [
+      21.1,
+      1.5
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 80.0,
+     "layer": 400,
+     "area_mm2": 11.68,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -2.4,
+      -31.5,
+      80.0
+     ],
+     "extent_mm": [
+      20.5,
+      0.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 127.6,
+     "layer": 638,
+     "area_mm2": 6.91,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -9.1,
+      24.7,
+      127.6
+     ],
+     "extent_mm": [
+      1.3,
+      12.0
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 117.6,
+     "layer": 588,
+     "area_mm2": 2.57,
+     "kind": "cantilever",
+     "overhang_mm": 0.7,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -11.6,
+      15.9,
+      117.6
+     ],
+     "extent_mm": [
+      0.6,
+      4.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 1.0,
+     "layer": 5,
+     "area_mm2": 48.62,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      4.7,
+      -24.0,
+      1.0
+     ],
+     "extent_mm": [
+      22.1,
+      94.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 131.4,
+     "layer": 657,
+     "area_mm2": 22.3,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -8.9,
+      54.1,
+      131.4
+     ],
+     "extent_mm": [
+      1.2,
+      44.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 131.0,
+     "layer": 655,
+     "area_mm2": 22.28,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -7.5,
+      54.3,
+      131.0
+     ],
+     "extent_mm": [
+      1.3,
+      44.8
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 131.2,
+     "layer": 656,
+     "area_mm2": 22.2,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -8.2,
+      54.2,
+      131.2
+     ],
+     "extent_mm": [
+      1.1,
+      44.9
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 129.0,
+     "layer": 645,
+     "area_mm2": 22.01,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -3.2,
+      54.3,
+      129.0
+     ],
+     "extent_mm": [
+      0.6,
+      44.7
+     ],
+     "status": "ok"
+    },
+    {
+     "z_mm": 1.8,
+     "layer": 9,
+     "area_mm2": 11.04,
+     "kind": "cantilever",
+     "overhang_mm": 0.6,
+     "anchored_frac": 0.0,
+     "at_print": [
+      -1.1,
+      -72.2,
+      1.8
+     ],
+     "extent_mm": [
+      22.7,
+      3.5
+     ],
+     "status": "ok"
+    }
+   ],
+   "findings": [
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 128.0,
+     "msg": "a 1.6 mm cantilever (17.0 mm2, extent [2.4, 11.8]) at z 128.0 (print [-11.2, 25.1, 128.0])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 135.2,
+     "msg": "a 1.5 mm cantilever (62.9 mm2, extent [1.6, 45.2]) at z 135.2 (print [-11.6, 53.9, 135.2])"
+    },
+    {
+     "status": "warn",
+     "kind": "cantilever",
+     "z_mm": 0.2,
+     "msg": "a 1.1 mm cantilever (99.7 mm2, extent [20.3, 90.6]) at z 0.2 (print [3.8, -24.7, 0.2])"
+    }
+   ],
+   "stl": "fin_R_outboard_standing",
+   "file": "/tmp/pa_standing/fin_R_outboard_standing.stl",
+   "objects": [],
+   "render": "cad/review/a1/printcheck_standing/fin_R_outboard_standing_printcheck.png",
+   "layer_maps": [
+    "cad/review/a1/printcheck_standing/fin_R_outboard_standing_z128.0_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_R_outboard_standing_z135.2_cantilever.png",
+    "cad/review/a1/printcheck_standing/fin_R_outboard_standing_z000.2_cantilever.png"
+   ]
+  }
+ ],
+ "summary": {
+  "parts": 4,
+  "fails": 0,
+  "warns": 14,
+  "need_support": [],
+  "fail_list": [],
+  "warn_list": [
+   "fin_L_inboard_standing: a 1.7 mm cantilever (72.0 mm2, extent [1.7, 45.1]) at z 135.2 (print [-11.6, 53.9, 135.2])",
+   "fin_L_inboard_standing: a 1.7 mm cantilever (18.2 mm2, extent [2.8, 11.9]) at z 128.0 (print [-11.3, 25.1, 128.0])",
+   "fin_L_inboard_standing: a 1.1 mm cantilever (108.5 mm2, extent [20.4, 90.6]) at z 0.2 (print [2.4, -24.6, 0.2])",
+   "fin_L_inboard_standing: a 1.1 mm cantilever (12.5 mm2, extent [14.7, 1.3]) at z 79.2 (print [5.7, 21.6, 79.2])",
+   "fin_L_outboard_standing: a 1.6 mm cantilever (17.0 mm2, extent [2.4, 11.8]) at z 128.0 (print [11.2, 25.1, 128.0])",
+   "fin_L_outboard_standing: a 1.5 mm cantilever (62.9 mm2, extent [1.6, 45.2]) at z 135.2 (print [11.6, 53.9, 135.2])",
+   "fin_L_outboard_standing: a 1.1 mm cantilever (99.7 mm2, extent [20.3, 90.6]) at z 0.2 (print [-3.8, -24.7, 0.2])",
+   "fin_R_inboard_standing: a 1.7 mm cantilever (72.0 mm2, extent [1.7, 45.1]) at z 135.2 (print [11.6, 53.9, 135.2])",
+   "fin_R_inboard_standing: a 1.7 mm cantilever (18.2 mm2, extent [2.8, 11.9]) at z 128.0 (print [11.3, 25.1, 128.0])",
+   "fin_R_inboard_standing: a 1.1 mm cantilever (108.5 mm2, extent [20.4, 90.6]) at z 0.2 (print [-2.4, -24.6, 0.2])",
+   "fin_R_inboard_standing: a 1.1 mm cantilever (12.5 mm2, extent [14.7, 1.3]) at z 79.2 (print [-5.7, 21.6, 79.2])",
+   "fin_R_outboard_standing: a 1.6 mm cantilever (17.0 mm2, extent [2.4, 11.8]) at z 128.0 (print [-11.2, 25.1, 128.0])",
+   "fin_R_outboard_standing: a 1.5 mm cantilever (62.9 mm2, extent [1.6, 45.2]) at z 135.2 (print [-11.6, 53.9, 135.2])",
+   "fin_R_outboard_standing: a 1.1 mm cantilever (99.7 mm2, extent [20.3, 90.6]) at z 0.2 (print [3.8, -24.7, 0.2])"
+  ]
+ }
+}

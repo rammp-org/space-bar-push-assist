@@ -1,0 +1,763 @@
+{
+ "tool": "cadcheck",
+ "blend": "/tmp/pa_review_copy.blend",
+ "generated": "2026-10-26 22:23:07",
+ "config": {
+  "collections": {
+   "printed": "Printed",
+   "purchased": "Purchased",
+   "fasteners": "Fasteners",
+   "cables": "Cables"
+  },
+  "printers": {
+   "P1S": [
+    256,
+    256,
+    256
+   ],
+   "H2D": [
+    325,
+    320,
+    325
+   ]
+  },
+  "prefer_printer": "P1S",
+  "min_wall": 1.6,
+  "overhang_deg": 45.0,
+  "joints": {},
+  "couplings": {},
+  "overtravel_deg": 2.5,
+  "overtravel_mm": 1.0,
+  "max_poses_per_group": 48,
+  "allow": [
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_front_nut_*",
+    "why": "M5 nut threaded on the cell's front stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_rear_nut_*",
+    "why": "M5 nut threaded on the cell's rear stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_front_washer_*",
+    "why": "washer on the cell's front stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_rear_washer_*",
+    "why": "washer on the cell's rear stud"
+   },
+   {
+    "a": "PRT_piston_*",
+    "b": "BUY_grip_*",
+    "why": "lock-on grip clamps the 22.2 spigot (its core ID is under 22.2 by design)"
+   },
+   {
+    "a": "PRT_fin_*",
+    "b": "BUY_load_cell_*",
+    "max_mm3": 3.0,
+    "why": "cell stud passes the 5.5 floor hole; facet overlap only"
+   },
+   {
+    "a": "FST_Board_screw_*",
+    "b": "BUY_esp32_p4",
+    "why": "the ESP32 stand-in STL fills its mounting-hole centres below the PCB"
+   }
+  ],
+  "vol_tol": 0.5,
+  "moving_min_clearance": 0.5,
+  "moving_warn_clearance": 1.0,
+  "fasteners": {
+   "driver_r": 3.0,
+   "hand_r": 14.0,
+   "max_reach": 60.0,
+   "max_reach_ext": 150.0,
+   "min_engagement_d": 2.0,
+   "tapped_engagement_d": 1.5,
+   "lkey_short": 18.0,
+   "lkey_insert": 2.5,
+   "lkey_long": 56.0,
+   "lkey_r": 1.25,
+   "lkey_swing_deg": 60.0,
+   "max_standoff": 2.0,
+   "max_protrusion": 3.0,
+   "captive": {},
+   "stock_lengths": {
+    "2": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20
+    ],
+    "2.5": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25
+    ],
+    "3": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "4": [
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "5": [
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ]
+   },
+   "stock_ok": []
+  },
+  "service": [
+   {
+    "op": "replace / re-seat load cell R (fin off the tray)",
+    "remove": [
+     "PRT_cover_R",
+     "FST_Cover_screw_R*"
+    ],
+    "fasteners": [
+     "FST_M4_screw_R*"
+    ]
+   },
+   {
+    "op": "re-tighten mount bolts",
+    "remove": [
+     "PRT_cover_L",
+     "PRT_cover_R",
+     "FST_Cover_screw_*"
+    ],
+    "fasteners": [
+     "FST_M5_bolt_*"
+    ]
+   }
+  ],
+  "index_tests": [],
+  "stacks": [],
+  "exposure": {
+   "max_cable_mm": 5.0,
+   "cables_ok": [],
+   "min_escape": 8,
+   "view_frac": 0.1,
+   "view_z": -0.2,
+   "nuts_ok": []
+  },
+  "carry": {},
+  "flexures": [],
+  "slide_out": [
+   {
+    "name": "cover R off along the plate face (up and rearward)",
+    "objects": [
+     "PRT_cover_R",
+     "FST_Cover_screw_R*"
+    ],
+    "dir": [
+     0,
+     0.259,
+     0.966
+    ],
+    "dist": 60,
+    "step": 2,
+    "min_clearance": 0.2
+   },
+   {
+    "name": "piston R pushed forward stops on the bore step",
+    "object": "PRT_piston_R",
+    "ignore": [
+     "BUY_load_cell_R",
+     "BUY_rear_washer_R",
+     "BUY_rear_nut_R",
+     "BUY_grip_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.0,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_outboard",
+     "PRT_fin_R_inboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   }
+  ],
+  "distances": [
+   {
+    "a": "PRT_piston_R",
+    "b": "PRT_fin_R_outboard",
+    "max": 0.15,
+    "why": "overload stop: piston rear face to the bore step must close before the 20 kg cell passes ~150 % FS (~0.15 mm travel)",
+    "ray": {
+     "origin": [
+      192.8,
+      104.99,
+      0
+     ],
+     "dir": [
+      0,
+      -1,
+      0
+     ]
+    }
+   },
+   {
+    "a": "PRT_piston_L",
+    "b": "PRT_fin_L_outboard",
+    "max": 0.15,
+    "why": "overload stop, left",
+    "ray": {
+     "origin": [
+      -192.8,
+      104.99,
+      0
+     ],
+     "dir": [
+      0,
+      -1,
+      0
+     ]
+    }
+   },
+   {
+    "a": "PRT_piston_R",
+    "b": "PRT_fin_R_inboard",
+    "min": 0.2,
+    "why": "sliding sleeve + key rib running clearance (PTFE tape adds ~0.1)"
+   },
+   {
+    "a": "PRT_piston_R",
+    "b": "PRT_fin_R_outboard",
+    "min": 0.2,
+    "why": "sliding sleeve + key rib running clearance"
+   },
+   {
+    "a": "PRT_piston_L",
+    "b": "PRT_fin_L_inboard",
+    "min": 0.2,
+    "why": "sliding sleeve + key rib running clearance"
+   },
+   {
+    "a": "PRT_piston_L",
+    "b": "PRT_fin_L_outboard",
+    "min": 0.2,
+    "why": "sliding sleeve + key rib running clearance"
+   }
+  ],
+  "payload_fit": [],
+  "sightlines": [],
+  "masses_g": {},
+  "pla_density": 0.00124,
+  "flow_mm3_s": 12.0,
+  "cable_leads": {},
+  "cable_chains": [],
+  "cable_junctions_ok": [],
+  "cable_min_bend_od": 0.75,
+  "joint_drives": {},
+  "accepted_warns": [],
+  "assembly_order": [
+   {
+    "step": "T-nuts into the chair plate",
+    "objects": [
+     "BUY_corpus_back_plate",
+     "FST_T-nut_*"
+    ]
+   },
+   {
+    "step": "electronics into the trays",
+    "objects": [
+     "PRT_tray_*",
+     "BUY_esp32_p4",
+     "BUY_hx711_*",
+     "BUY_rj45_coupler",
+     "BUY_patch_*",
+     "FST_Board_screw_*",
+     "CAB_*"
+    ]
+   },
+   {
+    "step": "right handle (bench)",
+    "bench": "fin_R",
+    "objects": [
+     "PRT_fin_R_*",
+     "BUY_load_cell_R",
+     "BUY_front_*_R",
+     "BUY_rear_*_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_M3_screw_R*",
+     "FST_M4_nut_R*"
+    ]
+   },
+   {
+    "step": "left handle (bench)",
+    "bench": "fin_L",
+    "objects": [
+     "PRT_fin_L_*",
+     "BUY_load_cell_L",
+     "BUY_front_*_L",
+     "BUY_rear_*_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_M3_screw_L*",
+     "FST_M4_nut_L*"
+    ]
+   },
+   {
+    "step": "right handle onto tray R",
+    "merge": "fin_R",
+    "objects": [
+     "FST_M4_screw_R*"
+    ]
+   },
+   {
+    "step": "left handle onto tray L",
+    "merge": "fin_L",
+    "objects": [
+     "FST_M4_screw_L*"
+    ]
+   },
+   {
+    "step": "unit onto the plate",
+    "objects": [
+     "FST_M5_bolt_*"
+    ]
+   },
+   {
+    "step": "covers on",
+    "objects": [
+     "PRT_cover_*",
+     "FST_Cover_screw_*"
+    ]
+   }
+  ]
+ },
+ "checks": {
+  "service": {
+   "findings": [],
+   "rows": [
+    {
+     "op": "replace / re-seat load cell R (fin off the tray)",
+     "object": "FST_M4_screw_R0",
+     "access": {
+      "home": {
+       "reach_mm": 10.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "replace / re-seat load cell R (fin off the tray)",
+     "object": "FST_M4_screw_R1",
+     "access": {
+      "home": {
+       "reach_mm": 10.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "replace / re-seat load cell R (fin off the tray)",
+     "object": "FST_M4_screw_R2",
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 158.0,
+       "blocked_by": "BUY_esp32_p4",
+       "lkey_ok": true,
+       "lkey_arc_deg": 180,
+       "lkey_why": "long leg clear over 180 deg (need 60)",
+       "tool": "L-key"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_0",
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_1",
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_2",
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_3",
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    }
+   ],
+   "runtime_s": 2.4
+  },
+  "slide": {
+   "findings": [
+    {
+     "status": "warn",
+     "msg": "cover R off along the plate face (up and rearward) slides out but with only 0.00 mm to PRT_tray_R",
+     "object": "cover R off along the plate face (up and rearward)",
+     "members": [
+      "FST_Cover_screw_R0",
+      "FST_Cover_screw_R1",
+      "FST_Cover_screw_R2",
+      "FST_Cover_screw_R3",
+      "FST_Cover_screw_R4",
+      "PRT_cover_R"
+     ],
+     "dir": [
+      0.0,
+      0.2589693069458008,
+      0.965885579586029
+     ],
+     "dist": 60,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_tray_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "piston R pushed forward stops on the bore step: stopped by ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at 0.55 mm, wanted ['PRT_fin_R_outboard', 'PRT_fin_R_inboard'] at [0.0, 0.15] mm",
+     "object": "piston R pushed forward stops on the bore step",
+     "members": [
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.0,
+     "blocked_at_mm": 0.55,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_fin_R_outboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_outboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    }
+   ],
+   "rows": [
+    {
+     "object": "cover R off along the plate face (up and rearward)",
+     "members": [
+      "FST_Cover_screw_R0",
+      "FST_Cover_screw_R1",
+      "FST_Cover_screw_R2",
+      "FST_Cover_screw_R3",
+      "FST_Cover_screw_R4",
+      "PRT_cover_R"
+     ],
+     "dir": [
+      0.0,
+      0.2589693069458008,
+      0.965885579586029
+     ],
+     "dist": 60,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_tray_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "piston R pushed forward stops on the bore step",
+     "members": [
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.0,
+     "blocked_at_mm": 0.55,
+     "blocked_by": [
+      "PRT_fin_R_inboard",
+      "PRT_fin_R_outboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_outboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    }
+   ],
+   "runtime_s": 11.4
+  },
+  "distances": {
+   "findings": [
+    {
+     "status": "fail",
+     "msg": "PRT_piston_R to PRT_fin_R_outboard = 0.50 mm (along ray) at home, wanted None..0.15 (overload stop: piston rear face to the bore step must close before the 20 kg cell passes ~150 % FS (~0.15 mm travel))",
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": null,
+     "max": 0.15,
+     "why": "overload stop: piston rear face to the bore step must close before the 20 kg cell passes ~150 % FS (~0.15 mm travel)"
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_piston_L to PRT_fin_L_outboard = 0.50 mm (along ray) at home, wanted None..0.15 (overload stop, left)",
+     "a": "PRT_piston_L",
+     "b": "PRT_fin_L_outboard",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": null,
+     "max": 0.15,
+     "why": "overload stop, left"
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_piston_R to PRT_fin_R_inboard = 0.01 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance (PTFE tape adds ~0.1))",
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_inboard",
+     "pose": "home",
+     "mm": 0.007,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance (PTFE tape adds ~0.1)"
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_piston_R to PRT_fin_R_outboard = 0.00 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance)",
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 0.001,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance"
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_piston_L to PRT_fin_L_inboard = 0.01 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance)",
+     "a": "PRT_piston_L",
+     "b": "PRT_fin_L_inboard",
+     "pose": "home",
+     "mm": 0.007,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance"
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_piston_L to PRT_fin_L_outboard = 0.00 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance)",
+     "a": "PRT_piston_L",
+     "b": "PRT_fin_L_outboard",
+     "pose": "home",
+     "mm": 0.001,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance"
+    }
+   ],
+   "rows": [
+    {
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": null,
+     "max": 0.15,
+     "why": "overload stop: piston rear face to the bore step must close before the 20 kg cell passes ~150 % FS (~0.15 mm travel)"
+    },
+    {
+     "a": "PRT_piston_L",
+     "b": "PRT_fin_L_outboard",
+     "pose": "home",
+     "mm": 0.5,
+     "how": "along ray",
+     "min": null,
+     "max": 0.15,
+     "why": "overload stop, left"
+    },
+    {
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_inboard",
+     "pose": "home",
+     "mm": 0.007,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance (PTFE tape adds ~0.1)"
+    },
+    {
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 0.001,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance"
+    },
+    {
+     "a": "PRT_piston_L",
+     "b": "PRT_fin_L_inboard",
+     "pose": "home",
+     "mm": 0.007,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance"
+    },
+    {
+     "a": "PRT_piston_L",
+     "b": "PRT_fin_L_outboard",
+     "pose": "home",
+     "mm": 0.001,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve + key rib running clearance"
+    }
+   ],
+   "runtime_s": 3.0
+  }
+ },
+ "coverage": [
+  "service: 2 ops, 7 screw accesses with the built assembly present",
+  "slide: 2 slide-out sweeps"
+ ],
+ "not_checked": [
+  "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+ ],
+ "summary": {
+  "pass": false,
+  "fails": 7,
+  "warns": 1,
+  "untriaged_warns": 1,
+  "fail_list": [
+   "slide: piston R pushed forward stops on the bore step: stopped by ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at 0.55 mm, wanted ['PRT_fin_R_outboard', 'PRT_fin_R_inboard'] at [0.0, 0.15] mm",
+   "distances: PRT_piston_R to PRT_fin_R_outboard = 0.50 mm (along ray) at home, wanted None..0.15 (overload stop: piston rear face to the bore step must close before the 20 kg cell passes ~150 % FS (~0.15 mm travel))",
+   "distances: PRT_piston_L to PRT_fin_L_outboard = 0.50 mm (along ray) at home, wanted None..0.15 (overload stop, left)",
+   "distances: PRT_piston_R to PRT_fin_R_inboard = 0.01 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance (PTFE tape adds ~0.1))",
+   "distances: PRT_piston_R to PRT_fin_R_outboard = 0.00 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance)",
+   "distances: PRT_piston_L to PRT_fin_L_inboard = 0.01 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance)",
+   "distances: PRT_piston_L to PRT_fin_L_outboard = 0.00 mm (nearest) at home, wanted 0.2..None (sliding sleeve + key rib running clearance)"
+  ],
+  "warn_list": [
+   "slide: cover R off along the plate face (up and rearward) slides out but with only 0.00 mm to PRT_tray_R"
+  ],
+  "accepted_warns": {},
+  "stale_accepts": [],
+  "coverage": [
+   "service: 2 ops, 7 screw accesses with the built assembly present",
+   "slide: 2 slide-out sweeps"
+  ],
+  "not_checked": [
+   "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+  ],
+  "poses_past_limits": [],
+  "unbounded_allows": {},
+  "runtime_s": 16.8
+ }
+}

@@ -1,0 +1,1531 @@
+{
+ "tool": "cadcheck",
+ "blend": "/tmp/a4r_moving.blend",
+ "generated": "2026-10-27 02:06:27",
+ "config": {
+  "collections": {
+   "printed": "Printed",
+   "purchased": "Purchased",
+   "fasteners": "Fasteners",
+   "cables": "Cables"
+  },
+  "printers": {
+   "P1S": [
+    256,
+    256,
+    256
+   ],
+   "H2D": [
+    325,
+    320,
+    325
+   ]
+  },
+  "prefer_printer": "P1S",
+  "min_wall": 1.6,
+  "overhang_deg": 45.0,
+  "joints": {},
+  "couplings": {},
+  "overtravel_deg": 2.5,
+  "overtravel_mm": 1.0,
+  "max_poses_per_group": 48,
+  "allow": [],
+  "vol_tol": 0.5,
+  "moving_min_clearance": 0.5,
+  "moving_warn_clearance": 1.0,
+  "fasteners": {
+   "driver_r": 3.0,
+   "hand_r": 14.0,
+   "max_reach": 60.0,
+   "max_reach_ext": 150.0,
+   "min_engagement_d": 2.0,
+   "tapped_engagement_d": 1.5,
+   "lkey_short": 18.0,
+   "lkey_insert": 2.5,
+   "lkey_long": 56.0,
+   "lkey_r": 1.25,
+   "lkey_swing_deg": 60.0,
+   "max_standoff": 2.0,
+   "max_protrusion": 3.0,
+   "captive": {},
+   "stock_lengths": {
+    "2": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20
+    ],
+    "2.5": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25
+    ],
+    "3": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "4": [
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "5": [
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ]
+   },
+   "stock_ok": []
+  },
+  "service": [],
+  "index_tests": [],
+  "stacks": [],
+  "exposure": {
+   "max_cable_mm": 5.0,
+   "cables_ok": [],
+   "min_escape": 8,
+   "view_frac": 0.1,
+   "view_z": -0.2,
+   "nuts_ok": []
+  },
+  "carry": {},
+  "flexures": [],
+  "slide_out": [
+   {
+    "name": "a3R R flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R"
+    ],
+    "ignore": [
+     "PRT_cartridge_R",
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_R"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R R flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R"
+    ],
+    "ignore": [
+     "PRT_cartridge_R",
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_R"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R R flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R"
+    ],
+    "ignore": [
+     "PRT_cartridge_R",
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_R"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R R flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R"
+    ],
+    "ignore": [
+     "PRT_cartridge_R",
+     "BUY_load_cell_R"
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_R"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R R flexure moving link sideways outboard: nothing within 0.8 (cav 1.0)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R"
+    ],
+    "ignore": [
+     "PRT_cartridge_R",
+     "BUY_load_cell_R",
+     "FST_Stop_pin_R"
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ],
+    "dist": 3,
+    "step": 0.05,
+    "expect": "blocked",
+    "at_mm": [
+     0.8,
+     1.2
+    ]
+   },
+   {
+    "name": "a3R R flexure moving link sideways inboard: nothing within 0.8 (cav 1.0)",
+    "objects": [
+     "PRT_movlink_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_Piston_screw_R*",
+     "BUY_rear_nut_R"
+    ],
+    "ignore": [
+     "PRT_cartridge_R",
+     "BUY_load_cell_R",
+     "FST_Stop_pin_R"
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ],
+    "dist": 3,
+    "step": 0.05,
+    "expect": "blocked",
+    "at_mm": [
+     0.8,
+     1.2
+    ]
+   },
+   {
+    "name": "a3R R a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15",
+    "objects": [
+     "PRT_cartridge_R",
+     "FST_Stop_pin_R",
+     "FST_Stop_nut_R"
+    ],
+    "ignore": [
+     "BUY_load_cell_R",
+     "BUY_rear_nut_R",
+     "PRT_piston_R",
+     "FST_Piston_screw_R*",
+     "BUY_grip_R",
+     "PRT_movlink_R",
+     "BUY_front_nut_R",
+     "BUY_front_washer_R"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 2,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "a3R R a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15",
+    "objects": [
+     "PRT_cartridge_R",
+     "FST_Stop_pin_R",
+     "FST_Stop_nut_R"
+    ],
+    "ignore": [
+     "BUY_load_cell_R",
+     "BUY_rear_nut_R",
+     "PRT_piston_R",
+     "FST_Piston_screw_R*",
+     "BUY_grip_R",
+     "PRT_movlink_R",
+     "BUY_front_nut_R",
+     "BUY_front_washer_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 2,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "a3R L flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L"
+    ],
+    "ignore": [
+     "PRT_cartridge_L",
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_L"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R L flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L"
+    ],
+    "ignore": [
+     "PRT_cartridge_L",
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_L"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R L flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L"
+    ],
+    "ignore": [
+     "PRT_cartridge_L",
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_L"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R L flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L"
+    ],
+    "ignore": [
+     "PRT_cartridge_L",
+     "BUY_load_cell_L"
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 1.5,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_L"
+    ],
+    "at_mm": [
+     0.15,
+     0.45
+    ]
+   },
+   {
+    "name": "a3R L flexure moving link sideways outboard: nothing within 0.8 (cav 1.0)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L"
+    ],
+    "ignore": [
+     "PRT_cartridge_L",
+     "BUY_load_cell_L",
+     "FST_Stop_pin_L"
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ],
+    "dist": 3,
+    "step": 0.05,
+    "expect": "blocked",
+    "at_mm": [
+     0.8,
+     1.2
+    ]
+   },
+   {
+    "name": "a3R L flexure moving link sideways inboard: nothing within 0.8 (cav 1.0)",
+    "objects": [
+     "PRT_movlink_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_Piston_screw_L*",
+     "BUY_rear_nut_L"
+    ],
+    "ignore": [
+     "PRT_cartridge_L",
+     "BUY_load_cell_L",
+     "FST_Stop_pin_L"
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ],
+    "dist": 3,
+    "step": 0.05,
+    "expect": "blocked",
+    "at_mm": [
+     0.8,
+     1.2
+    ]
+   },
+   {
+    "name": "a3R L a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15",
+    "objects": [
+     "PRT_cartridge_L",
+     "FST_Stop_pin_L",
+     "FST_Stop_nut_L"
+    ],
+    "ignore": [
+     "BUY_load_cell_L",
+     "BUY_rear_nut_L",
+     "PRT_piston_L",
+     "FST_Piston_screw_L*",
+     "BUY_grip_L",
+     "PRT_movlink_L",
+     "BUY_front_nut_L",
+     "BUY_front_washer_L"
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ],
+    "dist": 2,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_L_inboard",
+     "PRT_fin_L_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   },
+   {
+    "name": "a3R L a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15",
+    "objects": [
+     "PRT_cartridge_L",
+     "FST_Stop_pin_L",
+     "FST_Stop_nut_L"
+    ],
+    "ignore": [
+     "BUY_load_cell_L",
+     "BUY_rear_nut_L",
+     "PRT_piston_L",
+     "FST_Piston_screw_L*",
+     "BUY_grip_L",
+     "PRT_movlink_L",
+     "BUY_front_nut_L",
+     "BUY_front_washer_L"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 2,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_L_inboard",
+     "PRT_fin_L_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.15
+    ]
+   }
+  ],
+  "distances": [
+   {
+    "a": "PRT_movlink_R",
+    "b": "PRT_fin_R_inboard",
+    "min": 0.8,
+    "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_R",
+    "b": "PRT_fin_R_outboard",
+    "min": 0.8,
+    "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_R",
+    "b": "FST_Stop_pin_R",
+    "min": 0.2,
+    "max": 0.3,
+    "why": "a3R nearest pin-to-tongue gap = the stop travel in every direction"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "PRT_fin_L_inboard",
+    "min": 0.8,
+    "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "PRT_fin_L_outboard",
+    "min": 0.8,
+    "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+   },
+   {
+    "a": "PRT_movlink_L",
+    "b": "FST_Stop_pin_L",
+    "min": 0.2,
+    "max": 0.3,
+    "why": "a3R nearest pin-to-tongue gap = the stop travel in every direction"
+   }
+  ],
+  "payload_fit": [],
+  "sightlines": [],
+  "masses_g": {},
+  "pla_density": 0.00124,
+  "flow_mm3_s": 12.0,
+  "cable_leads": {},
+  "cable_chains": [],
+  "cable_junctions_ok": [],
+  "cable_min_bend_od": 0.75,
+  "joint_drives": {},
+  "accepted_warns": [],
+  "_about": "Reviewer a3 rows (cad/review/a3/review_rows.json) adapted to the attempt-4 stop (pin -> push/pull screws). Run on check_moving.blend, which to_cadcheck.py writes with the check-only PRT_movlink_R/L: cad check cad/blender/check_moving.blend cad/blender/checks_moving.json OUT --only slide,distances"
+ },
+ "checks": {
+  "slide": {
+   "findings": [
+    {
+     "status": "fail",
+     "msg": "a3R R flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.05 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+     "object": "a3R R flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R R flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.05 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+     "object": "a3R R flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R R flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.6 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+     "object": "a3R R flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R R flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.6 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+     "object": "a3R R flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R R flexure moving link sideways outboard: nothing within 0.8 (cav 1.0): stopped by ['PRT_washer_rear_R'] at 0.6 mm, wanted any part at [0.8, 1.2] mm",
+     "object": "a3R R flexure moving link sideways outboard: nothing within 0.8 (cav 1.0)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 3,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R R a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15: stopped by ['PRT_washer_rear_R', 'FST_Stop_nut_push_R'] at 0.05 mm, wanted ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at [0.0, 0.15] mm",
+     "object": "a3R R a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15",
+     "members": [
+      "PRT_cartridge_R"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_R",
+      "FST_Stop_nut_push_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R R a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15: stopped by ['FST_Stop_nut_pull_R'] at 0.05 mm, wanted ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at [0.0, 0.15] mm",
+     "object": "a3R R a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15",
+     "members": [
+      "PRT_cartridge_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "FST_Stop_nut_pull_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.05 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+     "object": "a3R L flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.05 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+     "object": "a3R L flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.6 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+     "object": "a3R L flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.6 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+     "object": "a3R L flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L flexure moving link sideways outboard: nothing within 0.8 (cav 1.0): stopped by ['PRT_washer_rear_L'] at 0.6 mm, wanted any part at [0.8, 1.2] mm",
+     "object": "a3R L flexure moving link sideways outboard: nothing within 0.8 (cav 1.0)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 3,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15: stopped by ['PRT_washer_rear_L', 'FST_Stop_nut_push_L'] at 0.05 mm, wanted ['PRT_fin_L_inboard', 'PRT_fin_L_outboard'] at [0.0, 0.15] mm",
+     "object": "a3R L a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15",
+     "members": [
+      "PRT_cartridge_L"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_L",
+      "FST_Stop_nut_push_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "a3R L a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15: stopped by ['FST_Stop_nut_pull_L'] at 0.05 mm, wanted ['PRT_fin_L_inboard', 'PRT_fin_L_outboard'] at [0.0, 0.15] mm",
+     "object": "a3R L a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15",
+     "members": [
+      "PRT_cartridge_L"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "FST_Stop_nut_pull_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    }
+   ],
+   "rows": [
+    {
+     "object": "a3R R flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R flexure moving link sideways outboard: nothing within 0.8 (cav 1.0)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 3,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R flexure moving link sideways inboard: nothing within 0.8 (cav 1.0)",
+     "members": [
+      "BUY_grip_R",
+      "BUY_rear_nut_R",
+      "FST_Piston_screw_R0",
+      "FST_Piston_screw_R1",
+      "PRT_movlink_R",
+      "PRT_piston_R"
+     ],
+     "dir": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 3,
+     "blocked_at_mm": 0.85,
+     "blocked_by": [
+      "PRT_washer_rear_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15",
+     "members": [
+      "PRT_cartridge_R"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_R",
+      "FST_Stop_nut_push_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R R a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15",
+     "members": [
+      "PRT_cartridge_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "FST_Stop_nut_pull_R"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_R",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 1.5,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L flexure moving link sideways outboard: nothing within 0.8 (cav 1.0)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 3,
+     "blocked_at_mm": 0.6,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L flexure moving link sideways inboard: nothing within 0.8 (cav 1.0)",
+     "members": [
+      "BUY_grip_L",
+      "BUY_rear_nut_L",
+      "FST_Piston_screw_L0",
+      "FST_Piston_screw_L1",
+      "PRT_movlink_L",
+      "PRT_piston_L"
+     ],
+     "dir": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "dist": 3,
+     "blocked_at_mm": 0.85,
+     "blocked_by": [
+      "PRT_washer_rear_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15",
+     "members": [
+      "PRT_cartridge_L"
+     ],
+     "dir": [
+      0.0,
+      1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "PRT_washer_rear_L",
+      "FST_Stop_nut_push_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "a3R L a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15",
+     "members": [
+      "PRT_cartridge_L"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 2,
+     "blocked_at_mm": 0.05,
+     "blocked_by": [
+      "FST_Stop_nut_pull_L"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_washer_rear_L",
+     "pose": "home",
+     "overlapping_at_rest": []
+    }
+   ],
+   "runtime_s": 25.2
+  },
+  "distances": {
+   "findings": [
+    {
+     "status": "fail",
+     "msg": "PRT_movlink_R to FST_Stop_pin_R: FST_Stop_pin_R not in the scene; row skipped (build the part or fix the name)",
+     "missing": [
+      "FST_Stop_pin_R"
+     ]
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_movlink_L to FST_Stop_pin_L: FST_Stop_pin_L not in the scene; row skipped (build the part or fix the name)",
+     "missing": [
+      "FST_Stop_pin_L"
+     ]
+    }
+   ],
+   "rows": [
+    {
+     "a": "PRT_movlink_R",
+     "b": "PRT_fin_R_inboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_L",
+     "b": "PRT_fin_L_inboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+    },
+    {
+     "a": "PRT_movlink_L",
+     "b": "PRT_fin_L_outboard",
+     "pose": "home",
+     "mm": 1.0,
+     "how": "nearest",
+     "min": 0.8,
+     "max": null,
+     "why": "a3R whole moving link (nearest, not 10 rays) clears the fin by the 1.0 cav"
+    }
+   ],
+   "runtime_s": 1.7
+  }
+ },
+ "coverage": [
+  "slide: 16 slide-out sweeps"
+ ],
+ "not_checked": [
+  "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+ ],
+ "summary": {
+  "pass": false,
+  "fails": 16,
+  "warns": 0,
+  "untriaged_warns": 0,
+  "fail_list": [
+   "slide: a3R R flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.05 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+   "slide: a3R R flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.05 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+   "slide: a3R R flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.6 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+   "slide: a3R R flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_R'] at 0.6 mm, wanted ['FST_Stop_pin_R'] at [0.15, 0.45] mm",
+   "slide: a3R R flexure moving link sideways outboard: nothing within 0.8 (cav 1.0): stopped by ['PRT_washer_rear_R'] at 0.6 mm, wanted any part at [0.8, 1.2] mm",
+   "slide: a3R R a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15: stopped by ['PRT_washer_rear_R', 'FST_Stop_nut_push_R'] at 0.05 mm, wanted ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at [0.0, 0.15] mm",
+   "slide: a3R R a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15: stopped by ['FST_Stop_nut_pull_R'] at 0.05 mm, wanted ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at [0.0, 0.15] mm",
+   "slide: a3R L flexure moving link push -y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.05 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+   "slide: a3R L flexure moving link pull +y: first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.05 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+   "slide: a3R L flexure moving link down -z (lean / bag): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.6 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+   "slide: a3R L flexure moving link up +z (lift): first contact is the stop pin at the 0.25 gap (slide detects ~0.1 late on the faceted pin): stopped by ['PRT_washer_rear_L'] at 0.6 mm, wanted ['FST_Stop_pin_L'] at [0.15, 0.45] mm",
+   "slide: a3R L flexure moving link sideways outboard: nothing within 0.8 (cav 1.0): stopped by ['PRT_washer_rear_L'] at 0.6 mm, wanted any part at [0.8, 1.2] mm",
+   "slide: a3R L a2-row adapted: cartridge ground (with pin) pulled +y is held by the fin pocket within 0.15: stopped by ['PRT_washer_rear_L', 'FST_Stop_nut_push_L'] at 0.05 mm, wanted ['PRT_fin_L_inboard', 'PRT_fin_L_outboard'] at [0.0, 0.15] mm",
+   "slide: a3R L a2-row adapted: cartridge ground (with pin) pushed -y is held by the fin floor within 0.15: stopped by ['FST_Stop_nut_pull_L'] at 0.05 mm, wanted ['PRT_fin_L_inboard', 'PRT_fin_L_outboard'] at [0.0, 0.15] mm",
+   "distances: PRT_movlink_R to FST_Stop_pin_R: FST_Stop_pin_R not in the scene; row skipped (build the part or fix the name)",
+   "distances: PRT_movlink_L to FST_Stop_pin_L: FST_Stop_pin_L not in the scene; row skipped (build the part or fix the name)"
+  ],
+  "warn_list": [],
+  "accepted_warns": {},
+  "stale_accepts": [],
+  "coverage": [
+   "slide: 16 slide-out sweeps"
+  ],
+  "not_checked": [
+   "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+  ],
+  "poses_past_limits": [],
+  "unbounded_allows": {},
+  "runtime_s": 26.8
+ }
+}

@@ -1,0 +1,2754 @@
+{
+ "prefer_printer": "H2D",
+ "allow": [
+  {
+   "a": "BUY_load_cell_*",
+   "b": "BUY_front_nut_*",
+   "why": "M5 nut threaded on the cell's front stud"
+  },
+  {
+   "a": "BUY_load_cell_*",
+   "b": "BUY_rear_nut_*",
+   "why": "M5 nut threaded on the cell's rear stud"
+  },
+  {
+   "a": "PRT_piston_*",
+   "b": "BUY_grip_*",
+   "why": "lock-on grip clamps the 22.2 spigot (its core ID is under 22.2 by design)"
+  },
+  {
+   "a": "FST_Board_screw_*",
+   "b": "BUY_esp32_p4",
+   "why": "the ESP32 stand-in STL fills its mounting-hole centres"
+  },
+  {
+   "a": "FST_RJ45_screw_*",
+   "b": "BUY_rj45_coupler",
+   "why": "the coupler stand-in STL has no holes in its flange ears"
+  }
+ ],
+ "assembly_order": [
+  {
+   "step": "bench tools (one set, both cartridges): lip nuts into the cradle side walls' pockets, swivel nut superglued on the M5 x 35 jack screw's tip and dropped into the setting plug's T-slot; the jack nut runs onto the screw and drops into the upright with it when a cartridge goes in; two M4 x 12 lip screws once a cartridge is in; the printed mass hanger (README step 4)",
+   "bench": "tools",
+   "objects": [
+    "PRT_cradle",
+    "PRT_setting_plug",
+    "FST_Jack_*",
+    "PRT_mass_hanger"
+   ]
+  },
+  {
+   "step": "T-nuts into the chair plate",
+   "objects": [
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*"
+   ]
+  },
+  {
+   "step": "electronics into the trays",
+   "objects": [
+    "PRT_tray_*",
+    "BUY_esp32_p4",
+    "BUY_amp_*",
+    "BUY_rj45_coupler",
+    "BUY_patch_*",
+    "FST_Board_screw_*",
+    "CAB_Amp_*",
+    "CAB_Patch_cable",
+    "FST_RJ45_screw_*"
+   ]
+  },
+  {
+   "step": "R cartridge (bench), empty",
+   "bench": "cart_R",
+   "objects": [
+    "PRT_cartridge_R"
+   ]
+  },
+  {
+   "step": "R cell first (README step 1): printed Ø13 washer + M5 nut two turns onto the rear stud, then the cell slides in from the inboard side, up-inboard to down-outboard at 45 deg along the stud slots, until both studs are on the axis",
+   "bench": "cart_R",
+   "objects": [
+    "BUY_load_cell_R",
+    "PRT_washer_rear_R",
+    "BUY_rear_nut_R"
+   ],
+   "insert_dirs": [
+    [
+     -0.7071,
+     0,
+     0.7071
+    ]
+   ]
+  },
+  {
+   "step": "R front stud: printed Ø15 washer + M5 nut in the block's front counterbore; clamp both nuts finger-tight (8 mm nut-driver bit, the rear one on the 150 mm extension from the cartridge's rear end), settle overnight, re-snug, hot glue",
+   "bench": "cart_R",
+   "objects": [
+    "PRT_washer_front_R",
+    "BUY_front_nut_R"
+   ]
+  },
+  {
+   "step": "R stops: M3 nuts into the pull-nut slots, push screws (M3 x 25, nut on) in sideways, pull screws (M3 x 30) in from the front; set them in the cradle (README)",
+   "bench": "cart_R",
+   "objects": [
+    "FST_Stop_screw_*_R_*",
+    "FST_Stop_nut_*_R_*"
+   ]
+  },
+  {
+   "step": "R inboard half: three M4 nuts into the split-face slots (bench)",
+   "bench": "fin_R",
+   "objects": [
+    "PRT_fin_R_inboard",
+    "FST_M4_nut_R*"
+   ]
+  },
+  {
+   "step": "R cartridge (cell clamped, settled, glued; stops set in the cradle) into the inboard half: lay it in, the cell's wire boss into its pocket",
+   "bench": "fin_R",
+   "merge": "cart_R",
+   "objects": []
+  },
+  {
+   "step": "R piston into the socket, two M3 x 12 self-tappers; lead into its channel",
+   "bench": "fin_R",
+   "objects": [
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "CAB_Load_cell_lead_R"
+   ]
+  },
+  {
+   "step": "R close the fin: outboard half, six M3 x 30 self-tappers",
+   "bench": "fin_R",
+   "objects": [
+    "PRT_fin_R_outboard",
+    "FST_M3_screw_R*"
+   ]
+  },
+  {
+   "step": "R grip on",
+   "bench": "fin_R",
+   "objects": [
+    "BUY_grip_R"
+   ]
+  },
+  {
+   "step": "L cartridge (bench), empty",
+   "bench": "cart_L",
+   "objects": [
+    "PRT_cartridge_L"
+   ]
+  },
+  {
+   "step": "L cell first (README step 1): printed Ø13 washer + M5 nut two turns onto the rear stud, then the cell slides in from the inboard side, up-inboard to down-outboard at 45 deg along the stud slots, until both studs are on the axis",
+   "bench": "cart_L",
+   "objects": [
+    "BUY_load_cell_L",
+    "PRT_washer_rear_L",
+    "BUY_rear_nut_L"
+   ],
+   "insert_dirs": [
+    [
+     0.7071,
+     0,
+     0.7071
+    ]
+   ]
+  },
+  {
+   "step": "L front stud: printed Ø15 washer + M5 nut in the block's front counterbore; clamp both nuts finger-tight (8 mm nut-driver bit, the rear one on the 150 mm extension from the cartridge's rear end), settle overnight, re-snug, hot glue",
+   "bench": "cart_L",
+   "objects": [
+    "PRT_washer_front_L",
+    "BUY_front_nut_L"
+   ]
+  },
+  {
+   "step": "L stops: M3 nuts into the pull-nut slots, push screws (M3 x 25, nut on) in sideways, pull screws (M3 x 30) in from the front; set them in the cradle (README)",
+   "bench": "cart_L",
+   "objects": [
+    "FST_Stop_screw_*_L_*",
+    "FST_Stop_nut_*_L_*"
+   ]
+  },
+  {
+   "step": "L inboard half: three M4 nuts into the split-face slots (bench)",
+   "bench": "fin_L",
+   "objects": [
+    "PRT_fin_L_inboard",
+    "FST_M4_nut_L*"
+   ]
+  },
+  {
+   "step": "L cartridge (cell clamped, settled, glued; stops set in the cradle) into the inboard half: lay it in, the cell's wire boss into its pocket",
+   "bench": "fin_L",
+   "merge": "cart_L",
+   "objects": []
+  },
+  {
+   "step": "L piston into the socket, two M3 x 12 self-tappers; lead into its channel",
+   "bench": "fin_L",
+   "objects": [
+    "PRT_piston_L",
+    "FST_Piston_screw_L*",
+    "CAB_Load_cell_lead_L"
+   ]
+  },
+  {
+   "step": "L close the fin: outboard half, six M3 x 30 self-tappers",
+   "bench": "fin_L",
+   "objects": [
+    "PRT_fin_L_outboard",
+    "FST_M3_screw_L*"
+   ]
+  },
+  {
+   "step": "L grip on",
+   "bench": "fin_L",
+   "objects": [
+    "BUY_grip_L"
+   ]
+  },
+  {
+   "step": "right handle onto tray R: three M4 x 20",
+   "merge": "fin_R",
+   "objects": [
+    "FST_M4_screw_R*"
+   ]
+  },
+  {
+   "step": "left handle onto tray L: three M4 x 20",
+   "merge": "fin_L",
+   "objects": [
+    "FST_M4_screw_L*"
+   ]
+  },
+  {
+   "step": "unit onto the plate: four M5 x 20, two M5 x 30",
+   "objects": [
+    "FST_M5_bolt_*"
+   ]
+  },
+  {
+   "step": "cover on: eight M3 self-tappers",
+   "objects": [
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ]
+  }
+ ],
+ "distances": [
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     181.7,
+     60.0,
+     -28.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R cell rear face seated on the drop's Ø12 seat boss (a7: on the cell axis, z -28.5) (clamped by the rear nut): no lost motion"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     181.7,
+     47.3,
+     -28.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R cell front face seated on the block's Ø12 seat boss (a7: on the cell axis, z -28.5) (clamped by the front nut)"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     185.8,
+     60.0,
+     -20.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R cell rear face clear of the top link outside the seat boss (r 11.3): the link's bending cannot pass through the cell"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     185.8,
+     47.3,
+     -20.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R cell front face clear of the block outside the seat boss (r 11.3)"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     169.8,
+     60.0,
+     -36.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R cell rear face clear of the top link outside the seat boss (r 11.3): the link's bending cannot pass through the cell"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     169.8,
+     47.3,
+     -36.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R cell front face clear of the block outside the seat boss (r 11.3)"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     166.8,
+     60.0,
+     -25.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R cell rear face clear of the top link outside the seat boss (r 11.4): the link's bending cannot pass through the cell"
+  },
+  {
+   "a": "BUY_load_cell_R",
+   "b": "PRT_cartridge_R",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     166.8,
+     47.3,
+     -25.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R cell front face clear of the block outside the seat boss (r 11.4)"
+  },
+  {
+   "a": "PRT_washer_rear_R",
+   "b": "PRT_cartridge_R",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     182.8,
+     64.0,
+     -28.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R printed Ø13 washer seated on the drop's front wall under the rear nut"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_cartridge_R",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     177.8,
+     73,
+     8
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R piston plug bears on the socket shoulder: the push path"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     198.3,
+     85,
+     5
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ]
+   },
+   "why": "R top link clears the fin cavity, outboard side"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_inboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     157.3,
+     85,
+     5
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ]
+   },
+   "why": "R top link clears the fin cavity, inboard side"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     180.8,
+     85,
+     15.5
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   "why": "R top link clears the cavity roof"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     180.8,
+     123.5,
+     13
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R top link rear end clears the fin (pull side)"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     180.8,
+     60.5,
+     13
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R top link front end clears the fin (push side)"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     191.8,
+     78.5,
+     -30
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R front leaf, rear side clears the fin bay"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     198.3,
+     67.0,
+     -30.0
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ]
+   },
+   "why": "R drop (a7: it carries the cell's rear face on the cell axis) clears the fin, outboard side"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     191.8,
+     131.0,
+     -30.0
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R catch legs (a7), rear side clear of the fin"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     191.8,
+     120.0,
+     -30
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R rear leaf, front side clears the fin bay"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_inboard",
+   "min": 0.5,
+   "why": "R piston never touches the fin (no sliding fit)"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.5,
+   "why": "R piston never touches the fin"
+  },
+  {
+   "a": "BUY_grip_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 1.0,
+   "why": "R grip flange clears the barrel lip by more than the stop travel"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     -181.7,
+     60.0,
+     -28.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L cell rear face seated on the drop's Ø12 seat boss (a7: on the cell axis, z -28.5) (clamped by the rear nut): no lost motion"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     -181.7,
+     47.3,
+     -28.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L cell front face seated on the block's Ø12 seat boss (a7: on the cell axis, z -28.5) (clamped by the front nut)"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     -185.8,
+     60.0,
+     -20.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L cell rear face clear of the top link outside the seat boss (r 11.3): the link's bending cannot pass through the cell"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     -185.8,
+     47.3,
+     -20.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L cell front face clear of the block outside the seat boss (r 11.3)"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     -169.8,
+     60.0,
+     -36.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L cell rear face clear of the top link outside the seat boss (r 11.3): the link's bending cannot pass through the cell"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     -169.8,
+     47.3,
+     -36.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L cell front face clear of the block outside the seat boss (r 11.3)"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     -166.8,
+     60.0,
+     -25.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L cell rear face clear of the top link outside the seat boss (r 11.4): the link's bending cannot pass through the cell"
+  },
+  {
+   "a": "BUY_load_cell_L",
+   "b": "PRT_cartridge_L",
+   "min": "=seat_h - 0.2",
+   "ray": {
+    "origin": [
+     -166.8,
+     47.3,
+     -25.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L cell front face clear of the block outside the seat boss (r 11.4)"
+  },
+  {
+   "a": "PRT_washer_rear_L",
+   "b": "PRT_cartridge_L",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     -182.8,
+     64.0,
+     -28.5
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L printed Ø13 washer seated on the drop's front wall under the rear nut"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_cartridge_L",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     -177.8,
+     73,
+     8
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L piston plug bears on the socket shoulder: the push path"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -198.3,
+     85,
+     5
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ]
+   },
+   "why": "L top link clears the fin cavity, outboard side"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_inboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -157.3,
+     85,
+     5
+    ],
+    "dir": [
+     1,
+     0,
+     0
+    ]
+   },
+   "why": "L top link clears the fin cavity, inboard side"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -180.8,
+     85,
+     15.5
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   "why": "L top link clears the cavity roof"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -180.8,
+     123.5,
+     13
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L top link rear end clears the fin (pull side)"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -180.8,
+     60.5,
+     13
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L top link front end clears the fin (push side)"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -191.8,
+     78.5,
+     -30
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L front leaf, rear side clears the fin bay"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -198.3,
+     67.0,
+     -30.0
+    ],
+    "dir": [
+     -1,
+     0,
+     0
+    ]
+   },
+   "why": "L drop (a7: it carries the cell's rear face on the cell axis) clears the fin, outboard side"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -191.8,
+     131.0,
+     -30.0
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L catch legs (a7), rear side clear of the fin"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.8,
+   "ray": {
+    "origin": [
+     -191.8,
+     120.0,
+     -30
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L rear leaf, front side clears the fin bay"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_inboard",
+   "min": 0.5,
+   "why": "L piston never touches the fin (no sliding fit)"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.5,
+   "why": "L piston never touches the fin"
+  },
+  {
+   "a": "BUY_grip_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 1.0,
+   "why": "L grip flange clears the barrel lip by more than the stop travel"
+  },
+  {
+   "a": "FST_Stop_screw_push_R_out",
+   "b": "PRT_cartridge_R",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     192.7,
+     42.83,
+     -26.3
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R push stop (outboard): the head's top face to its counterbore floor in the block, 2.2 off the axis (clear of the key hole) = the push travel before the stop bears (set per cell on the bench; modelled at stop_gap)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_R_out",
+   "b": "PRT_cartridge_R",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     192.7,
+     40.17,
+     -37.4
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R pull stop (outboard): the head's underside to its counterbore floor in the block's front face"
+  },
+  {
+   "a": "FST_Stop_screw_push_R_out",
+   "b": "PRT_piston_R",
+   "min": 0.3,
+   "why": "R stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_R_out",
+   "b": "PRT_piston_R",
+   "min": 0.3,
+   "why": "R stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "FST_Stop_screw_push_R_in",
+   "b": "PRT_cartridge_R",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     162.9,
+     42.83,
+     -26.3
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R push stop (inboard): the head's top face to its counterbore floor in the block, 2.2 off the axis (clear of the key hole) = the push travel before the stop bears (set per cell on the bench; modelled at stop_gap)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_R_in",
+   "b": "PRT_cartridge_R",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     162.9,
+     40.17,
+     -37.4
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R pull stop (inboard): the head's underside to its counterbore floor in the block's front face"
+  },
+  {
+   "a": "FST_Stop_screw_push_R_in",
+   "b": "PRT_piston_R",
+   "min": 0.3,
+   "why": "R stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_R_in",
+   "b": "PRT_piston_R",
+   "min": 0.3,
+   "why": "R stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "PRT_washer_front_R",
+   "b": "PRT_cartridge_R",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     183.3,
+     42.3,
+     -28.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R printed Ø15 washer seated on the block's counterbore floor under the front nut"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_outboard",
+   "min": "=lip_c - 0.05",
+   "max": "=lip_c + 0.05",
+   "ray": {
+    "origin": [
+     179.8,
+     148.0,
+     -11.25
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   },
+   "why": "R barrel lip (a7: the backup behind the catch saddle): the piston drops lip_c before it lands on the lip (the rear strips would need about 1.4 there to buckle, cad/calc/head_calc.txt)"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_outboard",
+   "min": "=lip_c - 0.05",
+   "max": "=lip_c + 0.05",
+   "ray": {
+    "origin": [
+     179.8,
+     148.0,
+     11.25
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   "why": "R barrel lip above the piston: the same stop for a lift"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_cartridge_R",
+   "min": "=catch_c - 0.05",
+   "max": "=catch_c + 0.05",
+   "ray": {
+    "origin": [
+     177.8,
+     129.25,
+     -12.05
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   },
+   "why": "R a7 (a6 #5): the Ø24 piston sits catch_c above the catch saddle's crown behind the rear leaf; a heavy lean lands there first (y-compliant legs: no friction path beside the cell)"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "max": "=fit + 0.05",
+   "ray": {
+    "origin": [
+     193.8,
+     34.8,
+     5.0
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "R block front face on the fin's front wall (push reaction), at the fit"
+  },
+  {
+   "a": "PRT_cartridge_R",
+   "b": "PRT_fin_R_outboard",
+   "max": "=fit + 0.05",
+   "ray": {
+    "origin": [
+     193.8,
+     46.3,
+     5.0
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "R block rear face on the fin lip behind it (pull reaction), at the fit"
+  },
+  {
+   "a": "FST_Stop_screw_push_L_out",
+   "b": "PRT_cartridge_L",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     -192.7,
+     42.83,
+     -26.3
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L push stop (outboard): the head's top face to its counterbore floor in the block, 2.2 off the axis (clear of the key hole) = the push travel before the stop bears (set per cell on the bench; modelled at stop_gap)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_L_out",
+   "b": "PRT_cartridge_L",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     -192.7,
+     40.17,
+     -37.4
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L pull stop (outboard): the head's underside to its counterbore floor in the block's front face"
+  },
+  {
+   "a": "FST_Stop_screw_push_L_out",
+   "b": "PRT_piston_L",
+   "min": 0.3,
+   "why": "L stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_L_out",
+   "b": "PRT_piston_L",
+   "min": 0.3,
+   "why": "L stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "FST_Stop_screw_push_L_in",
+   "b": "PRT_cartridge_L",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     -162.9,
+     42.83,
+     -26.3
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L push stop (inboard): the head's top face to its counterbore floor in the block, 2.2 off the axis (clear of the key hole) = the push travel before the stop bears (set per cell on the bench; modelled at stop_gap)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_L_in",
+   "b": "PRT_cartridge_L",
+   "min": "=stop_gap - 0.03",
+   "max": "=stop_gap + 0.03",
+   "ray": {
+    "origin": [
+     -162.9,
+     40.17,
+     -37.4
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L pull stop (inboard): the head's underside to its counterbore floor in the block's front face"
+  },
+  {
+   "a": "FST_Stop_screw_push_L_in",
+   "b": "PRT_piston_L",
+   "min": 0.3,
+   "why": "L stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "FST_Stop_screw_pull_L_in",
+   "b": "PRT_piston_L",
+   "min": 0.3,
+   "why": "L stop screw tips clear of the piston (reviewer a2 row, moved to the new stop hardware)"
+  },
+  {
+   "a": "PRT_washer_front_L",
+   "b": "PRT_cartridge_L",
+   "max": 0.05,
+   "ray": {
+    "origin": [
+     -183.3,
+     42.3,
+     -28.5
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L printed Ø15 washer seated on the block's counterbore floor under the front nut"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_outboard",
+   "min": "=lip_c - 0.05",
+   "max": "=lip_c + 0.05",
+   "ray": {
+    "origin": [
+     -179.8,
+     148.0,
+     -11.25
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   },
+   "why": "L barrel lip (a7: the backup behind the catch saddle): the piston drops lip_c before it lands on the lip (the rear strips would need about 1.4 there to buckle, cad/calc/head_calc.txt)"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_outboard",
+   "min": "=lip_c - 0.05",
+   "max": "=lip_c + 0.05",
+   "ray": {
+    "origin": [
+     -179.8,
+     148.0,
+     11.25
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ]
+   },
+   "why": "L barrel lip above the piston: the same stop for a lift"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_cartridge_L",
+   "min": "=catch_c - 0.05",
+   "max": "=catch_c + 0.05",
+   "ray": {
+    "origin": [
+     -177.8,
+     129.25,
+     -12.05
+    ],
+    "dir": [
+     0,
+     0,
+     -1
+    ]
+   },
+   "why": "L a7 (a6 #5): the Ø24 piston sits catch_c above the catch saddle's crown behind the rear leaf; a heavy lean lands there first (y-compliant legs: no friction path beside the cell)"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "max": "=fit + 0.05",
+   "ray": {
+    "origin": [
+     -193.8,
+     34.8,
+     5.0
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   },
+   "why": "L block front face on the fin's front wall (push reaction), at the fit"
+  },
+  {
+   "a": "PRT_cartridge_L",
+   "b": "PRT_fin_L_outboard",
+   "max": "=fit + 0.05",
+   "ray": {
+    "origin": [
+     -193.8,
+     46.3,
+     5.0
+    ],
+    "dir": [
+     0,
+     1,
+     0
+    ]
+   },
+   "why": "L block rear face on the fin lip behind it (pull reaction), at the fit"
+  }
+ ],
+ "stacks": [
+  {
+   "name": "R push stop: engagement about the 1.2 x FS setting, as a fraction of FS (limit: 1.5 x FS safe overload)",
+   "limit": 0.3,
+   "terms": [
+    {
+     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "tol": 0.012
+    },
+    {
+     "what": "the second screw of the pair touched independently: +-0.5 % FS",
+     "tol": 0.005
+    },
+    {
+     "what": "jack held at 1.2 x FS while touching: +-0.5 % FS",
+     "tol": 0.006
+    },
+    {
+     "what": "the cradle supports the block a little differently from the fin (bench_support mm, head_calc.txt)",
+     "tol": "=bench_support / dfs_ref"
+    },
+    {
+     "what": "creep of the two seat bosses and the PLA under them over the unit's life (2 x (seat_h + 1.0) mm at creep_strain, finger-tight nuts settled and re-snugged before setting)",
+     "tol": "=2 * (seat_h + 1.0) * creep_strain / dfs_ref"
+    },
+    {
+     "what": "jacking couple: the cradle's jack is on the grip axis (z 0), as the grip is; its couple about the cell (a7: cell axis 28.5 below) is the grip's own, so the setting already includes it; error 0 (a4R row, adapted)",
+     "tol": "=abs(1.2 * 196.2 * 0.0 * (stop_zp - cell_z)) / leaf_k_rot / dfs_ref"
+    },
+    {
+     "what": "push path PLA/steel expansion, +-10 C from the setting temperature (stop_dT_p mm/C from the geometry)",
+     "tol": "=abs(stop_dT_p) * 10 / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "R pull stop: engagement about the 1.2 x FS setting, as a fraction of FS (limit: 1.5 x FS safe overload)",
+   "limit": 0.3,
+   "terms": [
+    {
+     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "tol": 0.012
+    },
+    {
+     "what": "the second screw of the pair touched independently: +-0.5 % FS",
+     "tol": 0.005
+    },
+    {
+     "what": "jack held at 1.2 x FS while touching: +-0.5 % FS",
+     "tol": 0.006
+    },
+    {
+     "what": "the cradle supports the block a little differently from the fin (bench_support mm, head_calc.txt)",
+     "tol": "=bench_support / dfs_ref"
+    },
+    {
+     "what": "creep of the two seat bosses and the PLA under them over the unit's life (2 x (seat_h + 1.0) mm at creep_strain, finger-tight nuts settled and re-snugged before setting)",
+     "tol": "=2 * (seat_h + 1.0) * creep_strain / dfs_ref"
+    },
+    {
+     "what": "jacking couple: the cradle's jack is on the grip axis (z 0), as the grip is; its couple about the cell (a7: cell axis 28.5 below) is the grip's own, so the setting already includes it; error 0 (a4R row, adapted)",
+     "tol": "=abs(1.2 * 196.2 * 0.0 * (stop_zp - cell_z)) / leaf_k_rot / dfs_ref"
+    },
+    {
+     "what": "pull path PLA/steel expansion, +-10 C from the setting temperature",
+     "tol": "=abs(stop_dT_q) * 10 / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "R top link to fin cavity",
+   "limit": "=cav",
+   "terms": [
+    {
+     "what": "fin cavity wall, SDF 0.6 voxel and print",
+     "tol": 0.2
+    },
+    {
+     "what": "cartridge pocket fit (front plate, ground bar)",
+     "tol": "=fit"
+    },
+    {
+     "what": "largest stop setting plus 0.1",
+     "tol": "=stop_gap_max + 0.1"
+    },
+    {
+     "what": "leaf sag at 150 N on the grip (leaves are stiff in Z)",
+     "tol": 0.05
+    }
+   ]
+  },
+  {
+   "name": "L push stop: engagement about the 1.2 x FS setting, as a fraction of FS (limit: 1.5 x FS safe overload)",
+   "limit": 0.3,
+   "terms": [
+    {
+     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "tol": 0.012
+    },
+    {
+     "what": "the second screw of the pair touched independently: +-0.5 % FS",
+     "tol": 0.005
+    },
+    {
+     "what": "jack held at 1.2 x FS while touching: +-0.5 % FS",
+     "tol": 0.006
+    },
+    {
+     "what": "the cradle supports the block a little differently from the fin (bench_support mm, head_calc.txt)",
+     "tol": "=bench_support / dfs_ref"
+    },
+    {
+     "what": "creep of the two seat bosses and the PLA under them over the unit's life (2 x (seat_h + 1.0) mm at creep_strain, finger-tight nuts settled and re-snugged before setting)",
+     "tol": "=2 * (seat_h + 1.0) * creep_strain / dfs_ref"
+    },
+    {
+     "what": "jacking couple: the cradle's jack is on the grip axis (z 0), as the grip is; its couple about the cell (a7: cell axis 28.5 below) is the grip's own, so the setting already includes it; error 0 (a4R row, adapted)",
+     "tol": "=abs(1.2 * 196.2 * 0.0 * (stop_zp - cell_z)) / leaf_k_rot / dfs_ref"
+    },
+    {
+     "what": "push path PLA/steel expansion, +-10 C from the setting temperature (stop_dT_p mm/C from the geometry)",
+     "tol": "=abs(stop_dT_p) * 10 / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "L pull stop: engagement about the 1.2 x FS setting, as a fraction of FS (limit: 1.5 x FS safe overload)",
+   "limit": 0.3,
+   "terms": [
+    {
+     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "tol": 0.012
+    },
+    {
+     "what": "the second screw of the pair touched independently: +-0.5 % FS",
+     "tol": 0.005
+    },
+    {
+     "what": "jack held at 1.2 x FS while touching: +-0.5 % FS",
+     "tol": 0.006
+    },
+    {
+     "what": "the cradle supports the block a little differently from the fin (bench_support mm, head_calc.txt)",
+     "tol": "=bench_support / dfs_ref"
+    },
+    {
+     "what": "creep of the two seat bosses and the PLA under them over the unit's life (2 x (seat_h + 1.0) mm at creep_strain, finger-tight nuts settled and re-snugged before setting)",
+     "tol": "=2 * (seat_h + 1.0) * creep_strain / dfs_ref"
+    },
+    {
+     "what": "jacking couple: the cradle's jack is on the grip axis (z 0), as the grip is; its couple about the cell (a7: cell axis 28.5 below) is the grip's own, so the setting already includes it; error 0 (a4R row, adapted)",
+     "tol": "=abs(1.2 * 196.2 * 0.0 * (stop_zp - cell_z)) / leaf_k_rot / dfs_ref"
+    },
+    {
+     "what": "pull path PLA/steel expansion, +-10 C from the setting temperature",
+     "tol": "=abs(stop_dT_q) * 10 / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "L top link to fin cavity",
+   "limit": "=cav",
+   "terms": [
+    {
+     "what": "fin cavity wall, SDF 0.6 voxel and print",
+     "tol": 0.2
+    },
+    {
+     "what": "cartridge pocket fit (front plate, ground bar)",
+     "tol": "=fit"
+    },
+    {
+     "what": "largest stop setting plus 0.1",
+     "tol": "=stop_gap_max + 0.1"
+    },
+    {
+     "what": "leaf sag at 150 N on the grip (leaves are stiff in Z)",
+     "tol": 0.05
+    }
+   ]
+  },
+  {
+   "name": "a4R R push stop with the jacking couple (adapted: the stop is set with the cradle's jack on the grip axis, as the grip loads it, not by jacking the tongue 24 mm below it; engagement above 1.2 x FS, fraction of FS)",
+   "limit": 0.3,
+   "terms": [
+    {
+     "what": "designer terms (touch, hold, thermal) as in the designer's push-stop row",
+     "tol": "=0.012 + 0.005 + 0.006 + abs(stop_dT_p) * 10 / dfs_ref"
+    },
+    {
+     "what": "jacking couple: 1.2 FS x jack arm x stop arm / leaf-pair rotational stiffness, over dfs_ref; jack arm 0 (on the axis), stop arm stop_zp",
+     "tol": "=1.2 * 196.2 * 0.0 * abs(stop_zp - cell_z) / leaf_k_rot / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "a4R R push range lost to a 100 N downward lean on the grip (link turns about the cell; adapted: push contacts on the cell axis, stop_zp = cell_z), fraction of FS",
+   "limit": 0.2,
+   "terms": [
+    {
+     "what": "100 N x (grip y 219.5 - leaf centroid) / k_rot x push stop arm (-stop_zp, closing only), over dfs_ref",
+     "tol": "=max(0.0, 100 * (219.5 - (link0 + link1) / 2) / leaf_k_rot * (cell_z - stop_zp)) / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "R pull range lost to a 100 N downward lean (pull contacts 6.5 below the cell axis: the lean opens them, so nothing is lost), fraction of FS",
+   "limit": 0.2,
+   "terms": [
+    {
+     "what": "100 N x lever / k_rot x stop_zq (closing only)",
+     "tol": "=max(0.0, 100 * (219.5 - (link0 + link1) / 2) / leaf_k_rot * (stop_zq - cell_z)) / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "R pull range lost to a 100 N lift on the grip (the rare case: lift closes the pull contacts by |stop_zq - cell_z| x theta (a7: heights from the cell axis)), fraction of FS",
+   "limit": 0.2,
+   "terms": [
+    {
+     "what": "100 N up x lever / k_rot x |stop_zq|",
+     "tol": "=100 * (219.5 - (link0 + link1) / 2) / leaf_k_rot * abs(stop_zq - cell_z) / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "R push range lost to a 20 N side load on the grip (the link yaws on the leaves with the cell taking no shear, the conservative case; one push screw of the pair closes by yaw x stop_x), fraction of FS",
+   "limit": 0.2,
+   "terms": [
+    {
+     "what": "20 N x (grip y 219.5 - leaf centroid) / k_yaw x stop_x, over dfs_ref",
+     "tol": "=20 * (219.5 - (link0 + link1) / 2) / leaf_k_yaw * stop_x / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "R barrel lip (a7: the backup behind the catch): the piston lands on the barrel lip before the rear leaf buckles (limit: the lip drop when the rear leaf reaches its buckling load, E 2500, turning about the cell, no piston bending: the conservative case)",
+   "limit": "=lip_drop_buckle",
+   "terms": [
+    {
+     "what": "lip_c as modelled",
+     "tol": "=lip_c"
+    },
+    {
+     "what": "lip bore, piston diameter and the piston's seat in the socket, printed (+-0.1 each, RSS taken as their sum)",
+     "tol": 0.2
+    }
+   ]
+  },
+  {
+   "name": "a5R bench cradle: rear upright root stress across layers when the jack holds 1.2 x FS of the recommended 50 kg cell (upright is a free-standing 50 x (bench_up1 - bench_up0) plate, jack axis 49.1 above the base top; limit 25 MPa = PLA tensile across layers)",
+   "limit": 25,
+   "terms": [
+    {
+     "what": "M / Z = 1.2 x 50 kg x g x 49.1 / (50 t^2 / 6)",
+     "tol": "=1.2 * 50 * 9.81 * 49.1 / (50 * (bench_up1 - bench_up0) * (bench_up1 - bench_up0) / 6)"
+    }
+   ]
+  },
+  {
+   "name": "a5R bench cradle: same upright with a 20 kg cell at 1.2 x FS (limit 25 MPa across layers; README step 7 then turns the jack on past 120 %)",
+   "limit": 25,
+   "terms": [
+    {
+     "what": "M / Z = 1.2 x 20 kg x g x 49.1 / (50 t^2 / 6)",
+     "tol": "=1.2 * 20 * 9.81 * 49.1 / (50 * (bench_up1 - bench_up0) * (bench_up1 - bench_up0) / 6)"
+    }
+   ]
+  },
+  {
+   "name": "a5R bench jack stroke for the 50 kg cell: the M5 x 20 head stands 3.0 off the upright (cadcheck warn), so the stroke to 1.2 x FS (upright tip deflection at E 2500 + cell travel) must stay under 3.0 mm",
+   "limit": 3.0,
+   "terms": [
+    {
+     "what": "upright tip deflection F h^3 / (3 E I), F = 1.2 x 50 kg x g, h 49.1, E 2500, I = 50 t^3 / 12",
+     "tol": "=1.2 * 50 * 9.81 * 49.1 ** 3 / (3 * 2500 * 50 * (bench_up1 - bench_up0) ** 3 / 12)"
+    },
+    {
+     "what": "cell travel to 1.2 x FS at dfs_ref",
+     "tol": "=1.2 * dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "a5R lean-to-axial crosstalk, adapted a7: N read by the cell from a 150 N downward lean. The a5 formula with its two constants made params: the leaf top's depth below the cell axis (a5/a6: 15; a7: leaf_top_below_cell = -13.5, the leaf mid-length is on the cell axis) and the leaf width (2 x cart_hw -> leaf_b, the two strips); limit 10 N",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "2 E I_leaf / L^2 x (12 x a / L + 6) x 150 x (219.5 - leaf centroid) / k_rot, E cancels; a = leaf_top_below_cell",
+     "tol": "=abs(2 * (leaf_b * leaf_t ** 3 / 12) / leaf_free_len ** 2 * (12 * leaf_top_below_cell / leaf_free_len + 6) * 150 * (219.5 - (link0 + link1) / 2) / ((leaf_b * leaf_t / leaf_free_len) * leaf_pitch ** 2 / 2))"
+    }
+   ]
+  },
+  {
+   "name": "a6 cradle: rear upright as a beam spanning x between the side walls (clamped at the walls, jack at mid-span) at 1.2 x FS of the 50 kg cell, bending stress along x = in the layer plane (cradle prints base down); conservative band = upright thickness, the 44 mm below the jack slot ignored; limit 20 MPa (PLA ~50 MPa in-layer)",
+   "limit": 20,
+   "terms": [
+    {
+     "what": "F x span / 8 / (t x t^2 / 6), F = 1.2 x 50 kg x g, span 2 x bench_wall_x[0], t = bench_up_t (build_concept.cradle_frame)",
+     "tol": "=cradle_up_inlayer_mpa"
+    }
+   ]
+  },
+  {
+   "name": "a6 cradle: stress across layers in the upright: only the share of the jack load the upright sends down to the base as a cantilever (stiffness split against the beam between the walls) loads layer bonds; limit 10 MPa (PLA across layers ~20-30 MPa)",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "share (cradle_up_share) x F x 49.1 / (span t^2 / 6)",
+     "tol": "=cradle_up_across_mpa"
+    }
+   ]
+  },
+  {
+   "name": "a6 cradle frame: walls + base (U section) carry the jack load on the cell axis as tension along y plus F x e (e = axis above the section centroid), in the layer plane; limit 15 MPa",
+   "limit": 15,
+   "terms": [
+    {
+     "what": "F / A + F e c / I (build_concept.cradle_frame)",
+     "tol": "=cradle_frame_mpa"
+    }
+   ]
+  },
+  {
+   "name": "a6 cradle: jack tilt at 1.2 x FS of the 50 kg cell (frame bending turns the upright against the front wall + slope of the upright's cantilever share at the jack), deg; limit 0.5 (a5: 6.4-7.6)",
+   "limit": 0.5,
+   "terms": [
+    {
+     "what": "(F e L / E I + share F h^2 / 2 E I_z) in deg, E 2500",
+     "tol": "=cradle_jack_tilt_deg"
+    }
+   ]
+  },
+  {
+   "name": "a6 cradle: jack push stroke to 1.2 x FS of the 50 kg cell at the largest stop setting, against the M5 x 35 head's stand-off behind the upright (bench_standoff)",
+   "limit": "=bench_standoff",
+   "terms": [
+    {
+     "what": "frame stretch + bending on the cell axis",
+     "tol": "=cradle_frame_defl"
+    },
+    {
+     "what": "upright beam deflection between the walls (bending + shear, band = t)",
+     "tol": "=cradle_beam_defl"
+    },
+    {
+     "what": "cell travel at the largest setting the procedure allows",
+     "tol": "=stop_gap_max"
+    }
+   ]
+  },
+  {
+   "name": "a6 jack tilt as a jacking couple on the pull stop: the tilt offsets the jack's line of action at the plug by up to (0.25 mm swivel play + 30 mm x tilt), F x offset turns the link, the pull contacts at stop_zq move; fraction of FS (limit 0.02)",
+   "limit": 0.02,
+   "terms": [
+    {
+     "what": "1.2 x 490.5 x (0.25 + 30 x tilt rad) x |stop_zq| / leaf_k_rot / dfs_ref",
+     "tol": "=1.2 * 490.5 * (0.25 + 30 * cradle_jack_tilt_deg * 3.14159 / 180) * abs(stop_zq - cell_z) / leaf_k_rot / dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "a7 R catch: the piston lands on the catch saddle before the rear strips could buckle (limit: the link-only drop at the catch when the rear strips reach their buckling load, E 2500)",
+   "limit": "=catch_drop_buckle",
+   "terms": [
+    {
+     "what": "catch_c as modelled",
+     "tol": "=catch_c"
+    },
+    {
+     "what": "saddle cut, piston diameter and its seat, printed",
+     "tol": 0.2
+    }
+   ]
+  },
+  {
+   "name": "a7 (a6 #5) R the catch lands before the barrel lip, at the tolerance extremes: catch contact at E 3500 with the saddle cut 0.1 big, against lip contact at E 2500 with the lip bore 0.1 small (N on one grip)",
+   "limit": "=lip_contact_lo_n * (lip_c - 0.1) / lip_c",
+   "terms": [
+    {
+     "what": "catch_contact_hi_n x (catch_c + 0.1) / catch_c",
+     "tol": "=catch_contact_hi_n * (catch_c + 0.1) / catch_c"
+    }
+   ]
+  },
+  {
+   "name": "a8 (a7 #2) R reading error once a lean rests on the catch: the saddle touches the piston only on an R1.2 crown, so it cannot be held square and the legs bend as free cantilevers with the contact catch_h above their tops; stick friction drags the saddle with the piston and the cell loses catch_k x the largest stop setting (a cell with 0.25 mm FS travel), N; limit the 10 N dead band",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "catch_k (2 / ((L^3/3 + h L^2 + h^2 L) / E I), free saddle) x stop_gap_max",
+     "tol": "=catch_k * stop_gap_max"
+    }
+   ]
+  },
+  {
+   "name": "a8 R catch legs at a 600 N lean on one grip (a7 #3: three supports past contact, the catch at its stiff bound, the legs alone): the catch's load against the legs' buckling (fixed at the ground bar, the saddle rigid and free to turn on the crown, held at the contact catch_h above the leg tops: tan kL (1 + h (L + h) k^2) = kL, E 2500), N",
+   "limit": "=catch_buckle_n",
+   "terms": [
+    {
+     "what": "(600 - catch_contact_lo_n) x catch_share",
+     "tol": "=catch_load_600"
+    }
+   ]
+  },
+  {
+   "name": "a8 (a7 #5) R push/pull-induced pitch: at 1.2 x FS of the 50 kg cell the push (on the grip axis, 28.5 above the cell) turns the link, and a pull turns it back by the same: the piston moves catch_push_motion at the catch, plus a 100 N lean (reviewer a7's contact model, E 2500), stays under catch_c, so a full pull with a moderate lean never lands on the catch",
+   "limit": "=catch_c",
+   "terms": [
+    {
+     "what": "1.2 x 490.5 x 28.5 / k_rot x (catch_y - leaf centroid)",
+     "tol": "=catch_push_motion"
+    },
+    {
+     "what": "100 N of lean at catch_c / catch_contact_lo_n mm per N",
+     "tol": "=100 * catch_c / catch_contact_lo_n"
+    }
+   ]
+  },
+  {
+   "name": "a8 (a7 #6) R piston bending at a 600 N lean on one grip, the worst of: the Ø24 section at the socket mouth (lever grip - link1, no relief from the catch: the bound), at the catch, and the Ø22.2 spigot at the step (y piston_step), MPa in the layer plane (the piston prints on its side); limit 47.5 = Bambu PLA Basic flexural 76 / 1.6",
+   "limit": 47.5,
+   "terms": [
+    {
+     "what": "max(600 x 96.5 x 12 / I(Ø24 D), 600 x 90.25 x 12 / I(Ø24 D), 600 x 78.5 x 11.1 / I(Ø22.2 D))",
+     "tol": "=piston_600_mpa"
+    }
+   ]
+  },
+  {
+   "name": "a7 (a6 #7) known-mass hanger: the stirrup's cross bar (17.2 span between the arms, 6 deep x 12 tall) with the cord in its centre notch, at 2 x a 10 kg mass, MPa in the layer plane (it prints flat); limit 20",
+   "limit": 20,
+   "terms": [
+    {
+     "what": "2 x 10 x 9.81 x 17.2 / 4 / (12 x 6^2 / 6), simply supported (conservative)",
+     "tol": "=2 * 10 * 9.81 * 17.2 / 4 / (12 * 6 ** 2 / 6)"
+    }
+   ]
+  },
+  {
+   "name": "a7 (a6 #7) cradle hang eye: the ligament above the Ø8 eye (bench_eye_top - 4 mm, 10 wide, both sides of the cord) at 2 x (10 kg + 1 kg of cradle and cartridge), MPa across layers (the cradle prints base down); limit 5",
+   "limit": 5,
+   "terms": [
+    {
+     "what": "2 x 11 x 9.81 / (2 x (bench_eye_top - 4) x 10)",
+     "tol": "=2 * 11 * 9.81 / (2 * (bench_eye_top - 4) * 10)"
+    }
+   ]
+  },
+  {
+   "name": "a7 (a6 #7) hung for the known-mass check, the jack axis is vertical: the cradle's eye and the hanger's cord notch are both on the jack axis (offset 0 in x and z), so the cord, the jack and the mass line up and the cell reads the mass x cos(0); fraction of the mass",
+   "limit": 0.005,
+   "terms": [
+    {
+     "what": "1 - cos(atan(eye offset / eye-to-jack distance)), offset 0",
+     "tol": 0.0
+    }
+   ]
+  },
+  {
+   "name": "a6R setting plug T-slot rear lip, pull at 1.2 x FS of the 50 kg cell (589 N): peak shear on the lip's support perimeter (semicircle R4.85 + the two pocket-open edges out to 4.6, = 24.4 mm) through a lip bench_plug1 - bench_jack_tip - 4.9 = 2.1 thick, x1.5 peak; on the D-flat (print-down) side this shear plane is a layer plane. Limit 12 MPa (PLA interlayer shear ~20-25, factor 2). cad/review/a6/scripts/jack_local.py",
+   "limit": 12,
+   "terms": [
+    {
+     "what": "1.5 x 1.2 x 50 kg x g / (24.4 x lip)",
+     "tol": "=1.5 * 1.2 * 50 * 9.81 / (24.4 * (bench_plug1 - bench_jack_tip - 4.9))"
+    }
+   ]
+  },
+  {
+   "name": "a6R same lip at the 1.5 x FS that README step 7 lets the jack hold (736 N); limit 12 MPa",
+   "limit": 12,
+   "terms": [
+    {
+     "what": "1.5 x 1.5 x 50 kg x g / (24.4 x lip)",
+     "tol": "=1.5 * 1.5 * 50 * 9.81 / (24.4 * (bench_plug1 - bench_jack_tip - 4.9))"
+    }
+   ]
+  },
+  {
+   "name": "a6R lean crosstalk at lip contact, adopted and adapted a7: the a5R formula (with the a7 params, as that row) at the largest lean the strips carry before the catch takes it (catch_contact_hi_n, E 3500; a6: 254 N at the lip); limit = the 10 N firmware dead band",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "a5R crosstalk formula (adapted) x catch_contact_hi_n",
+     "tol": "=abs(2 * (leaf_b * leaf_t ** 3 / 12) / leaf_free_len ** 2 * (12 * leaf_top_below_cell / leaf_free_len + 6) * catch_contact_hi_n * (219.5 - (link0 + link1) / 2) / ((leaf_b * leaf_t / leaf_free_len) * leaf_pitch ** 2 / 2))"
+    }
+   ]
+  },
+  {
+   "name": "a6R lean crosstalk for a unit at the README's acceptance threshold, adopted and adapted a7: README step 12 now rejects a measured coefficient over 1 % (a6: 4.4 %), at the largest lean before the catch (catch_contact_hi_n), against the dead band the README then prescribes (max(10, catch_contact_hi_n x c x 1.2) = 10 N)",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "catch_contact_hi_n x 0.01",
+     "tol": "=catch_contact_hi_n * 0.01"
+    }
+   ]
+  },
+  {
+   "name": "a7R catch friction shunt at the largest stop setting, adopted and adapted a8: a7's flat 2.5 mm saddle face could be held square by the contact (fixed-guided legs, 110 N/mm, 33 N); a8 crowns it R1.2 across y, so the normal force acts through the crown's centre and holds no moment: free saddle, catch_k with the contact offset (reviewer a7's own free-saddle formula). Limit the 10 N dead band",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "catch_k (free saddle, contact catch_h above the leg tops) x stop_gap_max",
+     "tol": "=catch_k * stop_gap_max"
+    }
+   ]
+  },
+  {
+   "name": "a7R same shunt for a typical 50 kg cell (dFS 0.10, link travel 0.12 mm at 1.2 x FS), adopted and adapted a8 (crowned saddle: free legs); limit 10 N",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "catch_k x 1.2 x dfs_ref",
+     "tol": "=catch_k * 1.2 * dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "a7R (adopted a8, verbatim) rear strips at a 600 N lean on one grip, rigid link on three axial supports (front leaf, rear leaf, catch legs + saddle + contact at 1/3 of the legs' axial stiffness), E 2500: catch contact at 147 N, then 1.94 N per N into the rear strips (README: 'the strips stop loading', 470-650 N). Limit = rear-strip buckling (4407 N) / 3. cad/review/a7/scripts/head_a7.py",
+   "limit": 1469,
+   "terms": [
+    {
+     "what": "147 x 3.17 + (600 - 147) x 1.94",
+     "tol": "=147 * 3.17 + (600 - 147) * 1.94"
+    }
+   ]
+  },
+  {
+   "name": "a7R printed washer spanning the 5.5 mm stud slot under the M5 nut at 1.2 x FS pull (589 N), adopted and adapted a8: the thickness is the param washer_r[1] (a8: 2.4, a7: 1.6; the front washer is the same thickness over the same slot): the nut annulus over the slot (5.5 x 1.25 mm, ~145 N) carried across the slot as a clamped strip 1.25 + 2 t wide; MPa in the layer plane, estimate; limit 20",
+   "limit": 20,
+   "terms": [
+    {
+     "what": "145 x 5.5 / 12 / ((1.25 + 2 t) x t^2 / 6), t = washer_r[1]",
+     "tol": "=145 * 5.5 / 12 / ((1.25 + 2 * washer_r[1]) * washer_r[1] ** 2 / 6)"
+    }
+   ]
+  },
+  {
+   "name": "a8 (a7 #3) R rear strips at a 600 N lean on one grip, three axial supports past catch contact (the build's own solve, catch = legs + the saddle's bending and shear over the nut-driver gap, at a third for the crown contact and settling: the soft bound, E 2500), N; limit = rear-strip buckling (fixed-fixed, L 27, E 2500) / 2.5. Reviewer a7's model (legs-only catch) gives 1410 against its /3 limit 1469 (row above)",
+   "limit": "=leaf_rear_buckle / 2.5",
+   "terms": [
+    {
+     "what": "catch_contact_lo_n x (219.5 - front leaf) / pitch + (600 - catch_contact_lo_n) x catch_rear_share",
+     "tol": "=leaf_rear_600"
+    }
+   ]
+  },
+  {
+   "name": "a8 R catch saddle across the layers at a 600 N lean on one grip: the saddle spans the nut-driver gap (2 x leaf_gap) between the legs, clamped in them, the catch load as a point at mid-span (bound: the crown's contact spreads along the bore), bending along x, which is across the layers (the cartridge prints inboard face down); 9.5 thick (saddle_t) x 7.85 deep (saddle_depth); MPa, limit interlayer_mpa 15",
+   "limit": 15,
+   "terms": [
+    {
+     "what": "catch_load_600 x 15 / 8 / (saddle_t x saddle_depth^2 / 6)",
+     "tol": "=saddle_600_mpa"
+    }
+   ]
+  },
+  {
+   "name": "a8 R catch shunt at a 300 N lean on one grip after a 600 N lean has flattened the crown: free legs at the largest stop setting plus the moment the flattened land can hold (land half width catch_land = catch_load_600 / (2 x 10 mm x 80 MPa); held moment catch_300 x catch_land, worth catch_g_mom N per N.mm at the contact), N; limit the 10 N dead band (at a 600 N lean itself it can reach catch_shunt_600: README, open risk)",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "catch_k x stop_gap_max + catch_g_mom x catch_300 x catch_land",
+     "tol": "=catch_shunt_300"
+    }
+   ]
+  },
+  {
+   "name": "a8 R lift: when a lift turns the link about the cell (leaf centroid), the piston reaches the barrel lip (lip_c at y lip) before the top link reaches its cavity roof (cav at its rear end, link1); the drop at the link's rear end when the lip lands, mm",
+   "limit": "=cav",
+   "terms": [
+    {
+     "what": "lip_c x (link1 - leaf centroid) / (lip - leaf centroid)",
+     "tol": "=lip_c * (link1 - (leaf_f0 + link1) / 2) / (lip - (leaf_f0 + link1) / 2)"
+    }
+   ]
+  }
+ ],
+ "flexures": [
+  {
+   "part": "PRT_cartridge_R",
+   "name": "front leaf",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "stress_mpa": "=leaf_stress_mpa",
+   "why": "root stress computed in build_concept.leaf_stress(): r = leaf_r (2.0, r/t = 0.8) root Kt 1.35 x (bending at stop_gap_max + axial from a 150 N lean); a7: two 12.5 x 2.5 strips per leaf"
+  },
+  {
+   "part": "PRT_cartridge_R",
+   "name": "rear leaf",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "stress_mpa": "=leaf_stress_mpa",
+   "why": "root stress computed in build_concept.leaf_stress(): r = leaf_r (2.0, r/t = 0.8) root Kt 1.35 x (bending at stop_gap_max + axial from a 150 N lean); a7: two 12.5 x 2.5 strips per leaf"
+  },
+  {
+   "part": "PRT_cartridge_L",
+   "name": "front leaf",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "stress_mpa": "=leaf_stress_mpa",
+   "why": "root stress computed in build_concept.leaf_stress(): r = leaf_r (2.0, r/t = 0.8) root Kt 1.35 x (bending at stop_gap_max + axial from a 150 N lean); a7: two 12.5 x 2.5 strips per leaf"
+  },
+  {
+   "part": "PRT_cartridge_L",
+   "name": "rear leaf",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "stress_mpa": "=leaf_stress_mpa",
+   "why": "root stress computed in build_concept.leaf_stress(): r = leaf_r (2.0, r/t = 0.8) root Kt 1.35 x (bending at stop_gap_max + axial from a 150 N lean); a7: two 12.5 x 2.5 strips per leaf"
+  },
+  {
+   "part": "PRT_cartridge_R",
+   "name": "catch legs",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "stress_mpa": "=catch_load_600 / (leaf_b * leaf_t)",
+   "why": "a7: the catch's two legs, compression along z at a 600 N lean; they bend in y in the layer plane"
+  },
+  {
+   "part": "PRT_cartridge_L",
+   "name": "catch legs",
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "stress_mpa": "=catch_load_600 / (leaf_b * leaf_t)",
+   "why": "a7: the catch's two legs, compression along z at a 600 N lean; they bend in y in the layer plane"
+  }
+ ],
+ "slide_out": [
+  {
+   "name": "cover lifts straight up",
+   "objects": [
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ],
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "dist": 300,
+   "step": 3,
+   "min_clearance": 0.2
+  },
+  {
+   "name": "piston R pushed -y bears on the socket shoulder at once (no lost motion)",
+   "objects": [
+    "PRT_piston_R",
+    "BUY_grip_R"
+   ],
+   "ignore": [
+    "FST_Piston_screw_R*"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_R"
+   ],
+   "at_mm": [
+    0.0,
+    0.1
+   ]
+  },
+  {
+   "name": "head R (cartridge with its cell, nuts, washers and stop hardware, piston, grip) lifts out of the inboard half with the outboard half off",
+   "objects": [
+    "PRT_cartridge_R",
+    "BUY_load_cell_R",
+    "PRT_washer_rear_R",
+    "BUY_rear_nut_R",
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "FST_Stop_screw_*_R_*",
+    "FST_Stop_nut_*_R_*",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R"
+   ],
+   "ignore": [
+    "PRT_fin_R_outboard",
+    "FST_M3_screw_R*",
+    "PRT_tray_R",
+    "FST_M4_screw_R*",
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ],
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "dist": 120,
+   "step": 2,
+   "min_clearance": 0.05
+  },
+  {
+   "name": "piston L pushed -y bears on the socket shoulder at once (no lost motion)",
+   "objects": [
+    "PRT_piston_L",
+    "BUY_grip_L"
+   ],
+   "ignore": [
+    "FST_Piston_screw_L*"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_L"
+   ],
+   "at_mm": [
+    0.0,
+    0.1
+   ]
+  },
+  {
+   "name": "head L (cartridge with its cell, nuts, washers and stop hardware, piston, grip) lifts out of the inboard half with the outboard half off",
+   "objects": [
+    "PRT_cartridge_L",
+    "BUY_load_cell_L",
+    "PRT_washer_rear_L",
+    "BUY_rear_nut_L",
+    "PRT_washer_front_L",
+    "BUY_front_nut_L",
+    "FST_Stop_screw_*_L_*",
+    "FST_Stop_nut_*_L_*",
+    "PRT_piston_L",
+    "FST_Piston_screw_L*",
+    "BUY_grip_L"
+   ],
+   "ignore": [
+    "PRT_fin_L_outboard",
+    "FST_M3_screw_L*",
+    "PRT_tray_L",
+    "FST_M4_screw_L*",
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ],
+   "dir": [
+    -1,
+    0,
+    0
+   ],
+   "dist": 120,
+   "step": 2,
+   "min_clearance": 0.05
+  },
+  {
+   "name": "push stop R out: the screw and its nut, loaded +y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_push_R_out",
+    "FST_Stop_nut_push_R_out"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_R"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "pull stop R out: the screw and its nut, loaded -y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_pull_R_out",
+    "FST_Stop_nut_pull_R_out"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_R"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "push stop R in: the screw and its nut, loaded +y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_push_R_in",
+    "FST_Stop_nut_push_R_in"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_R"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "pull stop R in: the screw and its nut, loaded -y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_pull_R_in",
+    "FST_Stop_nut_pull_R_in"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_R"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "push stop L out: the screw and its nut, loaded +y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_push_L_out",
+    "FST_Stop_nut_push_L_out"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_L"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "pull stop L out: the screw and its nut, loaded -y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_pull_L_out",
+    "FST_Stop_nut_pull_L_out"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_L"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "push stop L in: the screw and its nut, loaded +y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_push_L_in",
+    "FST_Stop_nut_push_L_in"
+   ],
+   "dir": [
+    0,
+    1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_L"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "pull stop L in: the screw and its nut, loaded -y by the block at the stop, bear on the link's nut slot at once",
+   "objects": [
+    "FST_Stop_screw_pull_L_in",
+    "FST_Stop_nut_pull_L_in"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_cartridge_L"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  },
+  {
+   "name": "a7R README step 1 'cell first' (adopted a8): the cell R with its rear washer and nut on slides out up-inboard at 45 deg along the stud slots (dir -x +z), stop hardware and front washer/nut not yet in (README order); on the bench (fin, piston, grip, tray and chair ignored). a8: the cartridge x cell allow is gone, so this row now sees the cartridge",
+   "objects": [
+    "BUY_load_cell_R",
+    "BUY_rear_nut_R",
+    "PRT_washer_rear_R"
+   ],
+   "ignore": [
+    "FST_Stop_screw_*_R_*",
+    "FST_Stop_nut_*_R_*",
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "CAB_Load_cell_lead_R",
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R",
+    "FST_M4_nut_R*",
+    "FST_M3_screw_R*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_R*"
+   ],
+   "dir": [
+    -0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 90,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a7R the rear nut and washer ride out up-inboard at 45 deg through the drop's Ø14 channel (adopted a8); stop hardware not yet in; bench",
+   "objects": [
+    "BUY_rear_nut_R",
+    "PRT_washer_rear_R"
+   ],
+   "ignore": [
+    "FST_Stop_screw_*_R_*",
+    "FST_Stop_nut_*_R_*",
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "CAB_Load_cell_lead_R",
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R",
+    "FST_M4_nut_R*",
+    "FST_M3_screw_R*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_R*"
+   ],
+   "dir": [
+    -0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 90,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a7R same path with the stop hardware already in (adopted a8 as an end stop): the cell cannot go in after the stops, so README step 1 and assembly_order put the cell first; the inboard push screw blocks it",
+   "objects": [
+    "BUY_load_cell_R",
+    "BUY_rear_nut_R",
+    "PRT_washer_rear_R"
+   ],
+   "ignore": [
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "CAB_Load_cell_lead_R",
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R",
+    "FST_M4_nut_R*",
+    "FST_M3_screw_R*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_R*"
+   ],
+   "dir": [
+    -0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 80,
+   "step": 4,
+   "min_clearance": 0.0,
+   "expect": "blocked",
+   "blocked_by": [
+    "FST_Stop_screw_push_R_in",
+    "FST_Stop_screw_push_R_out"
+   ],
+   "at_mm": [
+    0,
+    12
+   ]
+  },
+  {
+   "name": "a7R README step 1 'cell first' (adopted a8): the cell L with its rear washer and nut on slides out up-inboard at 45 deg along the stud slots (dir -x +z), stop hardware and front washer/nut not yet in (README order); on the bench (fin, piston, grip, tray and chair ignored). a8: the cartridge x cell allow is gone, so this row now sees the cartridge",
+   "objects": [
+    "BUY_load_cell_L",
+    "BUY_rear_nut_L",
+    "PRT_washer_rear_L"
+   ],
+   "ignore": [
+    "FST_Stop_screw_*_L_*",
+    "FST_Stop_nut_*_L_*",
+    "PRT_washer_front_L",
+    "BUY_front_nut_L",
+    "CAB_Load_cell_lead_L",
+    "PRT_fin_L_inboard",
+    "PRT_fin_L_outboard",
+    "PRT_piston_L",
+    "FST_Piston_screw_L*",
+    "BUY_grip_L",
+    "FST_M4_nut_L*",
+    "FST_M3_screw_L*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_L*"
+   ],
+   "dir": [
+    0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 90,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a7R the rear nut and washer ride out up-inboard at 45 deg through the drop's Ø14 channel (adopted a8); stop hardware not yet in; bench",
+   "objects": [
+    "BUY_rear_nut_L",
+    "PRT_washer_rear_L"
+   ],
+   "ignore": [
+    "FST_Stop_screw_*_L_*",
+    "FST_Stop_nut_*_L_*",
+    "PRT_washer_front_L",
+    "BUY_front_nut_L",
+    "CAB_Load_cell_lead_L",
+    "PRT_fin_L_inboard",
+    "PRT_fin_L_outboard",
+    "PRT_piston_L",
+    "FST_Piston_screw_L*",
+    "BUY_grip_L",
+    "FST_M4_nut_L*",
+    "FST_M3_screw_L*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_L*"
+   ],
+   "dir": [
+    0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 90,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a7R same path with the stop hardware already in (adopted a8 as an end stop): the cell cannot go in after the stops, so README step 1 and assembly_order put the cell first; the inboard push screw blocks it",
+   "objects": [
+    "BUY_load_cell_L",
+    "BUY_rear_nut_L",
+    "PRT_washer_rear_L"
+   ],
+   "ignore": [
+    "PRT_washer_front_L",
+    "BUY_front_nut_L",
+    "CAB_Load_cell_lead_L",
+    "PRT_fin_L_inboard",
+    "PRT_fin_L_outboard",
+    "PRT_piston_L",
+    "FST_Piston_screw_L*",
+    "BUY_grip_L",
+    "FST_M4_nut_L*",
+    "FST_M3_screw_L*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_L*"
+   ],
+   "dir": [
+    0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 80,
+   "step": 4,
+   "min_clearance": 0.0,
+   "expect": "blocked",
+   "blocked_by": [
+    "FST_Stop_screw_push_L_in",
+    "FST_Stop_screw_push_L_out"
+   ],
+   "at_mm": [
+    0,
+    12
+   ]
+  }
+ ],
+ "service": [
+  {
+   "op": "replace / re-seat load cell R (fin off the tray)",
+   "remove": [
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ],
+   "fasteners": [
+    "FST_M4_screw_R*"
+   ]
+  },
+  {
+   "op": "replace / re-seat load cell L (fin off the tray)",
+   "remove": [
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ],
+   "fasteners": [
+    "FST_M4_screw_L*"
+   ]
+  },
+  {
+   "op": "re-tighten mount bolts",
+   "remove": [
+    "PRT_cover",
+    "FST_Cover_screw_*"
+   ],
+   "fasteners": [
+    "FST_M5_bolt_*"
+   ]
+  }
+ ],
+ "cable_leads": {
+  "CAB_Load_cell_lead_*": 200,
+  "CAB_Amp_to_ESP32_*": 150,
+  "CAB_Patch_cable": "=patch_lead"
+ },
+ "accepted_warns": [
+  {
+   "match": "a 1.1 mm cantilever (1",
+   "why": "1.1 mm ledges round the M4 hole in the roof of the fin-to-tray nut slots (inboard halves); under the 3 mm limit. Layer map cad/review/a5_designer/fin_R_inboard_z019.0_cantilever.png"
+  },
+  {
+   "match": "a 1.8 mm cantilever (0.9 mm2",
+   "why": "0.9 mm2 ledge where the rear leaf slot's corner meets the top-link cavity chamfer (slot widened for the r 2.0 root fillets); under the 3 mm limit"
+  },
+  {
+   "match": "mm bridge at z 20.0",
+   "why": "L-shaped roof at |x'| 20.1 (a7: the cartridge is 40 wide): the block pocket (11.7 wide) and the ground-bar pocket (7.2 wide), each closed on all sides; the number is the L's length, not a span"
+  },
+  {
+   "match": "a 45.5 mm bridge at z 21.0",
+   "why": "C-shaped roof at |x'| 21.1 (a7; a8: 45.5, the catch slot runs 1.5 further forward for the 9.5 mm saddle): the stop-screw flank slot, the drop cavity with the front leaf slot, the top-link cavity side, and the rear leaf slot with the catch slot, each closed on all sides; widest span 21 (drop + front leaf slot), the rest 14-16. The number is the outline's length, not a span. a8 layer map at print z 21.0 (cad/review/a7/scripts/layer_ascii.py on fin_R_inboard.stl): the unsupported bands are 9-18 mm across, anchored on both long sides"
+  },
+  {
+   "match": "_inboard: ",
+   "why": "fin halves: 1.3 mm webs behind the cartridge block (between the block pocket at y 46.4 and the cell's wire-boss pocket at 47.7, below the cell): the fin's lip for the block, by design; carries the pull reaction in bearing, not bending"
+  },
+  {
+   "match": "_outboard: ",
+   "why": "as the inboard halves (1.3 mm web behind the block); and the sloped overhang is the cell-pocket and flank teardrop flanks and the 45 deg lead-relief roof (all 45 deg nominal, read 44.x on facets), plus the fin's 39 deg reveal on the bed edge"
+  },
+  {
+   "match": "PRT_cartridge_L: 52 wall samples < 1.6 mm (min 0.07)",
+   "why": "cartridges, a8: the thin-wall samples are the r 2 root fillets' thin tips, the drop root fillet's tip where the rear nut channel ends at y 73 (min 0.07 at x' -6.7, z -15.6; no load across it) and 0.86 mm between the pull screw's clearance hole behind its nut and the link's 45 deg chamfer. The 161 mm2 of overhang are the upper 60 deg faces of the four M3 nut pockets (corners up, 3.2 mm faces) plus the 45 deg teardrop flanks. Layer check on the STL: max ledge 1.0, no cantilever; the only bridges are the strip-gap starts below"
+  },
+  {
+   "match": "PRT_cartridge_L: 161 mm2 of sloped overhang",
+   "why": "cartridges, a8: the thin-wall samples are the r 2 root fillets' thin tips, the drop root fillet's tip where the rear nut channel ends at y 73 (min 0.07 at x' -6.7, z -15.6; no load across it) and 0.86 mm between the pull screw's clearance hole behind its nut and the link's 45 deg chamfer. The 161 mm2 of overhang are the upper 60 deg faces of the four M3 nut pockets (corners up, 3.2 mm faces) plus the 45 deg teardrop flanks. Layer check on the STL: max ledge 1.0, no cantilever; the only bridges are the strip-gap starts below"
+  },
+  {
+   "match": "PRT_cartridge_R: 52 wall samples < 1.6 mm (min 0.07)",
+   "why": "cartridges, a8: the thin-wall samples are the r 2 root fillets' thin tips, the drop root fillet's tip where the rear nut channel ends at y 73 (min 0.07 at x' -6.7, z -15.6; no load across it) and 0.86 mm between the pull screw's clearance hole behind its nut and the link's 45 deg chamfer. The 161 mm2 of overhang are the upper 60 deg faces of the four M3 nut pockets (corners up, 3.2 mm faces) plus the 45 deg teardrop flanks. Layer check on the STL: max ledge 1.0, no cantilever; the only bridges are the strip-gap starts below"
+  },
+  {
+   "match": "PRT_cartridge_R: 161 mm2 of sloped overhang",
+   "why": "cartridges, a8: the thin-wall samples are the r 2 root fillets' thin tips, the drop root fillet's tip where the rear nut channel ends at y 73 (min 0.07 at x' -6.7, z -15.6; no load across it) and 0.86 mm between the pull screw's clearance hole behind its nut and the link's 45 deg chamfer. The 161 mm2 of overhang are the upper 60 deg faces of the four M3 nut pockets (corners up, 3.2 mm faces) plus the 45 deg teardrop flanks. Layer check on the STL: max ledge 1.0, no cantilever; the only bridges are the strip-gap starts below"
+  },
+  {
+   "match": "(model): a 26.7 mm bridge at z 27.4",
+   "why": "cartridges: each upper leaf strip starts over the 15 mm gap between the strips as a 26.7 mm bridge, 2.5 wide, anchored at the ground bar and the link (printcheck anchored 0.97); under the H2D/P1S's bridging; a sagged first layer only trims the strip's inner edge (12.5 wide). Unchanged from a7"
+  },
+  {
+   "match": "PRT_tray_L: ",
+   "why": "every face steeper than 45 deg (steep_strip.py on the STL, 813-875 mm2) is a strip at print z 0-5 that starts on the bed: the front-bottom chamfer, the bed-edge flanks of the rear slope and the centre-seam V reveal where it meets the bed (46-54 deg from vertical); boss undersides read 44.7-44.9 on facets. Walls 1.0-1.5 where the reveal crosses the chamfered front bottom edge. Printcheck: max bridge 2.8, max ledge 0.9"
+  },
+  {
+   "match": "PRT_tray_R: ",
+   "why": "as L (no RJ45 pad)"
+  },
+  {
+   "match": "BUY_load_cell_R x CAB_Load_cell_lead_R",
+   "why": "the lead is modelled from the boss axis; its first 15 mm is the cell's own boss"
+  },
+  {
+   "match": "BUY_load_cell_L x CAB_Load_cell_lead_L",
+   "why": "as R"
+  },
+  {
+   "match": "x CAB_Amp_to_ESP32_",
+   "why": "jumper ends modelled at the header pin centres"
+  },
+  {
+   "match": "FST_Board_screw_2 needs",
+   "why": "ESP32 screws by the tray's front wall: the drill body needs to be above the wall, so a 150 mm 1/4 in hex extension (README tools); done on the bench before the tray goes on"
+  },
+  {
+   "match": "FST_Board_screw_3 needs",
+   "why": "as screw 2"
+  },
+  {
+   "match": "FST_M5_bolt_4 needs",
+   "why": "designed: 150 mm 1/4 in hex extension + 4 mm hex bit through the Ø14 hole in the tray floor along the bolt axis (reviewer a2 #9 fix); no L-key"
+  },
+  {
+   "match": "FST_M5_bolt_5 needs",
+   "why": "as bolt 4"
+  },
+  {
+   "match": "head stands 15.0 mm off the part",
+   "why": "push stop screws: by design the head's TOP face is the stop (it meets the counterbore floor in the block when the link moves forward); the shank crosses the 15 mm gap beside the cell to its nut in the link and is never clamped"
+  },
+  {
+   "match": "FST_Jack_screw head stands",
+   "why": "bench jack: the M5 x 35 head floats 9.1 mm (bench_standoff) behind the cradle's rear upright, so the screw travels both ways and the jack nut + the 3.5 mm mass hanger fit under it for the known-mass check (the checker measures to the hanger, parked on the shank); the push stroke needed is cradle_stroke (stacks row)"
+  },
+  {
+   "match": "FST_Jack_swivel_nut has no bolt on its axis",
+   "why": "the second nut on the jack screw: glued on its tip as the swivel in the setting plug's T-slot; the checker pairs each bolt with one nut (the upright's)"
+  },
+  {
+   "match": "PRT_cradle: ",
+   "why": "bench cradle (attempt 6 closed frame): the 45 deg teardrop flanks of the lip-screw holes, the corner-up hex nut pockets and the lead notches; printcheck max bridge 4.1, max ledge 0.7"
+  },
+  {
+   "match": "FST_Jack_lip_screw_",
+   "why": "by design: the lip screw's shank inside the cradle is the lip behind the cartridge's block (the pull reaction, as the fin's lip)"
+  },
+  {
+   "match": "(model): a 1.",
+   "why": "a7: 1.1-1.8 mm ledges (all under 1 mm2 or 9 mm2, under the 3 mm limit): the tray's rear fin-bolt boss (a8: at y 141, z -19) meeting the 45 deg rear-wall boss and its M4 counterbore; the fin's lower M4 nut slot roof (110, -56); the corner where the swept boss pocket meets the cell pocket. printcheck on the STLs agrees (warn, 0 fail)"
+  },
+  {
+   "match": "(model): a 2.0 mm cantilever (1.1 mm2",
+   "why": "a8: trays: the rear fin-bolt boss (now at y 141, z -19, 1 mm lower than a7) meets the 60 deg rear wall in a 1.1 mm2 ledge 2.0 mm long, under the 3 mm limit; printcheck on the STL agrees (warn, 0 fail)"
+  }
+ ],
+ "exposure": {
+  "nuts_ok": [
+   "FST_Jack_nut",
+   "FST_Jack_lip_nut_*"
+  ]
+ }
+}

@@ -1,0 +1,146 @@
+{
+ "slide_out": [
+  {
+   "name": "a8R service 'replace / re-seat load cell R (fin off the tray)' on the chair: with the cover and the three M4 x 20 out, the whole right handle (fin halves, cartridge, piston, grip) comes off the tray end wall outboard (+x); the lead is unplugged and drawn back through the end-wall hole (ignored). No row covered this path. Bench props (cradle, jack) at x 400 ignored",
+   "objects": [
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "FST_M3_screw_R*",
+    "FST_M4_nut_R*",
+    "PRT_cartridge_R",
+    "BUY_load_cell_R",
+    "PRT_washer_*_R",
+    "BUY_*_nut_R",
+    "FST_Stop_*_R_*",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R"
+   ],
+   "ignore": [
+    "PRT_tray_R",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "FST_M4_screw_R*",
+    "CAB_Load_cell_lead_R",
+    "BUY_amp_R",
+    "CAB_Amp_*",
+    "PRT_cradle",
+    "PRT_setting_plug",
+    "PRT_mass_hanger",
+    "FST_Jack_*",
+    "PRT_bench_*",
+    "BUY_bench_*",
+    "FST_Bench_*"
+   ],
+   "dir": [
+    1,
+    0,
+    0
+   ],
+   "dist": 250,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a8R end stop: the handle cannot lift straight up on the chair (the back plate's slot lip holds the fin), so the service path is outboard only; README 'cartridge comes out of the fin' should say so",
+   "objects": [
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "FST_M3_screw_R*",
+    "FST_M4_nut_R*",
+    "PRT_cartridge_R",
+    "BUY_load_cell_R",
+    "PRT_washer_*_R",
+    "BUY_*_nut_R",
+    "FST_Stop_*_R_*",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R"
+   ],
+   "ignore": [
+    "PRT_tray_R",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "FST_M4_screw_R*",
+    "CAB_Load_cell_lead_R",
+    "BUY_amp_R",
+    "CAB_Amp_*"
+   ],
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "dist": 10,
+   "step": 4,
+   "min_clearance": 0.0,
+   "expect": "blocked"
+  }
+ ],
+ "stacks": [
+  {
+   "name": "a8R rear printed washer (\u00d813 x 2.4, printed flat) bridging the 5.5 mm stud slot at 1.2 x FS pull (589 N): nut bearing over the slot (28 % of the M5 nut annulus, 165 N) carried across the 5.5 slot by the washer's own ring, OD/2 - 2.65 = 3.85 wide (the designer's row uses 6.05, wider than the ring), clamped ends (simply supported gives 30.7). MPa in the layer plane; limit 20. cad/review/a8/scripts/head_a8.py 9",
+   "limit": 20,
+   "terms": [
+    {
+     "what": "165 x 5.5 / 12 / ((washer_r[0]/2 - 2.65) x 2.4^2 / 6)",
+     "tol": "=165 * 5.5 / 12 / ((washer_r[0] / 2 - 2.65) * washer_r[1] ** 2 / 6)"
+    }
+   ]
+  },
+  {
+   "name": "a8R README claim 'a full pull plus a 100 N lean still clears the saddle', at one consistent modulus (E 2500): pull pitch at the catch 0.0859 + 100 N x 7.50e-4 mm/N; limit catch_c. The designer's 104.6 N margin takes the pitch at E 3000 and the lean at E 2500. head_a8.py 2",
+   "limit": "=catch_c",
+   "terms": [
+    {
+     "what": "pull pitch E2500",
+     "tol": 0.0859
+    },
+    {
+     "what": "100 N lean x 7.50e-4",
+     "tol": 0.075
+    }
+   ]
+  },
+  {
+   "name": "a8R piston at the 45 deg step to the \u00d822.2 spigot (y 141), 600 N lean: nominal 45.6 MPa x Kt 1.4 (D/d 1.08, 45 deg chamfer, no fillet); the designer's row checks the nominal only; limit 76/1.6. head_a8.py 7",
+   "limit": 47.5,
+   "terms": [
+    {
+     "what": "600 x (219.5 - piston_step) x 11.1 / 11457 x 1.4",
+     "tol": "=600 * (219.5 - piston_step) * 11.1 / 11457 * 1.4"
+    }
+   ]
+  },
+  {
+   "name": "a8R piston at the socket mouth, 600 N lean, printed with slicer defaults (2 walls 0.42, 15 % infill at ~0.1 E: I_eff 5224 vs 15358 solid). No README, BOM, plates.txt or 3MF setting asks for more; limit 76/1.6. head_a8.py 7",
+   "limit": 47.5,
+   "terms": [
+    {
+     "what": "600 x 96.5 x 12 / 5224",
+     "tol": "=600 * (219.5 - link1) * 12 / 5224"
+    }
+   ]
+  },
+  {
+   "name": "a8R catch saddle across the layers at a 600 N lean (738 N, point, clamped over the 15 mm gap), printed with slicer defaults (2 walls, 15 %): I 276 vs 383 solid; limit 15 (the designer's own). head_a8.py 6",
+   "limit": 15,
+   "terms": [
+    {
+     "what": "738 x 15 / 8 x 3.925 / 276",
+     "tol": "=738 * 15 / 8 * 3.925 / 276"
+    }
+   ]
+  },
+  {
+   "name": "a8R right amp's Qwiic jumper: README step 6 plugs it into the ESP32 in tray L on the bench, then step 10 hangs the two halves separately. Its route needs 142.8 of the 150 mm (cables row); limit 150 with 20 mm to handle a tethered half",
+   "limit": 130,
+   "terms": [
+    {
+     "what": "CAB_Amp_to_ESP32_R path length",
+     "tol": 142.8
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,797 @@
+{
+ "tool": "cadcheck",
+ "blend": "/Users/alxchunlin/code-stuff/space-bar-push-assist/cad/review/a2/check_copy.blend",
+ "generated": "2026-10-26 22:59:12",
+ "config": {
+  "collections": {
+   "printed": "Printed",
+   "purchased": "Purchased",
+   "fasteners": "Fasteners",
+   "cables": "Cables"
+  },
+  "printers": {
+   "P1S": [
+    256,
+    256,
+    256
+   ],
+   "H2D": [
+    325,
+    320,
+    325
+   ]
+  },
+  "prefer_printer": "P1S",
+  "min_wall": 1.6,
+  "overhang_deg": 45.0,
+  "joints": {},
+  "couplings": {},
+  "overtravel_deg": 2.5,
+  "overtravel_mm": 1.0,
+  "max_poses_per_group": 48,
+  "allow": [
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_front_nut_*",
+    "why": "M5 nut threaded on the cell's front stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_rear_nut_*",
+    "why": "M5 nut threaded on the cell's rear stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_front_washer_*",
+    "why": "washer on the cell's front stud"
+   },
+   {
+    "a": "PRT_piston_*",
+    "b": "BUY_grip_*",
+    "why": "lock-on grip clamps the 22.2 spigot (its core ID is under 22.2 by design)"
+   },
+   {
+    "a": "PRT_fin_*",
+    "b": "BUY_load_cell_*",
+    "max_mm3": 3.0,
+    "why": "cell stud passes the 5.5 floor hole; facet overlap only"
+   },
+   {
+    "a": "FST_Board_screw_*",
+    "b": "BUY_esp32_p4",
+    "why": "the ESP32 stand-in STL fills its mounting-hole centres below the PCB"
+   },
+   {
+    "a": "PRT_piston_*",
+    "b": "BUY_rear_nut_*",
+    "max_mm3": 1.0,
+    "why": "M5 nut in its 8.5 AF hex pocket; facet overlap of the two hex prisms only"
+   },
+   {
+    "a": "PRT_tray_L",
+    "b": "BUY_esp32_p4",
+    "max_mm3": 5.0,
+    "why": "the ESP32 STL's own 3.75 mm spacers sit on the 1.2 mm printed standoffs"
+   }
+  ],
+  "vol_tol": 0.5,
+  "moving_min_clearance": 0.5,
+  "moving_warn_clearance": 1.0,
+  "fasteners": {
+   "driver_r": 3.0,
+   "hand_r": 14.0,
+   "max_reach": 60.0,
+   "max_reach_ext": 150.0,
+   "min_engagement_d": 2.0,
+   "tapped_engagement_d": 1.5,
+   "lkey_short": 18.0,
+   "lkey_insert": 2.5,
+   "lkey_long": 56.0,
+   "lkey_r": 1.25,
+   "lkey_swing_deg": 60.0,
+   "max_standoff": 2.0,
+   "max_protrusion": 3.0,
+   "captive": {},
+   "stock_lengths": {
+    "2": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20
+    ],
+    "2.5": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25
+    ],
+    "3": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "4": [
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "5": [
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ]
+   },
+   "stock_ok": []
+  },
+  "service": [
+   {
+    "op": "replace / re-seat load cell R (fin off the tray)",
+    "remove": [
+     "PRT_cover_R",
+     "FST_Cover_screw_R*"
+    ],
+    "fasteners": [
+     "FST_M4_screw_R*"
+    ]
+   },
+   {
+    "op": "re-tighten mount bolts",
+    "remove": [
+     "PRT_cover_L",
+     "PRT_cover_R",
+     "FST_Cover_screw_*"
+    ],
+    "fasteners": [
+     "FST_M5_bolt_*"
+    ]
+   }
+  ],
+  "index_tests": [],
+  "stacks": [],
+  "exposure": {
+   "max_cable_mm": 5.0,
+   "cables_ok": [],
+   "min_escape": 8,
+   "view_frac": 0.1,
+   "view_z": -0.2,
+   "nuts_ok": []
+  },
+  "carry": {},
+  "flexures": [],
+  "slide_out": [
+   {
+    "name": "cover R lifts straight up",
+    "objects": [
+     "PRT_cover_R",
+     "FST_Cover_screw_R*"
+    ],
+    "dir": [
+     0,
+     0,
+     1
+    ],
+    "dist": 60,
+    "step": 2,
+    "min_clearance": 0.2
+   },
+   {
+    "name": "piston R pushed forward stops on the stop pin within 0.35 mm",
+    "object": "PRT_piston_R",
+    "ignore": [
+     "BUY_load_cell_R",
+     "BUY_rear_nut_R",
+     "BUY_grip_R",
+     "FST_Stop_nut_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 1.0,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "FST_Stop_pin_R"
+    ],
+    "at_mm": [
+     0.2,
+     0.35
+    ]
+   },
+   {
+    "name": "stop pin R pushed forward by the piston must be held by the fin within 0.1 mm",
+    "objects": [
+     "FST_Stop_pin_R",
+     "FST_Stop_nut_R"
+    ],
+    "ignore": [
+     "PRT_piston_R"
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ],
+    "dist": 2.0,
+    "step": 0.05,
+    "expect": "blocked",
+    "blocked_by": [
+     "PRT_fin_R_inboard",
+     "PRT_fin_R_outboard"
+    ],
+    "at_mm": [
+     0.0,
+     0.1
+    ]
+   }
+  ],
+  "distances": [
+   {
+    "a": "FST_Stop_nut_R",
+    "b": "PRT_piston_R",
+    "min": 0.3,
+    "why": "stop nut must not touch the sliding piston (it sits in the sleeve-bore teardrop tip with no pocket wall)"
+   },
+   {
+    "a": "FST_Stop_nut_L",
+    "b": "PRT_piston_L",
+    "min": 0.3,
+    "why": "stop nut must not touch the sliding piston, left"
+   },
+   {
+    "a": "PRT_piston_R",
+    "b": "BUY_load_cell_R",
+    "max": 0.05,
+    "why": "piston face seated on the cell rear face (README step 4); as modelled it floats, so push load reaches the stop pin before the cell"
+   },
+   {
+    "a": "PRT_piston_R",
+    "b": "PRT_fin_R_inboard",
+    "min": 0.2,
+    "why": "sliding sleeve running clearance"
+   },
+   {
+    "a": "PRT_piston_R",
+    "b": "PRT_fin_R_outboard",
+    "min": 0.2,
+    "why": "sliding sleeve running clearance"
+   }
+  ],
+  "payload_fit": [],
+  "sightlines": [],
+  "masses_g": {},
+  "pla_density": 0.00124,
+  "flow_mm3_s": 12.0,
+  "cable_leads": {},
+  "cable_chains": [],
+  "cable_junctions_ok": [],
+  "cable_min_bend_od": 0.75,
+  "joint_drives": {},
+  "accepted_warns": [],
+  "assembly_order": [
+   {
+    "step": "T-nuts into the chair plate",
+    "objects": [
+     "BUY_corpus_back_plate",
+     "FST_T-nut_*"
+    ]
+   },
+   {
+    "step": "electronics into the trays",
+    "objects": [
+     "PRT_tray_*",
+     "BUY_esp32_p4",
+     "BUY_hx711_*",
+     "BUY_rj45_coupler",
+     "BUY_patch_*",
+     "FST_Board_screw_*",
+     "CAB_*"
+    ]
+   },
+   {
+    "step": "right handle (bench)",
+    "bench": "fin_R",
+    "objects": [
+     "PRT_fin_R_*",
+     "BUY_load_cell_R",
+     "BUY_front_*_R",
+     "BUY_rear_*_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_M3_screw_R*",
+     "FST_M4_nut_R*",
+     "FST_Stop_pin_R",
+     "FST_Stop_nut_R"
+    ]
+   },
+   {
+    "step": "left handle (bench)",
+    "bench": "fin_L",
+    "objects": [
+     "PRT_fin_L_*",
+     "BUY_load_cell_L",
+     "BUY_front_*_L",
+     "BUY_rear_*_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_M3_screw_L*",
+     "FST_M4_nut_L*",
+     "FST_Stop_pin_L",
+     "FST_Stop_nut_L"
+    ]
+   },
+   {
+    "step": "right handle onto tray R",
+    "merge": "fin_R",
+    "objects": [
+     "FST_M4_screw_R*"
+    ]
+   },
+   {
+    "step": "left handle onto tray L",
+    "merge": "fin_L",
+    "objects": [
+     "FST_M4_screw_L*"
+    ]
+   },
+   {
+    "step": "unit onto the plate",
+    "objects": [
+     "FST_M5_bolt_*"
+    ]
+   },
+   {
+    "step": "covers on",
+    "objects": [
+     "PRT_cover_*",
+     "FST_Cover_screw_*"
+    ]
+   }
+  ]
+ },
+ "checks": {
+  "service": {
+   "findings": [],
+   "rows": [
+    {
+     "op": "replace / re-seat load cell R (fin off the tray)",
+     "object": "FST_M4_screw_R0",
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "replace / re-seat load cell R (fin off the tray)",
+     "object": "FST_M4_screw_R1",
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "replace / re-seat load cell R (fin off the tray)",
+     "object": "FST_M4_screw_R2",
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 35.0,
+       "blocked_by": "BUY_hx711_R",
+       "lkey_ok": true,
+       "lkey_arc_deg": 180,
+       "lkey_why": "long leg clear over 180 deg (need 60)",
+       "tool": "L-key"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_0",
+     "access": {
+      "home": {
+       "reach_mm": 14.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_1",
+     "access": {
+      "home": {
+       "reach_mm": 14.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_2",
+     "access": {
+      "home": {
+       "reach_mm": 14.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_3",
+     "access": {
+      "home": {
+       "reach_mm": 14.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_4",
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 39.7,
+       "blocked_by": "PRT_tray_L",
+       "lkey_ok": true,
+       "lkey_arc_deg": 110,
+       "lkey_why": "long leg clear over 110 deg (need 60)",
+       "tool": "L-key"
+      }
+     }
+    },
+    {
+     "op": "re-tighten mount bolts",
+     "object": "FST_M5_bolt_5",
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 39.7,
+       "blocked_by": "PRT_tray_R",
+       "lkey_ok": true,
+       "lkey_arc_deg": 120,
+       "lkey_why": "long leg clear over 120 deg (need 60)",
+       "tool": "L-key"
+      }
+     }
+    }
+   ],
+   "runtime_s": 3.7
+  },
+  "slide": {
+   "findings": [
+    {
+     "status": "warn",
+     "msg": "cover R lifts straight up slides out but with only 0.00 mm to PRT_cover_L",
+     "object": "cover R lifts straight up",
+     "members": [
+      "FST_Cover_screw_R0",
+      "FST_Cover_screw_R1",
+      "FST_Cover_screw_R2",
+      "FST_Cover_screw_R3",
+      "PRT_cover_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 60,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cover_L",
+     "pose": "home",
+     "overlapping_at_rest": [
+      "PRT_tray_R"
+     ]
+    },
+    {
+     "status": "fail",
+     "msg": "piston R pushed forward stops on the stop pin within 0.35 mm: stopped by ['FST_Stop_pin_R'] at 0.4 mm, wanted ['FST_Stop_pin_R'] at [0.2, 0.35] mm",
+     "object": "piston R pushed forward stops on the stop pin within 0.35 mm",
+     "members": [
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.0,
+     "blocked_at_mm": 0.4,
+     "blocked_by": [
+      "FST_Stop_pin_R"
+     ],
+     "min_clearance_mm": 0.15,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "status": "fail",
+     "msg": "stop pin R pushed forward by the piston must be held by the fin within 0.1 mm: stopped by ['PRT_fin_R_inboard'] at 0.75 mm, wanted ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at [0.0, 0.1] mm",
+     "object": "stop pin R pushed forward by the piston must be held by the fin within 0.1 mm",
+     "members": [
+      "FST_Stop_nut_R",
+      "FST_Stop_pin_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 2.0,
+     "blocked_at_mm": 0.75,
+     "blocked_by": [
+      "PRT_fin_R_inboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    }
+   ],
+   "rows": [
+    {
+     "object": "cover R lifts straight up",
+     "members": [
+      "FST_Cover_screw_R0",
+      "FST_Cover_screw_R1",
+      "FST_Cover_screw_R2",
+      "FST_Cover_screw_R3",
+      "PRT_cover_R"
+     ],
+     "dir": [
+      0.0,
+      0.0,
+      1.0
+     ],
+     "dist": 60,
+     "blocked_at_mm": null,
+     "blocked_by": null,
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_cover_L",
+     "pose": "home",
+     "overlapping_at_rest": [
+      "PRT_tray_R"
+     ]
+    },
+    {
+     "object": "piston R pushed forward stops on the stop pin within 0.35 mm",
+     "members": [
+      "PRT_piston_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 1.0,
+     "blocked_at_mm": 0.4,
+     "blocked_by": [
+      "FST_Stop_pin_R"
+     ],
+     "min_clearance_mm": 0.15,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    },
+    {
+     "object": "stop pin R pushed forward by the piston must be held by the fin within 0.1 mm",
+     "members": [
+      "FST_Stop_nut_R",
+      "FST_Stop_pin_R"
+     ],
+     "dir": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "dist": 2.0,
+     "blocked_at_mm": 0.75,
+     "blocked_by": [
+      "PRT_fin_R_inboard"
+     ],
+     "min_clearance_mm": 0.0,
+     "closest": "PRT_fin_R_inboard",
+     "pose": "home",
+     "overlapping_at_rest": []
+    }
+   ],
+   "runtime_s": 13.4
+  },
+  "distances": {
+   "findings": [
+    {
+     "status": "fail",
+     "msg": "FST_Stop_nut_R to PRT_piston_R = 0.09 mm (nearest) at home, wanted 0.3..None (stop nut must not touch the sliding piston (it sits in the sleeve-bore teardrop tip with no pocket wall))",
+     "a": "FST_Stop_nut_R",
+     "b": "PRT_piston_R",
+     "pose": "home",
+     "mm": 0.094,
+     "how": "nearest",
+     "min": 0.3,
+     "max": null,
+     "why": "stop nut must not touch the sliding piston (it sits in the sleeve-bore teardrop tip with no pocket wall)"
+    },
+    {
+     "status": "fail",
+     "msg": "FST_Stop_nut_L to PRT_piston_L = 0.09 mm (nearest) at home, wanted 0.3..None (stop nut must not touch the sliding piston, left)",
+     "a": "FST_Stop_nut_L",
+     "b": "PRT_piston_L",
+     "pose": "home",
+     "mm": 0.094,
+     "how": "nearest",
+     "min": 0.3,
+     "max": null,
+     "why": "stop nut must not touch the sliding piston, left"
+    },
+    {
+     "status": "fail",
+     "msg": "PRT_piston_R to BUY_load_cell_R = 0.20 mm (nearest) at home, wanted None..0.05 (piston face seated on the cell rear face (README step 4); as modelled it floats, so push load reaches the stop pin before the cell)",
+     "a": "PRT_piston_R",
+     "b": "BUY_load_cell_R",
+     "pose": "home",
+     "mm": 0.201,
+     "how": "nearest",
+     "min": null,
+     "max": 0.05,
+     "why": "piston face seated on the cell rear face (README step 4); as modelled it floats, so push load reaches the stop pin before the cell"
+    }
+   ],
+   "rows": [
+    {
+     "a": "FST_Stop_nut_R",
+     "b": "PRT_piston_R",
+     "pose": "home",
+     "mm": 0.094,
+     "how": "nearest",
+     "min": 0.3,
+     "max": null,
+     "why": "stop nut must not touch the sliding piston (it sits in the sleeve-bore teardrop tip with no pocket wall)"
+    },
+    {
+     "a": "FST_Stop_nut_L",
+     "b": "PRT_piston_L",
+     "pose": "home",
+     "mm": 0.094,
+     "how": "nearest",
+     "min": 0.3,
+     "max": null,
+     "why": "stop nut must not touch the sliding piston, left"
+    },
+    {
+     "a": "PRT_piston_R",
+     "b": "BUY_load_cell_R",
+     "pose": "home",
+     "mm": 0.201,
+     "how": "nearest",
+     "min": null,
+     "max": 0.05,
+     "why": "piston face seated on the cell rear face (README step 4); as modelled it floats, so push load reaches the stop pin before the cell"
+    },
+    {
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_inboard",
+     "pose": "home",
+     "mm": 0.296,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve running clearance"
+    },
+    {
+     "a": "PRT_piston_R",
+     "b": "PRT_fin_R_outboard",
+     "pose": "home",
+     "mm": 0.302,
+     "how": "nearest",
+     "min": 0.2,
+     "max": null,
+     "why": "sliding sleeve running clearance"
+    }
+   ],
+   "runtime_s": 3.0
+  }
+ },
+ "coverage": [
+  "service: 2 ops, 9 screw accesses with the built assembly present",
+  "slide: 3 slide-out sweeps"
+ ],
+ "not_checked": [
+  "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+ ],
+ "summary": {
+  "pass": false,
+  "fails": 5,
+  "warns": 1,
+  "untriaged_warns": 1,
+  "fail_list": [
+   "slide: piston R pushed forward stops on the stop pin within 0.35 mm: stopped by ['FST_Stop_pin_R'] at 0.4 mm, wanted ['FST_Stop_pin_R'] at [0.2, 0.35] mm",
+   "slide: stop pin R pushed forward by the piston must be held by the fin within 0.1 mm: stopped by ['PRT_fin_R_inboard'] at 0.75 mm, wanted ['PRT_fin_R_inboard', 'PRT_fin_R_outboard'] at [0.0, 0.1] mm",
+   "distances: FST_Stop_nut_R to PRT_piston_R = 0.09 mm (nearest) at home, wanted 0.3..None (stop nut must not touch the sliding piston (it sits in the sleeve-bore teardrop tip with no pocket wall))",
+   "distances: FST_Stop_nut_L to PRT_piston_L = 0.09 mm (nearest) at home, wanted 0.3..None (stop nut must not touch the sliding piston, left)",
+   "distances: PRT_piston_R to BUY_load_cell_R = 0.20 mm (nearest) at home, wanted None..0.05 (piston face seated on the cell rear face (README step 4); as modelled it floats, so push load reaches the stop pin before the cell)"
+  ],
+  "warn_list": [
+   "slide: cover R lifts straight up slides out but with only 0.00 mm to PRT_cover_L"
+  ],
+  "accepted_warns": {},
+  "stale_accepts": [],
+  "coverage": [
+   "service: 2 ops, 9 screw accesses with the built assembly present",
+   "slide: 3 slide-out sweeps"
+  ],
+  "not_checked": [
+   "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+  ],
+  "poses_past_limits": [],
+  "unbounded_allows": {},
+  "runtime_s": 20.0
+ }
+}

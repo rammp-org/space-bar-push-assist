@@ -1,0 +1,16 @@
+[cadcheck   0.0s] objects: 18 printed, 15 purchased, 85 fasteners, 5 cables; joints {}
+[cadcheck   8.2s] parts done
+[cadcheck   8.9s] interference group static: 2948 pairs x 1 poses
+[cadcheck  15.0s] interference done
+[cadcheck  22.3s] fasteners done
+[cadcheck  26.4s] service done
+[cadcheck  73.1s] slide done
+[cadcheck  76.6s] distances done
+[cadcheck  76.6s] assembly done
+[cadcheck 104.1s] insertion done
+[cadcheck 104.1s] stacks done
+[cadcheck 104.1s] flexures done
+[cadcheck 107.8s] cables done
+CADCHECK PASS: 0 fail, 51 warn (0 untriaged, 51 accepted) -> cad/review/a8/cadcheck.json
+  not checked: fasteners: pilot/clearance hole diameters (use cadlib.features for those); wrench access to nuts; insertion: paths that are not one straight line, parts of the same step against each other, cables; cables: bend radius of a lead that is not modelled as a route, slack across joints, connector positions (review by section render); not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness
+$CAD check /tmp/a8rev/check.blend cad/blender/checks.json  --only   187.75s user 42.11s system 211% cpu 1:48.87 total

@@ -1,0 +1,4106 @@
+{
+ "tool": "cadcheck",
+ "blend": "/tmp/pa_review_copy.blend",
+ "generated": "2026-10-26 22:15:08",
+ "config": {
+  "collections": {
+   "printed": "Printed",
+   "purchased": "Purchased",
+   "fasteners": "Fasteners",
+   "cables": "Cables"
+  },
+  "printers": {
+   "P1S": [
+    256,
+    256,
+    256
+   ],
+   "H2D": [
+    325,
+    320,
+    325
+   ]
+  },
+  "prefer_printer": "P1S",
+  "min_wall": 1.6,
+  "overhang_deg": 45.0,
+  "joints": {},
+  "couplings": {},
+  "overtravel_deg": 2.5,
+  "overtravel_mm": 1.0,
+  "max_poses_per_group": 48,
+  "allow": [
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_front_nut_*",
+    "why": "M5 nut threaded on the cell's front stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_rear_nut_*",
+    "why": "M5 nut threaded on the cell's rear stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_front_washer_*",
+    "why": "washer on the cell's front stud"
+   },
+   {
+    "a": "BUY_load_cell_*",
+    "b": "BUY_rear_washer_*",
+    "why": "washer on the cell's rear stud"
+   },
+   {
+    "a": "PRT_piston_*",
+    "b": "BUY_grip_*",
+    "why": "lock-on grip clamps the 22.2 spigot (its core ID is under 22.2 by design)"
+   },
+   {
+    "a": "PRT_fin_*",
+    "b": "BUY_load_cell_*",
+    "max_mm3": 3.0,
+    "why": "cell stud passes the 5.5 floor hole; facet overlap only"
+   },
+   {
+    "a": "FST_Board_screw_*",
+    "b": "BUY_esp32_p4",
+    "why": "the ESP32 stand-in STL fills its mounting-hole centres below the PCB"
+   }
+  ],
+  "vol_tol": 0.5,
+  "moving_min_clearance": 0.5,
+  "moving_warn_clearance": 1.0,
+  "fasteners": {
+   "driver_r": 3.0,
+   "hand_r": 14.0,
+   "max_reach": 60.0,
+   "max_reach_ext": 150.0,
+   "min_engagement_d": 2.0,
+   "tapped_engagement_d": 1.5,
+   "lkey_short": 18.0,
+   "lkey_insert": 2.5,
+   "lkey_long": 56.0,
+   "lkey_r": 1.25,
+   "lkey_swing_deg": 60.0,
+   "max_standoff": 2.0,
+   "max_protrusion": 3.0,
+   "captive": {},
+   "stock_lengths": {
+    "2": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20
+    ],
+    "2.5": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25
+    ],
+    "3": [
+     3,
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "4": [
+     4,
+     5,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ],
+    "5": [
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50
+    ]
+   },
+   "stock_ok": []
+  },
+  "service": [],
+  "index_tests": [],
+  "stacks": [],
+  "exposure": {
+   "max_cable_mm": 5.0,
+   "cables_ok": [],
+   "min_escape": 8,
+   "view_frac": 0.1,
+   "view_z": -0.2,
+   "nuts_ok": []
+  },
+  "carry": {},
+  "flexures": [],
+  "slide_out": [],
+  "distances": [],
+  "payload_fit": [],
+  "sightlines": [],
+  "masses_g": {},
+  "pla_density": 0.00124,
+  "flow_mm3_s": 12.0,
+  "cable_leads": {},
+  "cable_chains": [],
+  "cable_junctions_ok": [],
+  "cable_min_bend_od": 0.75,
+  "joint_drives": {},
+  "accepted_warns": [],
+  "assembly_order": [
+   {
+    "step": "T-nuts into the chair plate",
+    "objects": [
+     "BUY_corpus_back_plate",
+     "FST_T-nut_*"
+    ]
+   },
+   {
+    "step": "electronics into the trays",
+    "objects": [
+     "PRT_tray_*",
+     "BUY_esp32_p4",
+     "BUY_hx711_*",
+     "BUY_rj45_coupler",
+     "BUY_patch_*",
+     "FST_Board_screw_*",
+     "CAB_*"
+    ]
+   },
+   {
+    "step": "right handle (bench)",
+    "bench": "fin_R",
+    "objects": [
+     "PRT_fin_R_*",
+     "BUY_load_cell_R",
+     "BUY_front_*_R",
+     "BUY_rear_*_R",
+     "PRT_piston_R",
+     "BUY_grip_R",
+     "FST_M3_screw_R*",
+     "FST_M4_nut_R*"
+    ]
+   },
+   {
+    "step": "left handle (bench)",
+    "bench": "fin_L",
+    "objects": [
+     "PRT_fin_L_*",
+     "BUY_load_cell_L",
+     "BUY_front_*_L",
+     "BUY_rear_*_L",
+     "PRT_piston_L",
+     "BUY_grip_L",
+     "FST_M3_screw_L*",
+     "FST_M4_nut_L*"
+    ]
+   },
+   {
+    "step": "right handle onto tray R",
+    "merge": "fin_R",
+    "objects": [
+     "FST_M4_screw_R*"
+    ]
+   },
+   {
+    "step": "left handle onto tray L",
+    "merge": "fin_L",
+    "objects": [
+     "FST_M4_screw_L*"
+    ]
+   },
+   {
+    "step": "unit onto the plate",
+    "objects": [
+     "FST_M5_bolt_*"
+    ]
+   },
+   {
+    "step": "covers on",
+    "objects": [
+     "PRT_cover_*",
+     "FST_Cover_screw_*"
+    ]
+   }
+  ]
+ },
+ "checks": {
+  "parts": {
+   "findings": [
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_inboard: 1385 mm2 of sloped overhang steeper than 45 deg, supports=no",
+     "object": "PRT_fin_L_inboard"
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_inboard (model): a 2.3 mm cantilever (102.2 mm2, extent [2.6, 45.0]) at z 2.2 (print [-63.6, 53.8, 2.2], world [-175.6, 127.0, 18.6])",
+     "object": "PRT_fin_L_inboard",
+     "stl": "fin_L_inboard",
+     "kind": "cantilever",
+     "z": 2.2
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_inboard (model): a 1.3 mm cantilever (101.7 mm2, extent [6.7, 44.8]) at z 16.6 (print [-45.1, 54.0, 16.6], world [-161.2, 127.2, 0.1])",
+     "object": "PRT_fin_L_inboard",
+     "stl": "fin_L_inboard",
+     "kind": "cantilever",
+     "z": 16.6
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_outboard: 1406 mm2 of sloped overhang steeper than 45 deg, supports=no",
+     "object": "PRT_fin_L_outboard"
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_outboard (model): a 2.2 mm cantilever (96.3 mm2, extent [2.4, 44.8]) at z 2.2 (print [63.5, 53.8, 2.2], world [-180.0, 127.0, 18.5])",
+     "object": "PRT_fin_L_outboard",
+     "stl": "fin_L_outboard",
+     "kind": "cantilever",
+     "z": 2.2
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_outboard (model): a 1.3 mm cantilever (53.0 mm2, extent [2.2, 44.9]) at z 16.6 (print [47.2, 54.1, 16.6], world [-194.4, 127.3, 2.2])",
+     "object": "PRT_fin_L_outboard",
+     "stl": "fin_L_outboard",
+     "kind": "cantilever",
+     "z": 16.6
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_L_outboard (model): a 1.1 mm cantilever (47.9 mm2, extent [2.3, 44.9]) at z 16.6 (print [42.7, 54.1, 16.6], world [-194.4, 127.3, -2.3])",
+     "object": "PRT_fin_L_outboard",
+     "stl": "fin_L_outboard",
+     "kind": "cantilever",
+     "z": 16.6
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_inboard: 1385 mm2 of sloped overhang steeper than 45 deg, supports=no",
+     "object": "PRT_fin_R_inboard"
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_inboard (model): a 2.3 mm cantilever (102.2 mm2, extent [2.8, 45.1]) at z 2.2 (print [63.6, 53.8, 2.2], world [175.6, 127.0, 18.6])",
+     "object": "PRT_fin_R_inboard",
+     "stl": "fin_R_inboard",
+     "kind": "cantilever",
+     "z": 2.2
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_inboard (model): a 1.3 mm cantilever (101.7 mm2, extent [6.7, 44.8]) at z 16.6 (print [45.1, 54.0, 16.6], world [161.2, 127.2, 0.1])",
+     "object": "PRT_fin_R_inboard",
+     "stl": "fin_R_inboard",
+     "kind": "cantilever",
+     "z": 16.6
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_outboard: 1406 mm2 of sloped overhang steeper than 45 deg, supports=no",
+     "object": "PRT_fin_R_outboard"
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_outboard (model): a 2.2 mm cantilever (96.3 mm2, extent [2.4, 44.8]) at z 2.2 (print [-63.5, 53.8, 2.2], world [180.0, 127.0, 18.5])",
+     "object": "PRT_fin_R_outboard",
+     "stl": "fin_R_outboard",
+     "kind": "cantilever",
+     "z": 2.2
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_outboard (model): a 1.3 mm cantilever (53.0 mm2, extent [2.2, 44.9]) at z 16.6 (print [-47.2, 54.1, 16.6], world [194.4, 127.3, 2.2])",
+     "object": "PRT_fin_R_outboard",
+     "stl": "fin_R_outboard",
+     "kind": "cantilever",
+     "z": 16.6
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_fin_R_outboard (model): a 1.1 mm cantilever (47.9 mm2, extent [2.3, 44.9]) at z 16.6 (print [-42.8, 54.1, 16.6], world [194.4, 127.3, -2.2])",
+     "object": "PRT_fin_R_outboard",
+     "stl": "fin_R_outboard",
+     "kind": "cantilever",
+     "z": 16.6
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_piston_L (model): a 1.6 mm cantilever (5.3 mm2, extent [5.6, 2.0]) at z 0.4 (print [0.0, -15.9, 0.4], world [-177.8, 105.4, 17.4])",
+     "object": "PRT_piston_L",
+     "stl": "piston_L",
+     "kind": "cantilever",
+     "z": 0.4
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_piston_R (model): a 1.6 mm cantilever (5.4 mm2, extent [5.8, 2.0]) at z 0.4 (print [-0.0, -15.9, 0.4], world [177.8, 105.4, 17.4])",
+     "object": "PRT_piston_R",
+     "stl": "piston_R",
+     "kind": "cantilever",
+     "z": 0.4
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_tray_L: 171 mm2 of sloped overhang steeper than 45 deg, supports=no",
+     "object": "PRT_tray_L"
+    },
+    {
+     "status": "warn",
+     "msg": "PRT_tray_R: 170 mm2 of sloped overhang steeper than 45 deg, supports=no",
+     "object": "PRT_tray_R"
+    }
+   ],
+   "rows": [
+    {
+     "object": "PRT_cover_L",
+     "stl": "cover_L",
+     "non_manifold_edges": 0,
+     "volume_mm3": 108382.7,
+     "print_bbox_mm": [
+      152.8,
+      144.1,
+      5.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 21305.1,
+     "overhang_gt_45_mm2": 0.7,
+     "ceiling_mm2": 0.0,
+     "max_bridge_span_mm": null,
+     "bridge_at": null,
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 61.2,
+     "est_h": 1.24,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 0.0,
+      "max_bridge_mm": 0.0,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [],
+      "px_mm": 0.121
+     }
+    },
+    {
+     "object": "PRT_cover_R",
+     "stl": "cover_R",
+     "non_manifold_edges": 0,
+     "volume_mm3": 108382.7,
+     "print_bbox_mm": [
+      152.8,
+      144.1,
+      5.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 21305.1,
+     "overhang_gt_45_mm2": 0.5,
+     "ceiling_mm2": 0.0,
+     "max_bridge_span_mm": null,
+     "bridge_at": null,
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 61.2,
+     "est_h": 1.24,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 0.0,
+      "max_bridge_mm": 0.0,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [],
+      "px_mm": 0.121
+     }
+    },
+    {
+     "object": "PRT_fin_L_inboard",
+     "stl": "fin_L_inboard",
+     "non_manifold_edges": 0,
+     "volume_mm3": 405332.8,
+     "print_bbox_mm": [
+      140.0,
+      153.7,
+      25.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 14296.3,
+     "overhang_gt_45_mm2": 1385.0,
+     "ceiling_mm2": 736.0,
+     "max_bridge_span_mm": 13.7,
+     "bridge_at": [
+      -166.8,
+      78.9,
+      2.7
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 124.8,
+     "est_h": 2.43,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 2.3,
+      "max_bridge_mm": 13.4,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [
+       {
+        "z_mm": 2.2,
+        "layer": 11,
+        "area_mm2": 102.21,
+        "kind": "cantilever",
+        "overhang_mm": 2.3,
+        "anchored_frac": 0.1,
+        "at_print": [
+         -63.6,
+         53.8,
+         2.2
+        ],
+        "extent_mm": [
+         2.6,
+         45.0
+        ],
+        "status": "warn",
+        "at_world": [
+         -175.6,
+         127.0,
+         18.6
+        ]
+       },
+       {
+        "z_mm": 16.6,
+        "layer": 83,
+        "area_mm2": 101.68,
+        "kind": "cantilever",
+        "overhang_mm": 1.3,
+        "anchored_frac": 0.03,
+        "at_print": [
+         -45.1,
+         54.0,
+         16.6
+        ],
+        "extent_mm": [
+         6.7,
+         44.8
+        ],
+        "status": "warn",
+        "at_world": [
+         -161.2,
+         127.2,
+         0.1
+        ]
+       }
+      ],
+      "px_mm": 0.12
+     }
+    },
+    {
+     "object": "PRT_fin_L_outboard",
+     "stl": "fin_L_outboard",
+     "non_manifold_edges": 0,
+     "volume_mm3": 411800.9,
+     "print_bbox_mm": [
+      140.0,
+      153.7,
+      25.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 14161.9,
+     "overhang_gt_45_mm2": 1406.0,
+     "ceiling_mm2": 868.5,
+     "max_bridge_span_mm": 12.5,
+     "bridge_at": [
+      -188.8,
+      79.2,
+      -3.0
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 122.9,
+     "est_h": 2.39,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 2.2,
+      "max_bridge_mm": 12.9,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [
+       {
+        "z_mm": 2.2,
+        "layer": 11,
+        "area_mm2": 96.33,
+        "kind": "cantilever",
+        "overhang_mm": 2.2,
+        "anchored_frac": 0.1,
+        "at_print": [
+         63.5,
+         53.8,
+         2.2
+        ],
+        "extent_mm": [
+         2.4,
+         44.8
+        ],
+        "status": "warn",
+        "at_world": [
+         -180.0,
+         127.0,
+         18.5
+        ]
+       },
+       {
+        "z_mm": 16.6,
+        "layer": 83,
+        "area_mm2": 53.03,
+        "kind": "cantilever",
+        "overhang_mm": 1.3,
+        "anchored_frac": 0.05,
+        "at_print": [
+         47.2,
+         54.1,
+         16.6
+        ],
+        "extent_mm": [
+         2.2,
+         44.9
+        ],
+        "status": "warn",
+        "at_world": [
+         -194.4,
+         127.3,
+         2.2
+        ]
+       },
+       {
+        "z_mm": 16.6,
+        "layer": 83,
+        "area_mm2": 47.91,
+        "kind": "cantilever",
+        "overhang_mm": 1.1,
+        "anchored_frac": 0.05,
+        "at_print": [
+         42.7,
+         54.1,
+         16.6
+        ],
+        "extent_mm": [
+         2.3,
+         44.9
+        ],
+        "status": "warn",
+        "at_world": [
+         -194.4,
+         127.3,
+         -2.3
+        ]
+       }
+      ],
+      "px_mm": 0.12
+     }
+    },
+    {
+     "object": "PRT_fin_R_inboard",
+     "stl": "fin_R_inboard",
+     "non_manifold_edges": 0,
+     "volume_mm3": 405332.8,
+     "print_bbox_mm": [
+      140.0,
+      153.7,
+      25.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 14296.3,
+     "overhang_gt_45_mm2": 1385.0,
+     "ceiling_mm2": 736.0,
+     "max_bridge_span_mm": 13.7,
+     "bridge_at": [
+      166.8,
+      78.9,
+      -2.7
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 124.8,
+     "est_h": 2.43,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 2.3,
+      "max_bridge_mm": 13.4,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [
+       {
+        "z_mm": 2.2,
+        "layer": 11,
+        "area_mm2": 102.21,
+        "kind": "cantilever",
+        "overhang_mm": 2.3,
+        "anchored_frac": 0.1,
+        "at_print": [
+         63.6,
+         53.8,
+         2.2
+        ],
+        "extent_mm": [
+         2.8,
+         45.1
+        ],
+        "status": "warn",
+        "at_world": [
+         175.6,
+         127.0,
+         18.6
+        ]
+       },
+       {
+        "z_mm": 16.6,
+        "layer": 83,
+        "area_mm2": 101.69,
+        "kind": "cantilever",
+        "overhang_mm": 1.3,
+        "anchored_frac": 0.02,
+        "at_print": [
+         45.1,
+         54.0,
+         16.6
+        ],
+        "extent_mm": [
+         6.7,
+         44.8
+        ],
+        "status": "warn",
+        "at_world": [
+         161.2,
+         127.2,
+         0.1
+        ]
+       }
+      ],
+      "px_mm": 0.12
+     }
+    },
+    {
+     "object": "PRT_fin_R_outboard",
+     "stl": "fin_R_outboard",
+     "non_manifold_edges": 0,
+     "volume_mm3": 411800.9,
+     "print_bbox_mm": [
+      140.0,
+      153.7,
+      25.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 14161.9,
+     "overhang_gt_45_mm2": 1406.0,
+     "ceiling_mm2": 868.5,
+     "max_bridge_span_mm": 12.5,
+     "bridge_at": [
+      188.8,
+      79.2,
+      3.0
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 122.9,
+     "est_h": 2.39,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 2.2,
+      "max_bridge_mm": 12.9,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [
+       {
+        "z_mm": 2.2,
+        "layer": 11,
+        "area_mm2": 96.33,
+        "kind": "cantilever",
+        "overhang_mm": 2.2,
+        "anchored_frac": 0.1,
+        "at_print": [
+         -63.5,
+         53.8,
+         2.2
+        ],
+        "extent_mm": [
+         2.4,
+         44.8
+        ],
+        "status": "warn",
+        "at_world": [
+         180.0,
+         127.0,
+         18.5
+        ]
+       },
+       {
+        "z_mm": 16.6,
+        "layer": 83,
+        "area_mm2": 53.02,
+        "kind": "cantilever",
+        "overhang_mm": 1.3,
+        "anchored_frac": 0.05,
+        "at_print": [
+         -47.2,
+         54.1,
+         16.6
+        ],
+        "extent_mm": [
+         2.2,
+         44.9
+        ],
+        "status": "warn",
+        "at_world": [
+         194.4,
+         127.3,
+         2.2
+        ]
+       },
+       {
+        "z_mm": 16.6,
+        "layer": 83,
+        "area_mm2": 47.91,
+        "kind": "cantilever",
+        "overhang_mm": 1.1,
+        "anchored_frac": 0.05,
+        "at_print": [
+         -42.8,
+         54.1,
+         16.6
+        ],
+        "extent_mm": [
+         2.3,
+         44.9
+        ],
+        "status": "warn",
+        "at_world": [
+         194.4,
+         127.3,
+         -2.2
+        ]
+       }
+      ],
+      "px_mm": 0.12
+     }
+    },
+    {
+     "object": "PRT_piston_L",
+     "stl": "piston_L",
+     "non_manifold_edges": 0,
+     "volume_mm3": 63014.5,
+     "print_bbox_mm": [
+      33.0,
+      36.0,
+      187.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 726.2,
+     "overhang_gt_45_mm2": 17.8,
+     "ceiling_mm2": 4.9,
+     "max_bridge_span_mm": 1.5,
+     "bridge_at": [
+      -178.4,
+      105.5,
+      18.5
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 34.5,
+     "est_h": 0.74,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 1.6,
+      "max_bridge_mm": 0.0,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [
+       {
+        "z_mm": 0.4,
+        "layer": 2,
+        "area_mm2": 5.35,
+        "kind": "cantilever",
+        "overhang_mm": 1.6,
+        "anchored_frac": 0.01,
+        "at_print": [
+         0.0,
+         -15.9,
+         0.4
+        ],
+        "extent_mm": [
+         5.6,
+         2.0
+        ],
+        "status": "warn",
+        "at_world": [
+         -177.8,
+         105.4,
+         17.4
+        ]
+       }
+      ],
+      "px_mm": 0.1
+     }
+    },
+    {
+     "object": "PRT_piston_R",
+     "stl": "piston_R",
+     "non_manifold_edges": 0,
+     "volume_mm3": 63014.5,
+     "print_bbox_mm": [
+      33.0,
+      36.0,
+      187.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 726.2,
+     "overhang_gt_45_mm2": 17.8,
+     "ceiling_mm2": 4.9,
+     "max_bridge_span_mm": 1.5,
+     "bridge_at": [
+      177.1,
+      105.5,
+      18.5
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 34.5,
+     "est_h": 0.74,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 1.6,
+      "max_bridge_mm": 0.0,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [
+       {
+        "z_mm": 0.4,
+        "layer": 2,
+        "area_mm2": 5.38,
+        "kind": "cantilever",
+        "overhang_mm": 1.6,
+        "anchored_frac": 0.01,
+        "at_print": [
+         -0.0,
+         -15.9,
+         0.4
+        ],
+        "extent_mm": [
+         5.8,
+         2.0
+        ],
+        "status": "warn",
+        "at_world": [
+         177.8,
+         105.4,
+         17.4
+        ]
+       }
+      ],
+      "px_mm": 0.1
+     }
+    },
+    {
+     "object": "PRT_tray_L",
+     "stl": "tray_L",
+     "non_manifold_edges": 0,
+     "volume_mm3": 174629.2,
+     "print_bbox_mm": [
+      152.8,
+      153.7,
+      87.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 18494.9,
+     "overhang_gt_45_mm2": 171.1,
+     "ceiling_mm2": 5.1,
+     "max_bridge_span_mm": 1.1,
+     "bridge_at": [
+      -151.5,
+      95.7,
+      -35.2
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 136.3,
+     "est_h": 2.64,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 0.8,
+      "max_bridge_mm": 0.0,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [],
+      "px_mm": 0.125
+     }
+    },
+    {
+     "object": "PRT_tray_R",
+     "stl": "tray_R",
+     "non_manifold_edges": 0,
+     "volume_mm3": 176085.6,
+     "print_bbox_mm": [
+      152.8,
+      153.7,
+      87.0
+     ],
+     "fits": {
+      "P1S": true,
+      "H2D": true
+     },
+     "has_print_rot": true,
+     "bed_contact_mm2": 19050.6,
+     "overhang_gt_45_mm2": 169.9,
+     "ceiling_mm2": 5.2,
+     "max_bridge_span_mm": 1.1,
+     "bridge_at": [
+      151.5,
+      95.7,
+      -35.2
+     ],
+     "supports": "no",
+     "min_wall_mm": null,
+     "thin_wall_samples": 0,
+     "thin_wall_where": [],
+     "est_g": 137.2,
+     "est_h": 2.66,
+     "layer_check": {
+      "source": "model",
+      "needs_support": false,
+      "max_overhang_mm": 0.8,
+      "max_bridge_mm": 0.0,
+      "n_islands": 0,
+      "n_cantilevers": 0,
+      "regions": [],
+      "px_mm": 0.125
+     }
+    }
+   ],
+   "unique_stls": 10,
+   "est_total_g": 960,
+   "est_total_h": 18.9,
+   "runtime_s": 9.5
+  },
+  "interference": {
+   "findings": [
+    {
+     "status": "warn",
+     "msg": "cable BUY_load_cell_R x CAB_Load_cell_lead_R overlap 24.7 mm3 (route through solid?)",
+     "a": "BUY_load_cell_R",
+     "b": "CAB_Load_cell_lead_R",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 136,
+     "volume_mm3": 24.69,
+     "region": [
+      [
+       175.8,
+       93.6,
+       -17.1
+      ],
+      [
+       179.8,
+       97.4,
+       -15.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_load_cell_L x CAB_Load_cell_lead_L overlap 24.7 mm3 (route through solid?)",
+     "a": "BUY_load_cell_L",
+     "b": "CAB_Load_cell_lead_L",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 136,
+     "volume_mm3": 24.69,
+     "region": [
+      [
+       -179.8,
+       93.6,
+       -17.1
+      ],
+      [
+       -175.8,
+       97.4,
+       -15.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_patch_plug_board x CAB_Patch_cable overlap 9.9 mm3 (route through solid?)",
+     "a": "BUY_patch_plug_board",
+     "b": "CAB_Patch_cable",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 10,
+     "volume_mm3": 9.9,
+     "region": [
+      [
+       -44.7,
+       81.7,
+       -52.9
+      ],
+      [
+       -39.7,
+       83.5,
+       -48.5
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_patch_plug_coupler x CAB_Patch_cable overlap 9.3 mm3 (route through solid?)",
+     "a": "BUY_patch_plug_coupler",
+     "b": "CAB_Patch_cable",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 14,
+     "volume_mm3": 9.28,
+     "region": [
+      [
+       -41.2,
+       101.0,
+       -34.2
+      ],
+      [
+       -34.0,
+       110.7,
+       -22.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_esp32_p4 x CAB_HX711_to_ESP32_L overlap 5.1 mm3 (route through solid?)",
+     "a": "BUY_esp32_p4",
+     "b": "CAB_HX711_to_ESP32_L",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 14,
+     "volume_mm3": 5.13,
+     "region": [
+      [
+       -59.0,
+       5.4,
+       -50.9
+      ],
+      [
+       -57.0,
+       8.1,
+       -48.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_esp32_p4 x CAB_HX711_to_ESP32_R overlap 5.1 mm3 (route through solid?)",
+     "a": "BUY_esp32_p4",
+     "b": "CAB_HX711_to_ESP32_R",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 12,
+     "volume_mm3": 5.07,
+     "region": [
+      [
+       -23.1,
+       5.5,
+       -50.9
+      ],
+      [
+       -21.0,
+       8.1,
+       -48.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_hx711_L x CAB_HX711_to_ESP32_L overlap 4.9 mm3 (route through solid?)",
+     "a": "BUY_hx711_L",
+     "b": "CAB_HX711_to_ESP32_L",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 18,
+     "volume_mm3": 4.86,
+     "region": [
+      [
+       -82.1,
+       104.7,
+       -52.0
+      ],
+      [
+       -80.0,
+       106.8,
+       -49.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_hx711_R x CAB_HX711_to_ESP32_R overlap 4.9 mm3 (route through solid?)",
+     "a": "BUY_hx711_R",
+     "b": "CAB_HX711_to_ESP32_R",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 18,
+     "volume_mm3": 4.86,
+     "region": [
+      [
+       80.0,
+       84.4,
+       -52.0
+      ],
+      [
+       82.1,
+       86.4,
+       -49.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "status": "warn",
+     "msg": "cable BUY_rj45_coupler x CAB_Patch_cable overlap 2.7 mm3 (route through solid?)",
+     "a": "BUY_rj45_coupler",
+     "b": "CAB_Patch_cable",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 29,
+     "volume_mm3": 2.67,
+     "region": [
+      [
+       -39.5,
+       96.3,
+       -42.1
+      ],
+      [
+       -35.5,
+       97.9,
+       -40.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    }
+   ],
+   "groups": [
+    {
+     "joints": [],
+     "poses": 1,
+     "pairs": 1581
+    }
+   ],
+   "collisions": [],
+   "contacts": [],
+   "solid_overlaps": [],
+   "cable_overlaps": [
+    {
+     "a": "BUY_load_cell_R",
+     "b": "CAB_Load_cell_lead_R",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 136,
+     "volume_mm3": 24.69,
+     "region": [
+      [
+       175.8,
+       93.6,
+       -17.1
+      ],
+      [
+       179.8,
+       97.4,
+       -15.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_load_cell_L",
+     "b": "CAB_Load_cell_lead_L",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 136,
+     "volume_mm3": 24.69,
+     "region": [
+      [
+       -179.8,
+       93.6,
+       -17.1
+      ],
+      [
+       -175.8,
+       97.4,
+       -15.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_patch_plug_board",
+     "b": "CAB_Patch_cable",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 10,
+     "volume_mm3": 9.9,
+     "region": [
+      [
+       -44.7,
+       81.7,
+       -52.9
+      ],
+      [
+       -39.7,
+       83.5,
+       -48.5
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_patch_plug_coupler",
+     "b": "CAB_Patch_cable",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 14,
+     "volume_mm3": 9.28,
+     "region": [
+      [
+       -41.2,
+       101.0,
+       -34.2
+      ],
+      [
+       -34.0,
+       110.7,
+       -22.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_esp32_p4",
+     "b": "CAB_HX711_to_ESP32_L",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 14,
+     "volume_mm3": 5.13,
+     "region": [
+      [
+       -59.0,
+       5.4,
+       -50.9
+      ],
+      [
+       -57.0,
+       8.1,
+       -48.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_esp32_p4",
+     "b": "CAB_HX711_to_ESP32_R",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 12,
+     "volume_mm3": 5.07,
+     "region": [
+      [
+       -23.1,
+       5.5,
+       -50.9
+      ],
+      [
+       -21.0,
+       8.1,
+       -48.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_hx711_L",
+     "b": "CAB_HX711_to_ESP32_L",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 18,
+     "volume_mm3": 4.86,
+     "region": [
+      [
+       -82.1,
+       104.7,
+       -52.0
+      ],
+      [
+       -80.0,
+       106.8,
+       -49.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_hx711_R",
+     "b": "CAB_HX711_to_ESP32_R",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 18,
+     "volume_mm3": 4.86,
+     "region": [
+      [
+       80.0,
+       84.4,
+       -52.0
+      ],
+      [
+       82.1,
+       86.4,
+       -49.9
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    },
+    {
+     "a": "BUY_rj45_coupler",
+     "b": "CAB_Patch_cable",
+     "pose": "home",
+     "overtravel": false,
+     "tri_overlaps": 29,
+     "volume_mm3": 2.67,
+     "region": [
+      [
+       -39.5,
+       96.3,
+       -42.1
+      ],
+      [
+       -35.5,
+       97.9,
+       -40.0
+      ]
+     ],
+     "solver": "MANIFOLD",
+     "n_poses": 1,
+     "in_range_poses": 1
+    }
+   ],
+   "min_clearance": [],
+   "allowed_max": [],
+   "runtime_s": 5.2
+  },
+  "fasteners": {
+   "findings": [
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_0: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_1: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_2: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_2 needs a 106 mm+ bit/extension (head 96 mm below open space)",
+     "object": "FST_Board_screw_2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_3: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_3"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_3 needs a 106 mm+ bit/extension (head 96 mm below open space)",
+     "object": "FST_Board_screw_3"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_4: only 2.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_4"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_5: only 2.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_5"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_6: only 2.0 mm of thread in PRT_tray_R (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_6"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Board_screw_7: only 2.0 mm of thread in PRT_tray_R (needs 6.0: 2 d, fasteners.min_engagement_d)",
+     "object": "FST_Board_screw_7"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_L0: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_L0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_L1: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_L1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_L2: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_L2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_L3: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_L3"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_L4: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_L4"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_R0: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_R0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_R1: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_R1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_R2: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_R2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_R3: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_R3"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_Cover_screw_R4: no material grips the thread (floating screw, or every hole is clearance)",
+     "object": "FST_Cover_screw_R4"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_L0 engages only 2.6 of FST_M4_nut_L0's 3.2 mm (the bolt should pass through the nut)",
+     "object": "FST_M4_screw_L0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_L0 head stands 4.0 mm off the part: exposed shank under the head",
+     "object": "FST_M4_screw_L0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_L1 engages only 2.6 of FST_M4_nut_L1's 3.2 mm (the bolt should pass through the nut)",
+     "object": "FST_M4_screw_L1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_L1 head stands 4.0 mm off the part: exposed shank under the head",
+     "object": "FST_M4_screw_L1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_L2 engages only 2.6 of FST_M4_nut_L2's 3.2 mm (the bolt should pass through the nut)",
+     "object": "FST_M4_screw_L2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_L2 head stands 4.0 mm off the part: exposed shank under the head",
+     "object": "FST_M4_screw_L2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_R0 engages only 2.6 of FST_M4_nut_R0's 3.2 mm (the bolt should pass through the nut)",
+     "object": "FST_M4_screw_R0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_R0 head stands 4.0 mm off the part: exposed shank under the head",
+     "object": "FST_M4_screw_R0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_R1 engages only 2.6 of FST_M4_nut_R1's 3.2 mm (the bolt should pass through the nut)",
+     "object": "FST_M4_screw_R1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_R1 head stands 4.0 mm off the part: exposed shank under the head",
+     "object": "FST_M4_screw_R1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_R2 engages only 2.6 of FST_M4_nut_R2's 3.2 mm (the bolt should pass through the nut)",
+     "object": "FST_M4_screw_R2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M4_screw_R2 head stands 4.0 mm off the part: exposed shank under the head",
+     "object": "FST_M4_screw_R2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M5_bolt_0 head stands 6.0 mm off the part: exposed shank under the head",
+     "object": "FST_M5_bolt_0"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M5_bolt_1 head stands 6.0 mm off the part: exposed shank under the head",
+     "object": "FST_M5_bolt_1"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M5_bolt_2 head stands 6.0 mm off the part: exposed shank under the head",
+     "object": "FST_M5_bolt_2"
+    },
+    {
+     "status": "warn",
+     "msg": "FST_M5_bolt_3 head stands 6.0 mm off the part: exposed shank under the head",
+     "object": "FST_M5_bolt_3"
+    }
+   ],
+   "rows": [
+    {
+     "object": "FST_Board_screw_0",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -16.0,
+      46.2,
+      -57.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_L",
+     "engagement_mm": 1.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_esp32_p4": 1.0,
+      "PRT_tray_L": 1.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 28.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 28.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_1",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -64.0,
+      46.3,
+      -57.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_L",
+     "engagement_mm": 1.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_esp32_p4": 1.0,
+      "PRT_tray_L": 1.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 24.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 24.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_2",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -16.0,
+      13.2,
+      -57.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_L",
+     "engagement_mm": 1.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_esp32_p4": 1.0,
+      "PRT_tray_L": 1.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 96.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 96.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_3",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -64.0,
+      13.3,
+      -57.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_L",
+     "engagement_mm": 1.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_esp32_p4": 1.0,
+      "PRT_tray_L": 1.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 96.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 96.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_4",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -82.5,
+      91.7,
+      -58.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_L",
+     "engagement_mm": 2.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_tray_L": 2.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 20.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 20.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_5",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -107.9,
+      109.5,
+      -58.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_L",
+     "engagement_mm": 2.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_tray_L": 2.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 20.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 20.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_6",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      82.5,
+      99.3,
+      -58.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_R",
+     "engagement_mm": 2.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_tray_R": 2.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 20.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 20.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Board_screw_7",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      107.9,
+      81.5,
+      -58.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 8.0,
+     "thread_host": "PRT_tray_R",
+     "engagement_mm": 2.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_tray_R": 2.0
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 20.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 20.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_L0",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -70.0,
+      12.3,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 0.0,
+       "blocked_by": "PRT_cover_L",
+       "lkey_ok": true,
+       "lkey_arc_deg": 360,
+       "lkey_why": "long leg clear over 360 deg (need 60)",
+       "tool": "L-key"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 15.5,
+      "blocked": false,
+      "blocked_at_mm": 0.0,
+      "blocked_by": "PRT_cover_L",
+      "lkey_ok": true,
+      "lkey_arc_deg": 360,
+      "lkey_why": "long leg clear over 360 deg (need 60)",
+      "tool": "L-key"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_L1",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -145.0,
+      12.3,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 0.0,
+       "blocked_by": "PRT_cover_L",
+       "lkey_ok": true,
+       "lkey_arc_deg": 360,
+       "lkey_why": "long leg clear over 360 deg (need 60)",
+       "tool": "L-key"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 15.5,
+      "blocked": false,
+      "blocked_at_mm": 0.0,
+      "blocked_by": "PRT_cover_L",
+      "lkey_ok": true,
+      "lkey_arc_deg": 360,
+      "lkey_why": "long leg clear over 360 deg (need 60)",
+      "tool": "L-key"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_L2",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -25.0,
+      143.2,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 16.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 16.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_L3",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -75.0,
+      143.2,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 16.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 16.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_L4",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -125.0,
+      143.2,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 16.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 16.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_R0",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      70.0,
+      12.3,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 0.0,
+       "blocked_by": "PRT_cover_R",
+       "lkey_ok": true,
+       "lkey_arc_deg": 360,
+       "lkey_why": "long leg clear over 360 deg (need 60)",
+       "tool": "L-key"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 15.5,
+      "blocked": false,
+      "blocked_at_mm": 0.0,
+      "blocked_by": "PRT_cover_R",
+      "lkey_ok": true,
+      "lkey_arc_deg": 360,
+      "lkey_why": "long leg clear over 360 deg (need 60)",
+      "tool": "L-key"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_R1",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      145.0,
+      12.3,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 0.0,
+       "blocked_by": "PRT_cover_R",
+       "lkey_ok": true,
+       "lkey_arc_deg": 360,
+       "lkey_why": "long leg clear over 360 deg (need 60)",
+       "tool": "L-key"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 15.5,
+      "blocked": false,
+      "blocked_at_mm": 0.0,
+      "blocked_by": "PRT_cover_R",
+      "lkey_ok": true,
+      "lkey_arc_deg": 360,
+      "lkey_why": "long leg clear over 360 deg (need 60)",
+      "tool": "L-key"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_R2",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      25.0,
+      143.2,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 16.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 16.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_R3",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      75.0,
+      143.2,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 16.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 16.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_Cover_screw_R4",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      125.0,
+      143.2,
+      22.4
+     ],
+     "into": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "length_mm": 12.0,
+     "thread_host": null,
+     "engagement_mm": 0.0,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 12.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 16.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 16.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_L0",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -156.3,
+      40.0,
+      15.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_L_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_L_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_L1",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -156.3,
+      60.0,
+      -22.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_L_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_L_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_L2",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -156.3,
+      106.0,
+      -21.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_L_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_L_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_L3",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -156.3,
+      142.0,
+      -21.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_L_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_L_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_L4",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -156.3,
+      40.0,
+      -105.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_L_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_L_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_L5",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      -156.3,
+      85.0,
+      -85.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_L_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_L_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_R0",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      156.3,
+      40.0,
+      15.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_R_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_R_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_R1",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      156.3,
+      60.0,
+      -22.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_R_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_R_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_R2",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      156.3,
+      106.0,
+      -21.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_R_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_R_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_R3",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      156.3,
+      142.0,
+      -21.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_R_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_R_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_R4",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      156.3,
+      40.0,
+      -105.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_R_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_R_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M3_screw_R5",
+     "engagement_need_mm": 6.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "head": [
+      156.3,
+      85.0,
+      -85.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 30.0,
+     "thread_host": "PRT_fin_R_outboard",
+     "engagement_mm": 7.5,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "PRT_fin_R_outboard": 7.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 0.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 18.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 18.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M4_screw_L0",
+     "engagement_need_mm": 8.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "nut": {
+      "name": "FST_M4_nut_L0",
+      "from_mm": 13.4,
+      "to_mm": 16.6,
+      "len_mm": 3.2
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      -145.8,
+      30.0,
+      0.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_M4_nut_L0",
+     "engagement_mm": 2.6,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 4.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 10.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 10.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M4_screw_L1",
+     "engagement_need_mm": 8.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "nut": {
+      "name": "FST_M4_nut_L1",
+      "from_mm": 13.4,
+      "to_mm": 16.6,
+      "len_mm": 3.2
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      -145.8,
+      115.0,
+      -35.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_M4_nut_L1",
+     "engagement_mm": 2.6,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 4.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 10.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 10.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M4_screw_L2",
+     "engagement_need_mm": 8.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "nut": {
+      "name": "FST_M4_nut_L2",
+      "from_mm": 13.4,
+      "to_mm": 16.6,
+      "len_mm": 3.2
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      -145.8,
+      70.0,
+      -58.0
+     ],
+     "into": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_M4_nut_L2",
+     "engagement_mm": 2.6,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 4.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 78.0,
+       "blocked_by": "BUY_esp32_p4",
+       "lkey_ok": true,
+       "lkey_arc_deg": 180,
+       "lkey_why": "long leg clear over 180 deg (need 60)",
+       "tool": "L-key"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 15.5,
+      "blocked": false,
+      "blocked_at_mm": 78.0,
+      "blocked_by": "BUY_esp32_p4",
+      "lkey_ok": true,
+      "lkey_arc_deg": 180,
+      "lkey_why": "long leg clear over 180 deg (need 60)",
+      "tool": "L-key"
+     }
+    },
+    {
+     "object": "FST_M4_screw_R0",
+     "engagement_need_mm": 8.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "nut": {
+      "name": "FST_M4_nut_R0",
+      "from_mm": 13.4,
+      "to_mm": 16.6,
+      "len_mm": 3.2
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      145.8,
+      30.0,
+      0.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_M4_nut_R0",
+     "engagement_mm": 2.6,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 4.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 10.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 10.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M4_screw_R1",
+     "engagement_need_mm": 8.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "nut": {
+      "name": "FST_M4_nut_R1",
+      "from_mm": 13.4,
+      "to_mm": 16.6,
+      "len_mm": 3.2
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      145.8,
+      115.0,
+      -35.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_M4_nut_R1",
+     "engagement_mm": 2.6,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 4.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 10.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 10.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M4_screw_R2",
+     "engagement_need_mm": 8.0,
+     "engagement_rule": "2 d, fasteners.min_engagement_d",
+     "nut": {
+      "name": "FST_M4_nut_R2",
+      "from_mm": 13.4,
+      "to_mm": 16.6,
+      "len_mm": 3.2
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      145.8,
+      70.0,
+      -58.0
+     ],
+     "into": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_M4_nut_R2",
+     "engagement_mm": 2.6,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {},
+     "into_purchased": {},
+     "standoff_mm": 4.0,
+     "protrusion_mm": 0.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 15.5,
+       "blocked": false,
+       "blocked_at_mm": 158.0,
+       "blocked_by": "BUY_esp32_p4",
+       "lkey_ok": true,
+       "lkey_arc_deg": 180,
+       "lkey_why": "long leg clear over 180 deg (need 60)",
+       "tool": "L-key"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 15.5,
+      "blocked": false,
+      "blocked_at_mm": 158.0,
+      "blocked_by": "BUY_esp32_p4",
+      "lkey_ok": true,
+      "lkey_arc_deg": 180,
+      "lkey_why": "long leg clear over 180 deg (need 60)",
+      "tool": "L-key"
+     }
+    },
+    {
+     "object": "FST_M5_bolt_0",
+     "engagement_need_mm": 7.5,
+     "engagement_rule": "1.5 d, fasteners.tapped_engagement_d",
+     "nut": {
+      "name": "FST_T-nut_0",
+      "from_mm": 11.2,
+      "to_mm": 15.0,
+      "len_mm": 3.8
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      -40.0,
+      10.2,
+      3.4
+     ],
+     "into": [
+      0.0,
+      -0.966,
+      0.259
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_T-nut_0",
+     "engagement_mm": 3.8,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_corpus_back_plate": 0.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 6.0,
+     "protrusion_mm": 1.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 8.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M5_bolt_1",
+     "engagement_need_mm": 7.5,
+     "engagement_rule": "1.5 d, fasteners.tapped_engagement_d",
+     "nut": {
+      "name": "FST_T-nut_1",
+      "from_mm": 11.2,
+      "to_mm": 15.0,
+      "len_mm": 3.8
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      40.0,
+      10.2,
+      3.4
+     ],
+     "into": [
+      0.0,
+      -0.966,
+      0.259
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_T-nut_1",
+     "engagement_mm": 3.8,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_corpus_back_plate": 0.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 6.0,
+     "protrusion_mm": 1.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 8.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M5_bolt_2",
+     "engagement_need_mm": 7.5,
+     "engagement_rule": "1.5 d, fasteners.tapped_engagement_d",
+     "nut": {
+      "name": "FST_T-nut_2",
+      "from_mm": 11.2,
+      "to_mm": 15.0,
+      "len_mm": 3.8
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      -120.0,
+      10.2,
+      3.4
+     ],
+     "into": [
+      0.0,
+      -0.966,
+      0.259
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_T-nut_2",
+     "engagement_mm": 3.8,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_corpus_back_plate": 0.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 6.0,
+     "protrusion_mm": 1.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 8.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    },
+    {
+     "object": "FST_M5_bolt_3",
+     "engagement_need_mm": 7.5,
+     "engagement_rule": "1.5 d, fasteners.tapped_engagement_d",
+     "nut": {
+      "name": "FST_T-nut_3",
+      "from_mm": 11.2,
+      "to_mm": 15.0,
+      "len_mm": 3.8
+     },
+     "nut_gap_mm": 0.0,
+     "head": [
+      120.0,
+      10.2,
+      3.4
+     ],
+     "into": [
+      0.0,
+      -0.966,
+      0.259
+     ],
+     "length_mm": 16.0,
+     "thread_host": "FST_T-nut_3",
+     "engagement_mm": 3.8,
+     "head_buried_in": [],
+     "body": "static",
+     "passes_through": {
+      "BUY_corpus_back_plate": 0.5
+     },
+     "into_purchased": {},
+     "standoff_mm": 6.0,
+     "protrusion_mm": 1.0,
+     "tip_exposed": false,
+     "access": {
+      "home": {
+       "reach_mm": 8.0,
+       "blocked": false,
+       "tool": "straight"
+      }
+     },
+     "access_best": {
+      "pose": "home",
+      "reach_mm": 8.0,
+      "blocked": false,
+      "tool": "straight"
+     }
+    }
+   ],
+   "nuts": [
+    {
+     "object": "FST_M4_nut_L0",
+     "bolt": "FST_M4_screw_L0",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_M4_nut_L1",
+     "bolt": "FST_M4_screw_L1",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_M4_nut_L2",
+     "bolt": "FST_M4_screw_L2",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_M4_nut_R0",
+     "bolt": "FST_M4_screw_R0",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_M4_nut_R1",
+     "bolt": "FST_M4_screw_R1",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_M4_nut_R2",
+     "bolt": "FST_M4_screw_R2",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_T-nut_0",
+     "bolt": "FST_M5_bolt_0",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_T-nut_1",
+     "bolt": "FST_M5_bolt_1",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_T-nut_2",
+     "bolt": "FST_M5_bolt_2",
+     "inside_purchased": {},
+     "exposed": false
+    },
+    {
+     "object": "FST_T-nut_3",
+     "bolt": "FST_M5_bolt_3",
+     "inside_purchased": {},
+     "exposed": false
+    }
+   ],
+   "runtime_s": 5.2
+  },
+  "service": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "drop": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "index": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "slide": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "distances": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "payload": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "sightlines": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "assembly": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "insertion": {
+   "findings": [],
+   "rows": [
+    {
+     "object": "BUY_corpus_back_plate",
+     "step": "T-nuts into the chair plate",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "PRT_tray_L",
+     "step": "electronics into the trays",
+     "free_dir": "+X",
+     "obstacles": 5
+    },
+    {
+     "object": "PRT_tray_R",
+     "step": "electronics into the trays",
+     "free_dir": "+X",
+     "obstacles": 5
+    },
+    {
+     "object": "BUY_esp32_p4",
+     "step": "electronics into the trays",
+     "free_dir": "+X",
+     "obstacles": 5
+    },
+    {
+     "object": "BUY_hx711_L",
+     "step": "electronics into the trays",
+     "free_dir": "+Z",
+     "obstacles": 5
+    },
+    {
+     "object": "BUY_hx711_R",
+     "step": "electronics into the trays",
+     "free_dir": "+Z",
+     "obstacles": 5
+    },
+    {
+     "object": "BUY_rj45_coupler",
+     "step": "electronics into the trays",
+     "free_dir": "+Z",
+     "obstacles": 5
+    },
+    {
+     "object": "BUY_patch_plug_board",
+     "step": "electronics into the trays",
+     "free_dir": "+Z",
+     "obstacles": 5
+    },
+    {
+     "object": "BUY_patch_plug_coupler",
+     "step": "electronics into the trays",
+     "free_dir": "+Z",
+     "obstacles": 5
+    },
+    {
+     "object": "PRT_fin_R_inboard",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "PRT_fin_R_outboard",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "PRT_piston_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_load_cell_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_grip_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_front_washer_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_rear_washer_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_front_nut_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_rear_nut_R",
+     "step": "right handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "PRT_fin_L_inboard",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "PRT_fin_L_outboard",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "PRT_piston_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_load_cell_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_grip_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_front_washer_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_rear_washer_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_front_nut_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "BUY_rear_nut_L",
+     "step": "left handle (bench)",
+     "free_dir": "+Z",
+     "obstacles": 0
+    },
+    {
+     "object": "group 'fin_R' (18 objects)",
+     "step": "right handle onto tray R",
+     "free_dir": "-Z",
+     "obstacles": 21
+    },
+    {
+     "object": "group 'fin_L' (18 objects)",
+     "step": "left handle onto tray L",
+     "free_dir": "-Z",
+     "obstacles": 33
+    },
+    {
+     "object": "PRT_cover_L",
+     "step": "covers on",
+     "free_dir": "+Y",
+     "obstacles": 67
+    },
+    {
+     "object": "PRT_cover_R",
+     "step": "covers on",
+     "free_dir": "+Y",
+     "obstacles": 67
+    }
+   ],
+   "not_tested": [],
+   "loose_bench_parts": [],
+   "runtime_s": 19.1
+  },
+  "stacks": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "flexures": {
+   "findings": [],
+   "runtime_s": 0.0
+  },
+  "stability": {
+   "findings": [
+    {
+     "status": "fail",
+     "msg": "static tip angle only -20.6 deg at home",
+     "pose": "home",
+     "mass_g": 5865,
+     "cg": [
+      -0.5,
+      -4.2,
+      -93.2
+     ],
+     "edge_margin_mm": -71.9,
+     "tip_angle_deg": -20.6
+    }
+   ],
+   "poses": 1,
+   "rows": [
+    {
+     "pose": "home",
+     "mass_g": 5865,
+     "cg": [
+      -0.5,
+      -4.2,
+      -93.2
+     ],
+     "edge_margin_mm": -71.9,
+     "tip_angle_deg": -20.6
+    }
+   ],
+   "worst": {
+    "pose": "home",
+    "mass_g": 5865,
+    "cg": [
+     -0.5,
+     -4.2,
+     -93.2
+    ],
+    "edge_margin_mm": -71.9,
+    "tip_angle_deg": -20.6
+   },
+   "footprint_pts": 4,
+   "purchased_without_mass": [],
+   "runtime_s": 4.8
+  },
+  "cables": {
+   "findings": [
+    {
+     "status": "warn",
+     "msg": "CAB_Patch_cable (OD 5) kinks: 29 deg at [-31.6, 112.8, -9.9] with radius 2.8; 27 deg at [-32.9, 113.0, -10.4] with radius 3.0. Round the corner (centreline radius >= 0.75 x OD) and leave one OD of straight lead out of a plug or splice",
+     "cable": "CAB_Patch_cable",
+     "od_mm": 5.0,
+     "bends": [
+      {
+       "radius_mm": 2.78,
+       "turn_deg": 29,
+       "at": [
+        -31.6,
+        112.8,
+        -9.9
+       ]
+      },
+      {
+       "radius_mm": 3.05,
+       "turn_deg": 27,
+       "at": [
+        -32.9,
+        113.0,
+        -10.4
+       ]
+      }
+     ]
+    },
+    {
+     "status": "warn",
+     "msg": "5 cables have no lead length (cable_leads or lead_len), so route vs purchased lead is unchecked: CAB_HX711_to_ESP32_L, CAB_HX711_to_ESP32_R, CAB_Load_cell_lead_L, CAB_Load_cell_lead_R, CAB_Patch_cable",
+     "objects": [
+      "CAB_HX711_to_ESP32_L",
+      "CAB_HX711_to_ESP32_R",
+      "CAB_Load_cell_lead_L",
+      "CAB_Load_cell_lead_R",
+      "CAB_Patch_cable"
+     ]
+    }
+   ],
+   "chains": [],
+   "junctions": [],
+   "junctions_waived": [],
+   "ends_known": 5,
+   "end_drift": [],
+   "kinks": [
+    {
+     "cable": "CAB_Patch_cable",
+     "od_mm": 5.0,
+     "bends": [
+      {
+       "radius_mm": 2.78,
+       "turn_deg": 29,
+       "at": [
+        -31.6,
+        112.8,
+        -9.9
+       ]
+      },
+      {
+       "radius_mm": 3.05,
+       "turn_deg": 27,
+       "at": [
+        -32.9,
+        113.0,
+        -10.4
+       ]
+      }
+     ]
+    }
+   ],
+   "shared_runs": [],
+   "rows": [
+    {
+     "object": "CAB_HX711_to_ESP32_L",
+     "path_len": 138.25426015635787,
+     "lead_len": null,
+     "exposed_samples": 0,
+     "samples": 794,
+     "exposed_spots": []
+    },
+    {
+     "object": "CAB_HX711_to_ESP32_R",
+     "path_len": 158.22941631452662,
+     "lead_len": null,
+     "exposed_samples": 0,
+     "samples": 888,
+     "exposed_spots": []
+    },
+    {
+     "object": "CAB_Load_cell_lead_L",
+     "path_len": 71.39387442342546,
+     "lead_len": null,
+     "exposed_samples": 0,
+     "samples": 686,
+     "exposed_spots": []
+    },
+    {
+     "object": "CAB_Load_cell_lead_R",
+     "path_len": 71.39388206526593,
+     "lead_len": null,
+     "exposed_samples": 0,
+     "samples": 686,
+     "exposed_spots": []
+    },
+    {
+     "object": "CAB_Patch_cable",
+     "path_len": 74.3324297733309,
+     "lead_len": null,
+     "exposed_samples": 0,
+     "samples": 525,
+     "exposed_spots": []
+    }
+   ],
+   "runtime_s": 2.4
+  }
+ },
+ "coverage": [
+  "parts: 10 printed objects (10 unique STLs): manifold, bed fit ['P1S', 'H2D'], overhang, wall probe, bed contact; layer support check (bridge / cantilever / island) on the model's print triangles (no stl/ on disk)",
+  "interference/clearance: 84 objects in ['Printed', 'Purchased', 'Fasteners', 'Cables'], 94 pair-pose tests, joints swept [] with 2.5 deg overtravel",
+  "fasteners: 40 screws, 10 nuts; head-buried, thread engagement (bolt-to-nut pairing), shanks/nuts inside purchased parts, head stand-off, protruding thread, access (\u00d86 bit to 14 mm hand clearance, else a 18/56 mm L-key with a 60 deg swing) at 1 poses, parts present per assembly_order (8 steps)",
+  "assembly: 8 steps, 84 objects placed, 0 in no step",
+  "insertion: 31 parts and merged groups, straight along +-X/Y/Z (and insert_dirs) against earlier steps; 0 steps insert_ok",
+  "stability: CG and tip angle over 1 poses, footprint from static parts' lowest faces",
+  "cables: 5 routes, 5 with path length, 0 chains; junctions on 5 routes with known ends (cadlib cab_ends), 0 waived with no modelled part (cable_junctions_ok); exposure (>= 8 of 26 rays escape, or 10% of the directions toward a viewer) at home pose",
+  "cables: 5 routes with a known path: corners under 0.75 x OD (one OD straight out of a plug or splice), and pairs on one body sharing a tube for more than 2 OD"
+ ],
+ "not_checked": [
+  "fasteners: service access (declare service ops: assembly-order access says nothing about re-adjusting a built machine)",
+  "fasteners: pilot/clearance hole diameters (use cadlib.features for those); wrench access to nuts",
+  "drop: no drop_tests configured (feed paths unsimulated)",
+  "payload: no payload_fit rows (pocket or slot admits two payloads, or jams one)",
+  "insertion: paths that are not one straight line, parts of the same step against each other, cables",
+  "flexures: no springs or snap arms declared (print orientation vs bending stress)",
+  "stability: dynamic loads (recoil, pan acceleration), friction/sliding",
+  "cables: bend radius of a lead that is not modelled as a route, slack across joints, connector positions (review by section render)",
+  "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+ ],
+ "assembly": {
+  "unordered_solids_assumed_present": [],
+  "step_of": {
+   "BUY_corpus_back_plate": "T-nuts into the chair plate",
+   "BUY_esp32_p4": "electronics into the trays",
+   "BUY_front_nut_L": "left handle (bench)",
+   "BUY_front_nut_R": "right handle (bench)",
+   "BUY_front_washer_L": "left handle (bench)",
+   "BUY_front_washer_R": "right handle (bench)",
+   "BUY_grip_L": "left handle (bench)",
+   "BUY_grip_R": "right handle (bench)",
+   "BUY_hx711_L": "electronics into the trays",
+   "BUY_hx711_R": "electronics into the trays",
+   "BUY_load_cell_L": "left handle (bench)",
+   "BUY_load_cell_R": "right handle (bench)",
+   "BUY_patch_plug_board": "electronics into the trays",
+   "BUY_patch_plug_coupler": "electronics into the trays",
+   "BUY_rear_nut_L": "left handle (bench)",
+   "BUY_rear_nut_R": "right handle (bench)",
+   "BUY_rear_washer_L": "left handle (bench)",
+   "BUY_rear_washer_R": "right handle (bench)",
+   "BUY_rj45_coupler": "electronics into the trays",
+   "CAB_HX711_to_ESP32_L": "electronics into the trays",
+   "CAB_HX711_to_ESP32_R": "electronics into the trays",
+   "CAB_Load_cell_lead_L": "electronics into the trays",
+   "CAB_Load_cell_lead_R": "electronics into the trays",
+   "CAB_Patch_cable": "electronics into the trays",
+   "FST_Board_screw_0": "electronics into the trays",
+   "FST_Board_screw_1": "electronics into the trays",
+   "FST_Board_screw_2": "electronics into the trays",
+   "FST_Board_screw_3": "electronics into the trays",
+   "FST_Board_screw_4": "electronics into the trays",
+   "FST_Board_screw_5": "electronics into the trays",
+   "FST_Board_screw_6": "electronics into the trays",
+   "FST_Board_screw_7": "electronics into the trays",
+   "FST_Cover_screw_L0": "covers on",
+   "FST_Cover_screw_L1": "covers on",
+   "FST_Cover_screw_L2": "covers on",
+   "FST_Cover_screw_L3": "covers on",
+   "FST_Cover_screw_L4": "covers on",
+   "FST_Cover_screw_R0": "covers on",
+   "FST_Cover_screw_R1": "covers on",
+   "FST_Cover_screw_R2": "covers on",
+   "FST_Cover_screw_R3": "covers on",
+   "FST_Cover_screw_R4": "covers on",
+   "FST_M3_screw_L0": "left handle (bench)",
+   "FST_M3_screw_L1": "left handle (bench)",
+   "FST_M3_screw_L2": "left handle (bench)",
+   "FST_M3_screw_L3": "left handle (bench)",
+   "FST_M3_screw_L4": "left handle (bench)",
+   "FST_M3_screw_L5": "left handle (bench)",
+   "FST_M3_screw_R0": "right handle (bench)",
+   "FST_M3_screw_R1": "right handle (bench)",
+   "FST_M3_screw_R2": "right handle (bench)",
+   "FST_M3_screw_R3": "right handle (bench)",
+   "FST_M3_screw_R4": "right handle (bench)",
+   "FST_M3_screw_R5": "right handle (bench)",
+   "FST_M4_nut_L0": "left handle (bench)",
+   "FST_M4_nut_L1": "left handle (bench)",
+   "FST_M4_nut_L2": "left handle (bench)",
+   "FST_M4_nut_R0": "right handle (bench)",
+   "FST_M4_nut_R1": "right handle (bench)",
+   "FST_M4_nut_R2": "right handle (bench)",
+   "FST_M4_screw_L0": "left handle onto tray L",
+   "FST_M4_screw_L1": "left handle onto tray L",
+   "FST_M4_screw_L2": "left handle onto tray L",
+   "FST_M4_screw_R0": "right handle onto tray R",
+   "FST_M4_screw_R1": "right handle onto tray R",
+   "FST_M4_screw_R2": "right handle onto tray R",
+   "FST_M5_bolt_0": "unit onto the plate",
+   "FST_M5_bolt_1": "unit onto the plate",
+   "FST_M5_bolt_2": "unit onto the plate",
+   "FST_M5_bolt_3": "unit onto the plate",
+   "FST_T-nut_0": "T-nuts into the chair plate",
+   "FST_T-nut_1": "T-nuts into the chair plate",
+   "FST_T-nut_2": "T-nuts into the chair plate",
+   "FST_T-nut_3": "T-nuts into the chair plate",
+   "PRT_cover_L": "covers on",
+   "PRT_cover_R": "covers on",
+   "PRT_fin_L_inboard": "left handle (bench)",
+   "PRT_fin_L_outboard": "left handle (bench)",
+   "PRT_fin_R_inboard": "right handle (bench)",
+   "PRT_fin_R_outboard": "right handle (bench)",
+   "PRT_piston_L": "left handle (bench)",
+   "PRT_piston_R": "right handle (bench)",
+   "PRT_tray_L": "electronics into the trays",
+   "PRT_tray_R": "electronics into the trays"
+  },
+  "in_no_step": [],
+  "joint_drives": {}
+ },
+ "summary": {
+  "pass": false,
+  "fails": 1,
+  "warns": 65,
+  "untriaged_warns": 65,
+  "fail_list": [
+   "stability: static tip angle only -20.6 deg at home"
+  ],
+  "warn_list": [
+   "parts: PRT_fin_L_inboard: 1385 mm2 of sloped overhang steeper than 45 deg, supports=no",
+   "parts: PRT_fin_L_inboard (model): a 2.3 mm cantilever (102.2 mm2, extent [2.6, 45.0]) at z 2.2 (print [-63.6, 53.8, 2.2], world [-175.6, 127.0, 18.6])",
+   "parts: PRT_fin_L_inboard (model): a 1.3 mm cantilever (101.7 mm2, extent [6.7, 44.8]) at z 16.6 (print [-45.1, 54.0, 16.6], world [-161.2, 127.2, 0.1])",
+   "parts: PRT_fin_L_outboard: 1406 mm2 of sloped overhang steeper than 45 deg, supports=no",
+   "parts: PRT_fin_L_outboard (model): a 2.2 mm cantilever (96.3 mm2, extent [2.4, 44.8]) at z 2.2 (print [63.5, 53.8, 2.2], world [-180.0, 127.0, 18.5])",
+   "parts: PRT_fin_L_outboard (model): a 1.3 mm cantilever (53.0 mm2, extent [2.2, 44.9]) at z 16.6 (print [47.2, 54.1, 16.6], world [-194.4, 127.3, 2.2])",
+   "parts: PRT_fin_L_outboard (model): a 1.1 mm cantilever (47.9 mm2, extent [2.3, 44.9]) at z 16.6 (print [42.7, 54.1, 16.6], world [-194.4, 127.3, -2.3])",
+   "parts: PRT_fin_R_inboard: 1385 mm2 of sloped overhang steeper than 45 deg, supports=no",
+   "parts: PRT_fin_R_inboard (model): a 2.3 mm cantilever (102.2 mm2, extent [2.8, 45.1]) at z 2.2 (print [63.6, 53.8, 2.2], world [175.6, 127.0, 18.6])",
+   "parts: PRT_fin_R_inboard (model): a 1.3 mm cantilever (101.7 mm2, extent [6.7, 44.8]) at z 16.6 (print [45.1, 54.0, 16.6], world [161.2, 127.2, 0.1])",
+   "parts: PRT_fin_R_outboard: 1406 mm2 of sloped overhang steeper than 45 deg, supports=no",
+   "parts: PRT_fin_R_outboard (model): a 2.2 mm cantilever (96.3 mm2, extent [2.4, 44.8]) at z 2.2 (print [-63.5, 53.8, 2.2], world [180.0, 127.0, 18.5])",
+   "parts: PRT_fin_R_outboard (model): a 1.3 mm cantilever (53.0 mm2, extent [2.2, 44.9]) at z 16.6 (print [-47.2, 54.1, 16.6], world [194.4, 127.3, 2.2])",
+   "parts: PRT_fin_R_outboard (model): a 1.1 mm cantilever (47.9 mm2, extent [2.3, 44.9]) at z 16.6 (print [-42.8, 54.1, 16.6], world [194.4, 127.3, -2.2])",
+   "parts: PRT_piston_L (model): a 1.6 mm cantilever (5.3 mm2, extent [5.6, 2.0]) at z 0.4 (print [0.0, -15.9, 0.4], world [-177.8, 105.4, 17.4])",
+   "parts: PRT_piston_R (model): a 1.6 mm cantilever (5.4 mm2, extent [5.8, 2.0]) at z 0.4 (print [-0.0, -15.9, 0.4], world [177.8, 105.4, 17.4])",
+   "parts: PRT_tray_L: 171 mm2 of sloped overhang steeper than 45 deg, supports=no",
+   "parts: PRT_tray_R: 170 mm2 of sloped overhang steeper than 45 deg, supports=no",
+   "interference: cable BUY_load_cell_R x CAB_Load_cell_lead_R overlap 24.7 mm3 (route through solid?)",
+   "interference: cable BUY_load_cell_L x CAB_Load_cell_lead_L overlap 24.7 mm3 (route through solid?)",
+   "interference: cable BUY_patch_plug_board x CAB_Patch_cable overlap 9.9 mm3 (route through solid?)",
+   "interference: cable BUY_patch_plug_coupler x CAB_Patch_cable overlap 9.3 mm3 (route through solid?)",
+   "interference: cable BUY_esp32_p4 x CAB_HX711_to_ESP32_L overlap 5.1 mm3 (route through solid?)",
+   "interference: cable BUY_esp32_p4 x CAB_HX711_to_ESP32_R overlap 5.1 mm3 (route through solid?)",
+   "interference: cable BUY_hx711_L x CAB_HX711_to_ESP32_L overlap 4.9 mm3 (route through solid?)",
+   "interference: cable BUY_hx711_R x CAB_HX711_to_ESP32_R overlap 4.9 mm3 (route through solid?)",
+   "interference: cable BUY_rj45_coupler x CAB_Patch_cable overlap 2.7 mm3 (route through solid?)",
+   "fasteners: FST_Board_screw_0: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_1: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_2: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_2 needs a 106 mm+ bit/extension (head 96 mm below open space)",
+   "fasteners: FST_Board_screw_3: only 1.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_3 needs a 106 mm+ bit/extension (head 96 mm below open space)",
+   "fasteners: FST_Board_screw_4: only 2.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_5: only 2.0 mm of thread in PRT_tray_L (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_6: only 2.0 mm of thread in PRT_tray_R (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Board_screw_7: only 2.0 mm of thread in PRT_tray_R (needs 6.0: 2 d, fasteners.min_engagement_d)",
+   "fasteners: FST_Cover_screw_L0: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_L1: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_L2: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_L3: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_L4: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_R0: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_R1: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_R2: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_R3: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_Cover_screw_R4: no material grips the thread (floating screw, or every hole is clearance)",
+   "fasteners: FST_M4_screw_L0 engages only 2.6 of FST_M4_nut_L0's 3.2 mm (the bolt should pass through the nut)",
+   "fasteners: FST_M4_screw_L0 head stands 4.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M4_screw_L1 engages only 2.6 of FST_M4_nut_L1's 3.2 mm (the bolt should pass through the nut)",
+   "fasteners: FST_M4_screw_L1 head stands 4.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M4_screw_L2 engages only 2.6 of FST_M4_nut_L2's 3.2 mm (the bolt should pass through the nut)",
+   "fasteners: FST_M4_screw_L2 head stands 4.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M4_screw_R0 engages only 2.6 of FST_M4_nut_R0's 3.2 mm (the bolt should pass through the nut)",
+   "fasteners: FST_M4_screw_R0 head stands 4.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M4_screw_R1 engages only 2.6 of FST_M4_nut_R1's 3.2 mm (the bolt should pass through the nut)",
+   "fasteners: FST_M4_screw_R1 head stands 4.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M4_screw_R2 engages only 2.6 of FST_M4_nut_R2's 3.2 mm (the bolt should pass through the nut)",
+   "fasteners: FST_M4_screw_R2 head stands 4.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M5_bolt_0 head stands 6.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M5_bolt_1 head stands 6.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M5_bolt_2 head stands 6.0 mm off the part: exposed shank under the head",
+   "fasteners: FST_M5_bolt_3 head stands 6.0 mm off the part: exposed shank under the head",
+   "cables: CAB_Patch_cable (OD 5) kinks: 29 deg at [-31.6, 112.8, -9.9] with radius 2.8; 27 deg at [-32.9, 113.0, -10.4] with radius 3.0. Round the corner (centreline radius >= 0.75 x OD) and leave one OD of straight lead out of a plug or splice",
+   "cables: 5 cables have no lead length (cable_leads or lead_len), so route vs purchased lead is unchecked: CAB_HX711_to_ESP32_L, CAB_HX711_to_ESP32_R, CAB_Load_cell_lead_L, CAB_Load_cell_lead_R, CAB_Patch_cable"
+  ],
+  "accepted_warns": {},
+  "stale_accepts": [],
+  "coverage": [
+   "parts: 10 printed objects (10 unique STLs): manifold, bed fit ['P1S', 'H2D'], overhang, wall probe, bed contact; layer support check (bridge / cantilever / island) on the model's print triangles (no stl/ on disk)",
+   "interference/clearance: 84 objects in ['Printed', 'Purchased', 'Fasteners', 'Cables'], 94 pair-pose tests, joints swept [] with 2.5 deg overtravel",
+   "fasteners: 40 screws, 10 nuts; head-buried, thread engagement (bolt-to-nut pairing), shanks/nuts inside purchased parts, head stand-off, protruding thread, access (\u00d86 bit to 14 mm hand clearance, else a 18/56 mm L-key with a 60 deg swing) at 1 poses, parts present per assembly_order (8 steps)",
+   "assembly: 8 steps, 84 objects placed, 0 in no step",
+   "insertion: 31 parts and merged groups, straight along +-X/Y/Z (and insert_dirs) against earlier steps; 0 steps insert_ok",
+   "stability: CG and tip angle over 1 poses, footprint from static parts' lowest faces",
+   "cables: 5 routes, 5 with path length, 0 chains; junctions on 5 routes with known ends (cadlib cab_ends), 0 waived with no modelled part (cable_junctions_ok); exposure (>= 8 of 26 rays escape, or 10% of the directions toward a viewer) at home pose",
+   "cables: 5 routes with a known path: corners under 0.75 x OD (one OD straight out of a plug or splice), and pairs on one body sharing a tube for more than 2 OD"
+  ],
+  "not_checked": [
+   "fasteners: service access (declare service ops: assembly-order access says nothing about re-adjusting a built machine)",
+   "fasteners: pilot/clearance hole diameters (use cadlib.features for those); wrench access to nuts",
+   "drop: no drop_tests configured (feed paths unsimulated)",
+   "payload: no payload_fit rows (pocket or slot admits two payloads, or jams one)",
+   "insertion: paths that are not one straight line, parts of the same step against each other, cables",
+   "flexures: no springs or snap arms declared (print orientation vs bending stress)",
+   "stability: dynamic loads (recoil, pan acceleration), friction/sliding",
+   "cables: bend radius of a lead that is not modelled as a route, slack across joints, connector positions (review by section render)",
+   "not geometric: teardown step count, alignment-jig datums (declare stacks), aesthetics, BOM correctness"
+  ],
+  "poses_past_limits": [],
+  "unbounded_allows": {},
+  "runtime_s": 46.2
+ }
+}

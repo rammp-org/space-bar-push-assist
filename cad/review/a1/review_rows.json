@@ -1,0 +1,130 @@
+{
+ "distances": [
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_outboard",
+   "max": 0.15,
+   "why": "overload stop: piston rear face to the bore step must close before the 20 kg cell passes ~150 % FS (~0.15 mm travel)",
+   "ray": {
+    "origin": [
+     192.8,
+     104.99,
+     0
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_outboard",
+   "max": 0.15,
+   "why": "overload stop, left",
+   "ray": {
+    "origin": [
+     -192.8,
+     104.99,
+     0
+    ],
+    "dir": [
+     0,
+     -1,
+     0
+    ]
+   }
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_inboard",
+   "min": 0.2,
+   "why": "sliding sleeve + key rib running clearance (PTFE tape adds ~0.1)"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.2,
+   "why": "sliding sleeve + key rib running clearance"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_inboard",
+   "min": 0.2,
+   "why": "sliding sleeve + key rib running clearance"
+  },
+  {
+   "a": "PRT_piston_L",
+   "b": "PRT_fin_L_outboard",
+   "min": 0.2,
+   "why": "sliding sleeve + key rib running clearance"
+  }
+ ],
+ "service": [
+  {
+   "op": "replace / re-seat load cell R (fin off the tray)",
+   "remove": [
+    "PRT_cover_R",
+    "FST_Cover_screw_R*"
+   ],
+   "fasteners": [
+    "FST_M4_screw_R*"
+   ]
+  },
+  {
+   "op": "re-tighten mount bolts",
+   "remove": [
+    "PRT_cover_L",
+    "PRT_cover_R",
+    "FST_Cover_screw_*"
+   ],
+   "fasteners": [
+    "FST_M5_bolt_*"
+   ]
+  }
+ ],
+ "slide_out": [
+  {
+   "name": "cover R off along the plate face (up and rearward)",
+   "objects": [
+    "PRT_cover_R",
+    "FST_Cover_screw_R*"
+   ],
+   "dir": [
+    0,
+    0.259,
+    0.966
+   ],
+   "dist": 60,
+   "step": 2,
+   "min_clearance": 0.2
+  },
+  {
+   "name": "piston R pushed forward stops on the bore step",
+   "object": "PRT_piston_R",
+   "ignore": [
+    "BUY_load_cell_R",
+    "BUY_rear_washer_R",
+    "BUY_rear_nut_R",
+    "BUY_grip_R"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_fin_R_outboard",
+    "PRT_fin_R_inboard"
+   ],
+   "at_mm": [
+    0.0,
+    0.15
+   ]
+  }
+ ]
+}

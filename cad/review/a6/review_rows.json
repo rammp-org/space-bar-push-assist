@@ -1,0 +1,24 @@
+{
+ "stacks": [
+  {"name": "a6R setting plug T-slot rear lip, pull at 1.2 x FS of the 50 kg cell (589 N): peak shear on the lip's support perimeter (semicircle R4.85 + the two pocket-open edges out to 4.6, = 24.4 mm) through a lip bench_plug1 - bench_jack_tip - 4.9 = 2.1 thick, x1.5 peak; on the D-flat (print-down) side this shear plane is a layer plane. Limit 12 MPa (PLA interlayer shear ~20-25, factor 2). cad/review/a6/scripts/jack_local.py",
+   "limit": 12,
+   "terms": [
+    {"what": "1.5 x 1.2 x 50 kg x g / (24.4 x lip)", "tol": "=1.5 * 1.2 * 50 * 9.81 / (24.4 * (bench_plug1 - bench_jack_tip - 4.9))"}
+   ]},
+  {"name": "a6R same lip at the 1.5 x FS that README step 7 lets the jack hold (736 N); limit 12 MPa",
+   "limit": 12,
+   "terms": [
+    {"what": "1.5 x 1.5 x 50 kg x g / (24.4 x lip)", "tol": "=1.5 * 1.5 * 50 * 9.81 / (24.4 * (bench_plug1 - bench_jack_tip - 4.9))"}
+   ]},
+  {"name": "a6R lean crosstalk at lip contact (the lean is not limited by anything before the lip lands, 182-254 N per grip), at the nominal coefficient (a5R formula, 254 N instead of 150 N); limit = the 10 N firmware dead band",
+   "limit": 10,
+   "terms": [
+    {"what": "a5R crosstalk formula x 254 N", "tol": "=2 * (2 * cart_hw * leaf_t ** 3 / 12) / leaf_free_len ** 2 * (12 * 15 / leaf_free_len + 6) * 254 * (219.5 - (link0 + link1) / 2) / ((2 * cart_hw * leaf_t / leaf_free_len) * leaf_pitch ** 2 / 2)"}
+   ]},
+  {"name": "a6R lean crosstalk at lip contact for a unit at the README's 4.4 % threshold, against the dead band the README then prescribes (max(10, 150 x 0.044 x 1.5) = 10 N)",
+   "limit": 10,
+   "terms": [
+    {"what": "254 N x 0.044", "tol": "=254 * 0.044"}
+   ]}
+ ]
+}

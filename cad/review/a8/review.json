@@ -1,0 +1,132 @@
+{
+ "functionality": 8,
+ "manufacturability": 8,
+ "aesthetics": 9,
+ "anchors": {
+  "functionality": "8: works, 1 major (print spec) with a fix under 1 h and no reprint",
+  "manufacturability": "8: 0 fails, no supports, 2 majors (print spec, tethered jumper) each fixable under 1 h",
+  "aesthetics": "9: every item holds"
+ },
+ "checks": {
+  "main": "PASS 0 fail, 51 warn (0 untriaged), identical to cadcheck_a8.json",
+  "movlink": "PASS 0/0",
+  "a7_rows": "4 FAIL (3 stale/superseded: guided-bound shunt x2, 1.6 mm washer) + stops-first end stop; cell paths PASS",
+  "review_rows": "5 FAIL, 1 warn, 2 slide PASS",
+  "printcheck": "PASS 18 parts, 0 fail, 20 warn",
+  "bom": "PASS 13 rows"
+ },
+ "previous_issues": {
+  "1 blocker: the cell cannot be fitted (slots end inside the cartridge)": "FIXED: a7R cell-first and rear-nut 45 deg slide rows pass with the cartridge seen (allow removed); my STL sweep (scripts/stl_cell_path.py) of puck, studs, rear washer and nut 0-60 mm along the 45 deg path: 0 points inside cartridge_R/L STL, reverse test none (a7: 3.2 mm opening for a 4.9 stud)",
+  "2 major: catch friction shunt 13-33 N": "PARTIAL: free-saddle shunt 1.1-1.6 N (dFS 0.10) / 2.8-3.9 N (largest setting), E 2500-3500; after a 600 N flattening, a later 300 N lean gives 4.0-7.4 N. During a 600 N lean itself 11.9-19.6 N, over the 10 N dead band (designer lists it as open)",
+  "3 minor: past-contact model wrong": "FIXED: three-support re-solve gives rear strips 1043-1538 N at 600 N, x3.05 to buckling worst (E 2500), x2.42 with a concurrent 1.2 FS push couple; README x2.9 agrees",
+  "4 minor: 1.6 mm washers over the 5.5 slot": "PARTIAL: 2.4 mm now, but the row uses a 6.05 mm strip; the \u00d813 washer's ring is only 3.85 wide: 20.4 (clamped) - 30.7 (s.s.) MPa at 1.2 FS, 24-36 at the bench's 1.4 FS (row a8R: 20.46 > 20)",
+  "5 minor: catch gap 0.10, pull uses 0.072": "FIXED: gap 0.15, contact 200-280 N, full pull + lean margin 85 (E 2500) - 165 N (E 3500). README '100 N' is 0.161 > 0.15 at a consistent E 2500 (warn row)",
+  "6 minor: piston 52 MPa at 600 N": "PARTIAL: \u00d824 gives 45.2/42.3/45.6 MPa nominal (agree), but the 45 deg step's Kt 1.3-1.5 gives 59-68 MPa, and no infill is specified: with slicer defaults the mouth sees 133 MPa at 600 N",
+  "7 minor: assembly_order text stops-first": "FIXED: cell first in README and assembly_order; stops-first row is an expected end stop, blocked at 4 mm by FST_Stop_screw_push_R_in",
+  "8 minor: purchased parts unverified": "PARTIAL: still unverified, but flagged in README/BOM and the amp pads are drill-to-fit (1.5 mm tolerance); header pins flagged with a no-iron alternative",
+  "9 minor (A): cover heads read as black holes": "FIXED: 03/04/08 show Phillips pan heads in chamfered counterbores"
+ },
+ "issues": [
+  {
+   "rank": 1,
+   "severity": "major",
+   "metric": [
+    "F",
+    "M"
+   ],
+   "title": "No print settings for the load-path parts: with slicer defaults the piston and saddle are overstressed",
+   "evidence": "grep infill/walls over README, BOM, plates.txt, export_prints.py: none; the 3MFs hold only 3D/3dmodel.model (no Metadata settings). head_a8.py 7: with 2 walls + 15 % infill, I_eff 5224 vs 15358 solid, so the piston mouth sees 133 MPa at 600 N and 67 at 300 N; the walls reach 50 MPa at a 226 N lean. Saddle across layers 19.7 MPa vs limit 15 (head_a8.py 6). Rows a8R piston default print 133 > 47.5, saddle 19.7 > 15 (cadcheck_review.json)",
+   "fix": "Specify per-part settings in BOM/plates and embed them in the 3MF as per-object overrides: piston, cartridge, washers, setting plug at 100 % infill (or at least 6 walls with 40 % gyroid: piston 67 MPa at 600 N is still too high, so 100 %), fins and trays 4 walls/25 %. Add a 'Print settings' column to the BOM printed-parts table and re-run the piston/saddle rows with the stated settings. About 30 min, no reprint if done before printing"
+  },
+  {
+   "rank": 2,
+   "severity": "major",
+   "metric": [
+    "M"
+   ],
+   "title": "Right amp's Qwiic jumper tethers the two tray halves before they are hung separately, with 7 mm of slack",
+   "evidence": "cables row CAB_Amp_to_ESP32_R path_len 142.8, lead 150. README step 6 plugs it into the ESP32 header in tray L on the bench; step 10 hangs each tray-and-fin half separately; row a8R jumper 142.8 > 130 (cadcheck_review.json)",
+   "fix": "Move the right jumper to a new step 10b (after both halves are bolted, before the cover), and either buy a 200 mm Qwiic-to-female cable or move amp R 40 mm inboard (x 47-73) so the route is about 100 mm. Add it to assembly_order as its own step. 20 min of text/CAD"
+  },
+  {
+   "rank": 3,
+   "severity": "minor",
+   "metric": [
+    "F"
+   ],
+   "title": "Friction shunt during a 600 N single-grip lean is 12-20 N, over the 10 N dead band",
+   "evidence": "head_a8.py 5: flattened-crown land half width 0.26-0.32 (elliptical plastic contact) to 0.46 (designer, upper bound); shunt 11.9-19.6 N while 738 N rests on the saddle; 4.0-7.4 N on a later 300 N lean",
+   "fix": "Firmware: hold the dead band at max(10 N, 0.03 x |lean|) using a lean estimate, or ignore push below 20 N when the push-pull and the opposite grip disagree; or mechanically make the crown R0.6 on a 2 mm PETG insert. Bench test with 30 kg hung on one grip"
+  },
+  {
+   "rank": 4,
+   "severity": "minor",
+   "metric": [
+    "F"
+   ],
+   "title": "Piston's 45 deg step at y 141 carries 59-68 MPa at a 600 N lean (Kt 1.3-1.5) against the claimed x1.67",
+   "evidence": "head_a8.py 7: nominal 45.6 MPa; row a8R step Kt 1.4: 63.9 > 47.5",
+   "fix": "Blend the \u00d824-\u00d822.2 step with an R4 fillet and move it to y 147 (moment 600 x 72.5 = 43.5 N.m -> 42 MPa nominal, about 48 with Kt 1.15), keeping 3 mm to the lip at 150; with item 1 at 100 % infill"
+  },
+  {
+   "rank": 5,
+   "severity": "minor",
+   "metric": [
+    "F"
+   ],
+   "title": "Rear \u00d813 washer over the 5.5 slot is 20-31 MPa at 1.2 FS pull; the designer's row uses a strip wider than the washer",
+   "evidence": "head_a8.py 9: ring 3.85 wide (OD/2 - 2.65), 165 N over the slot; 20.4 clamped / 30.7 simply supported at 589 N, 24-36 at the bench's 1.4 FS; sustained clamp 7-10 MPa (creep). Row a8R 20.46 > 20",
+   "fix": "Rear washer 3.0 mm thick (stud tip has 1.05 spare; 13.1-19.6 MPa) and print both washers in PETG or 100 % PLA; or an 13 x 18 mm D-shaped rear washer whose long side covers the slot (fits the \u00d814.4 channel in its width)"
+  },
+  {
+   "rank": 6,
+   "severity": "minor",
+   "metric": [
+    "F"
+   ],
+   "title": "README's 'full pull plus a 100 N lean still clears the saddle' mixes moduli",
+   "evidence": "head_a8.py 2: pitch 0.0859 at E 2500 + 100 N x 7.5e-4 = 0.161 > 0.15 (warn row); margin 85-165 N. If it lands the free legs add about 1 N",
+   "fix": "Quote 85 N (E 2500) in README and the row; or catch_c 0.18 (lip_c stays 1.2), which gives 125 N at E 2500"
+  },
+  {
+   "rank": 7,
+   "severity": "minor",
+   "metric": [
+    "M"
+   ],
+   "title": "The fin-to-tray M4 x 20s need a 3 mm hex key, which the README tool list omits",
+   "evidence": "fasteners rows FST_M4_screw_*1/2: access L-key only (arc 140 deg); all three lie along x inside a 150 mm tray, so no drill + bit lines up. README tools: 2.5 and 4 mm keys only; step 7 says 'drive'",
+   "fix": "Add a 3 mm hex key (ball end) to the tools and say 'with the 3 mm key' in step 7. Also note in the service text that the handle comes off outboard only (row a8R +z blocked by the back plate)"
+  },
+  {
+   "rank": 8,
+   "severity": "minor",
+   "metric": [
+    "M"
+   ],
+   "title": "Fin pocket roof spans reach about 23 mm, not 9-18",
+   "evidence": "scripts/roof_span.py fin_R_inboard z 21.1: worst cell 11.4 mm from support, 47 mm2 farther than 10 mm; z 20.2: 3-side-supported plate, free edge 13.5 mm. Hidden pocket roofs",
+   "fix": "Accept as is (Bambu bridges 23 mm), or add a 1.5 mm rib across the C roof at its widest point. Correct the accept text"
+  },
+  {
+   "rank": 9,
+   "severity": "minor",
+   "metric": [
+    "M"
+   ],
+   "title": "Cradle details print worse than needed: corner-up M4 pockets and a round \u00d816 hole",
+   "evidence": "overhang_locate.py cradle: 30 deg-from-horizontal pocket roofs reaching 3.4 mm; \u00d816 front-wall hole roof at 49-86 deg; hang lug at 46 deg (195 mm2)",
+   "fix": "Flat-up hex pockets (a 4 mm bridge) and a teardrop \u00d816 hole; bench tool only"
+  },
+  {
+   "rank": 10,
+   "severity": "minor",
+   "metric": [
+    "F"
+   ],
+   "title": "Purchased parts are still unverified (Qwiic Scale holes, ESP32 header pins)",
+   "evidence": "README/BOM 'measure before printing/ordering'",
+   "fix": "Measure one board and confirm the pins before the print run"
+  }
+ ]
+}

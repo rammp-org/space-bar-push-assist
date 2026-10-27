@@ -1,0 +1,3930 @@
+{
+ "units": "mm",
+ "params": {
+  "handle_spacing": 355.6,
+  "plate_tilt": 15,
+  "plate_bars": 9,
+  "plate_len": 320,
+  "mount_slots": [
+   40,
+   120
+  ],
+  "clear_h": 101.6,
+  "block": [
+   120,
+   60,
+   76.2
+  ],
+  "lip_y": 150,
+  "slope": 60,
+  "land": 40,
+  "bevel": 15,
+  "bridge_h": 92,
+  "fin_h": 140,
+  "wall": 3,
+  "cover_t": 6,
+  "R_out": 6,
+  "R_in": 2,
+  "EB": 1,
+  "fin_t": 50,
+  "panel_inset": 8,
+  "panel_depth": 2.0,
+  "reveal": [
+   0.8,
+   1.0
+  ],
+  "open_r": 6,
+  "arm_z": 0,
+  "barrel_d": 50,
+  "cell_rear": 60,
+  "seat_d": 12.0,
+  "seat_h": 1.0,
+  "washer_f": [
+   15.0,
+   2.4
+  ],
+  "washer_r": [
+   13.0,
+   2.4
+  ],
+  "block_t": 11.5,
+  "block_c": 4.0,
+  "nut_cb": 16.0,
+  "cart_hw": 20,
+  "link_h": 15,
+  "link_ch": 8,
+  "leaf_pitch_min": 45.0,
+  "leaf_gap": 7.5,
+  "drop_t": 11.5,
+  "leaf_t": 2.5,
+  "leaf_r": 2.0,
+  "ground_z": [
+   -49,
+   -42
+  ],
+  "stop_x": 14.9,
+  "stop_zp": -28.5,
+  "stop_zq": -35.0,
+  "stop_gap": 0.15,
+  "stop_gap_max": 0.3,
+  "dfs_ref": 0.1,
+  "stop_hole": 4.0,
+  "cav": 1.0,
+  "fit": 0.1,
+  "lip_c": 1.2,
+  "catch_c": 0.15,
+  "catch_z": -20.0,
+  "catch_crown_r": 1.2,
+  "catch_relief": 0.5,
+  "piston_d": 24.0,
+  "piston_step": 141.0,
+  "creep_strain": 0.0015,
+  "bench_support": 0.002,
+  "shaft_d": 22.2,
+  "shaft_flat": 7.8,
+  "piston_show": 2,
+  "spigot_length": 130,
+  "lead_d": 4.0,
+  "lead_straight": 12.7,
+  "lead_bend_r": 13.0,
+  "channel_d": 5.5,
+  "fillet_r": 2,
+  "esp_standoff": 6,
+  "groove": null,
+  "patch_lead": 200,
+  "voxel": 0.6,
+  "cell_z": -28.5,
+  "az": 0,
+  "cz": -28.5,
+  "lip": 150,
+  "ye": 47.3,
+  "yb": 46.3,
+  "yp": 34.8,
+  "yf": 42.3,
+  "link0": 61.0,
+  "wall1": 64.0,
+  "drop1": 72.5,
+  "leaf_f0": 75.5,
+  "link1": 123.0,
+  "sock0": 73,
+  "box_end": 152.8,
+  "HX": 177.8,
+  "U_TOP": 25.881904510252074,
+  "tray_top": 19.0,
+  "z_bridge": -67.0,
+  "patch_len": 150.0,
+  "rj45": [
+   -101.18222045898438,
+   107.5
+  ],
+  "pf": 42.699999999999996,
+  "qf": 40.3,
+  "at_p": 45.849999999999994,
+  "at_q": 40.15,
+  "Lp": 25.0,
+  "Lq": 30.0,
+  "tip_p": 70.85,
+  "tip_q": 70.15,
+  "nut_p0": 63.6,
+  "nut_p1": 66.0,
+  "nut_q0": 66.5,
+  "nut_q1": 68.9,
+  "leaf_free_len": 27,
+  "leaf_pitch": 45.0,
+  "leaf_k_pair": 150.0,
+  "leaf_b": 25.0,
+  "leaf_top_below_cell": -13.5,
+  "lean_crosstalk": 0.0,
+  "lip_contact_lo_n": 535.4,
+  "lip_contact_hi_n": 749.5,
+  "catch_contact_lo_n": 200.0,
+  "catch_contact_hi_n": 280.0,
+  "catch_k": 11.22,
+  "catch_k_guided": 110.1,
+  "catch_h": 7.85,
+  "catch_g_mom": 0.0476,
+  "catch_buckle_n": 2181,
+  "catch_y": 129.25,
+  "catch_push_motion": 0.0716,
+  "catch_pull_lean_margin": 104.6,
+  "catch_rear_share": 2.268,
+  "catch_share": 1.844,
+  "leaf_rear_600": 1542,
+  "leaf_rear_buckle": 4407,
+  "saddle_t": 9.5,
+  "saddle_depth": 7.85,
+  "saddle_600_mpa": 14.17,
+  "saddle_300_mpa": 3.54,
+  "catch_300": 184,
+  "catch_land": 0.461,
+  "catch_shunt_300": 7.42,
+  "catch_shunt_600": 19.6,
+  "leaf_rear_at_lip_n": 888.1,
+  "leaf_stress_at_lip_mpa": 33.76,
+  "piston_at_catch_mpa": 19.7,
+  "piston_600_mpa": 45.6,
+  "piston_mouth_mpa": 45.2,
+  "piston_catch_mpa": 42.3,
+  "piston_step_mpa": 45.6,
+  "piston_I": 11457,
+  "piston_I_c": 15358,
+  "catch_load_600": 738,
+  "catch_drop_buckle": 0.855,
+  "leaf_k_rot": 7031000.0,
+  "leaf_k_yaw": 2056000.0,
+  "leaf_buckle_grip_n": 1389,
+  "lip_drop_buckle": 1.447,
+  "leaf_bend_mpa": 10.8,
+  "leaf_axial_mpa": 7.61,
+  "leaf_stress_mpa": 24.86,
+  "stop_dT_p": 0.0005954,
+  "stop_dT_q": -0.0007542,
+  "cradle_jack_n": 588.6,
+  "cradle_up_inlayer_mpa": 6.76,
+  "cradle_up_share": 0.0668,
+  "cradle_up_across_mpa": 1.407,
+  "cradle_frame_mpa": 2.017,
+  "cradle_frame_e": 31.69,
+  "cradle_jack_tilt_deg": 0.197,
+  "cradle_beam_defl": 0.0692,
+  "cradle_frame_defl": 0.0677,
+  "cradle_stroke": 0.4369,
+  "bench_fw0": 22.799999999999997,
+  "bench_fw1": 34.699999999999996,
+  "bench_up0": 138.5,
+  "bench_up1": 152.5,
+  "bench_up_t": 14.0,
+  "bench_plug0": 73,
+  "bench_plug1": 136.5,
+  "bench_jack_tip": 126.6,
+  "bench_jack_at": 161.6,
+  "bench_jack_L": 35.0,
+  "bench_standoff": 9.1,
+  "bench_top": 11.0,
+  "bench_base_z": [
+   -57.0,
+   -49.1
+  ],
+  "bench_wall_x": [
+   21.0,
+   27.0
+  ],
+  "bench_root_r": 3.0,
+  "bench_nut_up": [
+   143.05,
+   147.95000000000002
+  ],
+  "bench_jack_z": 0.0,
+  "bench_lip_y": 48.4,
+  "bench_lip_z": -20.0,
+  "bench_lip_t": 5.0,
+  "bench_eye_y": 15.799999999999997,
+  "bench_eye_d": 8.0,
+  "bench_eye_top": 12.0,
+  "bench_hanger_y": 152.55,
+  "bench_hanger_t": 3.5
+ },
+ "joints": {},
+ "parts": {
+  "PRT_fin_R_inboard": {
+   "stl": "fin_R_inboard",
+   "print_rot": [
+    [
+     7.549790126404332e-08,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     -1.0,
+     0.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "split face down",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     152.8,
+     -3.65,
+     -115.0
+    ],
+    [
+     177.8,
+     150.0,
+     25.0
+    ]
+   ]
+  },
+  "PRT_fin_R_outboard": {
+   "stl": "fin_R_outboard",
+   "print_rot": [
+    [
+     -4.371138828673793e-08,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     1.0,
+     0.0,
+     -4.371138828673793e-08
+    ]
+   ],
+   "orient": "split face down",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     177.8,
+     -3.65,
+     -115.0
+    ],
+    [
+     202.8,
+     150.0,
+     25.0
+    ]
+   ]
+  },
+  "PRT_fin_L_inboard": {
+   "stl": "fin_L_inboard",
+   "print_rot": [
+    [
+     -4.371138828673793e-08,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     1.0,
+     0.0,
+     -4.371138828673793e-08
+    ]
+   ],
+   "orient": "split face down",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -177.8,
+     -3.65,
+     -115.0
+    ],
+    [
+     -152.8,
+     150.0,
+     25.0
+    ]
+   ]
+  },
+  "PRT_fin_L_outboard": {
+   "stl": "fin_L_outboard",
+   "print_rot": [
+    [
+     7.549790126404332e-08,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     -1.0,
+     0.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "split face down",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -202.8,
+     -3.65,
+     -115.0
+    ],
+    [
+     -177.8,
+     150.0,
+     25.0
+    ]
+   ]
+  },
+  "PRT_tray_L": {
+   "stl": "tray_L",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "orient": "floor down, open top up",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -152.8,
+     -17.72,
+     -67.0
+    ],
+    [
+     0.0,
+     150.0,
+     19.0
+    ]
+   ]
+  },
+  "PRT_tray_R": {
+   "stl": "tray_R",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "orient": "floor down, open top up",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -0.0,
+     -17.72,
+     -67.0
+    ],
+    [
+     152.8,
+     150.0,
+     19.0
+    ]
+   ]
+  },
+  "PRT_cover": {
+   "stl": "cover",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "orient": "flat, underside down",
+   "supports": "no",
+   "infill": 15,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -152.5,
+     8.36,
+     19.0
+    ],
+    [
+     152.5,
+     149.88,
+     25.0
+    ]
+   ]
+  },
+  "PRT_piston_R": {
+   "stl": "piston_R",
+   "print_rot": [
+    [
+     -4.371138828673793e-08,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     1.0,
+     0.0,
+     -4.371138828673793e-08
+    ]
+   ],
+   "orient": "on its side, D-flat (inboard) down",
+   "supports": "no",
+   "infill": 40,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     170.0,
+     73.0,
+     -12.0
+    ],
+    [
+     189.8,
+     282.0,
+     12.0
+    ]
+   ]
+  },
+  "PRT_piston_L": {
+   "stl": "piston_L",
+   "print_rot": [
+    [
+     7.549790126404332e-08,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     -1.0,
+     0.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "on its side, D-flat (inboard) down",
+   "supports": "no",
+   "infill": 40,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -189.8,
+     73.0,
+     -12.0
+    ],
+    [
+     -170.0,
+     282.0,
+     12.0
+    ]
+   ]
+  },
+  "PRT_cartridge_R": {
+   "stl": "cartridge_R",
+   "print_rot": [
+    [
+     -4.371138828673793e-08,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     1.0,
+     0.0,
+     -4.371138828673793e-08
+    ]
+   ],
+   "orient": "on its side, inboard face down (leaves bend in the layer plane)",
+   "supports": "no",
+   "infill": 40,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     157.8,
+     34.8,
+     -49.0
+    ],
+    [
+     197.8,
+     134.0,
+     15.0
+    ]
+   ]
+  },
+  "PRT_cartridge_L": {
+   "stl": "cartridge_L",
+   "print_rot": [
+    [
+     7.549790126404332e-08,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     -1.0,
+     0.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "on its side, inboard face down (leaves bend in the layer plane)",
+   "supports": "no",
+   "infill": 40,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -197.8,
+     34.8,
+     -49.0
+    ],
+    [
+     -157.8,
+     134.0,
+     15.0
+    ]
+   ]
+  },
+  "PRT_washer_front_R": {
+   "stl": "washer_front_R",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     7.549790126404332e-08,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "flat",
+   "supports": "no",
+   "infill": 100,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     170.3,
+     39.9,
+     -36.0
+    ],
+    [
+     185.3,
+     42.3,
+     -21.0
+    ]
+   ]
+  },
+  "PRT_washer_front_L": {
+   "stl": "washer_front_L",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     7.549790126404332e-08,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "flat",
+   "supports": "no",
+   "infill": 100,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -185.3,
+     39.9,
+     -36.0
+    ],
+    [
+     -170.3,
+     42.3,
+     -21.0
+    ]
+   ]
+  },
+  "PRT_washer_rear_R": {
+   "stl": "washer_rear_R",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     7.549790126404332e-08,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "flat",
+   "supports": "no",
+   "infill": 100,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     171.3,
+     64.0,
+     -35.0
+    ],
+    [
+     184.3,
+     66.4,
+     -22.0
+    ]
+   ]
+  },
+  "PRT_washer_rear_L": {
+   "stl": "washer_rear_L",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     7.549790126404332e-08,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     7.549790126404332e-08
+    ]
+   ],
+   "orient": "flat",
+   "supports": "no",
+   "infill": 100,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -184.3,
+     64.0,
+     -35.0
+    ],
+    [
+     -171.3,
+     66.4,
+     -22.0
+    ]
+   ]
+  },
+  "PRT_cradle": {
+   "stl": "cradle",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "orient": "base down, open top up",
+   "supports": "no",
+   "infill": 40,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     400.8,
+     8.8,
+     -57.0
+    ],
+    [
+     454.8,
+     152.5,
+     12.0
+    ]
+   ]
+  },
+  "PRT_setting_plug": {
+   "stl": "setting_plug",
+   "print_rot": [
+    [
+     -4.371138828673793e-08,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     1.0,
+     0.0,
+     -4.371138828673793e-08
+    ]
+   ],
+   "orient": "on its side, D-flat down (T-slot up)",
+   "supports": "no",
+   "infill": 40,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     420.0,
+     73.0,
+     -12.0
+    ],
+    [
+     439.8,
+     136.5,
+     12.0
+    ]
+   ]
+  },
+  "PRT_mass_hanger": {
+   "stl": "mass_hanger",
+   "print_rot": [
+    [
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "orient": "flat, keyhole slot vertical",
+   "supports": "no",
+   "infill": 100,
+   "kind": "PRT",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     447.8,
+     152.55,
+     -6.0
+    ],
+    [
+     467.8,
+     175.05,
+     6.0
+    ]
+   ]
+  },
+  "BUY_load_cell_R": {
+   "mass_g": 30,
+   "src": "JHD T/C puck, 50 kg recommended (20 kg fallback, same body; BOM), M5 studs 12.15 long, 12.7 between faces, cad/blender/parts/load_cell.stl",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     163.94,
+     35.15,
+     -41.2
+    ],
+    [
+     190.5,
+     72.15,
+     -14.64
+    ]
+   ]
+  },
+  "BUY_load_cell_L": {
+   "mass_g": 30,
+   "src": "JHD T/C puck, 50 kg recommended (20 kg fallback, same body; BOM), M5 studs 12.15 long, 12.7 between faces, cad/blender/parts/load_cell.stl",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -190.5,
+     35.15,
+     -41.2
+    ],
+    [
+     -163.94,
+     72.15,
+     -14.64
+    ]
+   ]
+  },
+  "BUY_grip_R": {
+   "mass_g": 90,
+   "src": "lock-on MTB grip, cad/blender/parts/mtb_grip.stl",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     161.31,
+     152.0,
+     -16.5
+    ],
+    [
+     194.29,
+     287.0,
+     16.5
+    ]
+   ]
+  },
+  "BUY_grip_L": {
+   "mass_g": 90,
+   "src": "lock-on MTB grip, cad/blender/parts/mtb_grip.stl",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -194.29,
+     152.0,
+     -16.5
+    ],
+    [
+     -161.31,
+     287.0,
+     16.5
+    ]
+   ]
+  },
+  "BUY_esp32_p4": {
+   "mass_g": 40,
+   "src": "Waveshare ESP32-P4 WiFi6 PoE, cad/blender/parts/esp32_p4.stl (its 3.75 mm spacers flattened; sits on 6 mm printed standoffs)",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -67.5,
+     3.0,
+     -57.95
+    ],
+    [
+     -12.5,
+     72.5,
+     -39.65
+    ]
+   ]
+  },
+  "BUY_amp_L": {
+   "mass_g": 4,
+   "src": "SparkFun Qwiic Scale, NAU7802 24-bit load-cell ADC, SEN-15242 (spring terminal for the cell, Qwiic socket for the logic: no soldering), stand-in built by build_concept.amp_board()",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -111.44,
+     35.56,
+     -58.0
+    ],
+    [
+     -88.56,
+     66.04,
+     -47.0
+    ]
+   ]
+  },
+  "BUY_amp_R": {
+   "mass_g": 4,
+   "src": "SparkFun Qwiic Scale, NAU7802 24-bit load-cell ADC, SEN-15242 (spring terminal for the cell, Qwiic socket for the logic: no soldering), stand-in built by build_concept.amp_board()",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     88.56,
+     35.56,
+     -58.0
+    ],
+    [
+     111.44,
+     66.04,
+     -47.0
+    ]
+   ]
+  },
+  "BUY_rj45_coupler": {
+   "mass_g": 20,
+   "src": "panel RJ45 coupler, cad/blender/parts/rj45_coupler.stl",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -117.68,
+     93.5,
+     -63.0
+    ],
+    [
+     -84.68,
+     121.5,
+     -27.0
+    ]
+   ]
+  },
+  "BUY_patch_plug_board": {
+   "mass_g": 5,
+   "src": "RJ45 plug stand-in",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -48.43,
+     72.5,
+     -57.0
+    ],
+    [
+     -36.43,
+     82.5,
+     -45.0
+    ]
+   ]
+  },
+  "BUY_patch_plug_coupler": {
+   "mass_g": 5,
+   "src": "RJ45 plug stand-in",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -107.18,
+     100.5,
+     -27.0
+    ],
+    [
+     -95.18,
+     114.5,
+     -9.0
+    ]
+   ]
+  },
+  "BUY_front_nut_R": {
+   "mass_g": 1,
+   "src": "M5 hardware on the load-cell studs",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     173.18,
+     35.2,
+     -32.5
+    ],
+    [
+     182.42,
+     39.9,
+     -24.5
+    ]
+   ]
+  },
+  "BUY_rear_nut_R": {
+   "mass_g": 1,
+   "src": "M5 hardware on the load-cell studs",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     173.18,
+     66.4,
+     -32.5
+    ],
+    [
+     182.42,
+     71.1,
+     -24.5
+    ]
+   ]
+  },
+  "BUY_front_nut_L": {
+   "mass_g": 1,
+   "src": "M5 hardware on the load-cell studs",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -182.42,
+     35.2,
+     -32.5
+    ],
+    [
+     -173.18,
+     39.9,
+     -24.5
+    ]
+   ]
+  },
+  "BUY_rear_nut_L": {
+   "mass_g": 1,
+   "src": "M5 hardware on the load-cell studs",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -182.42,
+     66.4,
+     -32.5
+    ],
+    [
+     -173.18,
+     71.1,
+     -24.5
+    ]
+   ]
+  },
+  "BUY_corpus_back_plate": {
+   "mass_g": 4000,
+   "src": "Permobil Corpus back plate stand-in from Alex's measurements",
+   "kind": "BUY",
+   "joint": "static",
+   "bbox_world_home": [
+    [
+     -180.0,
+     -114.76,
+     -284.1
+    ],
+    [
+     180.0,
+     54.01,
+     35.35
+    ]
+   ]
+  },
+  "FST_Board_screw_0": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -15.999998092651367,
+    45.25,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -19.0,
+     42.25,
+     -66.4
+    ],
+    [
+     -13.0,
+     48.25,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_1": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -64.0,
+    45.250003814697266,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -67.0,
+     42.25,
+     -66.4
+    ],
+    [
+     -61.0,
+     48.25,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_10": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray R",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    91.0999984741211,
+    63.500003814697266,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     88.1,
+     60.5,
+     -66.4
+    ],
+    [
+     94.1,
+     66.5,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_11": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray R",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    91.0999984741211,
+    38.10000228881836,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     88.1,
+     35.1,
+     -66.4
+    ],
+    [
+     94.1,
+     41.1,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_2": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -16.000001907348633,
+    12.25,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -19.0,
+     9.25,
+     -66.4
+    ],
+    [
+     -13.0,
+     15.25,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_3": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -64.0,
+    12.250004768371582,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -67.0,
+     9.25,
+     -66.4
+    ],
+    [
+     -61.0,
+     15.25,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_4": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -108.9000015258789,
+    38.099998474121094,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -111.9,
+     35.1,
+     -66.4
+    ],
+    [
+     -105.9,
+     41.1,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_5": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -108.9000015258789,
+    63.5,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -111.9,
+     60.5,
+     -66.4
+    ],
+    [
+     -105.9,
+     66.5,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_6": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -91.10000610351562,
+    38.099998474121094,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -94.1,
+     35.1,
+     -66.4
+    ],
+    [
+     -88.1,
+     41.1,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_7": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -91.10000610351562,
+    63.5,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -94.1,
+     60.5,
+     -66.4
+    ],
+    [
+     -88.1,
+     66.5,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_8": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray R",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    108.9000015258789,
+    63.5,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     105.9,
+     60.5,
+     -66.4
+    ],
+    [
+     111.9,
+     66.5,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Board_screw_9": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray R",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    108.9000015258789,
+    38.10000228881836,
+    -56.400001525878906
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     105.9,
+     35.1,
+     -66.4
+    ],
+    [
+     111.9,
+     41.1,
+     -54.0
+    ]
+   ]
+  },
+  "FST_Cover_screw_L0": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Tray L",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -40.0,
+    15.091034889221191,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -43.0,
+     12.09,
+     10.4
+    ],
+    [
+     -37.0,
+     18.09,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_L1": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -40.0,
+    141.0,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -43.0,
+     138.0,
+     12.4
+    ],
+    [
+     -37.0,
+     144.0,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_L2": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Tray L",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -120.0,
+    15.091034889221191,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -123.0,
+     12.09,
+     10.4
+    ],
+    [
+     -117.0,
+     18.09,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_L3": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray L",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -120.0,
+    141.0,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -123.0,
+     138.0,
+     12.4
+    ],
+    [
+     -117.0,
+     144.0,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_R0": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Tray R",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    40.0,
+    15.091034889221191,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     37.0,
+     12.09,
+     10.4
+    ],
+    [
+     43.0,
+     18.09,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_R1": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray R",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    40.0,
+    141.0,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     37.0,
+     138.0,
+     12.4
+    ],
+    [
+     43.0,
+     144.0,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_R2": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Tray R",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    120.0,
+    15.091034889221191,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     117.0,
+     12.09,
+     10.4
+    ],
+    [
+     123.0,
+     18.09,
+     24.8
+    ]
+   ]
+  },
+  "FST_Cover_screw_R3": {
+   "part": "M3_selftap_pan x 10",
+   "host": "Tray R",
+   "step": "cover",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    120.0,
+    141.0,
+    22.399999618530273
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 10.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     117.0,
+     138.0,
+     12.4
+    ],
+    [
+     123.0,
+     144.0,
+     24.8
+    ]
+   ]
+  },
+  "FST_Jack_lip_nut_a": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    452.0,
+    48.400001525878906,
+    -20.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     448.8,
+     44.9,
+     -24.04
+    ],
+    [
+     452.0,
+     51.9,
+     -15.96
+    ]
+   ]
+  },
+  "FST_Jack_lip_nut_b": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    403.6000061035156,
+    48.400001525878906,
+    -20.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     403.6,
+     44.9,
+     -24.04
+    ],
+    [
+     406.8,
+     51.9,
+     -15.96
+    ]
+   ]
+  },
+  "FST_Jack_lip_screw_a": {
+   "part": "M4_cap x 12",
+   "host": "",
+   "step": "bench",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    454.79998779296875,
+    48.400001525878906,
+    -20.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 12.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     442.8,
+     44.9,
+     -23.5
+    ],
+    [
+     458.8,
+     51.9,
+     -16.5
+    ]
+   ]
+  },
+  "FST_Jack_lip_screw_b": {
+   "part": "M4_cap x 12",
+   "host": "",
+   "step": "bench",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    400.79998779296875,
+    48.400001525878906,
+    -20.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 12.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     396.8,
+     44.9,
+     -23.5
+    ],
+    [
+     412.8,
+     51.9,
+     -16.5
+    ]
+   ]
+  },
+  "FST_Jack_nut": {
+   "part": "M5 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    427.79998779296875,
+    147.9499969482422,
+    0.0
+   ],
+   "into": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "nut_h": 4.7,
+   "bbox_world_home": [
+    [
+     423.8,
+     143.25,
+     -4.62
+    ],
+    [
+     431.8,
+     147.95,
+     4.62
+    ]
+   ]
+  },
+  "FST_Jack_screw": {
+   "part": "M5_cap x 35",
+   "host": "",
+   "step": "bench",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    427.79998779296875,
+    161.60000610351562,
+    0.0
+   ],
+   "into": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "length": 35.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     423.55,
+     126.6,
+     -4.25
+    ],
+    [
+     432.05,
+     166.6,
+     4.25
+    ]
+   ]
+  },
+  "FST_Jack_swivel_nut": {
+   "part": "M5 hex nut (glued on the jack screw tip)",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    427.79998779296875,
+    131.3000030517578,
+    0.0
+   ],
+   "into": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "nut_h": 4.7,
+   "bbox_world_home": [
+    [
+     423.8,
+     126.6,
+     -4.62
+    ],
+    [
+     431.8,
+     131.3,
+     4.62
+    ]
+   ]
+  },
+  "FST_M3_screw_L0": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin L outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -156.3000030517578,
+    25.0,
+    15.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -186.3,
+     22.0,
+     12.0
+    ],
+    [
+     -153.9,
+     28.0,
+     18.0
+    ]
+   ]
+  },
+  "FST_M3_screw_L1": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin L outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -156.3000030517578,
+    12.0,
+    -26.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -186.3,
+     9.0,
+     -29.0
+    ],
+    [
+     -153.9,
+     15.0,
+     -23.0
+    ]
+   ]
+  },
+  "FST_M3_screw_L2": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin L outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -156.3000030517578,
+    60.0,
+    -62.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -186.3,
+     57.0,
+     -65.0
+    ],
+    [
+     -153.9,
+     63.0,
+     -59.0
+    ]
+   ]
+  },
+  "FST_M3_screw_L3": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin L outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -156.3000030517578,
+    100.0,
+    -72.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -186.3,
+     97.0,
+     -75.0
+    ],
+    [
+     -153.9,
+     103.0,
+     -69.0
+    ]
+   ]
+  },
+  "FST_M3_screw_L4": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin L outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -156.3000030517578,
+    88.0,
+    -58.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -186.3,
+     85.0,
+     -61.0
+    ],
+    [
+     -153.9,
+     91.0,
+     -55.0
+    ]
+   ]
+  },
+  "FST_M3_screw_L5": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin L outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -156.3000030517578,
+    40.0,
+    -100.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -186.3,
+     37.0,
+     -103.0
+    ],
+    [
+     -153.9,
+     43.0,
+     -97.0
+    ]
+   ]
+  },
+  "FST_M3_screw_R0": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin R outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    156.3000030517578,
+    25.0,
+    15.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     153.9,
+     22.0,
+     12.0
+    ],
+    [
+     186.3,
+     28.0,
+     18.0
+    ]
+   ]
+  },
+  "FST_M3_screw_R1": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin R outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    156.3000030517578,
+    12.0,
+    -26.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     153.9,
+     9.0,
+     -29.0
+    ],
+    [
+     186.3,
+     15.0,
+     -23.0
+    ]
+   ]
+  },
+  "FST_M3_screw_R2": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin R outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    156.3000030517578,
+    60.0,
+    -62.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     153.9,
+     57.0,
+     -65.0
+    ],
+    [
+     186.3,
+     63.0,
+     -59.0
+    ]
+   ]
+  },
+  "FST_M3_screw_R3": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin R outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    156.3000030517578,
+    100.0,
+    -72.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     153.9,
+     97.0,
+     -75.0
+    ],
+    [
+     186.3,
+     103.0,
+     -69.0
+    ]
+   ]
+  },
+  "FST_M3_screw_R4": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin R outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    156.3000030517578,
+    88.0,
+    -58.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     153.9,
+     85.0,
+     -61.0
+    ],
+    [
+     186.3,
+     91.0,
+     -55.0
+    ]
+   ]
+  },
+  "FST_M3_screw_R5": {
+   "part": "M3_selftap_pan x 30",
+   "host": "Fin R outboard half",
+   "step": "close fin",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    156.3000030517578,
+    40.0,
+    -100.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     153.9,
+     37.0,
+     -103.0
+    ],
+    [
+     186.3,
+     43.0,
+     -97.0
+    ]
+   ]
+  },
+  "FST_M4_nut_L0": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -159.1999969482422,
+    24.0,
+    -18.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     -162.4,
+     20.5,
+     -22.04
+    ],
+    [
+     -159.2,
+     27.5,
+     -13.96
+    ]
+   ]
+  },
+  "FST_M4_nut_L1": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -159.1999969482422,
+    141.0,
+    -19.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     -162.4,
+     137.5,
+     -23.04
+    ],
+    [
+     -159.2,
+     144.5,
+     -14.96
+    ]
+   ]
+  },
+  "FST_M4_nut_L2": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -159.1999969482422,
+    110.0,
+    -56.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     -162.4,
+     106.5,
+     -60.04
+    ],
+    [
+     -159.2,
+     113.5,
+     -51.96
+    ]
+   ]
+  },
+  "FST_M4_nut_R0": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    159.1999969482422,
+    24.0,
+    -18.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     159.2,
+     20.5,
+     -22.04
+    ],
+    [
+     162.4,
+     27.5,
+     -13.96
+    ]
+   ]
+  },
+  "FST_M4_nut_R1": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    159.1999969482422,
+    141.0,
+    -19.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     159.2,
+     137.5,
+     -23.04
+    ],
+    [
+     162.4,
+     144.5,
+     -14.96
+    ]
+   ]
+  },
+  "FST_M4_nut_R2": {
+   "part": "M4 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    159.1999969482422,
+    110.0,
+    -56.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "nut_h": 3.2,
+   "bbox_world_home": [
+    [
+     159.2,
+     106.5,
+     -60.04
+    ],
+    [
+     162.4,
+     113.5,
+     -51.96
+    ]
+   ]
+  },
+  "FST_M4_screw_L0": {
+   "part": "M4_cap x 20",
+   "host": "",
+   "step": "fin to tray",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -145.8000030517578,
+    24.0,
+    -18.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 20.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     -165.8,
+     20.5,
+     -21.5
+    ],
+    [
+     -141.8,
+     27.5,
+     -14.5
+    ]
+   ]
+  },
+  "FST_M4_screw_L1": {
+   "part": "M4_cap x 20",
+   "host": "",
+   "step": "fin to tray",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -145.8000030517578,
+    141.0,
+    -19.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 20.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     -165.8,
+     137.5,
+     -22.5
+    ],
+    [
+     -141.8,
+     144.5,
+     -15.5
+    ]
+   ]
+  },
+  "FST_M4_screw_L2": {
+   "part": "M4_cap x 20",
+   "host": "",
+   "step": "fin to tray",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -145.8000030517578,
+    110.0,
+    -56.0
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 20.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     -165.8,
+     106.5,
+     -59.5
+    ],
+    [
+     -141.8,
+     113.5,
+     -52.5
+    ]
+   ]
+  },
+  "FST_M4_screw_R0": {
+   "part": "M4_cap x 20",
+   "host": "",
+   "step": "fin to tray",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    145.8000030517578,
+    24.0,
+    -18.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 20.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     141.8,
+     20.5,
+     -21.5
+    ],
+    [
+     165.8,
+     27.5,
+     -14.5
+    ]
+   ]
+  },
+  "FST_M4_screw_R1": {
+   "part": "M4_cap x 20",
+   "host": "",
+   "step": "fin to tray",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    145.8000030517578,
+    141.0,
+    -19.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 20.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     141.8,
+     137.5,
+     -22.5
+    ],
+    [
+     165.8,
+     144.5,
+     -15.5
+    ]
+   ]
+  },
+  "FST_M4_screw_R2": {
+   "part": "M4_cap x 20",
+   "host": "",
+   "step": "fin to tray",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    145.8000030517578,
+    110.0,
+    -56.0
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 20.0,
+   "spec": "M4_cap",
+   "bbox_world_home": [
+    [
+     141.8,
+     106.5,
+     -59.5
+    ],
+    [
+     165.8,
+     113.5,
+     -52.5
+    ]
+   ]
+  },
+  "FST_M5_bolt_0": {
+   "part": "M5_cap x 20",
+   "host": "",
+   "step": "mount",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -40.0,
+    13.113458633422852,
+    2.575654983520508
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "length": 20.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     -44.25,
+     -6.85,
+     -2.82
+    ],
+    [
+     -35.75,
+     19.04,
+     10.17
+    ]
+   ]
+  },
+  "FST_M5_bolt_1": {
+   "part": "M5_cap x 20",
+   "host": "",
+   "step": "mount",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    40.0,
+    13.113458633422852,
+    2.575654983520508
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "length": 20.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     35.75,
+     -6.85,
+     -2.82
+    ],
+    [
+     44.25,
+     19.04,
+     10.17
+    ]
+   ]
+  },
+  "FST_M5_bolt_2": {
+   "part": "M5_cap x 20",
+   "host": "",
+   "step": "mount",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -120.0,
+    13.113458633422852,
+    2.575654983520508
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "length": 20.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     -124.25,
+     -6.85,
+     -2.82
+    ],
+    [
+     -115.75,
+     19.04,
+     10.17
+    ]
+   ]
+  },
+  "FST_M5_bolt_3": {
+   "part": "M5_cap x 20",
+   "host": "",
+   "step": "mount",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    120.0,
+    13.113458633422852,
+    2.575654983520508
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "length": 20.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     115.75,
+     -6.85,
+     -2.82
+    ],
+    [
+     124.25,
+     19.04,
+     10.17
+    ]
+   ]
+  },
+  "FST_M5_bolt_4": {
+   "part": "M5_cap x 30",
+   "host": "",
+   "step": "mount",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -120.0,
+    5.039300441741943,
+    -58.1555061340332
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "length": 30.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     -124.25,
+     -24.59,
+     -63.55
+    ],
+    [
+     -115.75,
+     10.97,
+     -47.98
+    ]
+   ]
+  },
+  "FST_M5_bolt_5": {
+   "part": "M5_cap x 30",
+   "host": "",
+   "step": "mount",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    120.0,
+    5.039300441741943,
+    -58.1555061340332
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "length": 30.0,
+   "spec": "M5_cap",
+   "bbox_world_home": [
+    [
+     115.75,
+     -24.59,
+     -63.55
+    ],
+    [
+     124.25,
+     10.97,
+     -47.98
+    ]
+   ]
+  },
+  "FST_Piston_screw_L0": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Piston L",
+   "step": "piston",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -193.1999969482422,
+    80.0,
+    3.5
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -195.6,
+     77.0,
+     0.5
+    ],
+    [
+     -181.2,
+     83.0,
+     6.5
+    ]
+   ]
+  },
+  "FST_Piston_screw_L1": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Piston L",
+   "step": "piston",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -193.1999969482422,
+    100.0,
+    -3.5
+   ],
+   "into": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -195.6,
+     97.0,
+     -6.5
+    ],
+    [
+     -181.2,
+     103.0,
+     -0.5
+    ]
+   ]
+  },
+  "FST_Piston_screw_R0": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Piston R",
+   "step": "piston",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    193.1999969482422,
+    80.0,
+    3.5
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     181.2,
+     77.0,
+     0.5
+    ],
+    [
+     195.6,
+     83.0,
+     6.5
+    ]
+   ]
+  },
+  "FST_Piston_screw_R1": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Piston R",
+   "step": "piston",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    193.1999969482422,
+    100.0,
+    -3.5
+   ],
+   "into": [
+    -1.0,
+    0.0,
+    0.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     181.2,
+     97.0,
+     -6.5
+    ],
+    [
+     195.6,
+     103.0,
+     -0.5
+    ]
+   ]
+  },
+  "FST_RJ45_screw_0": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -116.48222351074219,
+    107.5,
+    -54.0
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -119.48,
+     104.5,
+     -66.0
+    ],
+    [
+     -113.48,
+     110.5,
+     -51.6
+    ]
+   ]
+  },
+  "FST_RJ45_screw_1": {
+   "part": "M3_selftap_pan x 12",
+   "host": "Tray L",
+   "step": "electronics",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -85.88221740722656,
+    107.5,
+    -54.0
+   ],
+   "into": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "length": 12.0,
+   "spec": "M3_selftap_pan",
+   "bbox_world_home": [
+    [
+     -88.88,
+     104.5,
+     -66.0
+    ],
+    [
+     -82.88,
+     110.5,
+     -51.6
+    ]
+   ]
+  },
+  "FST_Stop_nut_pull_L_in": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -162.89999389648438,
+    66.5,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     -165.65,
+     66.5,
+     -38.18
+    ],
+    [
+     -160.15,
+     68.9,
+     -31.82
+    ]
+   ]
+  },
+  "FST_Stop_nut_pull_L_out": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -192.6999969482422,
+    66.5,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     -195.45,
+     66.5,
+     -38.18
+    ],
+    [
+     -189.95,
+     68.9,
+     -31.82
+    ]
+   ]
+  },
+  "FST_Stop_nut_pull_R_in": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    162.89999389648438,
+    66.5,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     160.15,
+     66.5,
+     -38.18
+    ],
+    [
+     165.65,
+     68.9,
+     -31.82
+    ]
+   ]
+  },
+  "FST_Stop_nut_pull_R_out": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    192.6999969482422,
+    66.5,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     189.95,
+     66.5,
+     -38.18
+    ],
+    [
+     195.45,
+     68.9,
+     -31.82
+    ]
+   ]
+  },
+  "FST_Stop_nut_push_L_in": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -162.89999389648438,
+    63.599998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     -165.65,
+     63.6,
+     -31.68
+    ],
+    [
+     -160.15,
+     66.0,
+     -25.32
+    ]
+   ]
+  },
+  "FST_Stop_nut_push_L_out": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -192.6999969482422,
+    63.599998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     -195.45,
+     63.6,
+     -31.68
+    ],
+    [
+     -189.95,
+     66.0,
+     -25.32
+    ]
+   ]
+  },
+  "FST_Stop_nut_push_R_in": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    162.89999389648438,
+    63.599998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     160.15,
+     63.6,
+     -31.68
+    ],
+    [
+     165.65,
+     66.0,
+     -25.32
+    ]
+   ]
+  },
+  "FST_Stop_nut_push_R_out": {
+   "part": "M3 hex nut",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    192.6999969482422,
+    63.599998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "nut_h": 2.4,
+   "bbox_world_home": [
+    [
+     189.95,
+     63.6,
+     -31.68
+    ],
+    [
+     195.45,
+     66.0,
+     -25.32
+    ]
+   ]
+  },
+  "FST_Stop_screw_pull_L_in": {
+   "part": "M3_cap x 30",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -162.89999389648438,
+    40.150001525878906,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     -165.65,
+     37.15,
+     -37.75
+    ],
+    [
+     -160.15,
+     70.15,
+     -32.25
+    ]
+   ]
+  },
+  "FST_Stop_screw_pull_L_out": {
+   "part": "M3_cap x 30",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -192.6999969482422,
+    40.150001525878906,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     -195.45,
+     37.15,
+     -37.75
+    ],
+    [
+     -189.95,
+     70.15,
+     -32.25
+    ]
+   ]
+  },
+  "FST_Stop_screw_pull_R_in": {
+   "part": "M3_cap x 30",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    162.89999389648438,
+    40.150001525878906,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     160.15,
+     37.15,
+     -37.75
+    ],
+    [
+     165.65,
+     70.15,
+     -32.25
+    ]
+   ]
+  },
+  "FST_Stop_screw_pull_R_out": {
+   "part": "M3_cap x 30",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    192.6999969482422,
+    40.150001525878906,
+    -35.0
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 30.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     189.95,
+     37.15,
+     -37.75
+    ],
+    [
+     195.45,
+     70.15,
+     -32.25
+    ]
+   ]
+  },
+  "FST_Stop_screw_push_L_in": {
+   "part": "M3_cap x 25",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -162.89999389648438,
+    45.849998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 25.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     -165.65,
+     42.85,
+     -31.25
+    ],
+    [
+     -160.15,
+     70.85,
+     -25.75
+    ]
+   ]
+  },
+  "FST_Stop_screw_push_L_out": {
+   "part": "M3_cap x 25",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    -192.6999969482422,
+    45.849998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 25.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     -195.45,
+     42.85,
+     -31.25
+    ],
+    [
+     -189.95,
+     70.85,
+     -25.75
+    ]
+   ]
+  },
+  "FST_Stop_screw_push_R_in": {
+   "part": "M3_cap x 25",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    162.89999389648438,
+    45.849998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 25.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     160.15,
+     42.85,
+     -31.25
+    ],
+    [
+     165.65,
+     70.85,
+     -25.75
+    ]
+   ]
+  },
+  "FST_Stop_screw_push_R_out": {
+   "part": "M3_cap x 25",
+   "host": "",
+   "step": "cartridge",
+   "kind": "FST",
+   "joint": "static",
+   "head": [
+    192.6999969482422,
+    45.849998474121094,
+    -28.5
+   ],
+   "into": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "length": 25.0,
+   "spec": "M3_cap",
+   "bbox_world_home": [
+    [
+     189.95,
+     42.85,
+     -31.25
+    ],
+    [
+     195.45,
+     70.85,
+     -25.75
+    ]
+   ]
+  },
+  "FST_T-nut_0": {
+   "part": "M5 drop-in T-nut, 40 series",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -40.0,
+    -0.6026878952980042,
+    6.250885486602783
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "nut_h": 3.8,
+   "bbox_world_home": [
+    [
+     -44.0,
+     -5.47,
+     1.79
+    ],
+    [
+     -36.0,
+     0.59,
+     11.7
+    ]
+   ]
+  },
+  "FST_T-nut_1": {
+   "part": "M5 drop-in T-nut, 40 series",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    40.0,
+    -0.6026878952980042,
+    6.250885486602783
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "nut_h": 3.8,
+   "bbox_world_home": [
+    [
+     36.0,
+     -5.47,
+     1.79
+    ],
+    [
+     44.0,
+     0.59,
+     11.7
+    ]
+   ]
+  },
+  "FST_T-nut_2": {
+   "part": "M5 drop-in T-nut, 40 series",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -120.0,
+    -0.6026878952980042,
+    6.250885486602783
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "nut_h": 3.8,
+   "bbox_world_home": [
+    [
+     -124.0,
+     -5.47,
+     1.79
+    ],
+    [
+     -116.0,
+     0.59,
+     11.7
+    ]
+   ]
+  },
+  "FST_T-nut_3": {
+   "part": "M5 drop-in T-nut, 40 series",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    120.0,
+    -0.6026878952980042,
+    6.250885486602783
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "nut_h": 3.8,
+   "bbox_world_home": [
+    [
+     116.0,
+     -5.47,
+     1.79
+    ],
+    [
+     124.0,
+     0.59,
+     11.7
+    ]
+   ]
+  },
+  "FST_T-nut_4": {
+   "part": "M5 drop-in T-nut, 40 series",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    -120.0,
+    -16.326343536376953,
+    -52.430599212646484
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "nut_h": 3.8,
+   "bbox_world_home": [
+    [
+     -124.0,
+     -21.19,
+     -56.89
+    ],
+    [
+     -116.0,
+     -15.13,
+     -46.99
+    ]
+   ]
+  },
+  "FST_T-nut_5": {
+   "part": "M5 drop-in T-nut, 40 series",
+   "step": "",
+   "kind": "FST",
+   "joint": "static",
+   "face": [
+    120.0,
+    -16.326343536376953,
+    -52.430599212646484
+   ],
+   "into": [
+    0.0,
+    -0.9659258127212524,
+    0.258819043636322
+   ],
+   "nut_h": 3.8,
+   "bbox_world_home": [
+    [
+     116.0,
+     -21.19,
+     -56.89
+    ],
+    [
+     124.0,
+     -15.13,
+     -46.99
+    ]
+   ]
+  },
+  "CAB_Amp_to_ESP32_L": {
+   "part": "cable route",
+   "step": "",
+   "kind": "CAB",
+   "joint": "static",
+   "path_len": 81.92820765279565,
+   "lead_len": null,
+   "path_ends": [
+    [
+     -90.76000213623047,
+     43.55999755859375,
+     -55.0
+    ],
+    [
+     -58.000003814697266,
+     6.199998378753662,
+     -49.5
+    ]
+   ],
+   "bbox_world_home": [
+    [
+     -91.59,
+     0.58,
+     -55.51
+    ],
+    [
+     -56.01,
+     45.84,
+     -29.24
+    ]
+   ]
+  },
+  "CAB_Amp_to_ESP32_R": {
+   "part": "cable route",
+   "step": "",
+   "kind": "CAB",
+   "joint": "static",
+   "path_len": 144.88165994285959,
+   "lead_len": null,
+   "path_ends": [
+    [
+     90.76000213623047,
+     43.560001373291016,
+     -55.0
+    ],
+    [
+     -22.0,
+     6.1999969482421875,
+     -49.5
+    ]
+   ],
+   "bbox_world_home": [
+    [
+     -24.57,
+     1.22,
+     -55.49
+    ],
+    [
+     91.59,
+     45.08,
+     -27.1
+    ]
+   ]
+  },
+  "CAB_Load_cell_lead_L": {
+   "part": "cable route",
+   "step": "",
+   "kind": "CAB",
+   "joint": "static",
+   "path_len": 85.54990178704708,
+   "lead_len": null,
+   "path_ends": [
+    [
+     -167.1934051513672,
+     50.79999923706055,
+     -17.89339828491211
+    ],
+    [
+     -119.80000305175781,
+     50.79999923706055,
+     -52.0
+    ]
+   ],
+   "bbox_world_home": [
+    [
+     -168.54,
+     48.8,
+     -53.9
+    ],
+    [
+     -119.72,
+     52.8,
+     -4.83
+    ]
+   ]
+  },
+  "CAB_Load_cell_lead_R": {
+   "part": "cable route",
+   "step": "",
+   "kind": "CAB",
+   "joint": "static",
+   "path_len": 85.54990178590256,
+   "lead_len": null,
+   "path_ends": [
+    [
+     167.1934051513672,
+     50.79999923706055,
+     -17.89339828491211
+    ],
+    [
+     119.80000305175781,
+     50.79999923706055,
+     -52.0
+    ]
+   ],
+   "bbox_world_home": [
+    [
+     119.72,
+     48.8,
+     -53.9
+    ],
+    [
+     168.54,
+     52.8,
+     -4.83
+    ]
+   ]
+  },
+  "CAB_Patch_cable": {
+   "part": "cable route",
+   "step": "",
+   "kind": "CAB",
+   "joint": "static",
+   "path_len": 149.97009877509376,
+   "lead_len": null,
+   "path_ends": [
+    [
+     -42.429996490478516,
+     82.5,
+     -51.0
+    ],
+    [
+     -101.18222045898438,
+     107.5,
+     -9.0
+    ]
+   ],
+   "bbox_world_home": [
+    [
+     -103.68,
+     82.5,
+     -53.38
+    ],
+    [
+     -39.93,
+     109.88,
+     18.5
+    ]
+   ]
+  }
+ },
+ "features": [],
+ "fastener_summary": {
+  "screws": 61,
+  "distinct": 10,
+  "by_spec_length": {
+   "M3_cap x 25": 4,
+   "M3_cap x 30": 4,
+   "M3_selftap_pan x 10": 16,
+   "M3_selftap_pan x 12": 10,
+   "M3_selftap_pan x 30": 12,
+   "M4_cap x 12": 2,
+   "M4_cap x 20": 6,
+   "M5_cap x 20": 4,
+   "M5_cap x 30": 2,
+   "M5_cap x 35": 1
+  }
+ }
+}

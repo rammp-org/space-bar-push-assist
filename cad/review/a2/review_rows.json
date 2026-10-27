@@ -1,0 +1,125 @@
+{
+ "distances": [
+  {
+   "a": "FST_Stop_nut_R",
+   "b": "PRT_piston_R",
+   "min": 0.3,
+   "why": "stop nut must not touch the sliding piston (it sits in the sleeve-bore teardrop tip with no pocket wall)"
+  },
+  {
+   "a": "FST_Stop_nut_L",
+   "b": "PRT_piston_L",
+   "min": 0.3,
+   "why": "stop nut must not touch the sliding piston, left"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "BUY_load_cell_R",
+   "max": 0.05,
+   "why": "piston face seated on the cell rear face (README step 4); as modelled it floats, so push load reaches the stop pin before the cell"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_inboard",
+   "min": 0.2,
+   "why": "sliding sleeve running clearance"
+  },
+  {
+   "a": "PRT_piston_R",
+   "b": "PRT_fin_R_outboard",
+   "min": 0.2,
+   "why": "sliding sleeve running clearance"
+  }
+ ],
+ "service": [
+  {
+   "op": "replace / re-seat load cell R (fin off the tray)",
+   "remove": [
+    "PRT_cover_R",
+    "FST_Cover_screw_R*"
+   ],
+   "fasteners": [
+    "FST_M4_screw_R*"
+   ]
+  },
+  {
+   "op": "re-tighten mount bolts",
+   "remove": [
+    "PRT_cover_L",
+    "PRT_cover_R",
+    "FST_Cover_screw_*"
+   ],
+   "fasteners": [
+    "FST_M5_bolt_*"
+   ]
+  }
+ ],
+ "slide_out": [
+  {
+   "name": "cover R lifts straight up",
+   "objects": [
+    "PRT_cover_R",
+    "FST_Cover_screw_R*"
+   ],
+   "dir": [
+    0,
+    0,
+    1
+   ],
+   "dist": 60,
+   "step": 2,
+   "min_clearance": 0.2
+  },
+  {
+   "name": "piston R pushed forward stops on the stop pin within 0.35 mm",
+   "object": "PRT_piston_R",
+   "ignore": [
+    "BUY_load_cell_R",
+    "BUY_rear_nut_R",
+    "BUY_grip_R",
+    "FST_Stop_nut_R"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 1.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "FST_Stop_pin_R"
+   ],
+   "at_mm": [
+    0.2,
+    0.35
+   ]
+  },
+  {
+   "name": "stop pin R pushed forward by the piston must be held by the fin within 0.1 mm",
+   "objects": [
+    "FST_Stop_pin_R",
+    "FST_Stop_nut_R"
+   ],
+   "ignore": [
+    "PRT_piston_R"
+   ],
+   "dir": [
+    0,
+    -1,
+    0
+   ],
+   "dist": 2.0,
+   "step": 0.05,
+   "expect": "blocked",
+   "blocked_by": [
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard"
+   ],
+   "at_mm": [
+    0.0,
+    0.1
+   ]
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "functionality": 7,
+ "manufacturability": 8,
+ "aesthetics": 8,
+ "anchors": {
+  "functionality": "7: works, but 3 majors in the sensing head: the stop line sits 24 mm below the cell axis (setting error and lean eats the push gap), the rear leaf buckles at 340-580 N down per grip with no vertical stop, and a 20 kg cell still reaches 2.0-2.55 x FS at a 600 N shove",
+  "manufacturability": "8: 0 fails in cad check, printcheck and cad bom; no supports; all hardware and tools inside the brief. One major (README step 14 re-snug is unreachable without a fin teardown and dismounting the unit) and minors (unmeasurable 0.5 N.m snug, two-stage bench stop setting with a live HX711)",
+  "aesthetics": "8: one radius family held, fin/tray/cover on one hairline, deliberate reveal and recessed panel. -1 the tray centre seam on the attendant-facing sloped face that the one-piece cover does not continue; -1 the RJ45 coupler body hangs 9 mm under the tray as a grey box in 01_hero. Cover screws are counterbored on a grid (accepted, not deducted)"
+ },
+ "checks": "cad check (designer --only) PASS 0 fail 39 warn, all accepted, warn set identical to cadcheck_a4.json; designer moving rows PASS 0/0; a3 review_rows verbatim 16 FAIL (2 rows name the deleted stop pin, 14 stopped by the new rear washer / stop nuts that the a3 rows did not list); reviewer rows 5 FAIL 1 WARN; printcheck on stl/ PASS 15 parts 0 fail 24 warn; cad bom PASS 11 rows; slicer unusable",
+ "previous_issues": {
+  "1 cell carries ~47 % of the grip moment": "FIXED - cell faces on O10 x 1.0 bosses, rim 1.0 clear (distances rows 0/0 and 1.0 x6). Designer 1.9 %; my re-derivation 2.9-6.7 % once the half-space response and the M5 stud bending path are included (head_check.txt s1), still 7-16x below a3",
+  "2 stop gap not sized to the cell": "PARTIAL - gaps are now set per cell on the bench (rows 0.15/0.15, slide 0.2), but the setting jacks the tongue 24 mm below the cell axis, so the stop engages at 1.40 x FS (dFS 0.1) to 1.60 x FS (dFS 0.05), not 1.2; push stack worst case 0.36 > 0.3 with that term; 600 N still puts 2.0-2.55 x FS in a 20 kg cell",
+  "3 sharp leaf roots": "FIXED - R1.5 roots; the flexures row stress is computed (19.0 MPa, in the layer plane), and I reproduce 6.2 MPa bending at 0.30 + 7.8 MPa axial at 150 N x Kt 1.35",
+  "4 PLA creep / heat": "PARTIAL - printed O15/O13 washers (3.3/4.6 MPa at 500 N), PETG option in the BOM. The boss sees 9.1 MPa only at 0.5 N.m; the kit has no way to set 0.5 N.m (18-27 MPa at 1-1.5 N.m), and the 24 h re-snug is unreachable (review rows). The claim that the stop gaps do not ride on the clamp is wrong: both bosses sit between the post and the tongue",
+  "5 stale 3MFs": "FIXED - cad/print holds the 3 current 3MFs, plates.txt, stl/, stl_cc/ only",
+  "6 hardware outside the brief": "FIXED - no bought washer, no reamer, no superglue in stud threads; M4 x 8 stop screws and nuts are in the list. Cell swap still 21 ops plus a stop re-set",
+  "7 patch slack": "FIXED - 200 mm patch on a 149.97 route (cables row lead_len 200), 50 mm slack",
+  "8 parting lines and clipped window": "FIXED - V reveal round the fin outline, one hairline at fin/tray/cover (04_top, 03), window replaced by a 2 mm recessed R6 panel (03_handle_closeup)",
+  "9 moving-link process": "FIXED with one weakened claim - to_cadcheck.py writes PRT_movlink_R/L; push/pull/sideways/ground rows test the same claims as a3. The +-z rows now assert a backstop at the 1.0 fin cavity instead of a stop at 0.25: a different and weaker claim, and one that cannot protect the leaves (elastic drop at buckling 0.27 mm)"
+ },
+ "issues": [
+  {
+   "rank": 1,
+   "severity": "major",
+   "metric": "F",
+   "title": "Stop line 24 mm below the cell axis: the bench setting overshoots and a downward lean eats the push gap",
+   "evidence": "cad q list: cell axis z 0, stop screws z -24 (stop_z). The setting jacks the tongue, so the couple 1.2FS x 24 turns the link on the leaves (k_rot 6.8e6 N.mm/rad) and adds 0.017-0.024 mm to the set gap. In use the grip pushes on the axis, so the stop engages at 1.40 x FS (dFS 0.1) and 1.60 x FS (dFS 0.05). Review stack row: worst case 0.363 > 0.3. A downward grip load turns the link about the cell and moves the tongue 0.048 mm toward the push screw at 100 N: push clips at 0.93 x FS (dFS 0.1) or 0.65 x FS (dFS 0.05); review stack row 0.475 FS lost > 0.2 (FAIL). head_check.txt s2-s3",
+   "fix": "Put the stop line on the cell axis: replace the centre tongue with two lugs on the top link's side walls at z 0, x' +-15 (6 x 8 mm), each between a push and a pull M4 x 8 screw in the post side walls (4 screws, 4 nuts per side, same 3 mm key). Or keep the tongue at z -24 and, as a stopgap, set the stops by loading the cell on its axis (a hanging 24 kg on the piston socket on the bench) rather than by jacking the tongue."
+  },
+  {
+   "rank": 2,
+   "severity": "major",
+   "metric": "F",
+   "title": "Rear leaf buckles at 340-580 N down on one grip, and there is no vertical stop",
+   "evidence": "Per-leaf load = 3.32 x downward grip load (couple (219.5-85.5)/47.5 + half the direct load). Designer's own buckling 1123-1919 N gives 338-578 N per grip. The elastic drop at buckling is 0.27 mm, well short of the 1.0 cav fin backstop (checks_moving rows -z/+z blocked at 1.05), so the backstop only engages after the leaf has buckled. a3's pin caught +-z at 0.25; a4 has no vertical stop. Someone resting their weight on both handles puts about 350 N on each. head_check.txt s5",
+   "fix": "leaf_t 1.5 -> 2.0: 1174 N per grip at E 3000, pair stiffness 104 N/mm (5 % of a 0.1 mm cell, calibrates out), root bending 11.2 MPa at a 0.30 setting. Or add a vertical stop: piston-to-barrel radial clearance 0.35 at the lip (y 146-150), so the barrel takes the moment from about 250 N down. Add a stacks or flexures row for buckling against a stated lean."
+  },
+  {
+   "rank": 3,
+   "severity": "major",
+   "metric": "F",
+   "title": "A 20 kg cell is still overloaded past the stop (designer-flagged, not fixed)",
+   "evidence": "Stop path 2.34 kN/mm (designer), 1.95 kN/mm at the grip axis once the link's rotation is in series. At a 600 N shove the cell carries 2.55 / 2.21 / 2.00 x FS for dFS 0.05 / 0.10 / 0.15 (designer: 2.35 / 2.03 / 1.85); at 400 N it is 1.88 / 1.70 / 1.60 x FS. The usual safe overload is 1.5 x FS. head_check.txt s4",
+   "fix": "Fit the 50 kg cell (same puck and studs, which the BOM already allows) and set the stops at 1.2 x its FS. Or stiffen the stop path, whose weakest term is the 3.45 mm slab in front of the nut (5.6 kN/mm): thicken it to 6 mm (wall_f 73.85 -> 71.3) to take the path to about 3.5 kN/mm, and pair that with the stop-line fix in issue 1."
+  },
+  {
+   "rank": 4,
+   "severity": "major",
+   "metric": "M",
+   "title": "README step 14 (re-snug both cell nuts after 24 h) cannot be done on the assembled unit",
+   "evidence": "review rows: rear nut R/L slide +y blocked by PRT_piston_R/L at 3 mm (the piston sits 0.5 mm behind the stud end, inside the closed fin); front nut R/L slide -y blocked by BUY_corpus_back_plate at 34 mm (the O16 bore opens on the land face against the chair). checks.json service has no op for it. Doing it means dismounting (6 M5) and the 21-op teardown, then re-setting the stops.",
+   "fix": "Move the settle-and-re-snug to the bench: after step 1, leave the cartridge 24 h, re-snug the rear nut, then set the stops. Re-snug the front nut before step 11. Or delete step 14 and give the nut a printed \u00d815 x 3 anti-rotation hex pocket so preload loss cannot back it off."
+  },
+  {
+   "rank": 5,
+   "severity": "minor",
+   "metric": "M",
+   "title": "The 0.5 N.m snug cannot be set with the tools in the kit, and the stop setting rides on it",
+   "evidence": "Boss stress 9.1 MPa at 0.5 N.m, 18.3 at 1.0, 27.4 at 1.5 N.m (head_check.txt s6). README: 'the drill's lowest clutch setting' (unverified; no torque tool in the list). Both bosses sit in the chain from post to tongue, so boss creep (1 % of a 2 mm stack is 0.02 mm) moves the push stop by 0.2 FS at dFS 0.1. That contradicts attempts.md: 'the stop gaps ride on the cell, not on the clamp'.",
+   "fix": "Specify the snug as an angle: finger-tight, then 1/6 turn (60\u00b0) with the 8 mm driver. That gives about 0.12 mm of stretch across the 6.4 mm stack. Add a stacks term 'boss creep 0.01 x (seat_h + plate_t)' to the push and pull rows."
+  },
+  {
+   "rank": 6,
+   "severity": "minor",
+   "metric": "F",
+   "title": "Moment-share number is the low end",
+   "evidence": "The designer's column model gives 1.9 %. The punch-on-half-space response of the boss, plus the M5 stud bending path in parallel, gives 2.9-6.7 % (1.4-1.7 N.m through the cell at 150 N down). That is fine for overload but not for the README check's '< 2 % FS'.",
+   "fix": "Keep the 5 kg bench check and set its pass mark from the measured value. Add the stud path to head_calc.py."
+  },
+  {
+   "rank": 7,
+   "severity": "minor",
+   "metric": "A",
+   "title": "Tray centre seam on the attendant face, and the coupler hanging below",
+   "evidence": "01_hero and step3_mount: a vertical seam at x 0 on the tray's sloped rear face, where the two tray halves meet. The cover is one piece, so the seam stops at the cover edge. The BUY_rj45_coupler bbox reaches z -76 against a tray floor at -67, and it reads as a grey box under the bridge in 01_hero.",
+   "fix": "Put a 0.8 x 1.0 V reveal (the fin's reveal) down the x 0 seam so it reads as intended. Recess the coupler 9 mm into a floor boss (pocket 34 x 30 x 10) so its body sits flush with the floor."
+  },
+  {
+   "rank": 8,
+   "severity": "minor",
+   "metric": "M",
+   "title": "Bench stop setting adds a live-electronics step before final assembly",
+   "evidence": "README 'Setting the overload stops': 8 sub-steps per side with a streamed, calibrated HX711 reading, before the fin is closed. It is repeated on every cell swap (21 fastener ops + re-set).",
+   "fix": "Ship a 20-line HX711 serial sketch in firmware/ for the bench, and print a cartridge cradle (60 x 70 x 20) that holds the cartridge on its side with the key holes up."
+  }
+ ]
+}

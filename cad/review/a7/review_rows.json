@@ -1,0 +1,166 @@
+{
+ "slide_out": [
+  {
+   "name": "a7R README step 1 'cell first': the cell R with its rear washer and nut on slides out up-inboard at 45 deg along the stud slots (dir -x +z), stop hardware and front washer/nut not yet in (README order); on the bench (fin, piston, grip, tray and chair ignored). NOTE: checks.json allows PRT_cartridge_*>BUY_load_cell_*, so this row cannot see the cartridge against the cell (it returns no closest object); kept for the stud/nut members only",
+   "objects": [
+    "BUY_load_cell_R",
+    "BUY_rear_nut_R",
+    "PRT_washer_rear_R"
+   ],
+   "ignore": [
+    "FST_Stop_screw_*_R_*",
+    "FST_Stop_nut_*_R_*",
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "CAB_Load_cell_lead_R",
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R",
+    "FST_M4_nut_R*",
+    "FST_M3_screw_R*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_R*"
+   ],
+   "dir": [
+    -0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 80,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a7R the rear nut and washer (no allow with the cartridge, unlike the cell) ride out up-inboard at 45 deg through the drop's \u00d814 channel; stop hardware not yet in; bench",
+   "objects": [
+    "BUY_rear_nut_R",
+    "PRT_washer_rear_R"
+   ],
+   "ignore": [
+    "FST_Stop_screw_*_R_*",
+    "FST_Stop_nut_*_R_*",
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "CAB_Load_cell_lead_R",
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R",
+    "FST_M4_nut_R*",
+    "FST_M3_screw_R*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_R*"
+   ],
+   "dir": [
+    -0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 80,
+   "step": 4,
+   "min_clearance": 0.0
+  },
+  {
+   "name": "a7R same path with the stop hardware already in, as checks.json assembly_order step index 3 lists it (stops before the cell); on the bench (fin, piston, grip, tray and chair ignored)",
+   "objects": [
+    "BUY_load_cell_R",
+    "BUY_rear_nut_R",
+    "PRT_washer_rear_R"
+   ],
+   "ignore": [
+    "PRT_washer_front_R",
+    "BUY_front_nut_R",
+    "CAB_Load_cell_lead_R",
+    "PRT_fin_R_inboard",
+    "PRT_fin_R_outboard",
+    "PRT_piston_R",
+    "FST_Piston_screw_R*",
+    "BUY_grip_R",
+    "FST_M4_nut_R*",
+    "FST_M3_screw_R*",
+    "PRT_tray_*",
+    "BUY_amp_*",
+    "CAB_Amp_*",
+    "FST_Board_screw_*",
+    "BUY_esp32_p4",
+    "PRT_cover",
+    "FST_Cover_screw_*",
+    "BUY_corpus_back_plate",
+    "FST_T-nut_*",
+    "FST_M5_bolt_*",
+    "FST_M4_screw_R*"
+   ],
+   "dir": [
+    -0.7071,
+    0,
+    0.7071
+   ],
+   "dist": 80,
+   "step": 4,
+   "min_clearance": 0.0
+  }
+ ],
+ "stacks": [
+  {
+   "name": "a7R catch friction shunt, stiff bound: once a lean rests on the saddle (contact normal > ~120 N holds the 2.5 mm saddle face square), the legs act fixed-guided, 12 E I / L^3 x 2 (E 3000), at the largest stop setting stop_gap_max; limit the 10 N dead band. The designer's catch_k (3 E I / L^3) is neither bound: free saddle with the contact 8.9 above the leg tips gives 10.2 N/mm. cad/review/a7/scripts/head_a7.py",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "2 x 12 x 3000 x (12.5 x 2.5^3 / 12) / 22^3 x stop_gap_max",
+     "tol": "=2 * 12 * 3000 * ((cart_hw - leaf_gap) * leaf_t ** 3 / 12) / (catch_z + 42) ** 3 * stop_gap_max"
+    }
+   ]
+  },
+  {
+   "name": "a7R same stiff-bound shunt for a typical 50 kg cell (dFS 0.10, link travel 0.12 mm at 1.2 x FS); limit 10 N",
+   "limit": 10,
+   "terms": [
+    {
+     "what": "110 N/mm x 1.2 x dfs_ref",
+     "tol": "=2 * 12 * 3000 * ((cart_hw - leaf_gap) * leaf_t ** 3 / 12) / (catch_z + 42) ** 3 * 1.2 * dfs_ref"
+    }
+   ]
+  },
+  {
+   "name": "a7R rear strips at a 600 N lean on one grip, rigid link on three axial supports (front leaf, rear leaf, catch legs + saddle + contact at 1/3 of the legs' axial stiffness), E 2500: catch contact at 147 N, then 1.94 N per N into the rear strips (README: 'the strips stop loading', 470-650 N). Limit = rear-strip buckling (4407 N) / 3. cad/review/a7/scripts/head_a7.py",
+   "limit": 1469,
+   "terms": [
+    {
+     "what": "147 x 3.17 + (600 - 147) x 1.94",
+     "tol": "=147 * 3.17 + (600 - 147) * 1.94"
+    }
+   ]
+  },
+  {
+   "name": "a7R printed washer (1.6 thick, printed flat) spanning the 5.5 mm stud slot under the M5 nut at 1.2 x FS pull (589 N): the nut annulus over the slot (5.5 x 1.25 mm, ~145 N) carried across the slot as a clamped strip 1.25 + 2 x 1.6 wide; MPa in the layer plane, estimate; limit 20 (PLA basic tensile ~35, sustained creep under preload)",
+   "limit": 20,
+   "terms": [
+    {
+     "what": "145 x 5.5 / 12 / ((1.25 + 3.2) x 1.6^2 / 6)",
+     "tol": "=145 * 5.5 / 12 / ((1.25 + 2 * 1.6) * 1.6 ** 2 / 6)"
+    }
+   ]
+  }
+ ]
+}

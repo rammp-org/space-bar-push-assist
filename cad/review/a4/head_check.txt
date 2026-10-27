@@ -1,0 +1,40 @@
+stop line 24 mm below the cell axis; leaf centroid y 85.5, grip load at y 219.5
+
+== 1. moment share (cell rotational stiffness vs leaves)
+  designer column model                         E2500: k_cell 1.29e+05, share 2.2 %, 150 N down -> 0.56 N.m in the cell
+  designer column model                         E3000: k_cell 1.29e+05, share 1.9 %, 150 N down -> 0.47 N.m in the cell
+  boss + half-space, 2 faces in series          E2500: k_cell 2e+05, share 3.4 %, 150 N down -> 0.85 N.m in the cell
+  boss + half-space, 2 faces in series          E3000: k_cell 2e+05, share 2.9 %, 150 N down -> 0.71 N.m in the cell
+  + stud bending path in parallel each face     E2500: k_cell 4.07e+05, share 6.7 %, 150 N down -> 1.67 N.m in the cell
+  + stud bending path in parallel each face     E3000: k_cell 4.07e+05, share 5.7 %, 150 N down -> 1.41 N.m in the cell
+
+== 2. stop set by jacking the tongue (z -24) vs use (grip force on the cell axis, z 0)
+  jack force F at the tongue makes a couple F*arm on the link, carried by the leaves -> extra tongue travel F*arm^2/k_rot
+  E2500: extra 0.024 mm -> dFS 0.05: engages at 1.68 x FS, dFS 0.1: engages at 1.44 x FS, dFS 0.15: engages at 1.36 x FS, dFS 0.2: engages at 1.32 x FS
+  E3000: extra 0.020 mm -> dFS 0.05: engages at 1.60 x FS, dFS 0.1: engages at 1.40 x FS, dFS 0.15: engages at 1.33 x FS, dFS 0.2: engages at 1.30 x FS
+  E3500: extra 0.017 mm -> dFS 0.05: engages at 1.54 x FS, dFS 0.1: engages at 1.37 x FS, dFS 0.15: engages at 1.31 x FS, dFS 0.2: engages at 1.29 x FS
+  designer stack (push) worst case 0.163 FS; with this term at dFS 0.1, E3000: 0.163 + 0.20 = 0.36 vs limit 0.3
+
+== 3. downward lean on the grip consumes the push gap (link turns about the cell's attachment point)
+   50 N down: tongue moves 0.024 mm toward the push screw; dFS 0.05: push clips at 1.13 x FS; dFS 0.1: push clips at 1.16 x FS
+  100 N down: tongue moves 0.048 mm toward the push screw; dFS 0.05: push clips at 0.65 x FS; dFS 0.1: push clips at 0.93 x FS
+  150 N down: tongue moves 0.071 mm toward the push screw; dFS 0.05: push clips at 0.18 x FS; dFS 0.1: push clips at 0.69 x FS
+  250 N down: tongue moves 0.119 mm toward the push screw; dFS 0.05: push clips at 0.00 x FS; dFS 0.1: push clips at 0.21 x FS
+
+== 4. load in the cell past engagement (20 kg cell), stop path 2.34 kN/mm (designer) in series with the link
+  stop at the tongue referred to the grip axis: 1951 N/mm
+  dFS 0.05: engages at 318 N; cell at 400 / 600 N push = 1.88 / 2.55 x FS
+  dFS 0.1: engages at 281 N; cell at 400 / 600 N push = 1.70 / 2.21 x FS
+  dFS 0.15: engages at 270 N; cell at 400 / 600 N push = 1.60 / 2.00 x FS
+
+== 5. rear leaf in compression under a downward grip load
+  E2500: leaf load = 3.32 x grip load; buckles at 338-413 N down per grip; axial drop at buckling 0.27 mm (backstop at cav 1.0)
+  E3000: leaf load = 3.32 x grip load; buckles at 406-495 N down per grip; axial drop at buckling 0.27 mm (backstop at cav 1.0)
+  E3500: leaf load = 3.32 x grip load; buckles at 474-578 N down per grip; axial drop at buckling 0.27 mm (backstop at cav 1.0)
+  leaf_t 2.0: buckles at 1174 N per grip (E3000), pair y-stiffness 104 N/mm, root bending at 0.30 11.2 MPa
+
+== 6. seat-boss clamp stress (M5, K 0.2)
+  0.5 N.m -> 500 N preload, boss 9.1 MPa
+  1.0 N.m -> 1000 N preload, boss 18.3 MPa
+  1.5 N.m -> 1500 N preload, boss 27.4 MPa
+  2.0 N.m -> 2000 N preload, boss 36.5 MPa

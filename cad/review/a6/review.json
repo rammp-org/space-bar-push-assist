@@ -1,0 +1,79 @@
+{
+ "functionality": 8,
+ "manufacturability": 8,
+ "aesthetics": 9,
+ "anchors": {
+  "functionality": "8: works, no blocker. The cradle now sets the recommended 50 kg cell (re-derived: 2.03 MPa frame, 1.19 MPa across layers, 0.16 deg tilt, 0.41 of 7 mm stroke). One major: the setting plug's 2.1 mm T-slot lip carries the full pull-stop load (17-21 MPa peak shear, layer plane on the print-down side). Lean crosstalk 3.8 % is left in the cartridge and only handled by a firmware dead band that is not in this repo; it clears the 10 N band by 0.36 N at lip contact. Not 9: fixing the crosstalk would change performance",
+  "manufacturability": "8: 0 fails in cad check, printcheck and cad bom; no supports; 17 parts, 24.9 h on 2 H2D + 2 P1S plates. Two majors, each a fix under 1 h with a 0.27 h reprint or none: the soldering iron is still needed for the HX711 logic header (the Adafruit 5974 ships it loose), and the plug lip can shear off in the pull step. Bench setup is long (overnight settle, serial sketch, known mass hung across two books) but every step can be done",
+  "aesthetics": "9: the unit looks the same as in a5. Every rubric item holds: one radius/edge-break set, the V reveal, counterbored cover heads on a 2x4 grid, no exposed wires, the coupler inside the tray, and two colours that mean lid vs body. Polish only: the 8 cover heads read as black holes in 01/03/04, and step4 draws the coupler under the floor"
+ },
+ "checks": "cad check main PASS 0 fail 47 warn (0 untriaged; accepted set identical to cadcheck_a6.json); moving rows PASS 0/0; printcheck (stl, --out a6/) PASS 17 parts 0 fail 16 warn; cad bom PASS 13 rows; a5 review rows verbatim: 4/4 PASS (cradle 17.69 / 7.08 MPa, stroke 0.93, crosstalk 5.69 N); a6 review rows: 3 FAIL (plug lip 17.23 and 21.54 > 12 MPa; crosstalk 11.18 N > 10 at the README's 4.4 % threshold), 1 PASS (crosstalk at lip contact 9.64 < 10)",
+ "previous_issues": {
+  "1 cradle cannot set the 50 kg cell (blocker)": "FIXED - closed frame confirmed in slices (walls continuous from print z 9 to 68). a5R rows now pass: 17.69 MPa (a5 54.19) as a free-cantilever bound, stroke 0.93 (a5 4.47). My own frame derivation: U section I 514,134 mm4, e 31.08, 2.03 MPa in plane; upright share 5.2 % gives 1.19 MPa across layers; tilt 0.066 + 0.095 = 0.16 deg; stroke 0.41 of 7.0 mm. All agree with the designer. New local weak point: the plug lip (new issue 1)",
+  "2 mV/V never set (major)": "FIXED - the sketch refuses m without f, r or c, and t (line 363); README step 4 sets r and adds the k known-mass check (0.90-1.03). Caveat: a missing or FAILED k check only prints a warning and m still marks (lines 368-369), so the check is advisory (new issue 4)",
+  "3 20 kg cell overload / side load": "FIXED (by choice of cell) - the BOM commits to the 50 kg cell, 1.18-1.21 x FS at 600 N (head_calc 3e). The 20 kg fallback is documented with its 1.44-1.92 x FS and its 150 N early push stop",
+  "4 lean crosstalk 3.8 %": "PARTIAL - unchanged in hardware (a5R row 5.69 N at 150 N). Handled by a 10 N dead band in RTPS firmware that is not in this repo. At lip contact (254 N, E 3500) it is 9.64 N, 0.36 N under the band; a unit at the README's 4.4 % threshold reads 11.18 N (new issue 2)",
+  "5 head_calc lip lever about the cell centre": "FIXED - now levers about the leaf centroid: contact 182-254 N (my a5: 181-254). New text inconsistency: head_calc 4 gives the rear leaf x1.6 to buckling (link-only 596 N); README gives x5.3",
+  "6 soldering iron for the lead": "PARTIAL - the cell lead now goes into the Adafruit 5974's pre-soldered screw terminal (no iron for a cell swap). The 0.1 in logic header ships loose, so 4 joints per board (x2, plus the bench board) still need an iron. A 2 mm flat blade is also outside the DeWalt kit (new issue 3)",
+  "7 lip friction past 180-250 N": "NOT FIXED (accepted limit) - README states a 150 N lean limit; nothing physical enforces it before lip contact at 182-254 N",
+  "8 stale text / tool crash": "FIXED - flexures rows read r = leaf_r (0 hits for R1.5 in checks.json or checks_moving.json); every stacks param is in the manifest"
+ },
+ "issues": [
+  {
+   "rank": 1,
+   "severity": "major",
+   "metric": "M,F",
+   "title": "The setting plug's T-slot rear lip, only 2.1 mm thick, carries the whole pull-stop load",
+   "evidence": "build_concept.py build_bench: swivel pocket from jack_tip - 0.1 for 5.0 mm, so the lip is bench_plug1 115 - 113.0 = 2.1 mm. The pocket is open on +x over |z| < 4.85, so the lip hangs from a 24.4 mm perimeter (R4.85 semicircle + two straight edges). Nut contact is 20 mm2 (29 MPa bearing). Shear is 11.5 MPa mean / 17.2 peak at 589 N (step 6, -120 %) and 14.3 / 21.5 at 736 N (step 7 holds about 1.5 x FS). The plug prints D-flat down, so on the -x side this shear plane is a layer plane (PLA interlayer about 20-25 MPa). Rows 'a6R setting plug ... 1.2 x FS' FAIL 17.23 > 12 and '... 1.5 x FS' FAIL 21.54 > 12 (cad/review/a6/cadcheck_review.json; scripts/jack_local.py). If it lets go mid-step, the link is unloaded with a jolt and the stops have to be set again",
+   "fix": "Make the lip 5.0 mm: move the swivel pocket 2.9 mm forward (t0 = jack_tip - 3.0) and lengthen the plug by the same amount. That gives 6.0 MPa shear and 7.9 MPa bending at 736 N. Keep the M5 x 30 (the standoff drops from 7.0 to 4.1 mm, still more than the 0.41 mm stroke) or use an M5 x 35. Also cap README step 7 at 125 %, not 130 %. The plug reprint takes 0.27 h"
+  },
+  {
+   "rank": 2,
+   "severity": "major",
+   "metric": "M",
+   "title": "A soldering iron is still needed: the HX711 logic header ships loose",
+   "evidence": "BOM 'Amplifiers': 'buy the boards with the header fitted (or have it fitted once)'. adafruit.com/product/5974 shows the terminal block pre-soldered and the 6-pin header loose beside the board. The user's rule is no soldering iron. That is 4 joints on each of 2 boards, and the bench HX711 needs the same. A 2 mm flat blade for the terminal is also outside the DeWalt kit (BOM flag)",
+  "fix": "Name a source that needs no iron in the BOM. For example, a solderless press-fit header (Adafruit 'Hammer Header' male, 2.54 mm) set with a hammer on the bench, or an HX711 module sold with its header fitted, at the same 25.4 x 22.9 footprint and Ø2.5 holes. Add a 2 mm slotted 1/4 in hex bit to the tool list"
+  },
+  {
+   "rank": 3,
+   "severity": "minor",
+   "metric": "F",
+   "title": "The crosstalk dead band rule is sized for the 150 N limit, but nothing stops a lean until the lip lands at 182-254 N",
+   "evidence": "Row 'a6R lean crosstalk at lip contact' 9.64 N vs 10 N at the nominal 3.8 % (0.36 N margin). Row 'a6R ... 4.4 % threshold' FAIL 11.18 > 10: the README rule max(10, 150 x c x 1.5) gives 9.9 N, yet such a unit reads 11.2 N from a lean alone, which the firmware would take as a command. By my sign reasoning a downward lean puts the cell in tension (reads as pull, so backward), but I did not model it. The 150 N limit is a sign on the README, not a feature",
+   "fix": "README step 12: dead band = max(12 N, 260 N x measured coefficient x 1.2), so 11.9 N at 3.8 %. Have step 12 also check the sign of the 5 kg reading and record it for the RTPS side. The real fix, for the next cartridge layout, is still to put the leaf mid-length on the cell axis (leaf tops 13.5 above it)"
+  },
+  {
+   "rank": 4,
+   "severity": "minor",
+   "metric": "F",
+   "title": "The known-mass check is advisory in the sketch, and 'c' flips the README's sign convention",
+   "evidence": "bench_hx711.ino 363-369: m is refused only without f, r or c, and t. With massCheck 0 or -1 (FAIL) it prints a note or warning and marks anyway. Line 331: c keeps the sign of the calibrating load. README step 4 calibrates in pull (hanging mass), so pull reads + and push reads -, the opposite of step 5 ('+120 %'). f after k does not reset massCheck. head_calc 10: a correct 20 kg cell at dFS 0.20 reads 0.889, below the 0.90 floor, so it FAILs falsely",
+   "fix": "Refuse m when massCheck <= 0 unless 'm!' is typed. In c, store countsPerKg as -net/val (a pull calibration reads negative), or tell README step 5 to use |%|. Reset massCheck in f. Drop the PASS floor to 0.88"
+  },
+  {
+   "rank": 5,
+   "severity": "minor",
+   "metric": "F",
+   "title": "Lip friction past 182-254 N and the 150 N lean limit (carried from a5)",
+   "evidence": "head_calc 4: contact 182-254 N, then the lip reaction is 2.7 x the lean. The piston is at 40 MPa at 600 N. README: 'do not lean more than 150 N'",
+   "fix": "As a5: keep the limit, and have the RTPS side flag a reading as untrusted when the crosstalk term implies a lean over 150 N (needs the sign from issue 3)"
+  },
+  {
+   "rank": 6,
+   "severity": "minor",
+   "metric": "M,A",
+   "title": "Documentation inconsistencies: the step 4 render and the leaf buckling margin",
+   "evidence": "step4_electronics.png explodes BUY_rj45_coupler 60 mm below the tray floor (build_concept.py: rj_down = -60 z), which reads as fitting it from below. The insertion row has free_dir +Z, and README step 6 says sit it on its pad from above. head_calc.txt 4 says the rear leaf at contact is 1998 N, x1.6 to buckling (link-only contact 596 N); README says x5.3 (contact 182 N with piston bending)",
+   "fix": "Set rj_down to +60 z (explode upward). In head_calc 4, print the leaf load at the 182-254 N contact (608-851 N, x5.3) next to the link-only bound"
+  },
+  {
+   "rank": 7,
+   "severity": "minor",
+   "metric": "M",
+   "title": "The known-mass setup is an improvisation (cradle on its rear face across two books, cord in a 3 mm gap)",
+   "evidence": "README step 4: with the jack nut run up to the head, the free shank between the nut and the upright's rear face is 131 to 134 = 3 mm for the cord. The cradle, with the cartridge, stands 107 mm tall on a 50 x 68 face. No modelled feature or row covers it (designer's own 'not fixed' list)",
+   "fix": "Print an 8 g hanger: a 30 x 20 x 8 tab with an M5 clearance hole and a Ø12 cord eye, held between the jack head and the nut. Add two 10 mm feet on the upright's rear face so the cradle stands on a table edge with the jack overhanging"
+  }
+ ]
+}

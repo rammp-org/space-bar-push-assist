@@ -1,0 +1,25 @@
+{
+ "stacks": [
+  {"name": "a5R bench cradle: rear upright root stress across layers when the jack holds 1.2 x FS of the recommended 50 kg cell (upright is a free-standing 50 x (bench_up1 - bench_up0) plate, jack axis 49.1 above the base top; limit 25 MPa = PLA tensile across layers)",
+   "limit": 25,
+   "terms": [
+    {"what": "M / Z = 1.2 x 50 kg x g x 49.1 / (50 t^2 / 6)", "tol": "=1.2 * 50 * 9.81 * 49.1 / (50 * (bench_up1 - bench_up0) * (bench_up1 - bench_up0) / 6)"}
+   ]},
+  {"name": "a5R bench cradle: same upright with a 20 kg cell at 1.2 x FS (limit 25 MPa across layers; README step 7 then turns the jack on past 120 %)",
+   "limit": 25,
+   "terms": [
+    {"what": "M / Z = 1.2 x 20 kg x g x 49.1 / (50 t^2 / 6)", "tol": "=1.2 * 20 * 9.81 * 49.1 / (50 * (bench_up1 - bench_up0) * (bench_up1 - bench_up0) / 6)"}
+   ]},
+  {"name": "a5R bench jack stroke for the 50 kg cell: the M5 x 20 head stands 3.0 off the upright (cadcheck warn), so the stroke to 1.2 x FS (upright tip deflection at E 2500 + cell travel) must stay under 3.0 mm",
+   "limit": 3.0,
+   "terms": [
+    {"what": "upright tip deflection F h^3 / (3 E I), F = 1.2 x 50 kg x g, h 49.1, E 2500, I = 50 t^3 / 12", "tol": "=1.2 * 50 * 9.81 * 49.1 ** 3 / (3 * 2500 * 50 * (bench_up1 - bench_up0) ** 3 / 12)"},
+    {"what": "cell travel to 1.2 x FS at dfs_ref", "tol": "=1.2 * dfs_ref"}
+   ]},
+  {"name": "a5R lean-to-axial crosstalk: N read by the cell from a 150 N downward lean (leaf tops 15 mm below the cell axis, so the pitching link shears the leaves and the cell carries it; limit 10 N, a plausible firmware dead band)",
+   "limit": 10,
+   "terms": [
+    {"what": "2 E I_leaf / L^2 x (12 x 15 / L + 6) x 150 x (219.5 - leaf centroid) / k_rot, E cancels", "tol": "=2 * (2 * cart_hw * leaf_t ** 3 / 12) / leaf_free_len ** 2 * (12 * 15 / leaf_free_len + 6) * 150 * (219.5 - (link0 + link1) / 2) / ((2 * cart_hw * leaf_t / leaf_free_len) * leaf_pitch ** 2 / 2)"}
+   ]}
+ ]
+}

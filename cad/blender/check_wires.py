@@ -59,9 +59,8 @@ for lead in [o for o in bpy.data.objects if o.name.startswith("Load cell lead")]
     side = lead.name[-1]
     cell = bpy.data.objects[f"Load cell {side}"]
     cm = to_mm @ cell.matrix_world
-    vs = [cm @ v.co for v in cell.data.vertices]
-    axis_x = (min(v.x for v in vs) + max(v.x for v in vs)) / 2
-    axis_z = max(v.z for v in vs) - 12.7                    # puck top; the boss points down
+    PA = __import__("json").loads(scene["pa_params"])      # a7: the cell is clocked 45 deg, so take its axis from the build
+    axis_x, axis_z = (1 if side == "R" else -1) * PA["HX"], PA["cz"]
     pts = lead_points(lead)
 
     # Skip the part of the lead inside the cell's boss.
