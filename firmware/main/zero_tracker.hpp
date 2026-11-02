@@ -63,6 +63,16 @@ public:
     return raw_n - offset_n_;
   }
 
+  /// New thresholds and rates at run time (params). Keeps the correction and
+  /// the window; window_s and sample_rate_hz are fixed at construction.
+  void configure(const Config &config) {
+    const float window_s = cfg_.window_s, rate_hz = cfg_.sample_rate_hz;
+    cfg_ = config;
+    cfg_.window_s = window_s;
+    cfg_.sample_rate_hz = rate_hz;
+    offset_n_ = std::clamp(offset_n_, -cfg_.max_n, cfg_.max_n);
+  }
+
   /// Forget the correction (call after a tare).
   void reset() {
     offset_n_ = 0;

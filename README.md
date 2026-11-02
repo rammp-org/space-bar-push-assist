@@ -261,8 +261,8 @@ cartridge comes out of the fin for that anyway).
 
 - **Cell to amp.** Each cell's four wires go to its HX711's cell header: red E+ (RED), black E−
   (BLK), white A− (WHT), green A+ (GRN). Check the cell's label.
-- **Amp to ESP32.** Four jumpers per amp to the ESP32-P4's 40-pin header: left amp CLK GPIO 21,
-  DAT GPIO 20; right amp CLK GPIO 5, DAT GPIO 4; VCC and VDD to 3V3, GND to GND. Keep off GPIO
+- **Amp to ESP32.** Four jumpers per amp to the ESP32-P4's 40-pin header: left amp CLK GPIO 5,
+  DAT GPIO 4; right amp CLK GPIO 21, DAT GPIO 20; VCC and VDD to 3V3, GND to GND. Keep off GPIO
   37/38 (the USB-C console UART) and 7/8 (the on-board I2C bus): `firmware/README.md` says why.
 - Each amp sits on four 6 mm printed pads with M3 × 10 self-tappers. The holes are Ø3.3 on a
   17.8 × 25.4 mm pattern (measured on a board). The pads are drill-to-fit: each is a solid Ø10

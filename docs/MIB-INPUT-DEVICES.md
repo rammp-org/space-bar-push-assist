@@ -5,11 +5,11 @@ handles as the worked example. The MIB code referred to here is `rammp-org/RAMMP
 at `7021c38` (main, 2026-11-02); the wire types are in `rammp-org/rammp-rtps`.
 
 Status, 2026-11-02:
-- The push-assist board reads both handles and streams them to a dashboard over
-  ethernet (`firmware/`).
+- The push-assist board reads both handles and publishes them as `rammp::HandleForce`
+  over RTPS (rammp-rtps [PR #23](https://github.com/rammp-org/rammp-rtps/pull/23)). The
+  board also serves a dashboard, params and OTA over ethernet (`firmware/INTERFACE.md`).
 - `rammp-rtps` already has the PUSH_ASSIST drive state.
-- Still to do: a message for the handle forces, the board publishing it over RTPS, and
-  the MIB driving from it (see [What's left](#whats-left-by-repo)).
+- Still to do: the MIB driving from it (see [What's left](#whats-left-by-repo)).
 
 ## The rule: devices measure, the MIB decides
 
@@ -102,30 +102,23 @@ reads −. The two handles give two axes:
   chair clockwise (to the right) seen from above. That is the same sense as
   `XYTwist.twist`.
 
-### What the board should publish
+### What the board publishes
 
-Today the board serves its data on an espp `stream_frame` link (tcp :5555) for the
-dashboard, not over RTPS. Proposed message for `rammp-rtps`; the field names are a
-starting point for that PR:
+`rammp::HandleForce` on `rammp/push_assist/handle_force`, from rammp-rtps
+`messages/push_assist_message.hpp` (PR #23). It is best-effort and goes out once per
+load-cell conversion, at 10 or 80 Hz:
 
 ```cpp
-/* push_assist -> MIB */
-#define RAMMP_TOPIC_PUSH_ASSIST_HANDLE_FORCE "rammp/push_assist/handle_force"
-#define RAMMP_TYPE_HANDLE_FORCE "rammp/msg/HandleForce"
-
-/** Force on each push handle. Sent at the load cells' rate (10 or 80 Hz),
-    best-effort, latest wins. The board tares and zero-tracks; the MIB does the rest. */
 struct HandleForce {
   float left_n;   /**< N, push +, pull -; NaN while that handle's amp is not answering */
   float right_n;  /**< N, same for the right handle */
-  uint8_t flags;  /**< bit 0 left ok, bit 1 right ok, bit 2 left zero tracking at its cap,
-                       bit 3 right zero tracking at its cap (tare needed) */
+  uint8_t flags;  /**< kHandleForceLeftOk, RightOk, LeftZeroAtLimit, RightZeroAtLimit,
+                       Updating (firmware update running: do not drive) */
   uint32_t seq;   /**< +1 per sample, so the MIB can count drops */
 };
 ```
 
-These values already exist on the board's telemetry: `left_N`, `right_N`,
-`left_tracking`, `right_tracking`.
+`firmware/tools/rtps_listen.py` subscribes to it from a laptop, as the MIB will.
 
 ### Entering and leaving PUSH_ASSIST
 
@@ -191,6 +184,7 @@ Notes for the MIB side:
   - No `HandleForce` arrives for 300 ms (the same as `twist_setpoint_timeout`).
   - Either force is NaN, or either ok bit is clear.
   - Either zero-tracking cap bit is set. Ask for a tare on the joystick.
+  - The `Updating` bit is set.
   - PUSH_ASSIST is left, or the e-stop latches.
 - **Zero drift:** the board tracks it (`firmware/README.md`, "Zero drift and zero
   tracking"). On the bench the assembled handle drifted about 0.1 N/min and the tracker
@@ -200,7 +194,7 @@ Notes for the MIB side:
 
 | Repo | Work |
 |---|---|
-| `rammp-rtps` | Add `HandleForce` (above) and its topic; decide plain RTPS or ROS 2 facing |
-| `space-bar-push-assist` | Publish `HandleForce` over RTPS from `firmware/` (espp `rtps`, next to the existing telemetry); wire RATE high for 80 S/s |
-| `RAMMP-mib-fw` | PUSH_ASSIST in `SystemState`, entered and left by `DriveCommand.push_assist`; a `HandleForce` subscriber; `push_to_twist()` with host tests; the lapse, health and cap stops; a push-assist planner profile |
+| `rammp-rtps` | Review and merge PR #23 (`HandleForce`); later decide whether it goes ROS 2 facing |
+| `space-bar-push-assist` | Done: `firmware/` publishes `HandleForce`. Still to do: wire RATE high for 80 S/s |
+| `RAMMP-mib-fw` | In draft PR #65 (`spacebar-support`): `push_to_twist()` with a host test, the gains and push-assist planner limits saved in NVS and tunable from the control panel (`MibSystem::push_assist_gains()`), and the panel's link to this board (data, params, OTA). Still to do: PUSH_ASSIST in `SystemState`, entered and left by `DriveCommand.push_assist`; a `HandleForce` subscriber feeding `push_to_twist()` into `set_target()`; the lapse, health and cap stops |
 | HMI joystick | The push-assist enter and exit (already described in `DriveCommand`), and a tare request if the MIB asks for one |
