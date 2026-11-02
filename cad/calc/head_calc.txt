@@ -121,11 +121,11 @@ The jack is on the axis (3a). The block bears on the cradle's front wall round t
   reviewer a5's free-standing-cantilever model on this upright (no side walls at all, 50 kg): 17.7 MPa across layers, tip 0.81 mm
 
 == 10. Scale before stops (a5 #2): what an unset mV/V does, and the known-mass check window
-  cell rated 1.0 mV/V with the sketch at 1.0: its '120 %' is 120 % of true FS
-  cell rated 1.5 mV/V with the sketch at 1.0: its '120 %' is 80 % of true FS
-  cell rated 2.0 mV/V with the sketch at 1.0: its '120 %' is 60 % of true FS
-  cell rated 3.0 mV/V with the sketch at 1.0: its '120 %' is 40 % of true FS
-  The sketch now refuses 'm' until 'f', 'r' (or 'c') and 't' are given. Known-mass check ('k <kg>', cradle stood on its rear face, the mass hung from the jack screw): the flexure leaves carry kl / (kc + kl) of it beside the cell:
+  cell rated 1.0 mV/V with the firmware set to 1.0: its '120 %' is 120 % of true FS
+  cell rated 1.5 mV/V with the firmware set to 1.0: its '120 %' is 80 % of true FS
+  cell rated 2.0 mV/V with the firmware set to 1.0: its '120 %' is 60 % of true FS
+  cell rated 3.0 mV/V with the firmware set to 1.0: its '120 %' is 40 % of true FS
+  Known-mass check (cradle stood on its rear face, the mass hung from the jack screw): the flexure leaves carry kl / (kc + kl) of it beside the cell:
   20 kg: shunt 3.7 / 7.1 / 13.3 % at dFS 0.05 / 0.10 / 0.20, so a right scale reads 0.857-0.973 of the mass
   50 kg: shunt 1.5 / 3.0 / 5.8 % at dFS 0.05 / 0.10 / 0.20, so a right scale reads 0.932-0.995 of the mass
-  PASS window 0.88-1.03 (a6 review #4: a6's 0.90 failed a right 20 kg cell at dFS 0.20); a 1.5x or 2x mV/V error reads 0.67 / 0.50 or 1.5 / 2.0: FAIL, and the sketch then refuses 'm' (a6 review #4) unless 'm!' is typed. A soft 20 kg cell (dFS over about 0.17) reads under 0.88 and fails falsely: calibrate it with 'c' (safe). Calibrating with 'c' in this setup reads grip force, so the stops land 1-15 % under 1.2 x FS of the cell itself: the safe side. a7: the cradle hangs from its eye on the jack axis and the mass hangs from the printed hanger on the jack head, so the cord, the jack and the mass are one vertical line (no books).
+  PASS window 0.88-1.03 (a6 review #4: a6's 0.90 failed a right 20 kg cell at dFS 0.20); a 1.5x or 2x mV/V error reads 0.67 / 0.50 or 1.5 / 2.0: FAIL, and the stops are not set until it passes. A soft 20 kg cell (dFS over about 0.17) reads under 0.88 and fails falsely: calibrate the scale on the mass (safe). Calibrating on the mass in this setup reads grip force, so the stops land 1-15 % under 1.2 x FS of the cell itself: the safe side. a7: the cradle hangs from its eye on the jack axis and the mass hangs from the printed hanger on the jack head, so the cord, the jack and the mass are one vertical line (no books).

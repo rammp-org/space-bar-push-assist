@@ -380,16 +380,16 @@ p("")
 
 p("== 10. Scale before stops (a5 #2): what an unset mV/V does, and the known-mass check window")
 for mvv in (1.0, 1.5, 2.0, 3.0):
-    p("  cell rated %.1f mV/V with the sketch at 1.0: its '120 %%' is %.0f %% of true FS" % (mvv, 120 / mvv))
-p("  The sketch now refuses 'm' until 'f', 'r' (or 'c') and 't' are given. Known-mass check ('k <kg>', cradle stood on "
+    p("  cell rated %.1f mV/V with the firmware set to 1.0: its '120 %%' is %.0f %% of true FS" % (mvv, 120 / mvv))
+p("  Known-mass check (cradle stood on "
   "its rear face, the mass hung from the jack screw): the flexure leaves carry kl / (kc + kl) of it beside the cell:")
 for cname, fs in CELLS.items():
     sh = [kl / (fs / d + kl) for d in (0.05, 0.10, 0.20)]
     p("  %s: shunt %.1f / %.1f / %.1f %% at dFS 0.05 / 0.10 / 0.20, so a right scale reads %.3f-%.3f of the mass"
       % (cname, 100 * sh[0], 100 * sh[1], 100 * sh[2], 1 - sh[2] - 0.01, 1 - sh[0] + 0.01))
 p("  PASS window 0.88-1.03 (a6 review #4: a6's 0.90 failed a right 20 kg cell at dFS 0.20); a 1.5x or 2x mV/V error reads 0.67 / 0.50 or "
-  "1.5 / 2.0: FAIL, and the sketch then refuses 'm' (a6 review #4) unless 'm!' is typed. A soft 20 kg cell (dFS over "
-  "about 0.17) reads under 0.88 and fails falsely: calibrate it with 'c' (safe). Calibrating with 'c' in this setup reads "
+  "1.5 / 2.0: FAIL, and the stops are not set until it passes. A soft 20 kg cell (dFS over "
+  "about 0.17) reads under 0.88 and fails falsely: calibrate the scale on the mass (safe). Calibrating on the mass in this setup reads "
   "grip force, so the stops land 1-15 % under 1.2 x FS of the cell itself: the safe side. a7: the cradle hangs from its eye "
   "on the jack axis and the mass hangs from the printed hanger on the jack head, so the cord, the jack and the mass are one "
   "vertical line (no books).")

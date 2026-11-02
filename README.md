@@ -2,11 +2,17 @@
 
 Push-assist handles for a powered wheelchair. A load cell in each handle measures how hard the
 attendant pushes. The sum of the two forces is the forward command, and the difference is the
-turn. An ESP32 reads both cells and sends push-assist commands to the MIB over RTPS
-([rammp-org/rammp-rtps](https://github.com/rammp-org/rammp-rtps)).
+turn. An ESP32-P4 reads both cells and publishes the two handle forces; the MIB turns them into
+forward and turn commands for its trajectory planner, the same way it drives from the joystick.
 
-This repo holds the mechanical concept: a parametric Blender build of the printed parts, and a 2D
-profile script used to agree the shape before building it in 3D.
+This repo holds the mechanical concept (a parametric Blender build of the printed parts, and a 2D
+profile script used to agree the shape before building it in 3D) and the handle firmware:
+
+- [`firmware/`](firmware/README.md): ESP-IDF + espp app that reads both load cells, tracks their
+  zero and serves the forces over ethernet to a live HTML dashboard.
+- [`docs/MIB-INPUT-DEVICES.md`](docs/MIB-INPUT-DEVICES.md): how the MIB should take this (or any)
+  input device: devices measure, the MIB decides. Includes the reference push-to-drive
+  conversion and what is left to build in rammp-rtps, this firmware and the MIB.
 
 ![Concept on the Corpus back plate](cad/blender/renders/01_hero.png)
 
@@ -15,9 +21,9 @@ profile script used to agree the shape before building it in 3D.
 | Part | Notes |
 |---|---|
 | 2x tension/compression load cell, **20 kg** | JHD puck, Ø25.4 × 12.7 mm, M5 studs 12.15 mm long, one per handle. Note its rated output (mV/V) from the label or calibration sheet. See "Which cell" below |
-| 2x SparkFun Qwiic Scale (NAU7802, SEN-15242) | One 24-bit amp per load cell. No soldering iron and no small screwdriver: the cell's four wires go into a push-lever spring terminal, and the logic side is a Qwiic socket (see "Wiring"). Holes Ø3.3 on a 17.8 × 25.4 mm pattern (measured). |
-| 2x Qwiic-to-female-socket cable (long; cut to length) | SparkFun PRT-14988 or Adafruit 4397: amp to the ESP32's header. **Check the ESP32 board has male header pins fitted before ordering**: not verified. If it has none, buy Qwiic-to-male-pin cables instead (still no soldering) |
-| Waveshare ESP32-P4 WiFi6 PoE devkit | Reads the amps, talks RTPS over Ethernet |
+| 2x SparkFun Load Cell Amp HX711 (SEN-13879) | One 24-bit amp per load cell, read by [`firmware/`](firmware/README.md). Header pins soldered once (or bought fitted). Holes Ø3.3 on a 17.8 × 25.4 mm pattern (measured). |
+| 8x female jumper wires | Amps to the ESP32's 40-pin header: CLK, DAT, 3V3, GND each (pins in `firmware/README.md`) |
+| Waveshare ESP32-P4 WiFi6 PoE devkit | Reads the amps, serves the forces over Ethernet |
 | Panel-mount RJ45 coupler | On a 5 mm pad in tray L, flange on top (two M3 × 12 self-tappers); nothing hangs below the floor. The PoE cable plugs in from below |
 | 200 mm Cat6 patch cable | ESP32 jack to the coupler. The route is 150 mm; the other 50 mm lies loose in tray L |
 | MTB lock-on grips | Over the printed Ø22.2 grip spigots (Ø33 flange) |
@@ -34,9 +40,8 @@ carry the load cell's clamp: if the chair will be parked in a hot car or in sun,
 parts in PETG (same files, same orientation).
 
 Bench tools (one set, used to set the overload stops): a printed cradle, setting plug and mass
-hanger, an M5 × 35 jack screw with two M5 nuts, two M4 × 12 lip screws with nuts, a Qwiic Scale on
-any Arduino or ESP32 running [`firmware/bench_scale/bench_scale.ino`](firmware/bench_scale/bench_scale.ino)
-(one of the unit's two boards will do), a known mass (5 or 10 kg, for example a bag or a water
+hanger, an M5 × 35 jack screw with two M5 nuts, two M4 × 12 lip screws with nuts, the unit's
+ESP32-P4 and one of its amps running [`firmware/`](firmware/README.md) as the force readout, a known mass (5 or 10 kg, for example a bag or a water
 can, weighed on a kitchen scale) on a cord, and a hook or a door handle to hang the cradle from.
 
 ## Current design
@@ -189,10 +194,13 @@ You need:
 - a 2.5 mm and a 4 mm hex key
 - a known mass on a cord, and a hook (a door handle will do)
 - the cell's rated output (mV/V) from its label
-- the cell on a Qwiic Scale read by `firmware/bench_scale` (any Arduino Uno/Nano or ESP32; 115200
-  baud)
+- the cell on the left amp, read by [`firmware/`](firmware/README.md) (the Left handle reading
+  on the dashboard, or the CSV rows on the USB-C console)
 
-The sketch reads push as + and pull as −.
+The firmware reads push as + and pull as −. "Tare" below means the dashboard's Tare button
+(or the board's reset) with the jack slack. Full scale (FS) of the 20 kg cell is 196 N: 120 % is 235 N,
+125 % is 245 N, 1 % is 2 N. Turn zero tracking off for stop setting (`PA_ZERO_TRACKING`): it
+would follow a slow jack.
 
 1. Put the jack screw's swivel nut into the setting plug's T-slot. Slide the plug into the
    cartridge's socket (flat inboard), through the saddle, and drive the two M3 × 12 self-tappers
@@ -209,11 +217,10 @@ The sketch reads push as + and pull as −.
    walls: their shanks lie behind the block. The cell's lead leaves through the notch in the side
    wall.
 4. **Scale (before any stop).** Back each stop screw off one turn first, so that none touches.
-   The sketch refuses to mark (`m`) until it has `f`, `r` (or `c`), `t` and a passed known-mass
-   check. `m!` overrides this, with a warning; don't use it.
-   - `f 50` (or `f 20` for the fallback cell), then `r <mV/V>` with the value on the cell's label
-     or calibration sheet (for example `r 1.0`). With the wrong mV/V the stops land at the wrong
-     load: a 2.0 mV/V cell read as 1.0 would get its stops at 60 % of FS.
+   The firmware's scale comes from the cell's full scale and rated output (`PA_CELL_FULL_SCALE_KG`,
+   `PA_CELL_RATED_UV_PER_V` in `idf.py menuconfig`). Set the mV/V from the cell's label or
+   calibration sheet before setting any stop: with the wrong mV/V the stops land at the wrong
+   load (a 2.0 mV/V cell read as 1.0 would get its stops at 60 % of FS).
    - **Known-mass check.**
      1. Lift the jack and its nut out of the upright's slot. Run the nut up against the head.
         Slide the printed hanger's keyhole onto the shank under the nut, with its two arms either
@@ -222,31 +229,28 @@ The sketch reads push as + and pull as −.
      2. Hang the cradle from a hook by the eye on its front wall. The eye and the notch in the
         hanger's cross bar are both on the jack's axis, so the hook, the jack and the mass hang on
         one vertical line.
-     3. Type `t`.
-     4. Hang the known mass on a cord looped round the hanger's cross bar, in its centre notch,
-        and type `k 10` (the mass in kg). The pull
-        runs through the plug, the cell and the block onto the lip screws, the same path as the
-        pull stops. A known pull must read −, so the sketch sets the sign from it.
-     5. `PASS` means the reading is 0.88-1.03 of the mass. The leaves carry 2-13 % of the load
-        beside the cell, so a right scale reads a little low (`head_calc.txt` 10). A 50 kg cell
-        reads 0.93-1.00.
-   - On `FAIL`, or if the cell has no mV/V label, type `c 10` with the mass still hanging. This
-     calibrates the scale on the mass (as a pull, so push still reads +), and the sketch counts it
-     as checked. A changed `f`, `r` or `c` clears the check.
+     3. Tare.
+     4. Hang the known mass on a cord looped round the hanger's cross bar, in its centre notch.
+        The pull runs through the plug, the cell and the block onto the lip screws, the same path
+        as the pull stops. It must read −: if it reads +, set `PA_LEFT_INVERT` and re-flash.
+     5. **Pass** means the reading is 0.88-1.03 of the mass's weight (10 kg: −86 to −101 N). The
+        leaves carry 2-13 % of the load beside the cell, so a right scale reads a little low
+        (`head_calc.txt` 10).
+   - On a fail, or if the cell has no mV/V label, scale `PA_CELL_RATED_UV_PER_V` by the reading
+     over the weight × 0.95, re-flash and repeat the check.
    - Take the mass off, unhook the cradle and stand it on its base. Lift the jack out and take the
      hanger off: it covers the jack's head. Drop the nut back into its pocket and the screw into
-     the slot. Type `t` with the
-     jack slack.
+     the slot. Tare with the jack slack.
 5. **Push stops.** Turn the jack screw (4 mm key from behind) to push the link until the reading is
-   +120 %. Type `m`. Turn one push screw anticlockwise, so its head moves forward, until the sketch
-   shows `TOUCH` (a 1 % drop). Use a 2.5 mm key through the cradle's window and the block's key
-   hole. Do the same with the other push screw.
-6. **Pull stops.** Turn the jack back through zero to −120 %. Type `m`. Turn one pull screw
-   (through the cradle's window) clockwise until `TOUCH`, then the other.
-7. **Check.** Turn the jack on past 120 % each way, and stop when the reading reaches 125 %. The
-   reading should now climb at under 40 % of its earlier rate per turn: the stops carry the rest.
-   The jack then holds about 1.4 × FS, which the cradle and the plug's lip take at under 9 MPa.
-   Back to zero, it reads 0 ± 1 %.
+   +235 N (120 %). Note the reading. Turn one push screw anticlockwise, so its head moves forward,
+   until the reading drops 2 N (1 %): it touches. Use a 2.5 mm key through the cradle's window and
+   the block's key hole. Do the same with the other push screw.
+6. **Pull stops.** Turn the jack back through zero to −235 N. Note the reading. Turn one pull screw
+   (through the cradle's window) clockwise until the reading drops 2 N toward zero, then the other.
+7. **Check.** Turn the jack on past 120 % each way, and stop when the reading reaches 245 N (125 %).
+   The reading should now climb at under 40 % of its earlier rate per turn: the stops carry the
+   rest. The jack then holds about 1.4 × FS, which the cradle and the plug's lip take at under
+   9 MPa. Back to zero, it reads 0 ± 2 N.
 8. Out: lip screws, jack, plug. A drop of superglue where each stop screw enters its nut.
 
 The stops then engage at 1.2 × FS within the bands in the `checks.json` stacks rows, for a cell
@@ -255,13 +259,11 @@ cartridge comes out of the fin for that anyway).
 
 ## Wiring
 
-- **Cell to amp, no soldering, no small screwdriver.** Each cell's four wires go into its Qwiic
-  Scale's spring terminal: press a lever with a fingertip or the tip of a hex key, push the
-  stripped wire in, let go. Red E+, black E-, white A-, green A+ (check the cell's label).
-- **Amp to ESP32.** A 150 mm Qwiic-to-female-socket cable (SparkFun PRT-14988 or Adafruit 4397)
-  plugs into each board's Qwiic socket and onto the ESP32 header: red 3V3, black GND, blue SDA,
-  yellow SCL. The NAU7802 has a fixed I2C address, so the two boards go on the ESP32-P4's two I2C
-  ports (any free pins).
+- **Cell to amp.** Each cell's four wires go to its HX711's cell header: red E+ (RED), black E−
+  (BLK), white A− (WHT), green A+ (GRN). Check the cell's label.
+- **Amp to ESP32.** Four jumpers per amp to the ESP32-P4's 40-pin header: left amp CLK GPIO 21,
+  DAT GPIO 20; right amp CLK GPIO 5, DAT GPIO 4; VCC and VDD to 3V3, GND to GND. Keep off GPIO
+  37/38 (the USB-C console UART) and 7/8 (the on-board I2C bus): `firmware/README.md` says why.
 - Each amp sits on four 6 mm printed pads with M3 × 10 self-tappers. The holes are Ø3.3 on a
   17.8 × 25.4 mm pattern (measured on a board). The pads are drill-to-fit: each is a solid Ø10
   pad with a centre dimple and no printed pilot. Set the board on its pads and drill the Ø2.5
@@ -300,8 +302,8 @@ engagement.
 - superglue and hot glue
 - a wire stripper or a knife for the lead
 
-No soldering iron. No 2 mm blade either: the a6 review asked for a 2 mm slotted bit for the
-Adafruit board's screw terminal, but the Qwiic Scale's spring terminal opens with a fingertip.
+No 2 mm blade. The only soldering is the HX711 boards' header pins, once, unless they came
+fitted.
 
 ### Handles (on the bench, each side)
 
@@ -342,7 +344,7 @@ Adafruit board's screw terminal, but the Qwiic Scale's spring terminal opens wit
 
 6. **Electronics.**
    - In tray L, fix the ESP32 on its four 6 mm standoffs with M3 × 10 self-tappers.
-   - Set the left Qwiic Scale on its four drill-to-fit pads, spring terminal outboard. Drill a
+   - Set the left HX711 amp on its four drill-to-fit pads, cell header outboard. Drill a
      Ø2.5 pilot 8 mm deep through each of its holes (tape on the bit marks the depth), then drive
      four M3 × 10 self-tappers. Do the right one the same way in tray R.
    - Sit the RJ45 coupler on its pad in tray L from above (short end down into the square opening)
@@ -350,17 +352,16 @@ Adafruit board's screw terminal, but the Qwiic Scale's spring terminal opens wit
    - Plug the 200 mm patch cable into the ESP32 and the coupler. It goes up from the board, across
      under the cover and down into the coupler, with three R20 bends; the spare 50 mm lies as a
      loose loop in the tray.
-   - Plug a Qwiic-to-female-socket cable into each amp and onto the ESP32 header (each amp on its
-     own I2C port).
+   - Wire each amp to the ESP32 header with four jumpers (CLK, DAT, 3V3, GND; pins under
+     "Wiring").
 
 ![Step 2: fin to tray](cad/blender/renders/step2_fin_to_tray.png)
 
 7. **Fin to tray.** Feed the lead through the hole in the tray's end wall. Hold the fin against the
    end wall and drive three M4 × 20 socket caps from inside the tray into the fin's nuts.
 8. **Lead to amp.** Run the lead down the inside of the end wall and inboard to the amp. Cut it to
-   length and strip 8 mm off each conductor. Push each one into the Qwiic Scale's spring terminal
-   (press the lever, push, let go): usually red E+, black E-, white A-, green A+, but check the
-   cell's datasheet. No soldering.
+   length and strip 8 mm off each conductor. Connect each one to the amp's cell header: usually
+   red E+, black E-, white A-, green A+, but check the cell's datasheet.
 
 ### On the chair
 
@@ -400,7 +401,8 @@ stops are set (attempt 4's step 14 could not be reached once the fin was closed)
 | `cad/blender/to_cadcheck.py`, `checks.json` | Convert the build to cadlib conventions and the `cad check` config (every motion, gap and service claim is a row). It also writes `check_moving.blend`, with each cartridge's moving link as a check-only object |
 | `cad/blender/checks_moving.json` | Moving-link rows (a3 reviewer's, adapted) and bench rows (a4 reviewer's step-14 rows, adapted); run on `check_moving.blend`, where each cartridge is split into its fixed and moving bodies and a copy of the right cartridge sits in the cradle |
 | `cad/calc/head_calc.py`, `head_calc.txt` | Hand calcs from the manifest params, designer and a4-reviewer models in one: leaves and buckling, moment share with the stud path, stops (jacking, lean, side load, stiffness, cell load at 400/600 N for 20 and 50 kg cells), the catch and the lip, lean crosstalk, clamp and creep, the cradle, bench pass marks |
-| `firmware/bench_scale/bench_scale.ino` | Bench serial sketch (SparkFun Qwiic Scale, NAU7802) for setting the stops: scale (`r` or `c`) and a known-mass check (`k`, a gate for `m`) first, then % FS, marks, `TOUCH` |
+| `firmware/` | ESP-IDF + espp app for the ESP32-P4: reads both cells (two SparkFun HX711s), tracks their zero, serves them over ethernet to an HTML dashboard (`web/dashboard.html` via `tools/eth_bridge.py`); also the bench readout for setting the stops |
+| `docs/MIB-INPUT-DEVICES.md` | How the MIB takes input devices, and the push-assist integration plan |
 | `cad/blender/gen_bom.py` | Writes `cad/BOM.md` from the manifest |
 | `cad/review/` | Design/review loop: attempts, scores, check reports |
 | `cad/blender/check_wires.py` | Checks load-cell lead clearance and bend radius |

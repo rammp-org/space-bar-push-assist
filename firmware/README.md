@@ -13,7 +13,9 @@ breakouts and serves the forces over ethernet to an HTML dashboard.
 | `tools/mock_board.py` | A stand-in board speaking the same protocol, for dashboard work without hardware |
 | `tools/log_forces.py` | Logs the telemetry to CSV for long runs (drift, creep), one summary line a minute |
 
-No RTPS yet.
+No RTPS yet. How the MIB should take these forces, the reference push-to-drive conversion
+(`pushToTwist()` in `web/dashboard.html`) and what each repo still needs:
+[`docs/MIB-INPUT-DEVICES.md`](../docs/MIB-INPUT-DEVICES.md).
 
 ## How it works
 

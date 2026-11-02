@@ -1391,7 +1391,7 @@
    "limit": 0.3,
    "terms": [
     {
-     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "what": "touch read as a 1 % FS change on the amp (bench readout), x 1.2",
      "tol": 0.012
     },
     {
@@ -1425,7 +1425,7 @@
    "limit": 0.3,
    "terms": [
     {
-     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "what": "touch read as a 1 % FS change on the amp (bench readout), x 1.2",
      "tol": 0.012
     },
     {
@@ -1481,7 +1481,7 @@
    "limit": 0.3,
    "terms": [
     {
-     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "what": "touch read as a 1 % FS change on the amp (bench readout), x 1.2",
      "tol": 0.012
     },
     {
@@ -1515,7 +1515,7 @@
    "limit": 0.3,
    "terms": [
     {
-     "what": "touch read as a 1 % FS change on the amp (bench sketch), x 1.2",
+     "what": "touch read as a 1 % FS change on the amp (bench readout), x 1.2",
      "tol": 0.012
     },
     {

@@ -72,7 +72,7 @@ lines += ["", "## Load-cell hardware (on the cell studs)", "", "| Part | Qty |",
           "**Two 20 kg JHD tension/compression pucks** (Ø25.4 x 12.7 body, M5 studs 12.15 long). The unit is not "
           "meant for hard shoves: with the stops at 1.2 x FS a 600 N shove would reach 1.44-1.92 x FS, so keep pushes "
           "gentle. The 50 kg puck (same body and studs) drops in with no CAD change if that ever changes. Note the "
-          "cell's rated output (mV/V) from its label or calibration sheet: the bench sketch needs it (README).", "",
+          "cell's rated output (mV/V) from its label or calibration sheet: the firmware's scale needs it (README).", "",
           "## Amplifiers: SparkFun Qwiic Scale (NAU7802, SEN-15242), no soldering iron and no blade", "",
           "Two SparkFun Qwiic Scale boards (a6 review #2: the Adafruit HX711's logic header shipped loose). Nothing on them "
           "needs an iron or a small screwdriver: the cell's four wires go into a push-lever spring terminal (press the lever "
@@ -89,8 +89,8 @@ lines += ["", "## Load-cell hardware (on the cell studs)", "", "| Part | Qty |",
           "ESP32's own four standoffs keep printed pilots (its hole pattern is from Waveshare's drawing).", "",
           "## Bench tools (one set, for setting the stops)", "",
           "The cradle and setting plug (printed, below), an M5 x 35 jack screw with two M5 nuts and two M4 x 12 lip screws "
-          "with nuts (in the fastener table), the printed mass hanger, a Qwiic Scale on any Arduino "
-          "or ESP32 running `firmware/bench_scale/` (one of the unit's two boards will do), a 2.5 mm and a 4 mm hex key, a "
+          "with nuts (in the fastener table), the printed mass hanger, the unit's ESP32-P4 and one amp "
+          "running `firmware/` as the force readout, a 2.5 mm and a 4 mm hex key, a "
           "known mass (5 or 10 kg, e.g. a bag or a water can) on a cord, and a hook or a door handle to hang the cradle "
           "from by its eye.", "",
           "## Printed parts", "",

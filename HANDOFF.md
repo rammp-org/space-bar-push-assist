@@ -12,7 +12,8 @@ Onshape doc holds the bought-part models (see `~/code-stuff/onshape-slopify` for
 | `cad/blender/build_concept.py` | The whole concept. Parametric Blender script: SDF-built printed parts, STL bought parts, lead routing, print check, renders. |
 | `cad/blender/to_cadcheck.py`, `checks.json`, `manifest.json` | cadlib conversion and the `cad check` config; every motion, gap and service claim is a row. Run via the pipeline in `cad/review/attempts.md`. |
 | `cad/blender/check_moving.blend`, `checks_moving.json` | `check.blend` with each cartridge split into check-only `PRT_cartfix_*` / `PRT_movlink_*`, plus a copy of the right cartridge in the cradle (written by `to_cadcheck.py`); moving-link and bench rows. Run with `--only slide,distances,sightlines`. |
-| `firmware/bench_scale/bench_scale.ino` | Bench serial sketch for setting the stops (SparkFun NAU7802 library; ESP32 or AVR). Refuses to mark stops until the scale is set (`f`, `r` or `c`, `t`) and the `k <kg>` known-mass check has passed (`m!` overrides); push +, pull -. Host syntax-checked only (stub headers); not yet compiled for a board. a6's `bench_hx711` is gone with the HX711. |
+| `firmware/` | ESP-IDF + espp app (ESP32-P4): two SparkFun HX711s (left CLK/DAT GPIO 21/20, right GPIO 5/4), zero tracking, forces served over ethernet (espp stream_frame on tcp :5555, `PUSH?` discovery on udp :5556) to `web/dashboard.html` through `tools/eth_bridge.py`; `tools/mock_board.py` stands in for the board. See `firmware/README.md`. |
+| `docs/MIB-INPUT-DEVICES.md` | Devices measure, the MIB decides: how the MIB takes input devices, the reference push-to-drive conversion, and what is left per repo. |
 | `cad/calc/head_calc.py`, `head_calc.txt` | Hand calcs from the manifest params: leaves, the cell's moment share, clamp stress, stop engagement and thermal drift, lip catch (leaf-centroid lever), lean crosstalk + dead band, cradle frame, known-mass check window. |
 | `cad/blender/gen_bom.py`, `cad/BOM.md` | BOM generated from the manifest; `cad bom` checks it. |
 | `cad/blender/export_prints.py` | Print STLs and 3MF plates into `cad/print/` (empties the folder first, keeps `stl_cc/`). |
@@ -71,8 +72,8 @@ back is a plate of vertical 4040s, 15° past vertical. Shape was agreed in 2D fi
   Each cell face bears on a Ø12 x 1.0 boss (split by the slot). Nuts finger-tight on the bare 8 mm bit, settled
   overnight, re-snugged, hot glue, on the bench (rear nut from the cartridge's rear end along the cell axis between
   the strips, on the 150 mm extension). Stops: four M3 caps beside the cell, nuts in the drop, heads on the block; push
-  pair on the cell axis, pull pair 6.5 below; set per cell in the cradle with the jack on the grip axis and a Qwiic
-  Scale (`firmware/bench_scale`) as the gauge. Leans (a8): the Ø24 piston lands on the catch saddle's R1.2 crown
+  pair on the cell axis, pull pair 6.5 below; set per cell in the cradle with the jack on the grip axis and
+  `firmware/` as the gauge. Leans (a8): the Ø24 piston lands on the catch saddle's R1.2 crown
   (0.15 radial, 200-280 N per grip); the crown holds no moment, so the two legs bend as free cantilevers (11 N/mm) and
   friction there takes 1.3-3.4 N from the cell (7.4 N at 300 N after a 600 N lean has flattened the crown; ~20 N
   while 600 N rests on one grip: open). The saddle is 9.5 thick in y because its span over the nut-driver gap bends
@@ -173,21 +174,19 @@ back is a plate of vertical 4040s, 15° past vertical. Shape was agreed in 2D fi
 - Done in attempt 4: seat bosses (cell takes axial load only), stops set per cell on the bench, R1.5 leaf roots,
   printed washers, 200 mm patch cable, fin skin (sharp inboard edges, V reveal, recessed panel).
 - Done in attempt 5: stops on the cell axis set with an on-axis jack in a printed cradle, 2.0 leaves + lip catch,
-  ~7 kN/mm stop path, bench clamp/settle procedure, merged hand calc, tray reveal, RJ45 recess, bench HX711 sketch.
-- Done in attempt 6: closed-frame cradle (M5 x 30 jack), scale-first bench procedure with a known-mass check (sketch
-  gate), 50 kg cell committed in BOM/README (20 kg documented fallback), Adafruit HX711 with screw terminal, lip lever
+  ~7 kN/mm stop path, bench clamp/settle procedure, merged hand calc, tray reveal, RJ45 recess.
+- Done in attempt 6: closed-frame cradle (M5 x 30 jack), scale-first bench procedure with a known-mass check, 50 kg cell committed in BOM/README (20 kg documented fallback), Adafruit HX711 with screw terminal, lip lever
   fixed in the calc, crosstalk dead band documented.
 - Decided (Alex, 2026-10-27): 20 kg cells, no hard shoves (1.44-1.92 x FS at a 600 N shove). Qwiic Scale holes measured: 17.8 x 25.4 mm.
 - Done in attempt 7: lean crosstalk designed out (cell on the leaves' mid-height), catch saddle (no friction path, no
-  lean limit), cell insertable (45 deg stud slots), Qwiic Scale (no iron, no blade), 5 mm plug lip, sketch gate (`m`
-  needs a passed `k`; `m!`), pull calibration stored negative, PASS floor 0.88, hang-eye + hanger rig.
+  lean limit), cell insertable (45 deg stud slots), Qwiic Scale (no iron, no blade), 5 mm plug lip, PASS floor 0.88, hang-eye + hanger rig.
 - Done in attempt 8: the cell fits (stud slots and nut channel run through the inboard face; cartridge x cell allow
   removed, cell-first steps in `assembly_order`), crowned catch saddle (free legs) 9.5 thick, three-support solve,
   Ø24 piston, 2.4 mm washers, catch gap 0.15 + paper check, drill-to-fit amp pads, chamfered cover counterbores,
   nut-driver sightline rows, step0 render.
-- Open (firmware): the push-assist (RTPS) firmware is not in this repo; it should keep a backup dead band of
-  max(10 N, 280 N x |c| x 1.2) per grip from README step 12 (c should measure ~0) and put the two Qwiic Scales on
-  separate I2C ports.
+- Open (firmware): `firmware/` reads both cells (SparkFun HX711s) and serves them over ethernet to the dashboard;
+  no RTPS yet. The MIB side, its dead band max(10 N, 280 N x |c| x 1.2) per grip (README step 12) and what each repo
+  still needs are in `docs/MIB-INPUT-DEVICES.md`. The CAD still models the Qwiic Scale boards.
 - Open (Alex): verify the Qwiic Scale's hole pattern (0.8 x 1.2 in, Ø3.3, from SparkFun's Eagle files) on a board
   before printing the trays (the pads are drill-to-fit, so up to 1.5 mm off is fine), and that the Waveshare ESP32-P4
   board has male header pins for the Qwiic-to-female-socket cables (else Qwiic-to-male-pin cables).
