@@ -27,8 +27,10 @@ Status, 2026-11-02:
 
 - **Board:** Waveshare ESP32-P4-WIFI6-POE-ETH. The bench board is P4 silicon v3.2, and the
   build targets v3.x.
-- **Sensors:** two SparkFun HX711 load-cell amps. Left: CLK GPIO 21, DAT GPIO 20. Right:
-  CLK GPIO 5, DAT GPIO 4.
+- **Sensors:** two SparkFun HX711 load-cell amps. Left: CLK GPIO 5, DAT GPIO 4. Right:
+  CLK GPIO 21, DAT GPIO 20. On the chair both cells read negative on a push, so the
+  board's saved params set `invert_left` and `invert_right` to 1 (the Kconfig defaults stay
+  0).
 - **Ethernet:** RMII PHY on the board, PoE capable. The default build is a **DHCP client**:
   on the chair it takes its lease from the MIB, on the chair's switch.
 - **Bench build** (`sdkconfig.bench`, built into `build-bench/`): the board is the DHCP
@@ -119,7 +121,7 @@ INFO JSON (the `PUSH?` reply is the same object):
  "built":"Nov  2 2026 12:00:00","partition":"ota_0","pending_verify":false,
  "ip":"192.168.4.1","left":true,"right":true,"counts_per_N":10949.12,
  "full_scale_kg":20,"rated_uV_per_V":1000,"sps":10,
- "pins":{"left_dat":20,"left_clk":21,"right_dat":4,"right_clk":5},
+ "pins":{"left_dat":4,"left_clk":5,"right_dat":20,"right_clk":21},
  "invert":{"left":false,"right":false},"zero_tracking":true}
 ```
 

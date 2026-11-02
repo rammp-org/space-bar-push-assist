@@ -1,24 +1,24 @@
 menu "Push assist"
 
     config PA_LEFT_DOUT_GPIO
-        int "Left HX711 (amp 1) DAT (DOUT) GPIO"
-        range 0 54
-        default 20
-
-    config PA_LEFT_SCK_GPIO
-        int "Left HX711 (amp 1) CLK (PD_SCK) GPIO"
-        range 0 54
-        default 21
-
-    config PA_RIGHT_DOUT_GPIO
-        int "Right HX711 (amp 2) DAT (DOUT) GPIO"
+        int "Left HX711 DAT (DOUT) GPIO"
         range 0 54
         default 4
 
-    config PA_RIGHT_SCK_GPIO
-        int "Right HX711 (amp 2) CLK (PD_SCK) GPIO"
+    config PA_LEFT_SCK_GPIO
+        int "Left HX711 CLK (PD_SCK) GPIO"
         range 0 54
         default 5
+
+    config PA_RIGHT_DOUT_GPIO
+        int "Right HX711 DAT (DOUT) GPIO"
+        range 0 54
+        default 20
+
+    config PA_RIGHT_SCK_GPIO
+        int "Right HX711 CLK (PD_SCK) GPIO"
+        range 0 54
+        default 21
 
     config PA_LEFT_INVERT
         bool "Invert the left cell (push must read +)"

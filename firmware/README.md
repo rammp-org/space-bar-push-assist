@@ -58,10 +58,10 @@ console on the USB-C as CSV (`PA_CONSOLE_CSV`).
 SparkFun HX711 breakout to the 40-pin header (GPIOs set in `idf.py menuconfig` →
 *Push assist*):
 
-| HX711 pin | Amp 1 (left) | Amp 2 (right) |
+| HX711 pin | Left amp | Right amp |
 |---|---|---|
-| CLK | GPIO 21 | GPIO 5 |
-| DAT | GPIO 20 | GPIO 4 |
+| CLK | GPIO 5 | GPIO 21 |
+| DAT | GPIO 4 | GPIO 20 |
 | VCC, VDD | 3V3 | 3V3 |
 | GND | GND | GND |
 

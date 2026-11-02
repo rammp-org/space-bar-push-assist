@@ -89,7 +89,7 @@ class Session:
                 "ip": "127.0.0.1", "left": True,
                 "right": not self.args.no_right, "counts_per_N": COUNTS_PER_N, "full_scale_kg": 20,
                 "rated_uV_per_V": 1000, "sps": self.args.sps,
-                "pins": {"left_dat": 20, "left_clk": 21, "right_dat": 4, "right_clk": 5},
+                "pins": {"left_dat": 4, "left_clk": 5, "right_dat": 20, "right_clk": 21},
                 "invert": {"left": False, "right": False}, "zero_tracking": True}
 
     def forces(self, t):
