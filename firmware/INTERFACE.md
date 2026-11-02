@@ -6,13 +6,18 @@ control panel or the dashboard in this repo. The code behind it is `main/main.cp
 [`docs/MIB-INPUT-DEVICES.md`](../docs/MIB-INPUT-DEVICES.md).
 
 Status, 2026-11-02:
-- OTA, the params module, the extra GET_INFO fields and the RTPS `HandleForce` publisher
-  are built and compile.
-- On the host: the params table is unit-tested, the dashboard and `tools/check_service.py`
-  pass against `tools/mock_board.py`, and `tools/rtps_listen.py` receives `HandleForce`
-  from a Cyclone DDS publisher.
-- **Not yet run on the board.** The bench test (OTA and rollback, params through NVS,
-  `HandleForce` received by an independent DDS reader) is next.
+- Built, and tested on the board on the chair's network (P4 v3.2; the board took a
+  lease from the MIB at 192.168.4.6):
+  - **Params:** `tools/check_service.py --save` passed every check (GET_INFO fields,
+    GET_PARAMS, SET_PARAM clamping, the 0x8F errors, SAVE and DEFAULT). Values saved to NVS
+    came back after a reset.
+  - **RTPS:** `tools/rtps_listen.py` (Cyclone DDS, independent of espp) matched the board
+    and received 102 consecutive `HandleForce` samples, 0 missing, at about 10 Hz after a
+    few seconds of discovery.
+  - **OTA:** `tools/ota_eth.py` sent the 855 KiB image in 4.0 s.
+    - The board came back on the other slot, pending.
+    - Unconfirmed, it confirmed itself about 20 s after its lease.
+    - Reset before that, it rolled back to the previous image.
 - The OTA, params and GET_INFO spec was agreed with the MIB control-panel session
   (RAMMP-mib-fw, `tools/mib_panel/`). Alex: "It will need to be able to flash OTA just like
   everything else on the system, and it will need to coordinate settings for the MIB and
@@ -26,9 +31,13 @@ Status, 2026-11-02:
   CLK GPIO 5, DAT GPIO 4.
 - **Ethernet:** RMII PHY on the board, PoE capable. The default build is a **DHCP client**:
   on the chair it takes its lease from the MIB, on the chair's switch.
-- **Bench build** (`sdkconfig.bench`): the board is the DHCP server at **192.168.4.1/24**,
-  for a laptop plugged straight in. Never use it on the chair's network: it would fight
-  the MIB's DHCP.
+- **Bench build** (`sdkconfig.bench`, built into `build-bench/`): the board is the DHCP
+  server at **192.168.4.1/24**, for a laptop plugged straight in. **Never put it on the
+  chair's network.** The MIB is also a DHCP server at 192.168.4.1. On 2026-11-02 a board
+  still on the bench build was plugged into the chair: two devices answered at
+  192.168.4.1, and both handed out leases. Don't flash a `build-bench` image to a chair
+  board from the panel. After a mix-up, power-cycle the chair so every device re-leases
+  from the MIB.
 - **Console:** UART0 on the USB-C (CH343P, 115200). The first flash goes over this; after
   that, OTA works over ethernet.
 
