@@ -2,35 +2,42 @@
 
 ESP-IDF + [espp](https://github.com/esp-cpp/espp) app for the Waveshare
 ESP32-P4-WIFI6-POE-ETH. It reads one load cell per handle through two SparkFun HX711
-breakouts and serves the forces over ethernet to an HTML dashboard.
+breakouts. It publishes the forces to the MIB over RTPS (`rammp::HandleForce`), and serves a
+live HTML dashboard, runtime params and OTA updates over ethernet. Everything on the wire
+is in [`INTERFACE.md`](INTERFACE.md).
 
 | Path | What |
 |---|---|
-| `main/` | The app: `main.cpp`, `load_cell.hpp` (HX711 wrapper), `eth_link.hpp` (ethernet service) |
+| `main/` | The app: `main.cpp`, `load_cell.hpp` (HX711 wrapper), `zero_tracker.hpp`, `params.hpp` (runtime params), `eth_link.hpp` (ethernet service) |
 | `web/dashboard.html` | Live dashboard: handle forces, forward and turn, tare, CSV export, board settings |
 | `web/ax/` | alex-style assets (`tokens.css`, `ax-fx.js`, `ax-charts.js`), copied from alex-style-guide |
 | `tools/eth_bridge.py` | Serves the dashboard on http://localhost:8765/ and relays its WebSocket to the board |
 | `tools/mock_board.py` | A stand-in board speaking the same protocol, for dashboard work without hardware |
-| `INTERFACE.md` | The board's network interface: service stream, discovery, telemetry channels, params, OTA (built and agreed) |
+| `INTERFACE.md` | The board's network interface: RTPS, service stream, discovery, OTA, params, telemetry channels |
+| `tools/ota_eth.py` | Flash over ethernet (espp OTA): `flash`, `status`, `mark-valid`, `rollback` |
+| `tools/check_service.py` | Exercises GET_INFO and the params protocol against the board or the mock |
+| `tools/rtps_listen.py` | Subscribes to the board's `HandleForce` over RTPS (Cyclone DDS), as the MIB will |
+| `external/rammp-rtps` | Submodule: the shared RTPS messages (`HandleForce`). `git submodule update --init` before building |
 | `tools/log_forces.py` | Logs the telemetry to CSV for long runs (drift, creep), one summary line a minute |
 
-No RTPS yet. How the MIB should take these forces, the reference push-to-drive conversion
+How the MIB should take these forces, the reference push-to-drive conversion
 (`pushToTwist()` in `web/dashboard.html`) and what each repo still needs:
 [`docs/MIB-INPUT-DEVICES.md`](../docs/MIB-INPUT-DEVICES.md).
 
 ## How it works
 
-Same pattern as PACE RACER's ethernet dashboard. The board serves an espp
-`stream_frame` byte stream on **tcp :5555** and answers `PUSH?` on **udp :5556** with a
-JSON line. A browser can't open raw TCP, so `tools/eth_bridge.py` (Python standard
-library, nothing to install) serves the page and relays a WebSocket to the board. The page
-does all the protocol work.
+- **To the MIB:** `rammp::HandleForce` over RTPS on `rammp/push_assist/handle_force`, one
+  sample per conversion: the two handle forces in N, health flags and a sequence number.
+  The MIB turns them into drive commands.
+- **Service stream:** the same pattern as PACE RACER's ethernet tools. The board serves an
+  espp `stream_frame` byte stream on **tcp :5555** and answers `PUSH?` on **udp :5556**.
+  The stream carries OTA (module 0), telemetry (3), and push_assist (0x30: tare, info,
+  params).
+- **Dashboard:** a browser can't open raw TCP, so `tools/eth_bridge.py` (Python standard
+  library, nothing to install) serves the page and relays a WebSocket to the board. The page
+  does all the protocol work.
 
-| Module | What |
-|---|---|
-| 3 | `espp::Telemetry`: the channels below, streamed once the page sends SET_STREAM |
-| 0x30 | `push_assist`: `0x01` TARE → `0x81` `[left_ok u8][right_ok u8]`; `0x02` GET_INFO → `0x82` JSON (firmware, IP, scale, rate, pins, which amps answer) |
-| 0xFF | espp dispatcher discovery |
+Module, channel and param details are in [`INTERFACE.md`](INTERFACE.md).
 
 | Channel | Meaning |
 |---|---|
@@ -74,11 +81,17 @@ board, not the firmware: if your breakout has RATE high, set `PA_HX711_80SPS`.
 ## Build and flash
 
 ```sh
+git submodule update --init   # external/rammp-rtps: the RTPS messages
 . ~/esp/esp-idf/export.sh     # ESP-IDF 6.0
 cd firmware
 idf.py build
-idf.py -p <USB-C port> flash monitor   # CH343P USB-UART; auto reset/boot
+idf.py -p <USB-C port> flash monitor   # first flash: CH343P USB-UART; auto reset/boot
+python3 tools/ota_eth.py --ip <board> flash build/push_assist.bin   # after that, over ethernet
 ```
+
+`ota_eth.py flash` checks the running image, sends the new one, waits for the board to
+come back and marks it valid. A new image that nobody confirms confirms itself after a
+lease and 20 s of service; a reset before that rolls it back.
 
 Bench build (board is the DHCP server, see Network):
 

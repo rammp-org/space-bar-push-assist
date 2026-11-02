@@ -83,6 +83,10 @@ public:
     return true;
   }
 
+  /// Change the scale or the sign at run time (params). Same thread as update().
+  void set_counts_per_newton(float counts_per_newton) { counts_per_newton_ = counts_per_newton; }
+  void set_invert(bool invert) { sign_ = invert ? -1 : 1; }
+
   /// Last reading as the HX711 gave it (signed 24-bit).
   int32_t raw() const { return raw_; }
 

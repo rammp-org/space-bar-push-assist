@@ -17,11 +17,18 @@ CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
 CONFIG_ETH_ENABLED=y
 CONFIG_ETH_USE_ESP32_EMAC=y
 
+# Sockets: the service stream (listener + one client), the PUSH? responder, and
+# the RTPS participant's UDP ports (about 4, plus one per endpoint).
+CONFIG_LWIP_MAX_SOCKETS=16
+
 # The board has 32 MB flash; the 4 MB layout is plenty.
 CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 
-# OTA-ready partition layout plus a coredump partition; a panic's core dump is
+# OTA over ethernet (espp OtaService) into ota_0 / ota_1, with rollback: a new
+# image boots pending-verify and confirms itself after a lease and 20 s of
+# service (main.cpp), or a reset rolls it back. A panic's core dump is
 # reported on the next boot.
+CONFIG_BOOTLOADER_APP_ROLLBACK_ENABLE=y
 CONFIG_PARTITION_TABLE_CUSTOM=y
 CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
 CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
