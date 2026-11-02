@@ -42,8 +42,8 @@
   <section class="ax-tiles">
     <div class="ax-tile"><div class="ax-label">Left handle</div><div class="ax-value" id="v-left">—<small>N</small></div><div class="ax-sub" id="s-left">push +</div></div>
     <div class="ax-tile"><div class="ax-label">Right handle</div><div class="ax-value" id="v-right">—<small>N</small></div><div class="ax-sub" id="s-right">push +</div></div>
-    <div class="ax-tile"><div class="ax-label">Forward, left + right</div><div class="ax-value" id="v-sum">—<small>N</small></div><div class="ax-sub">push +</div></div>
-    <div class="ax-tile"><div class="ax-label">Turn, left − right</div><div class="ax-value" id="v-diff">—<small>N</small></div><div class="ax-sub">+ turns right (clockwise)</div></div>
+    <div class="ax-tile"><div class="ax-label">Forward, left + right</div><div class="ax-value" id="v-sum">—<small>N</small></div><div class="ax-sub" id="s-sum">push +</div></div>
+    <div class="ax-tile"><div class="ax-label">Turn, left − right</div><div class="ax-value" id="v-diff">—<small>N</small></div><div class="ax-sub" id="s-diff">+ turns right (clockwise)</div></div>
   </section>
 
   <section class="ax-grid two">
@@ -93,6 +93,20 @@ const TELEMETRY = 3, PUSH = 0x30;
 const T_GET_SCHEMA = 0x01, T_SET_STREAM = 0x02, T_SCHEMA = 0x81, T_SAMPLE = 0x82;
 const P_TARE = 0x01, P_GET_INFO = 0x02, P_TARED = 0x81, P_INFO = 0x82;
 const WINDOW_S = 20, REDRAW_MS = 100, MAX_ROWS = 200000;
+
+// ── Push to drive command: the reference for the MIB (docs/MIB-INPUT-DEVICES.md) ──
+// Handle forces (N, push +) in, DriveController::set_target(linear, angular) out:
+// both in [-1, 1], angular counter-clockwise + (REP 103). Keep in step with the doc.
+const PUSH_GAINS = { dead_band_n: 10, forward_full_n: 60, turn_full_n: 30, reverse_max: 0.3 };
+function pushToTwist(left_n, right_n, g = PUSH_GAINS) {
+  const band = f => Math.abs(f) <= g.dead_band_n ? 0 : f - Math.sign(f) * g.dead_band_n;
+  const l = band(left_n), r = band(right_n);
+  let linear = (l + r) / g.forward_full_n;
+  let angular = -(l - r) / g.turn_full_n;  // left harder = clockwise = negative in REP 103
+  linear = Math.max(linear, -g.reverse_max);
+  const scale = Math.max(1, Math.abs(linear), Math.abs(angular));  // keep the turn radius
+  return { linear: linear / scale, angular: angular / scale };
+}
 
 // ── espp stream_frame v2 ────────────────────────────────────────────────────
 // [magic u16 0x4F54][flags u8][module u8][type u8]{[corr u16] iff flags bit1}[len u32][payload][crc32 u32]
@@ -275,6 +289,11 @@ function draw(now) {
   const last = rows[rows.length - 1]; if (!last) return;
   tile('v-left', last.left_N, 's-left'); tile('v-right', last.right_N, 's-right');
   tile('v-sum', last.sum_N); tile('v-diff', last.diff_N);
+  if (Number.isFinite(last.left_N) && Number.isFinite(last.right_N)) {
+    const cmd = pushToTwist(last.left_N, last.right_N), sgn = v => (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(2);
+    $('s-sum').textContent = `MIB linear ${sgn(cmd.linear)} (push +)`;
+    $('s-diff').textContent = `MIB angular ${sgn(cmd.angular)} (CCW +)`;
+  }
   zeroLine('s-left', last.left_counts, last.left_zero_N, last.left_tracking);
   zeroLine('s-right', last.right_counts, last.right_zero_N, last.right_tracking);
   if (Number.isFinite(last.board_C)) $('m-temp').textContent = `board ${last.board_C.toFixed(1)} °C`;
