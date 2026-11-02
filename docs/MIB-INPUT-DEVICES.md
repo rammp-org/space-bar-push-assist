@@ -196,5 +196,5 @@ Notes for the MIB side:
 |---|---|
 | `rammp-rtps` | Review and merge PR #23 (`HandleForce`); later decide whether it goes ROS 2 facing |
 | `space-bar-push-assist` | Done: `firmware/` publishes `HandleForce`. Still to do: wire RATE high for 80 S/s |
-| `RAMMP-mib-fw` | PUSH_ASSIST in `SystemState`, entered and left by `DriveCommand.push_assist`; a `HandleForce` subscriber; `push_to_twist()` with host tests; the lapse, health and cap stops; a push-assist planner profile |
+| `RAMMP-mib-fw` | In draft PR #65 (`spacebar-support`): `push_to_twist()` with a host test, the gains and push-assist planner limits saved in NVS and tunable from the control panel (`MibSystem::push_assist_gains()`), and the panel's link to this board (data, params, OTA). Still to do: PUSH_ASSIST in `SystemState`, entered and left by `DriveCommand.push_assist`; a `HandleForce` subscriber feeding `push_to_twist()` into `set_target()`; the lapse, health and cap stops |
 | HMI joystick | The push-assist enter and exit (already described in `DriveCommand`), and a tare request if the MIB asks for one |

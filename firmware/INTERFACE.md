@@ -150,15 +150,26 @@ Each param is self-describing; the panel renders whatever the board lists:
   `PA_CONSOLE_CSV`.
 
 **MIB-side params** (the driving decisions, per `docs/MIB-INPUT-DEVICES.md`) live on the
-MIB, on its control module (0x40) with the same self-describing protocol:
+MIB, saved in its NVS. The panel sets them on the MIB's control module (0x40, requests
+0x0A–0x0D), with the same JSON shape as 0x30. In RAMMP-mib-fw draft PR #65 (branch
+`spacebar-support`):
+- `components/PushAssist/include/push_assist.hpp`: `Gains`, `kParams`, and
+  `push_to_twist()` (a port of `pushToTwist()`, with a host test).
+- `push_assist_settings.hpp`: the live gains. The PUSH_ASSIST code reads
+  `MibSystem::push_assist_gains()`.
 
-| Param | Unit | Start |
+| Key | Unit | Start |
 |---|---|---|
 | `dead_band_n` | N per handle | 10 |
 | `forward_full_n` | N | 60 |
 | `turn_full_n` | N | 30 |
 | `reverse_max` | 0..1 | 0.3 |
-| push-assist planner limits | | the LOW profile (0.35 m/s, 1 rad/s) |
+| `max_lin_mps`, `max_ang_rps` | m/s, rad/s | 0.35, 1.0 (the LOW profile) |
+| `lin_acc_mps2`, `ang_acc_rps2` | m/s², rad/s² | 0.5, 1.0 (the LOW profile) |
+
+The panel (`tools/mib_panel/`, with `push_link.js` as its client for this board) finds
+this board with `PUSH?`, shows its telemetry, info and params next to the MIB's, and
+flashes it after checking `project_name` is `push_assist`.
 
 ## Telemetry channels (module 3)
 
