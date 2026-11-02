@@ -1,0 +1,5 @@
+# Bench: laptop cable straight into the board. The board serves DHCP at
+# 192.168.4.1. Build with:
+#   idf.py -B build-bench -D SDKCONFIG=build-bench/sdkconfig \
+#          -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.bench" build
+CONFIG_PA_ETH_DHCP_SERVER=y

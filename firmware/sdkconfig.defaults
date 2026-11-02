@@ -1,0 +1,30 @@
+CONFIG_IDF_TARGET="esp32p4"
+
+# Silicon: IDF 6's default (v3.x). The bench board reads "revision v3.2"; an
+# older v1.x board needs CONFIG_ESP32P4_SELECTS_REV_LESS_V3 (as RAMMP-mib-fw).
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_360=y
+
+# 1 ms ticks: the HX711 driver polls DOUT with vTaskDelay(1).
+CONFIG_FREERTOS_HZ=1000
+
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# Console on UART0, which this board wires to its USB-C (CH343P USB-UART).
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+
+# Ethernet: the P4's EMAC + the IP101GRI RMII PHY (espp esp32-p4-wifi6-poe-eth).
+CONFIG_ETH_ENABLED=y
+CONFIG_ETH_USE_ESP32_EMAC=y
+
+# The board has 32 MB flash; the 4 MB layout is plenty.
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+
+# OTA-ready partition layout plus a coredump partition; a panic's core dump is
+# reported on the next boot.
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_FILENAME="partitions.csv"
+CONFIG_PARTITION_TABLE_OFFSET=0x8000
+CONFIG_PARTITION_TABLE_MD5=y
+CONFIG_ESP_COREDUMP_ENABLE_TO_FLASH=y

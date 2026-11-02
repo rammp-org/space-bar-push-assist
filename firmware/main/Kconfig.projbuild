@@ -1,0 +1,102 @@
+menu "Push assist"
+
+    config PA_LEFT_DOUT_GPIO
+        int "Left HX711 (amp 1) DAT (DOUT) GPIO"
+        range 0 54
+        default 20
+
+    config PA_LEFT_SCK_GPIO
+        int "Left HX711 (amp 1) CLK (PD_SCK) GPIO"
+        range 0 54
+        default 21
+
+    config PA_RIGHT_DOUT_GPIO
+        int "Right HX711 (amp 2) DAT (DOUT) GPIO"
+        range 0 54
+        default 4
+
+    config PA_RIGHT_SCK_GPIO
+        int "Right HX711 (amp 2) CLK (PD_SCK) GPIO"
+        range 0 54
+        default 5
+
+    config PA_LEFT_INVERT
+        bool "Invert the left cell (push must read +)"
+        default n
+
+    config PA_RIGHT_INVERT
+        bool "Invert the right cell (push must read +)"
+        default n
+
+    config PA_CELL_FULL_SCALE_KG
+        int "Load cell full scale (kg)"
+        range 1 500
+        default 20
+
+    config PA_CELL_RATED_UV_PER_V
+        int "Load cell rated output (uV/V, 1000 = 1.0 mV/V)"
+        range 100 5000
+        default 1000
+        help
+            From the cell's label or calibration sheet. With the HX711 at gain
+            128 the scale is ratiometric: counts per newton follow from this
+            and the full scale alone. A known-mass check calibrates it later.
+
+    config PA_HX711_80SPS
+        bool "HX711 RATE pin is high (80 samples/s)"
+        default n
+        help
+            The HX711 converts at 10 samples/s with RATE low and 80 with RATE
+            high; it is a hardware pin, so tell the firmware which.
+
+    config PA_TARE_SAMPLES
+        int "Readings averaged for the boot tare"
+        range 1 255
+        default 16
+
+    config PA_ZERO_TRACKING
+        bool "Auto-zero tracking (follow slow zero drift)"
+        default y
+        help
+            While a handle reads near zero and holds still, walk its zero
+            toward the reading at a capped rate. Follows the slow drift as the
+            clamp load on the cell relaxes; a push, or a hand with its normal
+            tremor, is left alone. See main/zero_tracker.hpp.
+
+    config PA_ZT_BAND_MN
+        int "Zero tracking: band, mN (track only below this)"
+        depends on PA_ZERO_TRACKING
+        default 2000
+
+    config PA_ZT_STILL_STD_MN
+        int "Zero tracking: still if the 2 s std is below this, mN"
+        depends on PA_ZERO_TRACKING
+        default 50
+
+    config PA_ZT_RATE_UN_PER_S
+        int "Zero tracking: max zero rate, uN/s"
+        depends on PA_ZERO_TRACKING
+        default 5000
+
+    config PA_ZT_MAX_N
+        int "Zero tracking: max total correction since tare, N"
+        depends on PA_ZERO_TRACKING
+        default 10
+
+    config PA_ETH_DHCP_SERVER
+        bool "Ethernet: board is the DHCP server (bench, laptop plugged straight in)"
+        default n
+        help
+            Off (default): the board takes a DHCP lease, as on the chair where
+            the MIB is the server. On: the board serves 192.168.4.1/24 and
+            leases the laptop an address, so a laptop plugged straight into
+            the board needs nothing else. Never on the chair's network.
+
+    config PA_CONSOLE_CSV
+        bool "Also print CSV rows on the UART0 console"
+        default y
+        help
+            One row per sample on the USB-C console, for idf.py monitor or a
+            Web Serial plotter.
+
+endmenu
