@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Push assist · load cells</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Condensed:wght@500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ax/tokens.css">
+<script src="ax/ax-charts.js"></script>
+<script src="ax/ax-fx.js"></script>
+<style>
+  body { margin: 0; }
+  .two { grid-template-columns: 1fr 1fr; }
+  .side { grid-template-columns: 1.6fr 1fr; align-items: start; }
+  .controls { display: flex; gap: 8px; align-items: center; }
+  .controls .ax-input { width: 150px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .note { color: var(--ax-muted); font-size: 12px; margin-top: 10px; }
+  td.num, th.num { text-align: right; }
+  #log { max-height: 220px; overflow: auto; display: block; }
+  @media (max-width: 900px) { .two, .side { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body class="ax">
+<main class="ax-page">
+  <header class="ax-mast">
+    <div>
+      <h1>Push assist</h1>
+      <div class="ax-meta">
+        <span id="m-ip">no board</span><span id="m-fw">fw —</span><span id="m-rate">— S/s</span><span id="m-temp">— °C</span>
+        <span class="ax-status" id="m-status">Disconnected</span>
+      </div>
+    </div>
+    <div class="controls">
+      <input class="ax-input" id="ip" placeholder="board IP" spellcheck="false" aria-label="Board IP">
+      <button class="ax-btn" id="find">Find boards</button>
+      <button class="ax-btn primary" id="connect" data-fx="ripple">Connect</button>
+    </div>
+  </header>
+
+  <section class="ax-tiles">
+    <div class="ax-tile"><div class="ax-label">Left handle</div><div class="ax-value" id="v-left">—<small>N</small></div><div class="ax-sub" id="s-left">push +</div></div>
+    <div class="ax-tile"><div class="ax-label">Right handle</div><div class="ax-value" id="v-right">—<small>N</small></div><div class="ax-sub" id="s-right">push +</div></div>
+    <div class="ax-tile"><div class="ax-label">Forward, left + right</div><div class="ax-value" id="v-sum">—<small>N</small></div><div class="ax-sub">push +</div></div>
+    <div class="ax-tile"><div class="ax-label">Turn, left − right</div><div class="ax-value" id="v-diff">—<small>N</small></div><div class="ax-sub">+ turns right (clockwise)</div></div>
+  </section>
+
+  <section class="ax-grid two">
+    <div class="ax-panel" id="p-handles">
+      <h2>Handle force</h2>
+      <div class="ax-cap" id="cap-handles">Each handle over the last 20 s</div>
+      <div class="ax-legend" id="lg-handles"></div>
+      <svg id="c-handles" viewBox="0 0 520 240"><text x="260" y="124" text-anchor="middle" style="fill:var(--ax-muted);font:13px var(--ax-font)">Not connected.</text></svg>
+    </div>
+    <div class="ax-panel" id="p-net">
+      <h2>Forward and turn</h2>
+      <div class="ax-cap">Sum and difference of the two handles over the last 20 s</div>
+      <div class="ax-legend" id="lg-net"></div>
+      <svg id="c-net" viewBox="0 0 520 240"><text x="260" y="124" text-anchor="middle" style="fill:var(--ax-muted);font:13px var(--ax-font)">Not connected.</text></svg>
+    </div>
+  </section>
+
+  <section class="ax-grid side">
+    <div class="ax-panel">
+      <h2>Event log</h2>
+      <div class="ax-cap">Most recent first</div>
+      <table id="log">
+        <thead><tr><th>Time</th><th>Event</th><th>Status</th></tr></thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </div>
+    <div class="ax-panel">
+      <h2>Board</h2>
+      <div class="ax-cap">Settings reported by the firmware</div>
+      <div class="actions">
+        <button class="ax-btn" id="tare" disabled>Tare</button>
+        <button class="ax-btn" id="pause" disabled>Pause plot</button>
+        <button class="ax-btn" id="export" disabled>Export CSV</button>
+      </div>
+      <div class="note">Tare with both handles unloaded. Export saves every sample since Connect.</div>
+      <table>
+        <tbody id="info-body"><tr><td class="ax-muted">Not connected. Find a board or type its IP, then Connect.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+'use strict';
+// ── Protocol constants (firmware/main/main.cpp) ─────────────────────────────
+const TELEMETRY = 3, PUSH = 0x30;
+const T_GET_SCHEMA = 0x01, T_SET_STREAM = 0x02, T_SCHEMA = 0x81, T_SAMPLE = 0x82;
+const P_TARE = 0x01, P_GET_INFO = 0x02, P_TARED = 0x81, P_INFO = 0x82;
+const WINDOW_S = 20, REDRAW_MS = 100, MAX_ROWS = 200000;
+
+// ── espp stream_frame v2 ────────────────────────────────────────────────────
+// [magic u16 0x4F54][flags u8][module u8][type u8]{[corr u16] iff flags bit1}[len u32][payload][crc32 u32]
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = CRC_TABLE[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+
+function buildFrame(module, type, payload = new Uint8Array(0)) {
+  const out = new Uint8Array(9 + payload.length + 4), dv = new DataView(out.buffer);
+  dv.setUint16(0, 0x4F54, true); out[2] = 0x10; out[3] = module; out[4] = type;  // flags: version 1, request
+  dv.setUint32(5, payload.length, true); out.set(payload, 9);
+  dv.setUint32(9 + payload.length, crc32(out.subarray(0, 9 + payload.length)), true);
+  return out;
+}
+
+class FrameParser {
+  constructor(onFrame) { this.buf = new Uint8Array(0); this.onFrame = onFrame; }
+  push(chunk) {
+    const b = new Uint8Array(this.buf.length + chunk.length); b.set(this.buf); b.set(chunk, this.buf.length); this.buf = b;
+    let i = 0;
+    while (this.buf.length - i >= 13) {
+      if (this.buf[i] !== 0x54 || this.buf[i + 1] !== 0x4F) { i++; continue; }
+      const flags = this.buf[i + 2], hdr = (flags & 2) ? 11 : 9;
+      const dv = new DataView(this.buf.buffer, this.buf.byteOffset + i);
+      const len = dv.getUint32(hdr - 4, true);
+      if (len > 4096) { i++; continue; }
+      if (this.buf.length - i < hdr + len + 4) break;
+      const want = dv.getUint32(hdr + len, true);
+      if (crc32(this.buf.subarray(i, i + hdr + len)) !== want) { i++; continue; }
+      this.onFrame({ flags, module: this.buf[i + 3], type: this.buf[i + 4], payload: this.buf.slice(i + hdr, i + hdr + len) });
+      i += hdr + len + 4;
+    }
+    this.buf = this.buf.slice(i);
+  }
+}
+
+// ── State ───────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+let ws = null, parser = null, channels = [], sps = 10, info = null, paused = false;
+let rows = [], tWrap = 0, tLast = null, lastDraw = 0, drawQueued = false;
+const visible = { left_N: [], right_N: [], sum_N: [], diff_N: [] };
+
+function log(msg, status = '', word = '') {
+  const t = new Date(), ts = t.toTimeString().slice(0, 8) + '.' + String(t.getMilliseconds()).padStart(3, '0');
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="time">${ts}</td><td></td><td>${word ? `<span class="ax-status ${status}">${word}</span>` : ''}</td>`;
+  tr.children[1].textContent = msg;
+  $('log-body').prepend(tr);
+  while ($('log-body').children.length > 200) $('log-body').lastChild.remove();
+}
+
+function setStatus(word, cls) { const s = $('m-status'); s.className = 'ax-status ' + cls; s.textContent = word; }
+
+function send(module, type, payload) { if (ws && ws.readyState === 1) ws.send(buildFrame(module, type, payload)); }
+
+// ── Find / connect ──────────────────────────────────────────────────────────
+async function find() {
+  if (location.protocol === 'file:') { log('Open this page through tools/eth_bridge.py, not as a file', 'critical', 'Error'); return; }
+  const b = $('find'); axBusy(b, true, 'Finding');
+  try {
+    const boards = await (await fetch('/discover', { cache: 'no-store' })).json();
+    if (!boards.length) log('No board answered PUSH? on udp :5556. Check the cable, DHCP and the firewall.', 'warning', 'None');
+    boards.forEach(x => log(`Found ${x.product || 'board'} at ${x.ip} (fw ${x.firmware || '?'})`, 'good', 'Found'));
+    // Fill the IP only when nothing is connected or typed, so a late answer never overwrites it.
+    if (boards.length && !ws && !$('ip').value.trim()) { $('ip').value = boards[0].ip; localStorage.setItem('pa-ip', boards[0].ip); }
+  } catch (e) { log('Discovery failed: ' + e.message, 'critical', 'Error'); }
+  axBusy(b, false);
+}
+
+function connect() {
+  if (ws) { ws.close(); return; }
+  const ip = $('ip').value.trim();
+  if (!/^\d+\.\d+\.\d+\.\d+$/.test(ip)) { log('Type the board IP or press Find boards first', 'warning', 'Missing'); return; }
+  localStorage.setItem('pa-ip', ip);
+  const b = $('connect'); axBusy(b, true, 'Connecting');
+  ws = new WebSocket(`ws://${location.host}/ws?target=${ip}`);
+  ws.binaryType = 'arraybuffer';
+  parser = new FrameParser(onFrame);
+  rows = []; tWrap = 0; tLast = null; Object.values(visible).forEach(a => a.length = 0);
+  ws.onopen = () => {
+    axBusy(b, false); b.textContent = 'Disconnect'; b.classList.remove('primary');
+    setStatus('Connected', 'good'); $('m-ip').textContent = ip; log(`Connected to ${ip}`, 'good', 'OK');
+    ['tare', 'pause', 'export'].forEach(id => $(id).disabled = false);
+    send(PUSH, P_GET_INFO);
+    send(TELEMETRY, T_GET_SCHEMA);
+    send(TELEMETRY, T_SET_STREAM, new Uint8Array([1, 100, 0]));
+  };
+  ws.onmessage = ev => parser.push(new Uint8Array(ev.data));
+  ws.onclose = ev => {
+    axBusy(b, false); b.textContent = 'Connect'; b.classList.add('primary');
+    ['tare', 'pause'].forEach(id => $(id).disabled = true);
+    $('export').disabled = rows.length === 0;
+    setStatus('Disconnected', '');
+    log(ev.code === 1006 ? `Could not reach ${ip}:5555 through the bridge` : 'Disconnected', ev.code === 1006 ? 'critical' : '', ev.code === 1006 ? 'Error' : 'Closed');
+    ws = null;
+  };
+}
+
+// ── Frames ──────────────────────────────────────────────────────────────────
+function onFrame(f) {
+  const dv = new DataView(f.payload.buffer, f.payload.byteOffset, f.payload.byteLength);
+  if (f.module === TELEMETRY && f.type === T_SCHEMA) {
+    const n = f.payload[2]; let o = 3; channels = [];
+    for (let k = 0; k < n; k++) { const len = f.payload[o + 1]; channels.push(new TextDecoder().decode(f.payload.subarray(o + 2, o + 2 + len))); o += 2 + len; }
+    log('Channels: ' + channels.join(', '), 'good', 'Schema');
+  } else if (f.module === TELEMETRY && f.type === T_SAMPLE && channels.length) {
+    const rec = 4 + 4 * channels.length;
+    for (let o = 0; o + rec <= f.payload.length; o += rec) {
+      const us = dv.getUint32(o, true);
+      if (tLast !== null && us < tLast) tWrap += 4294967296;
+      tLast = us;
+      const row = { t: (us + tWrap) / 1e6 };
+      channels.forEach((c, k) => row[c] = dv.getFloat32(o + 4 + 4 * k, true));
+      onSample(row);
+    }
+  } else if (f.module === PUSH && f.type === P_INFO) {
+    info = JSON.parse(new TextDecoder().decode(f.payload)); showInfo();
+  } else if (f.module === PUSH && f.type === P_TARED) {
+    axBusy($('tare'), false);
+    log(`Tared: left ${f.payload[0] ? 'OK' : 'no amp'}, right ${f.payload[1] ? 'OK' : 'no amp'}`, 'good', 'Tared');
+  }
+}
+
+function onSample(row) {
+  if (rows.length < MAX_ROWS) rows.push(row);
+  if (ws && $('m-status').textContent !== 'Live') setStatus('Live', 'live');
+  const keep = WINDOW_S * sps;
+  for (const c in visible) { visible[c].push(row[c]); if (visible[c].length > keep) visible[c].shift(); }
+  if (!drawQueued) { drawQueued = true; requestAnimationFrame(draw); }
+}
+
+// ── Drawing ─────────────────────────────────────────────────────────────────
+function niceTicks(vals) {
+  let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+  if (hi - lo < 10) { const m = (hi + lo) / 2; lo = Math.min(0, m - 5); hi = Math.max(0, m + 5); }
+  const raw = (hi - lo) / 4, p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 5, 10].map(k => k * p).find(s => s >= raw);
+  const ticks = []; for (let v = Math.floor(lo / step) * step; v <= hi + step * 0.999; v += step) ticks.push(+v.toFixed(6));
+  return ticks;
+}
+
+function legend(el, names) { el.innerHTML = ''; names.forEach(([name, k]) => { const e = document.createElement('span'); e.style.setProperty('--c', `var(--ax-s${k})`); e.textContent = name; el.appendChild(e); }); }
+
+function empty(svg, msg) {
+  svg.setAttribute('viewBox', '0 0 520 240');
+  svg.innerHTML = `<text x="260" y="124" text-anchor="middle" style="fill:var(--ax-muted);font:13px var(--ax-font)">${msg}</text>`;
+}
+
+function chart(svg, lg, defs, missing) {
+  const series = defs.filter(([key]) => visible[key].length && Number.isFinite(visible[key][visible[key].length - 1]))
+    .map(([key, name, k]) => ({ name, color: `var(--ax-s${k})`, values: visible[key].map(v => Number.isFinite(v) ? v : 0) }));
+  legend(lg, defs.map(([, name, k]) => [name, k]));
+  if (!series.length || series[0].values.length < 2) { empty(svg, rows.length > 1 ? missing : 'Waiting for samples.'); return; }
+  const n = series[0].values.length;
+  axLine(svg, { series, yTicks: niceTicks(series.flatMap(s => s.values)), unit: 'N', width: 520, height: 240,
+    x: i => i === n - 1 ? 'now' : `-${((n - 1 - i) / sps).toFixed(1)}`, xTicks: [0, Math.round((n - 1) / 2), n - 1],
+    xLabel: 'Time before now, s', yLabel: 'Force, N' });
+}
+
+function tile(id, v, subId) {
+  const el = $(id);
+  if (!Number.isFinite(v)) { el.firstChild.nodeType === 3 ? el.firstChild.textContent = '—' : el.prepend('—'); if (subId) $(subId).innerHTML = '<span class="ax-status critical">No amp</span>'; return; }
+  axSet(el, v, { digits: 1, ms: 120 });
+}
+
+// Tile sub-line: counts, the zero tracker's correction and what it is doing.
+// tracking: 0 idle, 1 moving the zero, 2 at its cap (tare to reset).
+function zeroLine(id, counts, zero, tracking) {
+  if (!Number.isFinite(counts)) return;
+  if (!Number.isFinite(zero)) { $(id).textContent = `push + · ${counts.toFixed(0)} counts`; return; }
+  const st = tracking === 2 ? '<span class="ax-status warning">Zero at limit, tare</span>'
+    : tracking === 1 ? '<span class="ax-status live">Tracking zero</span>' : '';
+  const z = Math.abs(zero) < 0.005 ? 0 : zero;
+  $(id).innerHTML = `zero ${z >= 0 ? '+' : '−'}${Math.abs(z).toFixed(2)} N · ${counts.toFixed(0)} counts ${st}`;
+}
+
+function draw(now) {
+  drawQueued = false;
+  if (now - lastDraw < REDRAW_MS) { drawQueued = true; requestAnimationFrame(draw); return; }
+  lastDraw = now;
+  const last = rows[rows.length - 1]; if (!last) return;
+  tile('v-left', last.left_N, 's-left'); tile('v-right', last.right_N, 's-right');
+  tile('v-sum', last.sum_N); tile('v-diff', last.diff_N);
+  zeroLine('s-left', last.left_counts, last.left_zero_N, last.left_tracking);
+  zeroLine('s-right', last.right_counts, last.right_zero_N, last.right_tracking);
+  if (Number.isFinite(last.board_C)) $('m-temp').textContent = `board ${last.board_C.toFixed(1)} °C`;
+  if (paused) return;
+  chart($('c-handles'), $('lg-handles'), [['left_N', 'Left', 1], ['right_N', 'Right', 2]], 'No amp answered at boot.');
+  chart($('c-net'), $('lg-net'), [['sum_N', 'Forward', 3], ['diff_N', 'Turn', 4]], 'Needs both amps. One did not answer at boot.');
+}
+
+function showInfo() {
+  sps = info.sps || 10;
+  $('m-fw').textContent = 'fw ' + info.firmware; $('m-rate').textContent = sps + ' S/s';
+  const amp = ok => `<span class="ax-status ${ok ? 'good' : 'critical'}">${ok ? 'OK' : 'No amp'}</span>`;
+  const r = [
+    ['Board IP', info.ip], ['Firmware', info.firmware],
+    ['Left amp', amp(info.left)], ['Right amp', amp(info.right)],
+    ['Scale', `${info.counts_per_N.toFixed(1)} counts/N`], ['Cell full scale', `${info.full_scale_kg} kg`],
+    ['Rated output', `${(info.rated_uV_per_V / 1000).toFixed(3)} mV/V`], ['Sample rate', `${info.sps} S/s`],
+    ['Left DAT / CLK', `GPIO ${info.pins.left_dat} / ${info.pins.left_clk}`], ['Right DAT / CLK', `GPIO ${info.pins.right_dat} / ${info.pins.right_clk}`],
+    ['Inverted', [info.invert.left && 'left', info.invert.right && 'right'].filter(Boolean).join(', ') || 'none'],
+    ['Zero tracking', info.zero_tracking === undefined ? '—' : info.zero_tracking ? 'on' : 'off'],
+  ];
+  $('info-body').innerHTML = r.map(([k, v]) => `<tr><td class="ax-muted">${k}</td><td class="num">${v}</td></tr>`).join('');
+}
+
+// ── Actions ─────────────────────────────────────────────────────────────────
+$('find').onclick = find;
+$('connect').onclick = connect;
+$('ip').onkeydown = e => { if (e.key === 'Enter') connect(); };
+$('tare').onclick = () => { axBusy($('tare'), true, 'Taring'); send(PUSH, P_TARE); log('Tare requested', '', 'Sent'); };
+$('pause').onclick = () => { paused = !paused; $('pause').textContent = paused ? 'Resume plot' : 'Pause plot'; };
+$('export').onclick = () => {
+  if (!rows.length) return;
+  const cols = ['t', ...channels];
+  const csv = ['time_s,' + channels.join(',')].concat(rows.map(r => cols.map(c => r[c]).join(','))).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = `push_assist_${new Date().toISOString().replace(/[:.]/g, '-')}.csv`; a.click();
+  log(`Exported ${rows.length} samples`, 'good', 'Saved');
+};
+
+$('ip').value = localStorage.getItem('pa-ip') || '';
+if (location.protocol === 'file:') log('Opened as a file: run python3 tools/eth_bridge.py and open http://localhost:8765/', 'warning', 'Bridge');
+else if (!$('ip').value) find();
+log('Ready. Find boards or type the board IP, then Connect.');
+</script>
+</body>
+</html>
