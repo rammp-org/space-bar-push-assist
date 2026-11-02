@@ -11,6 +11,7 @@ breakouts and serves the forces over ethernet to an HTML dashboard.
 | `web/ax/` | alex-style assets (`tokens.css`, `ax-fx.js`, `ax-charts.js`), copied from alex-style-guide |
 | `tools/eth_bridge.py` | Serves the dashboard on http://localhost:8765/ and relays its WebSocket to the board |
 | `tools/mock_board.py` | A stand-in board speaking the same protocol, for dashboard work without hardware |
+| `INTERFACE.md` | The board's network interface: service stream, discovery, telemetry channels, params, OTA (built and agreed) |
 | `tools/log_forces.py` | Logs the telemetry to CSV for long runs (drift, creep), one summary line a minute |
 
 No RTPS yet. How the MIB should take these forces, the reference push-to-drive conversion
