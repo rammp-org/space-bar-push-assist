@@ -46,6 +46,8 @@ public:
     std::function<void()> on_connect{nullptr};
     /// Called on the server task when the client goes away.
     std::function<void()> on_disconnect{nullptr};
+    /// Called when the receive queue overflows (the OTA service aborts its session).
+    std::function<void()> on_overflow{nullptr};
     espp::Logger::Verbosity log_level{espp::Logger::Verbosity::INFO};
   };
 
@@ -53,6 +55,10 @@ public:
       : cfg_(cfg)
       , logger_({.tag = "EthLink", .level = cfg.log_level})
       , worker_({.send = [this](std::span<const uint8_t> f) { send(f); },
+                 .on_overflow = [this]() {
+                   if (cfg_.on_overflow)
+                     cfg_.on_overflow();
+                 },
                  .task_config = {.name = "eth_rx", .stack_size_bytes = 8192}}) {}
 
   ~EthLink() { stop(); }

@@ -1,0 +1,4 @@
+[submodule "firmware/external/rammp-rtps"]
+	path = firmware/external/rammp-rtps
+	url = https://github.com/rammp-org/rammp-rtps.git
+	branch = push-assist-handle-force

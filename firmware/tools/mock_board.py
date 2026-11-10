@@ -24,6 +24,21 @@ CHANNELS = ["left_N", "right_N", "sum_N", "diff_N", "left_counts", "right_counts
 TELEMETRY, PUSH = 3, 0x30
 COUNTS_PER_N = 10949.1  # 20 kg cell at 1.0 mV/V, as the firmware's nominal scale
 
+# The firmware's params (main.cpp param_defs()), with the Kconfig defaults.
+PARAM_DEFS = [
+    dict(key="invert_left", label="Invert left cell", group="Cells", type="bool", default=0),
+    dict(key="invert_right", label="Invert right cell", group="Cells", type="bool", default=0),
+    dict(key="full_scale_kg", label="Cell full scale", unit="kg", group="Cells", default=20, min=1, max=500, step=1),
+    dict(key="rated_uv_per_v", label="Cell rated output", unit="uV/V", group="Cells", default=1000, min=100, max=5000, step=1),
+    dict(key="tare_samples", label="Tare readings", unit="readings", group="Cells", default=16, min=1, max=255, step=1),
+    dict(key="zero_tracking", label="Zero tracking", group="Zero tracking", type="bool", default=1),
+    dict(key="zt_band_n", label="Zero-track band", unit="N", group="Zero tracking", default=2.0, min=0, max=20, step=0.1),
+    dict(key="zt_still_std_n", label="Still below (2 s std)", unit="N", group="Zero tracking", default=0.05, min=0, max=1, step=0.005),
+    dict(key="zt_rate_n_per_s", label="Max zero rate", unit="N/s", group="Zero tracking", default=0.005, min=0, max=0.1, step=0.0005),
+    dict(key="zt_max_n", label="Max correction since tare", unit="N", group="Zero tracking", default=10, min=0, max=100, step=1),
+]
+SAVED = {}  # what SAVE_PARAMS committed ("NVS"), kept across connections
+
 
 def frame(module, ftype, payload=b"", reply=True):
     hdr = struct.pack("<HBBBI", 0x4F54, 0x10 | (1 if reply else 0), module, ftype, len(payload))
@@ -61,6 +76,7 @@ class Session:
         self.streaming = False
         self.lock = threading.Lock()
         self.offset = [0.0, 0.0]
+        self.values = {d["key"]: SAVED.get(d["key"], d["default"]) for d in PARAM_DEFS}
         self.raw = (0.0, 0.0)
 
     def send(self, data):
@@ -68,10 +84,12 @@ class Session:
             self.conn.sendall(data)
 
     def info(self):
-        return {"product": "push_assist", "firmware": "mock", "ip": "127.0.0.1", "left": True,
+        return {"product": "push_assist", "project": "push_assist", "firmware": "mock",
+                "built": "Nov  2 2026 12:00:00", "partition": "ota_0", "pending_verify": False,
+                "ip": "127.0.0.1", "left": True,
                 "right": not self.args.no_right, "counts_per_N": COUNTS_PER_N, "full_scale_kg": 20,
                 "rated_uV_per_V": 1000, "sps": self.args.sps,
-                "pins": {"left_dat": 20, "left_clk": 21, "right_dat": 4, "right_clk": 5},
+                "pins": {"left_dat": 4, "left_clk": 5, "right_dat": 20, "right_clk": 21},
                 "invert": {"left": False, "right": False}, "zero_tracking": True}
 
     def forces(self, t):
@@ -110,10 +128,42 @@ class Session:
             self.send(frame(TELEMETRY, 0x83, bytes([ftype])))
         elif module == PUSH and ftype == 0x02:
             self.send(frame(PUSH, 0x82, json.dumps(self.info()).encode()))
+        elif module == PUSH and ftype in (0x03, 0x06):  # GET_PARAMS, DEFAULT_PARAMS
+            if ftype == 0x06:
+                self.values = {d["key"]: d["default"] for d in PARAM_DEFS}
+            self.send(frame(PUSH, ftype | 0x80, json.dumps({"params": self.params()}).encode()))
+        elif module == PUSH and ftype == 0x04:  # SET_PARAM [key_len u8][key][value f32]
+            if not payload or len(payload) != 1 + payload[0] + 4:
+                return self.error(ftype, "SET_PARAM wants [key_len u8][key][value f32]")
+            key = payload[1:1 + payload[0]].decode()
+            (value,) = struct.unpack("<f", payload[1 + payload[0]:])
+            d = next((d for d in PARAM_DEFS if d["key"] == key), None)
+            if d is None:
+                return self.error(ftype, "unknown key: " + key)
+            if math.isnan(value) or math.isinf(value):
+                return self.error(ftype, "value is not a finite number")
+            self.values[key] = (1 if value else 0) if d.get("type") == "bool" else min(max(value, d["min"]), d["max"])
+            self.send(frame(PUSH, 0x84, json.dumps(self.param(d)).encode()))
+        elif module == PUSH and ftype == 0x05:  # SAVE_PARAMS
+            SAVED.update(self.values)
+            self.send(frame(PUSH, 0x85, bytes([1])))
         elif module == PUSH and ftype == 0x01:
             time.sleep(16 / self.args.sps)  # the firmware averages 16 readings
             self.offset = list(self.raw)
             self.send(frame(PUSH, 0x81, bytes([1, 0 if self.args.no_right else 1])))
+        elif module == PUSH:
+            self.error(ftype, "unknown request")
+
+    def param(self, d):
+        o = {k: v for k, v in d.items() if k != "type" or v == "bool"}
+        o["value"] = self.values[d["key"]]
+        return {k: o[k] for k in ("key", "label", "type", "unit", "value", "default", "min", "max", "step", "group") if k in o}
+
+    def params(self):
+        return [self.param(d) for d in PARAM_DEFS]
+
+    def error(self, request, message):
+        self.send(frame(PUSH, 0x8F, bytes([request]) + message.encode()))
 
     def run(self):
         threading.Thread(target=self.stream, daemon=True).start()
