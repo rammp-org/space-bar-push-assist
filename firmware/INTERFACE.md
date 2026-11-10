@@ -23,6 +23,30 @@ Status, 2026-11-02:
   everything else on the system, and it will need to coordinate settings for the MIB and
   maybe the space bar module itself."
 
+## Touch switch and tare
+
+Each handle can have a capacitive touch pad (a wire in the grip) on a P4 touch pin:
+left GPIO 3, right GPIO 2 (`PA_TOUCH_LEFT_GPIO`, `PA_TOUCH_RIGHT_GPIO`; 0 = none). With
+a pad and `touch_gate` on, the handle's force in `HandleForce`, telemetry and the CSV is:
+
+- **0 N while the handle is not touched**, so a handle that keeps a few newtons after a
+  push cannot drive the chair hands-off;
+- **on each touch, tared**: the zero is the mean force over the 1 s ending 0.2 s before
+  the touch, then the force is read against it until release.
+
+Touched means the pad reads more than its handle's `touch_*_on_pct` above its idle
+baseline, released less than `touch_*_off_pct`. Each handle has its own, because the pads
+differ with the wire in the grip: on 2026-11-10 left grips read 10 to 13.5 % (noise
+0.23 %) and right grips 3.5 to 8 % (noise 0.40 %), so the right never crossed a shared 8 %. The board keeps that baseline itself: it follows the pad while
+idle and holds while touched (`main/touch_gate.hpp`). A reading that rises with no force
+behind it for 30 s (a probe plugged in) becomes the new baseline, and TARE re-takes both
+pads' baselines. Without a pad a handle reads as before.
+
+Bench, 2026-11-10 (`logs/touch_handle_20261110_0047.csv`, right handle, 12 touches): idle
+noise 1.5 counts on a 6718 baseline, a grip 11 to 12 % above it, the touch 0.3 to 0.8 s
+ahead of the push. The handle kept +6 to +10 N after each release (+13.9 N at most);
+replayed through `TouchGate` it sent 0.00 N hands-off.
+
 ## Board and network
 
 - **Board:** Waveshare ESP32-P4-WIFI6-POE-ETH. The bench board is P4 silicon v3.2, and the
@@ -42,6 +66,19 @@ Status, 2026-11-02:
   from the MIB.
 - **Console:** UART0 on the USB-C (CH343P, 115200). The first flash goes over this; after
   that, OTA works over ethernet.
+
+## USB-C console commands
+
+Without Ethernet, `tools/usb_board.py` reaches the params over the USB-C console. One
+command per line; the board answers with one `PA <kind> <json>` line among the CSV rows:
+
+| Command | Answer |
+|---|---|
+| `pa params` | `PA params {"params":[...]}` |
+| `pa set <key> <value>` | `PA param {...}`, or `PA error {"message":...}` |
+| `pa save` | `PA saved 1` (or 0) |
+| `pa defaults` | `PA defaults {"params":[...]}` |
+| `pa tare` | `PA tared [left_ok,right_ok]`: the cells, zero tracking and the touch baselines |
 
 ## To the MIB: RTPS
 
@@ -122,10 +159,12 @@ INFO JSON (the `PUSH?` reply is the same object):
  "ip":"192.168.4.1","left":true,"right":true,"counts_per_N":10949.12,
  "full_scale_kg":20,"rated_uV_per_V":1000,"sps":10,
  "pins":{"left_dat":4,"left_clk":5,"right_dat":20,"right_clk":21},
- "invert":{"left":false,"right":false},"zero_tracking":true}
+ "invert":{"left":false,"right":false},"zero_tracking":true,
+ "touch":{"left_gpio":3,"right_gpio":2,"left":true,"right":true,"gate":true}}
 ```
 
-- `left` and `right` are false when that amp did not answer at boot.
+- `left` and `right` are false when that amp did not answer at boot; `touch.left` and
+  `touch.right` when that pad did not start.
 - `invert`, `zero_tracking` and the scale fields follow the current params.
 
 ### Params
@@ -153,6 +192,9 @@ Each param is self-describing; the panel renders whatever the board lists:
 | `zt_still_std_n` | N | 0.05 | 0..1 | Zero tracking |
 | `zt_rate_n_per_s` | N/s | 0.005 | 0..0.1 | Zero tracking |
 | `zt_max_n` | N | 10 | 0..100 | Zero tracking |
+| `touch_gate` | bool | 1 | | Touch |
+| `touch_l_on_pct`, `touch_l_off_pct` | % | 8, 4 | 0.5..50, 0.2..50 | Touch |
+| `touch_r_on_pct`, `touch_r_off_pct` | % | 3, 1.5 | 0.5..50, 0.2..50 | Touch |
 
 - **Takes effect:** a change applies on the next sample. The scale and invert change the
   reading at once; the zero-tracking settings keep the correction made so far. Tare
@@ -184,17 +226,22 @@ flashes it after checking `project_name` is `push_assist`.
 
 ## Telemetry channels (module 3)
 
-In SCHEMA order, all f32. Each SAMPLE record is `[timestamp_us u32][11 × f32]`.
+In SCHEMA order, all f32. Each SAMPLE record is `[timestamp_us u32][21 × f32]`.
 
 | Channel | Unit | Meaning |
 |---|---|---|
-| `left_N`, `right_N` | N | Handle force, push +, tared and zero-tracked. NaN if the amp is not answering |
+| `left_N`, `right_N` | N | Handle force as sent to the MIB, push +: tared, zero-tracked and, with a touch pad, the touch switch and tare applied. NaN if the amp is not answering |
 | `sum_N` | N | left + right: forward |
 | `diff_N` | N | left − right: + is a clockwise (right) turn from above |
 | `left_counts`, `right_counts` | counts | Tared HX711 counts (10949 counts/N nominal) |
 | `left_zero_N`, `right_zero_N` | N | Correction zero tracking has taken out since the last tare |
 | `left_tracking`, `right_tracking` | 0/1/2 | 0 idle, 1 moving the zero, 2 at its cap (tare needed) |
 | `board_C` | °C | P4 die temperature |
+| `left_ungated_N`, `right_ungated_N` | N | The force before the touch switch and tare |
+| `left_touch_pct`, `right_touch_pct` | % | The pad above its idle baseline. NaN with no pad |
+| `left_touched`, `right_touched` | 0/1 | The touch switch |
+| `left_tare_N`, `right_tare_N` | N | The zero of the current (or last) touch, in ungated N |
+| `left_touch_raw`, `right_touch_raw` | counts | The pad's smoothed reading |
 
 - **For tuning:** plot `left_N`, `right_N`, `sum_N` and `diff_N`.
 - **For drift:** plot `*_zero_N` against `board_C`.

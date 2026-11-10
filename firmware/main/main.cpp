@@ -34,6 +34,8 @@
 #include <thread>
 
 #include <driver/temperature_sensor.h>
+#include <driver/uart.h>
+#include <driver/uart_vfs.h>
 #include <esp_app_desc.h>
 #include <nvs.h>
 #include <nvs_flash.h>
@@ -55,6 +57,8 @@
 #include "eth_link.hpp"
 #include "load_cell.hpp"
 #include "params.hpp"
+#include "touch_gate.hpp"
+#include "touch_probe.hpp"
 #include "zero_tracker.hpp"
 
 // A Kconfig bool set to n is left undefined in sdkconfig.h.
@@ -158,6 +162,13 @@ std::vector<ParamTable::Def> param_defs() {
        0.0005f},
       {"zt_max_n", "Max correction since tare", "N", "Zero tracking", T::Float, 10, 0, 100, 1},
 #endif
+      {"touch_gate", "Touch switch and tare", "", "Touch", T::Bool, 1, 0, 1, 1},
+      // Per handle: the pads differ with how the wire sits in the grip (bench
+      // 2026-11-10: left grips 10-13 % above idle, right 3.5-8 %).
+      {"touch_l_on_pct", "Left touched above", "%", "Touch", T::Float, 8.0f, 0.5f, 50, 0.1f},
+      {"touch_l_off_pct", "Left released below", "%", "Touch", T::Float, 4.0f, 0.2f, 50, 0.1f},
+      {"touch_r_on_pct", "Right touched above", "%", "Touch", T::Float, 3.0f, 0.5f, 50, 0.1f},
+      {"touch_r_off_pct", "Right released below", "%", "Touch", T::Float, 1.5f, 0.2f, 50, 0.1f},
   };
 }
 
@@ -285,6 +296,29 @@ extern "C" void app_main(void) {
                    ec.message(), CONFIG_PA_RIGHT_DOUT_GPIO, CONFIG_PA_RIGHT_SCK_GPIO);
   }
 
+  // --- touch pads: each handle's switch and tare (touch_gate.hpp) ----------------
+  // With a pad, a handle reads 0 N untouched, and on each touch its zero becomes
+  // the force it read just before. Without one it reads as before.
+  TouchPads pads(espp::Logger::Verbosity::INFO);
+  std::array<bool, 2> pad_ok{};
+  {
+    std::error_code ec;
+    pad_ok = pads.start({CONFIG_PA_TOUCH_LEFT_GPIO, CONFIG_PA_TOUCH_RIGHT_GPIO}, ec);
+    for (int i = 0; i < 2; i++)
+      if ((i ? CONFIG_PA_TOUCH_RIGHT_GPIO : CONFIG_PA_TOUCH_LEFT_GPIO) != 0 && !pad_ok[i])
+        logger.error("{} touch pad did not start: that handle reads without the touch switch",
+                     i ? "Right" : "Left");
+  }
+  const bool touch_ok = pad_ok[0] || pad_ok[1];
+  auto gate_config = [&](bool right_side) {
+    return TouchGate::Config{.on_pct = params.get(right_side ? "touch_r_on_pct" : "touch_l_on_pct"),
+                             .off_pct = params.get(right_side ? "touch_r_off_pct" : "touch_l_off_pct"),
+                             .sample_rate_hz = kSamplesPerSecond,
+                             .gate = params.get_bool("touch_gate")};
+  };
+  TouchGate left_gate(gate_config(false));
+  TouchGate right_gate(gate_config(true));
+
   // --- ethernet ------------------------------------------------------------------
   // espp::Ethernet with the board's RMII pins and IP101GRI PHY, as the espp
   // esp32-p4-wifi6-poe-eth BSP sets them up. Not the BSP itself: its singleton
@@ -326,13 +360,16 @@ extern "C" void app_main(void) {
         R"("partition":"{}","pending_verify":{},"ip":"{}","left":{},"right":{},)"
         R"("counts_per_N":{:.2f},"full_scale_kg":{},"rated_uV_per_V":{},"sps":{},)"
         R"("pins":{{"left_dat":{},"left_clk":{},"right_dat":{},"right_clk":{}}},)"
-        R"("invert":{{"left":{},"right":{}}},"zero_tracking":{}}})",
+        R"("invert":{{"left":{},"right":{}}},"zero_tracking":{},)"
+        R"("touch":{{"left_gpio":{},"right_gpio":{},"left":{},"right":{},"gate":{}}}}})",
         app->project_name, firmware, app->date, app->time, ota.running_partition_label(),
         ota.is_pending_verify(), ip_string(ethernet.ip()), left_ok.load(), right_ok.load(),
         scale(), params.get("full_scale_kg"), params.get("rated_uv_per_v"), kSamplesPerSecond,
         CONFIG_PA_LEFT_DOUT_GPIO, CONFIG_PA_LEFT_SCK_GPIO, CONFIG_PA_RIGHT_DOUT_GPIO,
         CONFIG_PA_RIGHT_SCK_GPIO, params.get_bool("invert_left"),
-        params.get_bool("invert_right"), params.get_bool("zero_tracking"));
+        params.get_bool("invert_right"), params.get_bool("zero_tracking"),
+        CONFIG_PA_TOUCH_LEFT_GPIO, CONFIG_PA_TOUCH_RIGHT_GPIO, pad_ok[0], pad_ok[1],
+        params.get_bool("touch_gate"));
   };
 
   // --- zero tracking: follows the slow drift of each handle's zero ---------------
@@ -359,10 +396,17 @@ extern "C" void app_main(void) {
   // --- telemetry: one float per channel, in this order --------------------------
   // *_zero_N is the tracker's correction (already taken out of *_N);
   // *_tracking is 1 while it is moving the zero, 2 when it is at its cap.
+  // left_N / right_N are what the MIB gets: with a touch pad, tared on each
+  // touch and 0 untouched. *_ungated_N is the force before that, *_touch_pct the
+  // pad above its idle baseline, *_touched 0/1, *_tare_N the zero of the
+  // current (or last) touch, *_touch_raw the pad's reading in counts. NaN with
+  // no pad.
   espp::Telemetry telemetry({
       .channels = {"left_N", "right_N", "sum_N", "diff_N", "left_counts", "right_counts",
                    "left_zero_N", "right_zero_N", "left_tracking", "right_tracking",
-                   "board_C"},
+                   "board_C", "left_ungated_N", "right_ungated_N", "left_touch_pct",
+                   "right_touch_pct", "left_touched", "right_touched", "left_tare_N",
+                   "right_tare_N", "left_touch_raw", "right_touch_raw"},
       // Stream only once a host connects and asks (SET_STREAM).
       .stream_on_start = false,
       .period_ms = static_cast<uint16_t>(1000 / kSamplesPerSecond), // informational
@@ -387,6 +431,7 @@ extern "C" void app_main(void) {
   link.worker().register_module(telemetry);
 
   std::atomic<bool> tare_requested{false};
+  std::atomic<bool> console_tare{false}; // answer the tare on the console too
   auto reply = [&](PushAssistType type, std::span<const uint8_t> payload) {
     link.send(espp::stream_frame::build_frame(true, kPushAssistModule,
                                               static_cast<uint8_t>(type), payload));
@@ -395,6 +440,17 @@ extern "C" void app_main(void) {
     std::vector<uint8_t> p{request};
     p.insert(p.end(), message.begin(), message.end());
     reply(PushAssistType::Error, p);
+  };
+  // Shared by the ethernet module and the USB-C console commands.
+  auto set_param = [&](const std::string &key, float value, std::string &out) {
+    const auto i = params.set(key, value);
+    if (!i) {
+      out = params.find(key) ? std::string("value is not a finite number") : "unknown key: " + key;
+      return false;
+    }
+    logger.info("Param {} = {}", key, params.get(key));
+    out = params.json(*i);
+    return true;
   };
   link.worker().register_module(
       kPushAssistModule,
@@ -421,14 +477,11 @@ extern "C" void app_main(void) {
           const std::string key(reinterpret_cast<const char *>(p.data() + 1), p[0]);
           float value;
           std::memcpy(&value, p.data() + 1 + p[0], sizeof value);
-          const auto i = params.set(key, value);
-          if (!i) {
-            reply_error(f.type, params.find(key) ? std::string("value is not a finite number")
-                                                 : "unknown key: " + key);
-            break;
-          }
-          logger.info("Param {} = {}", key, params.get(key));
-          reply(PushAssistType::Param, bytes(params.json(*i)));
+          std::string out;
+          if (set_param(key, value, out))
+            reply(PushAssistType::Param, bytes(out));
+          else
+            reply_error(f.type, out);
           break;
         }
         case PushAssistType::SaveParams: {
@@ -468,6 +521,13 @@ extern "C" void app_main(void) {
   // --- sample loop: runs at the HX711's conversion rate --------------------------
   // Both HX711s free-run at the same rate, so reading one then the other picks
   // up conversions at most one period apart.
+  // CSV rows and console replies share stdout from two tasks: each goes out whole.
+  std::mutex stdout_mutex;
+  auto print_line = [&](const std::string &line) {
+    std::lock_guard<std::mutex> lk(stdout_mutex);
+    fwrite(line.data(), 1, line.size(), stdout);
+    fflush(stdout);
+  };
 #if CONFIG_PA_CONSOLE_CSV
   const auto t0 = std::chrono::steady_clock::now();
   size_t row = 0;
@@ -484,9 +544,11 @@ extern "C" void app_main(void) {
       right.set_invert(params.get_bool("invert_right"));
       left_zero.configure(zt_config());
       right_zero.configure(zt_config());
+      left_gate.configure(gate_config(false));
+      right_gate.configure(gate_config(true));
     }
     if (tare_requested.exchange(false)) {
-      logger.info("Tare requested over ethernet");
+      logger.info("Tare requested");
       const size_t tare_n = static_cast<size_t>(params.get("tare_samples"));
       if (left_ok)
         left_ok = left.tare(tare_n, ec);
@@ -496,14 +558,18 @@ extern "C" void app_main(void) {
       ec.clear();
       left_zero.reset();
       right_zero.reset();
+      left_gate.rebaseline(); // hands off now: the pads' idle readings too
+      right_gate.rebaseline();
       const std::array<uint8_t, 2> done = {left_ok.load(), right_ok.load()};
       reply(PushAssistType::Tared, done);
+      if (console_tare.exchange(false))
+        print_line(fmt::format("PA tared [{},{}]\n", done[0], done[1]));
     }
     const bool have_left = left_ok && left.update(ec);
     ec.clear();
     const bool have_right = right_ok && right.update(ec);
-    if (!have_left && !have_right)
-      std::this_thread::sleep_for(500ms); // nothing wired: don't spin, but keep publishing
+    if (!have_left && !have_right) // no amp: don't spin, but keep publishing (and the probe)
+      std::this_thread::sleep_for(touch_ok ? 50ms : 500ms);
     const bool tracking_on = params.get_bool("zero_tracking");
     auto track = [&](ZeroTracker &z, bool have, float n) {
       return !have ? kNan : tracking_on ? z.update(n) : n;
@@ -511,8 +577,12 @@ extern "C" void app_main(void) {
     auto state = [](const ZeroTracker &z, bool have) {
       return !have ? kNan : z.at_limit() ? 2.0f : z.tracking() ? 1.0f : 0.0f;
     };
-    const float l = track(left_zero, have_left, have_left ? left.newtons() : 0);
-    const float r = track(right_zero, have_right, have_right ? right.newtons() : 0);
+    const float l_ungated = track(left_zero, have_left, have_left ? left.newtons() : 0);
+    const float r_ungated = track(right_zero, have_right, have_right ? right.newtons() : 0);
+    const float l_raw = pad_ok[0] ? pads.read(0) : kNan;
+    const float r_raw = pad_ok[1] ? pads.read(1) : kNan;
+    const float l = left_gate.update(l_raw, l_ungated);
+    const float r = right_gate.update(r_raw, r_ungated);
 
     // RTPS first: it is what the chair drives on.
     {
@@ -532,13 +602,17 @@ extern "C" void app_main(void) {
         force_pub->publish(rammp::HandleForce{.left_n = l, .right_n = r, .flags = flags,
                                               .seq = force_seq++});
     }
-    if (!have_left && !have_right)
+    if (!have_left && !have_right && !touch_ok)
       return false;
 
     float board_c = kNan;
     if (tsens)
       temperature_sensor_get_celsius(tsens, &board_c);
-    const std::array<float, 11> values = {
+    auto touched = [](const TouchGate &g, float raw) {
+      return std::isfinite(raw) ? (g.touched() ? 1.0f : 0.0f) : kNan;
+    };
+    auto tare_of = [](const TouchGate &g, float raw) { return std::isfinite(raw) ? g.tare() : kNan; };
+    const std::array<float, 21> values = {
         l,
         r,
         l + r,
@@ -550,22 +624,99 @@ extern "C" void app_main(void) {
         state(left_zero, have_left),
         state(right_zero, have_right),
         board_c,
+        l_ungated,
+        r_ungated,
+        left_gate.percent(),
+        right_gate.percent(),
+        touched(left_gate, l_raw),
+        touched(right_gate, r_raw),
+        tare_of(left_gate, l_raw),
+        tare_of(right_gate, r_raw),
+        l_raw,
+        r_raw,
     };
     telemetry.emit(values); // no-op until a host turns streaming on
 #if CONFIG_PA_CONSOLE_CSV
     if (row++ % 100 == 0)
-      fmt::print("time_s,left_N,right_N,sum_N,diff_N,left_counts,right_counts,left_zero_N,"
-                 "right_zero_N,left_tracking,right_tracking,board_C\n");
+      print_line("time_s,left_N,right_N,sum_N,diff_N,left_counts,right_counts,left_zero_N,"
+                 "right_zero_N,left_tracking,right_tracking,board_C,left_ungated_N,"
+                 "right_ungated_N,left_touch_pct,right_touch_pct,left_touched,right_touched,"
+                 "left_tare_N,right_tare_N,left_touch_raw,right_touch_raw\n");
     const float t = std::chrono::duration<float>(std::chrono::steady_clock::now() - t0).count();
-    fmt::print("{:.3f},{:.3f},{:.3f},{:.3f},{:.3f},{:.0f},{:.0f},{:.3f},{:.3f},{:.0f},{:.0f},{:.1f}\n",
+    print_line(fmt::format(
+               "{:.3f},{:.3f},{:.3f},{:.3f},{:.3f},{:.0f},{:.0f},{:.3f},{:.3f},{:.0f},{:.0f},{:.1f},"
+               "{:.3f},{:.3f},{:.2f},{:.2f},{:.0f},{:.0f},{:.3f},{:.3f},{:.0f},{:.0f}\n",
                t, values[0], values[1], values[2], values[3], values[4], values[5], values[6],
-               values[7], values[8], values[9], values[10]);
+               values[7], values[8], values[9], values[10], values[11], values[12], values[13],
+               values[14], values[15], values[16], values[17], values[18], values[19],
+               values[20]));
 #endif
     return false; // keep running
   };
   auto sample_task = espp::Task::make_unique(
       {.callback = sample_fn, .task_config = {.name = "load_cells", .stack_size_bytes = 8192}});
   sample_task->start();
+
+  // --- USB-C console commands: params without ethernet (tools/usb_board.py) -------
+  // One command per line, answered with one "PA <kind> <json>" line:
+  //   pa params | pa set <key> <value> | pa save | pa defaults | pa tare
+  auto console_reply = [&](std::string_view kind, std::string_view body) {
+    print_line(fmt::format("PA {} {}\n", kind, body));
+  };
+  auto console_command = [&](const std::string &line) {
+    if (line == "pa params") {
+      console_reply("params", params.json());
+    } else if (line.rfind("pa set ", 0) == 0) {
+      const auto sp = line.find(' ', 7);
+      const std::string key = line.substr(7, sp == std::string::npos ? sp : sp - 7);
+      char *end = nullptr;
+      const float value = sp == std::string::npos ? kNan : std::strtof(line.c_str() + sp + 1, &end);
+      std::string out;
+      if (sp == std::string::npos || end == line.c_str() + sp + 1)
+        console_reply("error", R"({"message":"pa set wants <key> <value>"})");
+      else if (set_param(key, value, out))
+        console_reply("param", out);
+      else
+        console_reply("error", fmt::format(R"({{"message":"{}"}})", out));
+    } else if (line == "pa save") {
+      console_reply("saved", save_params(params, logger) ? "1" : "0");
+    } else if (line == "pa tare") {
+      console_tare = true;
+      tare_requested = true; // the sample task tares and answers "PA tared [l,r]"
+    } else if (line == "pa defaults") {
+      params.reset_to_defaults();
+      console_reply("defaults", params.json());
+    } else if (line.rfind("pa", 0) == 0) {
+      console_reply("error", R"({"message":"commands: pa params | pa set <key> <value> | pa save | pa defaults | pa tare"})");
+    }
+  };
+  const auto console_uart = static_cast<uart_port_t>(CONFIG_ESP_CONSOLE_UART_NUM);
+  std::unique_ptr<espp::Task> console_task;
+  if (uart_is_driver_installed(console_uart) ||
+      uart_driver_install(console_uart, 1024, 0, 0, nullptr, 0) == ESP_OK) {
+    uart_vfs_dev_use_driver(CONFIG_ESP_CONSOLE_UART_NUM); // stdout through the driver too
+    console_task = espp::Task::make_unique(
+        {.callback =
+             [&, line = std::string{}](std::mutex &, std::condition_variable &) mutable {
+               uint8_t buf[128];
+               const int n = uart_read_bytes(console_uart, buf, sizeof buf, pdMS_TO_TICKS(100));
+               for (int k = 0; k < n; k++) {
+                 const char c = static_cast<char>(buf[k]);
+                 if (c == '\n' || c == '\r') {
+                   if (!line.empty())
+                     console_command(line);
+                   line.clear();
+                 } else if (line.size() < 120) {
+                   line += c;
+                 }
+               }
+               return false;
+             },
+         .task_config = {.name = "console_rx", .stack_size_bytes = 6144}});
+    console_task->start();
+  } else {
+    logger.warn("UART console driver did not install: no console commands");
+  }
 
   logger.info("Running. On a laptop on the same network: python3 tools/eth_bridge.py, then "
               "open http://localhost:8765/");

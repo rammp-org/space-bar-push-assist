@@ -13,6 +13,7 @@ is in [`INTERFACE.md`](INTERFACE.md).
 | `web/ax/` | alex-style assets (`tokens.css`, `ax-fx.js`, `ax-charts.js`), copied from alex-style-guide |
 | `tools/eth_bridge.py` | Serves the dashboard on http://localhost:8765/ and relays its WebSocket to the board |
 | `tools/mock_board.py` | A stand-in board speaking the same protocol, for dashboard work without hardware |
+| `tools/usb_board.py` | The board over its USB-C console instead of ethernet: reads the console CSV and serves it to the dashboard (connect to 127.0.0.1). Params and tare go to the board as console commands (INTERFACE.md). `--csv` logs every row |
 | `INTERFACE.md` | The board's network interface: RTPS, service stream, discovery, OTA, params, telemetry channels |
 | `tools/ota_eth.py` | Flash over ethernet (espp OTA): `flash`, `status`, `mark-valid`, `rollback` |
 | `tools/check_service.py` | Exercises GET_INFO and the params protocol against the board or the mock |
@@ -64,6 +65,15 @@ SparkFun HX711 breakout to the 40-pin header (GPIOs set in `idf.py menuconfig` â
 | DAT | GPIO 4 | GPIO 20 |
 | VCC, VDD | 3V3 | 3V3 |
 | GND | GND | GND |
+
+Touch pads (INTERFACE.md, "Touch switch and tare"): one wire per handle, from the
+header pin straight into the grip; no resistor, no ground to the pad. Keep the lead short
+and away from the HX711 wires: it is part of the pad.
+
+| Pad | GPIO |
+|---|---|
+| Left handle | 3 |
+| Right handle | 2 |
 
 Pins to avoid:
 - **GPIO 37 / 38:** UART0, the USB-C console. The CH343P drives GPIO 38, so an amp there
@@ -183,6 +193,12 @@ mass, but it's only as good as the label. The README's known-mass check (stop se
 step 4) catches a wrong label.
 
 ## Why not the existing code
+
+- **Touch pads:** espp has no capacitive-touch wrapper; ESP-IDF's
+  `esp_driver_touch_sens` is used as its `touch_sens_basic` example sets it up
+  (`main/touch_probe.hpp`). Its own benchmark and active flag were tried first and
+  dropped: the benchmark froze when the probe was attached and the flag stayed on for the
+  whole bench run (100 % of 1338 samples), so `main/touch_gate.hpp` keeps the baseline.
 
 - **HX711 driver:** espp has none. The registry's
   [`esp-idf-lib/hx711`](https://components.espressif.com/components/esp-idf-lib/hx711)

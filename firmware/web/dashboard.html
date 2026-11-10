@@ -19,6 +19,9 @@
   .note { color: var(--ax-muted); font-size: 12px; margin-top: 10px; }
   td.num, th.num { text-align: right; }
   #log { max-height: 220px; overflow: auto; display: block; }
+  .thresh { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+  .thresh input[type=range] { flex: 1; min-width: 160px; accent-color: var(--ax-accent); }
+  .thresh .ax-input { width: 80px; }
   @media (max-width: 900px) { .two, .side { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -61,6 +64,51 @@
     </div>
   </section>
 
+  <section class="ax-tiles" id="touch-tiles">
+    <div class="ax-tile"><div class="ax-label">Left touch</div><div class="ax-value" id="v-ltouch">—<small>%</small></div><div class="ax-sub" id="s-ltouch">above idle</div></div>
+    <div class="ax-tile"><div class="ax-label">Right touch</div><div class="ax-value" id="v-rtouch">—<small>%</small></div><div class="ax-sub" id="s-rtouch">above idle</div></div>
+    <div class="ax-tile"><div class="ax-label">Left measured</div><div class="ax-value" id="v-lmeas">—<small>N</small></div><div class="ax-sub" id="s-lmeas">before the touch switch</div></div>
+    <div class="ax-tile"><div class="ax-label">Right measured</div><div class="ax-value" id="v-rmeas">—<small>N</small></div><div class="ax-sub" id="s-rmeas">before the touch switch</div></div>
+  </section>
+
+  <section class="ax-grid two">
+    <div class="ax-panel" id="p-touch">
+      <h2>Touch</h2>
+      <div class="ax-cap" id="cap-touch">Each pad over the last 20 s, as a share of its own touched-above threshold: it is touched above the dashed line</div>
+      <div class="ax-legend" id="lg-touch"></div>
+      <svg id="c-touch" viewBox="0 0 520 240"><text x="260" y="124" text-anchor="middle" style="fill:var(--ax-muted);font:13px var(--ax-font)">Not connected.</text></svg>
+      <div class="thresh">
+        <label class="ax-label"><input type="checkbox" id="tg-gate" disabled> Touch switch and tare</label>
+      </div>
+      <div class="thresh">
+        <span class="ax-label">Left: touched above</span>
+        <input class="ax-input" id="tg-lon" type="number" min="0.5" max="50" step="0.1" value="8" disabled aria-label="Left touched above, percent">
+        <span class="ax-label">released below</span>
+        <input class="ax-input" id="tg-loff" type="number" min="0.2" max="50" step="0.1" value="4" disabled aria-label="Left released below, percent">
+        <span class="ax-muted">% of idle</span>
+      </div>
+      <div class="thresh">
+        <span class="ax-label">Right: touched above</span>
+        <input class="ax-input" id="tg-ron" type="number" min="0.5" max="50" step="0.1" value="3" disabled aria-label="Right touched above, percent">
+        <span class="ax-label">released below</span>
+        <input class="ax-input" id="tg-roff" type="number" min="0.2" max="50" step="0.1" value="1.5" disabled aria-label="Right released below, percent">
+        <span class="ax-muted">% of idle</span>
+      </div>
+      <div class="thresh">
+        <button class="ax-btn" id="tg-set" disabled>Set</button>
+        <button class="ax-btn" id="tg-save" disabled>Save to board</button>
+        <span class="ax-muted">Set a threshold between the idle noise and a light grip on that handle (tile: peak of the last 20 s).</span>
+      </div>
+      <div class="note">With the switch on, a handle reads 0 N until it is touched, and each touch takes the force from just before it as zero. Tare re-takes the pads' idle readings too: hands off.</div>
+    </div>
+    <div class="ax-panel" id="p-touch-force">
+      <h2>Measured and sent</h2>
+      <div class="ax-cap">Each handle's force before the touch switch and what goes to the MIB, last 20 s</div>
+      <div class="ax-legend" id="lg-touch-force"></div>
+      <svg id="c-touch-force" viewBox="0 0 520 240"><text x="260" y="124" text-anchor="middle" style="fill:var(--ax-muted);font:13px var(--ax-font)">Not connected.</text></svg>
+    </div>
+  </section>
+
   <section class="ax-grid side">
     <div class="ax-panel">
       <h2>Event log</h2>
@@ -92,6 +140,9 @@
 const TELEMETRY = 3, PUSH = 0x30;
 const T_GET_SCHEMA = 0x01, T_SET_STREAM = 0x02, T_SCHEMA = 0x81, T_SAMPLE = 0x82;
 const P_TARE = 0x01, P_GET_INFO = 0x02, P_TARED = 0x81, P_INFO = 0x82;
+const P_GET_PARAMS = 0x03, P_SET_PARAM = 0x04, P_SAVE = 0x05, P_PARAMS = 0x83, P_PARAM = 0x84, P_SAVED = 0x85, P_ERROR = 0x8F;
+const TOUCH_KEYS = ['touch_gate', 'touch_l_on_pct', 'touch_l_off_pct', 'touch_r_on_pct', 'touch_r_off_pct'];
+const TOUCH_CTRL = ['tg-gate', 'tg-lon', 'tg-loff', 'tg-ron', 'tg-roff', 'tg-set', 'tg-save'];
 const WINDOW_S = 20, REDRAW_MS = 100, MAX_ROWS = 200000;
 
 // ── Push to drive command: the reference for the MIB (docs/MIB-INPUT-DEVICES.md) ──
@@ -145,8 +196,10 @@ class FrameParser {
 // ── State ───────────────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 let ws = null, parser = null, channels = [], sps = 10, info = null, paused = false;
-let rows = [], tWrap = 0, tLast = null, lastDraw = 0, drawQueued = false;
-const visible = { left_N: [], right_N: [], sum_N: [], diff_N: [] };
+let rows = [], tWrap = 0, tLast = null, lastDraw = 0, drawQueued = false, rate = 0, prevT = null;
+const visible = { left_N: [], right_N: [], sum_N: [], diff_N: [],
+  left_ungated_N: [], right_ungated_N: [], left_touch_pct: [], right_touch_pct: [], left_touch_rel: [], right_touch_rel: [] };
+let touchParams = {};
 
 function log(msg, status = '', word = '') {
   const t = new Date(), ts = t.toTimeString().slice(0, 8) + '.' + String(t.getMilliseconds()).padStart(3, '0');
@@ -184,19 +237,20 @@ function connect() {
   ws = new WebSocket(`ws://${location.host}/ws?target=${ip}`);
   ws.binaryType = 'arraybuffer';
   parser = new FrameParser(onFrame);
-  rows = []; tWrap = 0; tLast = null; Object.values(visible).forEach(a => a.length = 0);
+  rows = []; tWrap = 0; tLast = null; rate = 0; prevT = null; Object.values(visible).forEach(a => a.length = 0);
   ws.onopen = () => {
     axBusy(b, false); b.textContent = 'Disconnect'; b.classList.remove('primary');
     setStatus('Connected', 'good'); $('m-ip').textContent = ip; log(`Connected to ${ip}`, 'good', 'OK');
     ['tare', 'pause', 'export'].forEach(id => $(id).disabled = false);
     send(PUSH, P_GET_INFO);
+    send(PUSH, P_GET_PARAMS);
     send(TELEMETRY, T_GET_SCHEMA);
     send(TELEMETRY, T_SET_STREAM, new Uint8Array([1, 100, 0]));
   };
   ws.onmessage = ev => parser.push(new Uint8Array(ev.data));
   ws.onclose = ev => {
     axBusy(b, false); b.textContent = 'Connect'; b.classList.add('primary');
-    ['tare', 'pause'].forEach(id => $(id).disabled = true);
+    ['tare', 'pause', ...TOUCH_CTRL].forEach(id => $(id).disabled = true);
     $('export').disabled = rows.length === 0;
     setStatus('Disconnected', '');
     log(ev.code === 1006 ? `Could not reach ${ip}:5555 through the bridge` : 'Disconnected', ev.code === 1006 ? 'critical' : '', ev.code === 1006 ? 'Error' : 'Closed');
@@ -223,6 +277,21 @@ function onFrame(f) {
     }
   } else if (f.module === PUSH && f.type === P_INFO) {
     info = JSON.parse(new TextDecoder().decode(f.payload)); showInfo();
+  } else if (f.module === PUSH && (f.type === P_PARAMS || f.type === P_PARAM)) {
+    const j = JSON.parse(new TextDecoder().decode(f.payload));
+    const list = (f.type === P_PARAMS ? j.params || [] : [j]).filter(p => TOUCH_KEYS.includes(p.key));
+    list.forEach(p => touchParams[p.key] = p.value);
+    if (f.type === P_PARAMS && list.length < TOUCH_KEYS.length) log('This firmware has no touch switch params', 'warning', 'No touch');
+    else if (list.length) {
+      showTouchParams(); TOUCH_CTRL.forEach(id => $(id).disabled = false);
+      if (f.type === P_PARAM) { pendingSets--; if (pendingSets <= 0) { axBusy($('tg-set'), false); log(`Touch: switch ${touchParams.touch_gate ? 'on' : 'off'}; left ${touchParams.touch_l_on_pct} / ${touchParams.touch_l_off_pct}%, right ${touchParams.touch_r_on_pct} / ${touchParams.touch_r_off_pct}%`, 'good', 'Set'); } }
+    }
+  } else if (f.module === PUSH && f.type === P_SAVED) {
+    axBusy($('tg-save'), false);
+    log(f.payload[0] ? 'Params saved on the board' : 'Saving params failed', f.payload[0] ? 'good' : 'critical', f.payload[0] ? 'Saved' : 'Error');
+  } else if (f.module === PUSH && f.type === P_ERROR) {
+    pendingSets = 0; axBusy($('tg-set'), false); axBusy($('tg-save'), false);
+    log(`Board refused request 0x${f.payload[0].toString(16)}: ${new TextDecoder().decode(f.payload.subarray(1))}`, 'critical', 'Error');
   } else if (f.module === PUSH && f.type === P_TARED) {
     axBusy($('tare'), false);
     log(`Tared: left ${f.payload[0] ? 'OK' : 'no amp'}, right ${f.payload[1] ? 'OK' : 'no amp'}`, 'good', 'Tared');
@@ -230,7 +299,14 @@ function onFrame(f) {
 }
 
 function onSample(row) {
+  // Each pad as a share of its own touched-above threshold, so one line marks both.
+  row.left_touch_rel = touchParams.touch_l_on_pct ? 100 * row.left_touch_pct / touchParams.touch_l_on_pct : NaN;
+  row.right_touch_rel = touchParams.touch_r_on_pct ? 100 * row.right_touch_pct / touchParams.touch_r_on_pct : NaN;
   if (rows.length < MAX_ROWS) rows.push(row);
+  // The rate the samples really arrive at: 10 S/s with the amps, 20 with only the touch probe.
+  if (prevT !== null && row.t > prevT && row.t - prevT < 2) rate = rate ? rate * 0.9 + 0.1 / (row.t - prevT) : 1 / (row.t - prevT);
+  prevT = row.t;
+  if (rate) sps = rate;
   if (ws && $('m-status').textContent !== 'Live') setStatus('Live', 'live');
   const keep = WINDOW_S * sps;
   for (const c in visible) { visible[c].push(row[c]); if (visible[c].length > keep) visible[c].shift(); }
@@ -238,9 +314,9 @@ function onSample(row) {
 }
 
 // ── Drawing ─────────────────────────────────────────────────────────────────
-function niceTicks(vals) {
-  let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
-  if (hi - lo < 10) { const m = (hi + lo) / 2; lo = Math.min(0, m - 5); hi = Math.max(0, m + 5); }
+function niceTicks(vals, withZero = true) {
+  let lo = Math.min(...vals, ...(withZero ? [0] : [])), hi = Math.max(...vals, ...(withZero ? [0] : []));
+  if (hi - lo < 10) { const m = (hi + lo) / 2; lo = withZero ? Math.min(0, m - 5) : m - 5; hi = withZero ? Math.max(0, m + 5) : m + 5; }
   const raw = (hi - lo) / 4, p = Math.pow(10, Math.floor(Math.log10(raw)));
   const step = [1, 2, 5, 10].map(k => k * p).find(s => s >= raw);
   const ticks = []; for (let v = Math.floor(lo / step) * step; v <= hi + step * 0.999; v += step) ticks.push(+v.toFixed(6));
@@ -254,15 +330,16 @@ function empty(svg, msg) {
   svg.innerHTML = `<text x="260" y="124" text-anchor="middle" style="fill:var(--ax-muted);font:13px var(--ax-font)">${msg}</text>`;
 }
 
-function chart(svg, lg, defs, missing) {
+function chart(svg, lg, defs, missing, opt = {}) {
   const series = defs.filter(([key]) => visible[key].length && Number.isFinite(visible[key][visible[key].length - 1]))
     .map(([key, name, k]) => ({ name, color: `var(--ax-s${k})`, values: visible[key].map(v => Number.isFinite(v) ? v : 0) }));
   legend(lg, defs.map(([, name, k]) => [name, k]));
   if (!series.length || series[0].values.length < 2) { empty(svg, rows.length > 1 ? missing : 'Waiting for samples.'); return; }
   const n = series[0].values.length;
-  axLine(svg, { series, yTicks: niceTicks(series.flatMap(s => s.values)), unit: 'N', width: 520, height: 240,
+  const vals = series.flatMap(s => s.values).concat(opt.refLine ? [opt.refLine.value] : []);
+  axLine(svg, { series, yTicks: niceTicks(vals, opt.zero !== false), unit: opt.unit ?? 'N', width: 520, height: 240,
     x: i => i === n - 1 ? 'now' : `-${((n - 1 - i) / sps).toFixed(1)}`, xTicks: [0, Math.round((n - 1) / 2), n - 1],
-    xLabel: 'Time before now, s', yLabel: 'Force, N' });
+    xLabel: 'Time before now, s', yLabel: opt.yLabel || 'Force, N', refLine: opt.refLine });
 }
 
 function tile(id, v, subId) {
@@ -297,9 +374,59 @@ function draw(now) {
   zeroLine('s-left', last.left_counts, last.left_zero_N, last.left_tracking);
   zeroLine('s-right', last.right_counts, last.right_zero_N, last.right_tracking);
   if (Number.isFinite(last.board_C)) $('m-temp').textContent = `board ${last.board_C.toFixed(1)} °C`;
+  drawTouch(last);
+  if (rate) $('m-rate').textContent = rate.toFixed(0) + ' S/s';
   if (paused) return;
+  if (Number.isFinite(last.left_touch_raw) || Number.isFinite(last.right_touch_raw)) {
+    chart($('c-touch'), $('lg-touch'), [['left_touch_rel', 'Left', 1], ['right_touch_rel', 'Right', 2]], '', { unit: '', yLabel: 'Share of threshold, %',
+      refLine: { value: 100, label: 'touched above', status: 'warning' } });
+    chart($('c-touch-force'), $('lg-touch-force'), [['left_ungated_N', 'Left measured', 1], ['right_ungated_N', 'Right measured', 2], ['left_N', 'Left sent', 3], ['right_N', 'Right sent', 6]], 'No amp answered at boot.');
+  } else {
+    const why = channels.length && !channels.includes('left_touch_raw') ? 'This firmware has no touch pads.' : 'No touch pad started.';
+    empty($('c-touch'), why); empty($('c-touch-force'), why);
+  }
   chart($('c-handles'), $('lg-handles'), [['left_N', 'Left', 1], ['right_N', 'Right', 2]], 'No amp answered at boot.');
   chart($('c-net'), $('lg-net'), [['sum_N', 'Forward', 3], ['diff_N', 'Turn', 4]], 'Needs both amps. One did not answer at boot.');
+}
+
+// Touch tiles: each pad above its idle reading with the switch state and the
+// zero of the current touch, and each handle's force before the switch.
+function drawTouch(last) {
+  [['left', 'l'], ['right', 'r']].forEach(([side, k]) => {
+    const pct = last[side + '_touch_pct'];
+    if (Number.isFinite(pct)) {
+      axSet($(`v-${k}touch`), pct, { digits: 1, ms: 120 });
+      const on = last[side + '_touched'] === 1, tare = last[side + '_tare_N'];
+      const peak = Math.max(...visible[side + '_touch_pct'].filter(Number.isFinite));
+      $(`s-${k}touch`).innerHTML = (on ? '<span class="ax-status good">Touched</span>' : '<span class="ax-status off">Idle</span>') +
+        ` · peak ${peak.toFixed(1)}%` + (Number.isFinite(tare) ? ` · zero ${tare >= 0 ? '+' : '−'}${Math.abs(tare).toFixed(1)} N` : '');
+    } else $(`s-${k}touch`).innerHTML = '<span class="ax-status off">No pad</span>';
+    const m = last[side + '_ungated_N'];
+    if (Number.isFinite(m)) { axSet($(`v-${k}meas`), m, { digits: 1, ms: 120 }); $(`s-${k}meas`).textContent = `sent ${Number.isFinite(last[side + '_N']) ? last[side + '_N'].toFixed(1) : '—'} N`; }
+  });
+}
+
+let pendingSets = 0;
+function showTouchParams() {
+  if ('touch_gate' in touchParams) $('tg-gate').checked = !!touchParams.touch_gate;
+  [['l', 'tg-l'], ['r', 'tg-r']].forEach(([s, id]) => {
+    if (`touch_${s}_on_pct` in touchParams) $(id + 'on').value = touchParams[`touch_${s}_on_pct`];
+    if (`touch_${s}_off_pct` in touchParams) $(id + 'off').value = touchParams[`touch_${s}_off_pct`];
+  });
+}
+
+function setParam(key, v) {
+  const k = new TextEncoder().encode(key), p = new Uint8Array(1 + k.length + 4);
+  p[0] = k.length; p.set(k, 1); new DataView(p.buffer).setFloat32(1 + k.length, v, true);
+  send(PUSH, P_SET_PARAM, p); pendingSets++;
+}
+
+function setTouch() {
+  const v = id => parseFloat($(id).value), lon = v('tg-lon'), loff = v('tg-loff'), ron = v('tg-ron'), roff = v('tg-roff');
+  if (!(lon > loff && loff > 0 && ron > roff && roff > 0)) { log('On each handle, touched-above must be higher than released-below, both above 0', 'warning', 'Check'); return; }
+  axBusy($('tg-set'), true, 'Setting'); pendingSets = 0;
+  setParam('touch_gate', $('tg-gate').checked ? 1 : 0);
+  setParam('touch_l_on_pct', lon); setParam('touch_l_off_pct', loff); setParam('touch_r_on_pct', ron); setParam('touch_r_off_pct', roff);
 }
 
 function showInfo() {
@@ -314,6 +441,7 @@ function showInfo() {
     ['Left DAT / CLK', `GPIO ${info.pins.left_dat} / ${info.pins.left_clk}`], ['Right DAT / CLK', `GPIO ${info.pins.right_dat} / ${info.pins.right_clk}`],
     ['Inverted', [info.invert.left && 'left', info.invert.right && 'right'].filter(Boolean).join(', ') || 'none'],
     ['Zero tracking', info.zero_tracking === undefined ? '—' : info.zero_tracking ? 'on' : 'off'],
+    ['Left / right touch pad', !info.touch ? '—' : ['left', 'right'].map(sd => info.touch[sd] ? `GPIO ${info.touch[sd + '_gpio']}` : '<span class="ax-status off">none</span>').join(' / ')],
   ];
   $('info-body').innerHTML = r.map(([k, v]) => `<tr><td class="ax-muted">${k}</td><td class="num">${v}</td></tr>`).join('');
 }
@@ -323,6 +451,10 @@ $('find').onclick = find;
 $('connect').onclick = connect;
 $('ip').onkeydown = e => { if (e.key === 'Enter') connect(); };
 $('tare').onclick = () => { axBusy($('tare'), true, 'Taring'); send(PUSH, P_TARE); log('Tare requested', '', 'Sent'); };
+$('tg-set').onclick = setTouch;
+$('tg-gate').onchange = setTouch;
+['tg-lon', 'tg-loff', 'tg-ron', 'tg-roff'].forEach(id => $(id).onkeydown = e => { if (e.key === 'Enter') setTouch(); });
+$('tg-save').onclick = () => { axBusy($('tg-save'), true, 'Saving'); send(PUSH, P_SAVE); };
 $('pause').onclick = () => { paused = !paused; $('pause').textContent = paused ? 'Resume plot' : 'Pause plot'; };
 $('export').onclick = () => {
   if (!rows.length) return;
