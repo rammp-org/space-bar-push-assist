@@ -92,6 +92,21 @@ menu "Push assist"
             leases the laptop an address, so a laptop plugged straight into
             the board needs nothing else. Never on the chair's network.
 
+    config PA_TOUCH_LEFT_GPIO
+        int "Left handle touch pad GPIO (0 = none)"
+        range 0 15
+        default 3
+        help
+            A touch-capable P4 pin, GPIO 2 to 15 (touch channel = GPIO - 1). Not 4 / 5
+            (left amp), 7 / 8 (internal I2C), 9 to 13 (audio codec I2S) or 14 / 15
+            (the C6's SDIO). With a pad, the handle reads 0 N untouched and is tared
+            on each touch (touch_gate.hpp).
+
+    config PA_TOUCH_RIGHT_GPIO
+        int "Right handle touch pad GPIO (0 = none)"
+        range 0 15
+        default 2
+
     config PA_CONSOLE_CSV
         bool "Also print CSV rows on the UART0 console"
         default y

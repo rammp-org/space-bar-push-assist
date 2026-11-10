@@ -13,6 +13,7 @@ Standard library only.
 import argparse
 import json
 import math
+import random
 import socket
 import struct
 import threading
@@ -20,7 +21,10 @@ import time
 import zlib
 
 CHANNELS = ["left_N", "right_N", "sum_N", "diff_N", "left_counts", "right_counts",
-            "left_zero_N", "right_zero_N", "left_tracking", "right_tracking", "board_C"]
+            "left_zero_N", "right_zero_N", "left_tracking", "right_tracking", "board_C",
+            "left_ungated_N", "right_ungated_N", "left_touch_pct", "right_touch_pct",
+            "left_touched", "right_touched", "left_tare_N", "right_tare_N",
+            "left_touch_raw", "right_touch_raw"]
 TELEMETRY, PUSH = 3, 0x30
 COUNTS_PER_N = 10949.1  # 20 kg cell at 1.0 mV/V, as the firmware's nominal scale
 
@@ -36,6 +40,11 @@ PARAM_DEFS = [
     dict(key="zt_still_std_n", label="Still below (2 s std)", unit="N", group="Zero tracking", default=0.05, min=0, max=1, step=0.005),
     dict(key="zt_rate_n_per_s", label="Max zero rate", unit="N/s", group="Zero tracking", default=0.005, min=0, max=0.1, step=0.0005),
     dict(key="zt_max_n", label="Max correction since tare", unit="N", group="Zero tracking", default=10, min=0, max=100, step=1),
+    dict(key="touch_gate", label="Touch switch and tare", group="Touch", type="bool", default=1),
+    dict(key="touch_l_on_pct", label="Left touched above", unit="%", group="Touch", default=8.0, min=0.5, max=50, step=0.1),
+    dict(key="touch_l_off_pct", label="Left released below", unit="%", group="Touch", default=4.0, min=0.2, max=50, step=0.1),
+    dict(key="touch_r_on_pct", label="Right touched above", unit="%", group="Touch", default=3.0, min=0.5, max=50, step=0.1),
+    dict(key="touch_r_off_pct", label="Right released below", unit="%", group="Touch", default=1.5, min=0.2, max=50, step=0.1),
 ]
 SAVED = {}  # what SAVE_PARAMS committed ("NVS"), kept across connections
 
@@ -90,7 +99,9 @@ class Session:
                 "right": not self.args.no_right, "counts_per_N": COUNTS_PER_N, "full_scale_kg": 20,
                 "rated_uV_per_V": 1000, "sps": self.args.sps,
                 "pins": {"left_dat": 4, "left_clk": 5, "right_dat": 20, "right_clk": 21},
-                "invert": {"left": False, "right": False}, "zero_tracking": True}
+                "invert": {"left": False, "right": False}, "zero_tracking": True,
+                "touch": {"left_gpio": 3, "right_gpio": 2, "left": True, "right": True,
+                          "gate": bool(self.values["touch_gate"])}}
 
     def forces(self, t):
         push = 40 * max(0.0, math.sin(t * 0.6)) + 3
@@ -113,11 +124,35 @@ class Session:
                     -0.0007 * t, float("nan") if self.args.no_right else 0.0,
                     1.0 if abs(left) < 2 else 0.0, float("nan") if self.args.no_right else 0.0,
                     38.0 + t / 600]
+            vals = self.touch(t, vals)
             rec = struct.pack("<I", int(t * 1e6) & 0xFFFFFFFF) + struct.pack("<%df" % len(vals), *vals)
             try:
                 self.send(frame(TELEMETRY, 0x82, rec))
             except OSError:
                 return
+
+    def touch(self, t, vals):
+        """Made-up pads: both handles held while the mock pushes (|force| > 2 N), the
+        right handle keeping a 7 N offset after each push; the board's gate applied."""
+        base = 6700.0
+        out = vals[:2] + vals[2:]
+        sent, extra = [], []
+        for k in (0, 1):
+            f = vals[k] + (7.0 if k == 1 and t > 5 else 0.0)
+            held = abs(vals[k]) > 2
+            raw = base + random.gauss(0, 1.5) + (780 if held else 0)
+            pct = 100 * (raw - base) / base
+            on = pct > self.values["touch_%s_on_pct" % "lr"[k]]
+            if on and not getattr(self, "held%d" % k, False):
+                setattr(self, "tare%d" % k, f - vals[k])
+            setattr(self, "held%d" % k, on)
+            tare = getattr(self, "tare%d" % k, 0.0)
+            sent.append((f - tare if on else 0.0) if self.values["touch_gate"] else f)
+            extra.append((f, pct, 1.0 if on else 0.0, tare, raw))
+        out[0], out[1] = sent
+        out[2], out[3] = sent[0] + sent[1], sent[0] - sent[1]
+        return out + [extra[0][0], extra[1][0], extra[0][1], extra[1][1], extra[0][2], extra[1][2],
+                      extra[0][3], extra[1][3], extra[0][4], extra[1][4]]
 
     def handle(self, module, ftype, payload):
         if module == TELEMETRY and ftype == 0x01:
